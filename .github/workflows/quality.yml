@@ -1,0 +1,25 @@
+name: HOKSH quality check
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate HTML and inline JavaScript
+        shell: bash
+        run: |
+          set -e
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          s=Path('index.html').read_text(encoding='utf-8')
+          assert '<title>' in s and '</html>' in s
+          scripts=re.findall(r'<script>(.*?)</script>',s,re.S)
+          Path('/tmp/hoksh-inline.js').write_text('\n'.join(scripts),encoding='utf-8')
+          print('HTML basic checks passed; extracted',len(scripts),'inline script(s)')
+          PY
+          node --check /tmp/hoksh-inline.js
