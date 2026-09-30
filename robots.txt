@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://mo444444444444444-coder.github.io/HOKSH/sitemap.xml
