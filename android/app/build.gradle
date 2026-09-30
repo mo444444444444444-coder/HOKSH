@@ -1,0 +1,19 @@
+plugins { id 'com.android.application' }
+android {
+    namespace 'com.hoksh.editor'
+    compileSdk 36
+    defaultConfig {
+        applicationId 'com.hoksh.editor'
+        minSdk 23
+        targetSdk 36
+        versionCode 1
+        versionName '1.0.0'
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
