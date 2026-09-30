@@ -1,0 +1,27 @@
+name: Build HOKSH Android
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'android/**'
+      - '.github/workflows/android.yml'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.13'
+      - name: Build release AAB
+        run: gradle --no-daemon :app:bundleRelease
+        working-directory: android
+      - name: Upload AAB artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: hoksh-release-aab
+          path: android/app/build/outputs/bundle/release/app-release.aab
