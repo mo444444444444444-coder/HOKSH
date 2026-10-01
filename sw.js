@@ -1,4 +1,4 @@
-const CACHE='hoksh-v7-touch-ui';
+const CACHE='hoksh-community-v1';
 const CORE=['./','./index.html','./manifest.webmanifest','./icon.svg','./developer.jpg'];
 
 self.addEventListener('install',e=>{
