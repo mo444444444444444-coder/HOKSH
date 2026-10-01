@@ -67,8 +67,27 @@ input:focus,textarea:focus,select:focus{outline:none;border-color:#8b7dff!import
 
 <style id="hoksh-teaching-mode">
 .teachBtn{background:linear-gradient(135deg,#10b981,#0ea5a4)!important;border-color:#35e0bd!important}.teaching-mode .sidebar,.teaching-mode .right{display:none!important}.teaching-mode .workspace{padding:10px;background:#020617}.teaching-mode .top{min-height:54px}.teaching-mode .sub{display:none}.teaching-mode .stage{box-shadow:0 24px 90px #000d,0 0 0 1px #ffffff20}.teaching-mode .teachDock{display:flex}.teachDock{display:none;position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:40;gap:6px;padding:7px;background:#0b1226ee;border:1px solid #40557f;border-radius:16px;box-shadow:0 15px 45px #0009;backdrop-filter:blur(14px);align-items:center}.teachDock button{min-width:42px;height:42px;border:1px solid #35486c;background:#15223d;color:#fff;border-radius:11px;cursor:pointer}.teachDock button.active{background:#6d63ee;border-color:#a69dff}.teachDock .teachExit{background:#243552}.teachModeBadge{display:none;position:fixed;top:70px;left:14px;z-index:41;padding:6px 10px;border-radius:10px;background:#10b981;color:#041b16;font-weight:800;font-size:11px}.teaching-mode .teachModeBadge{display:block}@media(max-width:680px){.teachDock{bottom:10px;max-width:calc(100vw - 16px);overflow:auto}.teachDock button{min-width:40px}.teachModeBadge{top:62px;left:8px}}
+</style><style id="hoksh-global-polish">
+/* HOKSH 2.1 — cleaner controls, teaching UI, splash */
+body{background:#070b16}
+.hoksh-splash{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 38%,#263a72 0,#101a35 35%,#050811 78%);transition:opacity .55s ease,visibility .55s ease}
+.hoksh-splash.hide{opacity:0;visibility:hidden;pointer-events:none}
+.splash-card{text-align:center;animation:hokshIntro .8s ease both}
+.splash-logo{width:110px;height:110px;margin:auto;border-radius:30px;display:grid;place-items:center;background:linear-gradient(135deg,#806cff,#42d7c5);box-shadow:0 20px 70px #0008,0 0 50px #806cff55;color:#fff;font-size:42px;font-weight:1000}
+.splash-title{font-size:42px;font-weight:1000;margin-top:20px;letter-spacing:-1px}.splash-title span{color:#a89cff}
+.splash-sub{margin-top:7px;color:#aebbd7;font-size:13px}
+.splash-loader{width:150px;height:3px;border-radius:99px;background:#ffffff16;margin:25px auto 0;overflow:hidden}.splash-loader i{display:block;height:100%;width:45%;background:linear-gradient(90deg,#806cff,#4fd1c5);animation:hokshLoad 1.15s infinite}
+@keyframes hokshIntro{from{opacity:0;transform:scale(.92) translateY(12px)}to{opacity:1;transform:none}}@keyframes hokshLoad{from{transform:translateX(-150px)}to{transform:translateX(330px)}}
+body.teaching-mode .teachDock{gap:9px;padding:9px 11px;border-radius:20px}
+body.teaching-mode .teachDock button{width:48px;height:48px;min-width:48px;border-radius:14px;background:linear-gradient(145deg,#17294a,#101c34);border:1px solid #41557c;box-shadow:0 5px 16px #0005;font-size:19px;transition:.16s}
+body.teaching-mode .teachDock button:hover{transform:translateY(-2px);border-color:#8e83ff}
+body.teaching-mode .teachDock button.active{background:linear-gradient(135deg,#806cff,#5d6ff5);border-color:#a99fff;box-shadow:0 8px 22px #655cff55}
+body.teaching-mode .teachDock .teachExit{margin-right:5px;border-color:#70465a;background:#2b1a2b}
+body.teaching-mode .teachDock:before{content:"";width:1px;height:32px;background:#40516f;margin:0 3px}
+#teachingModeBtn{box-shadow:0 6px 20px #10b98135}
+@media(max-width:680px){.splash-logo{width:88px;height:88px;border-radius:25px;font-size:34px}.splash-title{font-size:34px}.teachDock{bottom:12px!important;max-width:calc(100vw - 16px);overflow-x:auto}.teachDock button{width:44px!important;height:44px!important;min-width:44px!important}}
 </style></head>
-<body>
+<body><div class="hoksh-splash" id="hokshSplash"><div class="splash-card"><div class="splash-logo">ح</div><div class="splash-title">حوكش <span>HOKSH</span></div><div class="splash-sub">Smart Image & PDF Studio</div><div class="splash-loader"><i></i></div></div></div>
 <div class="app">
 <header class="top">
 <div class="brand">حوكش <span>HOKSH</span></div><div class="sub">Smart Image & PDF Studio</div><div class="spacer"></div>
@@ -198,4 +217,6 @@ resizeCanvas(1200,800);$('leftToggle').onclick=()=>document.querySelector('.side
  });
  document.addEventListener('keydown',e=>{if(e.key==='F8'){e.preventDefault();setTeaching(!document.body.classList.contains('teaching-mode'))}});
 })();
+</script><script id="hoksh-splash-script">
+(function(){const s=document.getElementById('hokshSplash');setTimeout(()=>s?.classList.add('hide'),1250);})();
 </script></body></html>
