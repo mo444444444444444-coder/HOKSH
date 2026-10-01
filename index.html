@@ -68,16 +68,32 @@ input:focus,textarea:focus,select:focus{outline:none;border-color:#8b7dff!import
 <style id="hoksh-teaching-mode">
 .teachBtn{background:linear-gradient(135deg,#10b981,#0ea5a4)!important;border-color:#35e0bd!important}.teaching-mode .sidebar,.teaching-mode .right{display:none!important}.teaching-mode .workspace{padding:10px;background:#020617}.teaching-mode .top{min-height:54px}.teaching-mode .sub{display:none}.teaching-mode .stage{box-shadow:0 24px 90px #000d,0 0 0 1px #ffffff20}.teaching-mode .teachDock{display:flex}.teachDock{display:none;position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:40;gap:6px;padding:7px;background:#0b1226ee;border:1px solid #40557f;border-radius:16px;box-shadow:0 15px 45px #0009;backdrop-filter:blur(14px);align-items:center}.teachDock button{min-width:42px;height:42px;border:1px solid #35486c;background:#15223d;color:#fff;border-radius:11px;cursor:pointer}.teachDock button.active{background:#6d63ee;border-color:#a69dff}.teachDock .teachExit{background:#243552}.teachModeBadge{display:none;position:fixed;top:70px;left:14px;z-index:41;padding:6px 10px;border-radius:10px;background:#10b981;color:#041b16;font-weight:800;font-size:11px}.teaching-mode .teachModeBadge{display:block}@media(max-width:680px){.teachDock{bottom:10px;max-width:calc(100vw - 16px);overflow:auto}.teachDock button{min-width:40px}.teachModeBadge{top:62px;left:8px}}
 </style>
-<style id="hoksh-welcome-redesign">
-:root{--brand1:#18c8b0;--brand2:#7667ff;--brand3:#ffb84d}
-.hoksh-welcome{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;background:radial-gradient(circle at 50% 25%,#203b68 0,#0d1830 42%,#050811 100%);overflow:auto}
-.hoksh-welcome.hidden{opacity:0;visibility:hidden;pointer-events:none;transition:opacity .25s ease,visibility .25s ease}.welcome-card{width:min(860px,96vw);padding:34px 28px 24px;text-align:center;border:1px solid #40577f;border-radius:30px;background:linear-gradient(145deg,#13233fee,#0a1426ee);box-shadow:0 35px 110px #000b,0 0 70px #7667ff14;backdrop-filter:blur(22px)}
+<style id="hoksh-intro-redesign">
+.hoksh-intro{position:fixed;inset:0;z-index:10001;display:grid;place-items:center;background:radial-gradient(circle at 50% 35%,#16495a 0,#0b2638 38%,#040a12 100%);overflow:hidden;transition:opacity .45s ease,visibility .45s ease}
+.hoksh-intro.hide{opacity:0;visibility:hidden;pointer-events:none}
+.intro-glow{position:absolute;width:360px;height:360px;border-radius:50%;filter:blur(75px);opacity:.22;animation:introFloat 4s ease-in-out infinite}
+.intro-glow.g1{background:#22d3b6;top:8%;right:12%}.intro-glow.g2{background:#3f7cff;bottom:8%;left:12%;animation-delay:-2s}
+.intro-card{position:relative;width:min(620px,90vw);padding:42px 28px 34px;text-align:center;border:1px solid #315b70;border-radius:32px;background:linear-gradient(145deg,#0d2638e8,#081624e8);box-shadow:0 35px 120px #000c,0 0 80px #22d3b61a;backdrop-filter:blur(18px);animation:introCardIn .7s cubic-bezier(.2,.8,.2,1)}
+.intro-logo{width:92px;height:92px;margin:0 auto 15px;border-radius:27px;display:grid;place-items:center;background:linear-gradient(135deg,#3f7cff,#22d3b6);color:#fff;font-size:42px;font-weight:1000;box-shadow:0 18px 55px #0008,0 0 45px #22d3b633;animation:introLogo 1.2s ease}
+.intro-brand{font-size:42px;font-weight:1000;letter-spacing:-1px}.intro-brand span{color:#69d8ff}
+.intro-line{width:90px;height:3px;margin:15px auto 14px;border-radius:99px;background:linear-gradient(90deg,#3f7cff,#22d3b6,#f5b84b)}
+.intro-author{font-size:20px;font-weight:900;color:#f5b84b}
+.intro-message{margin-top:10px;color:#b9cad8;font-size:14px;line-height:1.9}
+.intro-loader{width:170px;height:4px;margin:24px auto 0;border-radius:99px;background:#20394b;overflow:hidden}.intro-loader i{display:block;width:42%;height:100%;border-radius:99px;background:linear-gradient(90deg,#3f7cff,#22d3b6);animation:introLoad 1.55s ease-in-out forwards}
+@keyframes introCardIn{from{opacity:0;transform:translateY(18px) scale(.96)}to{opacity:1;transform:none}}
+@keyframes introLogo{0%{transform:scale(.75) rotate(-8deg);opacity:0}70%{transform:scale(1.05) rotate(2deg)}100%{transform:scale(1) rotate(0);opacity:1}}
+@keyframes introFloat{50%{transform:translateY(-25px) scale(1.08)}}@keyframes introLoad{from{transform:translateX(-110%)}to{transform:translateX(260%)}}
+@media(max-width:600px){.intro-card{padding:34px 20px 28px}.intro-brand{font-size:34px}.intro-logo{width:78px;height:78px;font-size:36px}.intro-author{font-size:17px}.intro-message{font-size:12px}}
+</style><style id="hoksh-welcome-redesign">
+:root{--brand1:#22d3b6;--brand2:#3f7cff;--brand3:#f5b84b}
+.hoksh-welcome{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;background:radial-gradient(circle at 50% 20%,#164a58 0,#102c42 34%,#07121f 70%,#040910 100%);overflow:auto}
+.hoksh-welcome.hidden{opacity:0;visibility:hidden;pointer-events:none;transition:opacity .25s ease,visibility .25s ease}.welcome-card{width:min(860px,96vw);padding:34px 28px 24px;text-align:center;border:1px solid #40577f;border-radius:30px;background:linear-gradient(145deg,#102d3bee,#091a2aee);box-shadow:0 35px 110px #000b,0 0 70px #7667ff14;backdrop-filter:blur(22px)}
 .welcome-logo{width:104px;height:104px;margin:0 auto 14px;border-radius:29px;display:grid;place-items:center;background:linear-gradient(135deg,var(--brand2),var(--brand1));box-shadow:0 18px 55px #0008,0 0 55px #7667ff44;color:#fff;font-size:44px;font-weight:1000}
-.welcome-title{font-size:42px;font-weight:1000;letter-spacing:-1px}.welcome-title span{color:#9d91ff}.welcome-sub{margin:8px 0 25px;color:#afbdd9;font-size:14px}
+.welcome-title{font-size:42px;font-weight:1000;letter-spacing:-1px}.welcome-title span{color:#69d8ff}.welcome-sub{margin:8px 0 25px;color:#afbdd9;font-size:14px}
 .welcome-actions{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
 .welcomeAction{min-height:128px;padding:15px 10px;border:1px solid #3a527a;border-radius:18px;background:linear-gradient(145deg,#192b4b,#101d35);color:#f1f5ff;cursor:pointer;transition:.18s;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px}
-.welcomeAction:hover{transform:translateY(-4px);border-color:#8d82ff;box-shadow:0 14px 30px #0006}
-.welcomeAction.primary{background:linear-gradient(145deg,#655ce9,#2e9f9a);border-color:#9d95ff}
+.welcomeAction:hover{transform:translateY(-4px);border-color:#22d3b6;box-shadow:0 14px 30px #0006}
+.welcomeAction.primary{background:linear-gradient(145deg,#655ce9,#2e9f9a);border-color:#6ce8d4}
 .welcomeAction b{font-size:31px;line-height:1}.welcomeAction span{font-size:15px;font-weight:900}.welcomeAction small{font-size:10px;color:#b7c4de}.welcomeHint{margin-top:20px;color:#8798b8;font-size:11px}
 .pageCreatorDialog{width:min(780px,96vw)}
 .templateGrid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:18px 0}
@@ -167,7 +183,17 @@ body.teaching-mode .workspace{align-items:flex-start!important;overflow:auto!imp
 @media(max-width:760px){.viewGallery.side{grid-template-columns:1fr}.viewGallery{width:94%;gap:12px;margin-top:10px}.viewPop{width:220px}}
 </style></head>
 <body>
-<div class="hoksh-welcome" id="hokshWelcome">
+<div class="hoksh-intro" id="hokshIntro">
+  <div class="intro-glow g1"></div><div class="intro-glow g2"></div>
+  <div class="intro-card">
+    <div class="intro-logo">ح</div>
+    <div class="intro-brand">حوكش <span>HOKSH</span></div>
+    <div class="intro-line"></div>
+    <div class="intro-author">محمد شعبان محارب</div>
+    <div class="intro-message">أتمنى أن يساعدك حوكش على إنجاز أعمالك بسهولة<br>وتستفيد من كل أدواته بأفضل شكل.</div>
+    <div class="intro-loader"><i></i></div>
+  </div>
+</div><div class="hoksh-welcome" id="hokshWelcome">
   <div class="welcome-card">
     <div class="welcome-logo">ح</div>
     <div class="welcome-title">حوكش <span>HOKSH</span></div>
@@ -351,7 +377,14 @@ resizeCanvas(1200,800);$('leftToggle').onclick=()=>document.querySelector('.side
 <div class="teachProPop" id="teachColorPop"><h4>لون القلم</h4><div class="teachColors">
 <button data-color="#ff3158" style="background:#ff3158"></button><button data-color="#ff7a00" style="background:#ff7a00"></button><button data-color="#ffd400" style="background:#ffd400"></button><button data-color="#20c997" style="background:#20c997"></button><button data-color="#00b7ff" style="background:#00b7ff"></button><button data-color="#6d63ff" style="background:#6d63ff"></button><button data-color="#ffffff" style="background:#ffffff"></button><button data-color="#111827" style="background:#111827"></button><button data-color="#8b5cf6" style="background:#8b5cf6"></button><button data-color="#ec4899" style="background:#ec4899"></button><button data-color="#22c55e" style="background:#22c55e"></button><button data-color="#3b82f6" style="background:#3b82f6"></button></div></div>
 <div class="teachProPop" id="teachWidthPop"><h4>سُمك القلم</h4><div class="teachWidth"><button data-width="3">رفيع</button><button data-width="7">متوسط</button><button data-width="14">عريض</button><button data-width="24">عريض جدًا</button></div></div>
-<div class="teachProPop" id="teachShapePop"><h4>أشكال سريعة</h4><div class="teachShapeGrid"><button data-shape="line">╱</button><button data-shape="arrow">➜</button><button data-shape="rect">□</button><button data-shape="circle">○</button><button data-shape="select">↖</button><button data-shape="text">T</button></div></div><script id="hoksh-splash-script">(function(){document.getElementById('hokshWelcome')?.classList.remove('hidden')})();</script>
+<div class="teachProPop" id="teachShapePop"><h4>أشكال سريعة</h4><div class="teachShapeGrid"><button data-shape="line">╱</button><button data-shape="arrow">➜</button><button data-shape="rect">□</button><button data-shape="circle">○</button><button data-shape="select">↖</button><button data-shape="text">T</button></div></div><script id="hoksh-splash-script">
+(function(){
+  const intro=document.getElementById('hokshIntro'),welcome=document.getElementById('hokshWelcome');
+  welcome?.classList.remove('hidden');
+  setTimeout(()=>intro?.classList.add('hide'),1700);
+  setTimeout(()=>{if(intro)intro.remove()},2250);
+})();
+</script>
 <script id="hoksh-teaching-pro-js">(function(){
 const dock=document.getElementById('teachDock');if(!dock)return;
 dock.innerHTML=`
