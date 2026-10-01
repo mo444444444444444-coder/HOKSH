@@ -3,1006 +3,365 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0e1729">
-<meta name="description" content="حوكش HOKSH — محرر صور وPDF ذكي للكتابة والرسم والتظليل وإضافة النصوص وتصدير الملفات. يعمل كتطبيق على الهاتف مع وضع عدم الاتصال بعد التثبيت.">
-<meta name="application-name" content="حوكش HOKSH">
+<meta name="theme-color" content="#07131f">
+<meta name="description" content="حوكش HOKSH — محرر بسيط وسريع للصور وملفات PDF.">
 <meta name="author" content="محمد شعبان محارب">
+<meta name="application-name" content="حوكش HOKSH">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta property="og:type" content="website">
-<meta property="og:title" content="حوكش HOKSH — محرر الصور وPDF الذكي">
-<meta property="og:description" content="محرر عربي للصور وPDF والكتابة والرسم والتظليل، بتجربة قريبة من تطبيقات التحرير الاحترافية.">
-<meta property="og:url" content="https://mo444444444444444-coder.github.io/HOKSH/">
-<link rel="icon" href="icon.svg" type="image/svg+xml" sizes="any">
-<link rel="apple-touch-icon" href="icon.svg">
-<meta property="og:image" content="https://mo444444444444444-coder.github.io/HOKSH/icon.svg">
-<meta property="og:image:alt" content="شعار حوكش HOKSH">
-<meta name="twitter:image" content="https://mo444444444444444-coder.github.io/HOKSH/icon.svg">
-<meta name="google-site-verification" content="TBBvlDQ4yXjJJUjb-2O3dZCrY0iXOPmm1ZLGTQqxtvM" />
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="حوكش HOKSH — محرر الصور والـPDF الذكي">
-<meta name="twitter:description" content="حرر الصور وملفات PDF، اكتب وارسم وظلل وأضف النصوص ثم صدّر ملفك بسهولة.">
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"SoftwareApplication","name":"حوكش HOKSH","alternateName":"HOKSH","url":"https://mo444444444444444-coder.github.io/HOKSH/","description":"محرر صور وPDF عربي للكتابة والرسم والتظليل وإضافة النصوص وتصدير الملفات.","applicationCategory":"ProductivityApplication","operatingSystem":"Web Browser","inLanguage":"ar","author":{"@type":"Person","name":"محمد شعبان محارب"},"featureList":["تحرير الصور","تحرير ملفات PDF","الرسم والتظليل","إضافة النصوص والأشكال والأسهم","تنزيل PDF كامل بعد التعديل","الحفظ المحلي","العمل كتطبيق على الهاتف"]}
-</script>
-<meta name="robots" content="index,follow">
-<link rel="canonical" href="https://mo444444444444444-coder.github.io/HOKSH/">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="manifest" href="manifest.webmanifest">
-<title>حوكش HOKSH — محرر الصور والـPDF الذكي</title>
+<title>حوكش HOKSH — محرر الصور وPDF</title>
 <style>
-*{box-sizing:border-box}html,body{margin:0;height:100%;font-family:system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;background:#080d19;color:#eef3ff}body{overscroll-behavior:none}:root{--p:#111a2d;--p2:#182541;--line:#2a395b;--a:#6d7cff;--muted:#9eabc7}
-button,input,textarea{font:inherit}.app{height:100dvh;display:flex;flex-direction:column}.top{min-height:64px;display:flex;align-items:center;gap:8px;padding:8px 12px;background:#0e1729;border-bottom:1px solid var(--line);overflow:auto}.brand{font-size:24px;font-weight:900;white-space:nowrap}.brand span{color:#7c88ff}.sub{font-size:11px;color:var(--muted);white-space:nowrap}.spacer{flex:1}.btn{border:1px solid var(--line);background:var(--p2);color:#eef3ff;border-radius:10px;padding:8px 12px;cursor:pointer;white-space:nowrap}.btn:hover{border-color:#7181ff}.primary{background:var(--a);border-color:var(--a)}.danger{background:#54202c}.body{flex:1;min-height:0;display:flex}.sidebar{width:84px;flex-shrink:0;background:#0c1425;border-left:1px solid var(--line);padding:8px;display:flex;flex-direction:column;gap:6px;overflow:auto}.tool{height:52px;border:1px solid transparent;border-radius:10px;background:transparent;color:#c9d5ef;cursor:pointer;font-size:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}.tool b{font-size:19px}.tool.active{background:#26345b;border-color:#5669b1;color:#fff}.sidebar.collapsed{display:none}.right.collapsed{display:none}.panelToggle{font-size:11px}.aiTabs{display:flex;gap:6px;margin:10px 0}.aiTabs button{flex:1}.aiMode{display:none}.aiMode.active{display:block}.aiGeneralNote{font-size:11px;line-height:1.7;color:var(--muted);background:#0b1221;border:1px solid var(--line);padding:9px;border-radius:10px;margin-bottom:9px}
-.workspace{position:relative;flex:1;min-width:0;overflow:auto;background:#060a13;display:flex;align-items:center;justify-content:center;padding:20px}.stage{position:relative;background:#fff;box-shadow:0 18px 60px #000b;transform-origin:center center;flex-shrink:0;overflow:hidden}.workspace.blank-view{background:#e7eaf1}.workspace.blank-view .stage{box-shadow:0 10px 35px #0004}.stage canvas{display:block;touch-action:auto}.empty{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}.emptyBox{padding:28px;max-width:520px;border:1px dashed #566584;border-radius:20px;text-align:center;color:var(--muted);background:#0d1628}.emptyBox strong{display:block;color:#eef3ff;font-size:24px;margin-bottom:12px}.emptyActions{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:16px}.emptyActions .btn{min-width:150px}.right{width:290px;flex-shrink:0;background:var(--p);border-right:1px solid var(--line);padding:13px;overflow:auto}.section{padding-bottom:14px;margin-bottom:14px;border-bottom:1px solid var(--line)}.section h3{font-size:13px;margin:0 0 10px}.row{display:flex;align-items:center;gap:8px;margin:8px 0}.row label{font-size:11px;color:var(--muted);min-width:52px}.range{width:100%}.color{width:38px;height:32px;padding:2px}.drop{display:block;padding:14px;border:1px dashed #536483;border-radius:11px;text-align:center;color:var(--muted);cursor:pointer}.drop:hover{border-color:#7a89ff;color:#fff}.mini{font-size:11px;line-height:1.7;color:var(--muted)}.pagebar{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:6px;padding:7px;background:#121b2eee;border:1px solid var(--line);border-radius:14px;z-index:5}.pagebar button{min-width:35px}.pageInput{width:55px;text-align:center;background:#0b1120;border:1px solid var(--line);color:#fff;border-radius:7px;padding:5px}.status{position:absolute;bottom:14px;right:14px;background:#121b2eee;border:1px solid var(--line);border-radius:10px;padding:7px 10px;font-size:11px;color:#ccd6eb;z-index:5}.modal{position:fixed;inset:0;background:#0009;display:none;z-index:30}.modal.show{display:flex;align-items:center;justify-content:center}.dialog{width:min(500px,94vw);max-height:90dvh;overflow:auto;background:#121b30;border:1px solid var(--line);border-radius:16px;padding:18px}.dialog textarea{width:100%;height:110px;resize:vertical;background:#080e1b;border:1px solid var(--line);border-radius:10px;color:#fff;padding:10px}.ai{width:min(470px,94vw);max-height:90dvh;overflow:auto;background:#101a2d;border:1px solid var(--line);border-radius:18px;padding:18px}.aiLog{height:210px;overflow:auto;background:#080e1b;border-radius:12px;padding:10px;margin:10px 0;font-size:12px;line-height:1.7}.aiInput{display:flex;gap:7px}.aiInput input{flex:1;background:#080e1b;border:1px solid var(--line);color:#fff;border-radius:10px;padding:10px}.toast{position:fixed;top:76px;left:50%;transform:translateX(-50%);background:#26375e;border:1px solid #6073b8;padding:9px 15px;border-radius:10px;display:none;z-index:50}.toast.show{display:block}
-@media(max-width:900px){.right{width:225px}.sidebar{width:70px}.sub{display:none}}@media(max-width:680px){.right{display:none}.sidebar{width:60px;padding:5px}.tool{height:47px}.top{min-height:56px;padding:6px}.top .hideM{display:none}.brand{font-size:20px}.workspace{padding:8px}.pagebar{bottom:8px}.status{bottom:8px;right:8px;font-size:10px}.emptyBox{padding:22px 14px}.emptyActions .btn{min-width:135px;padding:10px 9px}}
+:root{
+  --bg:#07131f;--panel:#0c1d2b;--panel2:#10283a;--line:#244158;--text:#eef7fb;
+  --muted:#94adbf;--accent:#21c7b0;--accent2:#3d83f6;--danger:#e75b70;--paper:#fff;
+}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden}
+body{font-family:system-ui,-apple-system,"Segoe UI",Tahoma,Arial,sans-serif;background:var(--bg);color:var(--text)}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+.app{height:100dvh;display:flex;flex-direction:column}
+.topbar{height:58px;min-height:58px;display:flex;align-items:center;gap:7px;padding:7px 10px;background:#081722;border-bottom:1px solid var(--line);z-index:20}
+.brand{display:flex;align-items:baseline;gap:6px;font-size:21px;font-weight:950;white-space:nowrap}
+.brand span{font-size:12px;color:var(--accent);font-weight:800;letter-spacing:.4px}
+.topActions{display:flex;align-items:center;gap:6px;margin-right:auto}
+.btn{height:40px;border:1px solid #2a4961;border-radius:11px;padding:0 12px;background:#10283a;color:#eff8fc}
+.btn:hover{border-color:#48dbc8}.btn.primary{background:linear-gradient(135deg,#17bda9,#3f7ff0);border-color:#4fddcc}.btn.icon{width:40px;padding:0;display:grid;place-items:center;font-size:18px}.btn:active{transform:scale(.98)}
+.main{flex:1;min-height:0;display:flex}
+.tools{width:66px;min-width:66px;background:#091925;border-left:1px solid var(--line);padding:7px 6px;display:flex;flex-direction:column;gap:5px;z-index:10}
+.tool{width:54px;height:49px;border:1px solid transparent;border-radius:11px;background:transparent;color:#bed0dc;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;font-size:10px}
+.tool b{font-size:18px;line-height:1}.tool.active{background:#13394b;border-color:#2cc9b8;color:#fff}
+.toolSep{height:1px;background:#203a4e;margin:3px 2px}
+.workspace{position:relative;flex:1;min-width:0;background:#05101a;overflow:auto;display:flex;align-items:center;justify-content:center;padding:20px}
+.stage{position:relative;flex:0 0 auto;background:#fff;transform-origin:top center;box-shadow:0 20px 80px #000b}
+#canvas{display:block;background:#fff;touch-action:none}
+.empty{position:absolute;inset:0;display:grid;place-items:center;padding:20px}
+.emptyCard{width:min(520px,94vw);padding:26px;border:1px solid #31536b;border-radius:22px;background:linear-gradient(145deg,#0e2232,#091925);text-align:center;box-shadow:0 25px 80px #0008}
+.emptyCard h2{margin:0 0 7px;font-size:25px}.emptyCard p{margin:0;color:var(--muted);line-height:1.8;font-size:12px}
+.emptyGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:18px}
+.emptyBtn{min-height:94px;border:1px solid #2d4c63;border-radius:16px;background:#112a3c;color:#eef8fc;padding:12px}.emptyBtn strong{display:block;font-size:23px;margin-bottom:5px}.emptyBtn span{font-weight:800;font-size:12px}.emptyBtn small{display:block;color:#91acbd;font-size:9px;margin-top:4px}.emptyBtn.primary{background:linear-gradient(145deg,#11675f,#225db2);border-color:#48dbc8}
+.bottomInfo{position:fixed;left:50%;bottom:13px;transform:translateX(-50%);display:flex;gap:8px;align-items:center;background:#091825ee;border:1px solid #28485e;border-radius:14px;padding:6px 10px;font-size:10px;color:#9fb5c3;z-index:15;backdrop-filter:blur(12px)}
+.pageBar{position:fixed;left:50%;bottom:13px;transform:translateX(-50%);display:none;align-items:center;gap:5px;background:#091825f5;border:1px solid #2d4e65;border-radius:14px;padding:6px;z-index:16}
+.pageBar button{height:34px;min-width:34px;border:1px solid #2a4a61;border-radius:9px;background:#10283a;color:#fff}
+.pageNo{width:48px;text-align:center;border:1px solid #2a4a61;background:#071521;color:#fff;border-radius:8px;height:32px}
+.status{position:fixed;right:12px;bottom:13px;background:#091825e8;border:1px solid #29475d;padding:7px 10px;border-radius:11px;font-size:10px;color:#9db3c1;z-index:15}
+.dock{display:none}
+.modal{position:fixed;inset:0;background:#0009;display:none;align-items:center;justify-content:center;z-index:100;backdrop-filter:blur(5px)}
+.modal.show{display:flex}.dialog{width:min(760px,94vw);max-height:90dvh;overflow:auto;background:#0c1d2b;border:1px solid #2c4c63;border-radius:20px;box-shadow:0 30px 100px #000c;padding:20px}
+.dialog h3{margin:0 0 12px}.row{display:flex;gap:8px;align-items:center}.row.end{justify-content:flex-end}
+.templateGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0}
+.template{border:1px solid #2b4b62;border-radius:13px;background:#0b1b28;color:#fff;padding:8px}.template.active{border-color:#3fd7c5;box-shadow:0 0 0 2px #3fd7c522;background:#123247}
+.preview{height:84px;background:#fff;border-radius:7px;position:relative;overflow:hidden}.preview.lined{background:repeating-linear-gradient(to bottom,#fff 0 13px,#d8e2ea 14px)}.preview.grid{background-image:linear-gradient(#d8e2ea 1px,transparent 1px),linear-gradient(90deg,#d8e2ea 1px,transparent 1px);background-size:14px 14px}.preview.dots{background-image:radial-gradient(#adbfcd 1px,transparent 1.5px);background-size:13px 13px}.preview.frame:after{content:"";position:absolute;inset:8px;border:2px solid #70889a}.template b{display:block;margin-top:6px;font-size:11px}.template small{display:block;color:#93acbb;font-size:8px;margin-top:2px}
+.controls{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}.field{display:flex;flex-direction:column;gap:5px;font-size:10px;color:#99b2c1}.field input,.field select,.field textarea{width:100%;border:1px solid #29465b;background:#071521;color:#fff;border-radius:10px;padding:9px}
+.aboutHero{display:flex;align-items:center;gap:15px}.aboutAvatar{width:84px;height:84px;border-radius:24px;overflow:hidden;background:linear-gradient(135deg,#3d83f6,#20c7b1);display:grid;place-items:center;font-size:34px;font-weight:950}.aboutAvatar img{width:100%;height:100%;object-fit:cover}.muted{color:var(--muted);font-size:11px;line-height:1.8}
+.toast{position:fixed;top:68px;left:50%;transform:translateX(-50%);z-index:200;background:#133247;border:1px solid #3a637e;color:#fff;padding:8px 14px;border-radius:11px;display:none;font-size:11px}.toast.show{display:block}
+.homeOverlay{position:fixed;inset:0;z-index:1000;background:linear-gradient(160deg,#06202b,#07131f 58%,#050b12);display:flex;align-items:center;justify-content:center;padding:18px;transition:opacity .45s ease,visibility .45s ease}
+.homeOverlay.hidden{opacity:0;visibility:hidden;pointer-events:none}
+.homeBox{width:min(920px,96vw);padding:28px;border:1px solid #245166;border-radius:28px;background:linear-gradient(145deg,#0c2634,#081722);box-shadow:0 40px 120px #000b;text-align:center}
+.homeLogo{width:92px;height:92px;margin:0 auto 10px;border-radius:25px;overflow:hidden;box-shadow:0 18px 50px #0007}.homeLogo img{width:100%;height:100%;display:block}
+.homeTitle{font-size:40px;font-weight:1000}.homeTitle span{color:#3ad8c6}.homeSub{color:#9eb4c2;font-size:12px;margin:4px 0 22px}
+.homeActions{display:grid;grid-template-columns:repeat(4,1fr);gap:11px}.homeAction{min-height:128px;border:1px solid #2d4d63;border-radius:18px;background:#102a3c;color:#fff;padding:15px 10px}.homeAction.primary{background:linear-gradient(145deg,#117063,#245eb5);border-color:#42d9c6}.homeAction b{display:block;font-size:30px;margin-bottom:7px}.homeAction span{font-size:13px;font-weight:900}.homeAction small{display:block;color:#a6bac7;font-size:9px;margin-top:4px}.homeCredit{margin-top:18px;color:#7f9aa9;font-size:10px}
+@media(max-width:850px){.tools{display:none}.homeActions{grid-template-columns:repeat(2,1fr)}.topbar{padding:6px}.topActions .wide{display:none}.workspace{padding:10px 6px 80px}}
+@media(max-width:600px){.brand{font-size:18px}.brand span{font-size:10px}.topbar{height:52px;min-height:52px}.topActions{gap:4px}.btn{height:38px;padding:0 9px}.btn.icon{width:38px}.workspace{align-items:flex-start;padding-top:8px}.bottomInfo{display:none}.status{bottom:72px;right:8px}.pageBar{bottom:70px}.dock{position:fixed;left:6px;right:6px;bottom:7px;height:56px;display:flex;gap:4px;padding:5px;background:#081723f5;border:1px solid #2a4a60;border-radius:17px;z-index:90}.dock button{flex:1;border:0;border-radius:12px;background:transparent;color:#e9f4f8;font-size:18px}.dock button span{display:block;font-size:8px;color:#87a3b3}.dock button.active{background:#123b4d;color:#4de0cf}.empty{inset:0;padding:10px 8px 78px}.emptyCard{padding:21px 13px}.emptyGrid{gap:8px}.emptyBtn{min-height:86px}.templateGrid{grid-template-columns:repeat(2,1fr)}.controls{grid-template-columns:1fr}.homeBox{padding:22px 14px}.homeTitle{font-size:31px}.homeLogo{width:78px;height:78px}.homeActions{gap:8px}.homeAction{min-height:112px}.dialog{padding:15px}}
 </style>
-<style id="hoksh-polish">
-:root{--p:#101a30;--p2:#182744;--line:#304266;--a:#7c6cff;--a2:#4fd1c5;--muted:#a9b7d4;--glow:#7c6cff55}
-body{background:radial-gradient(circle at 20% 0%,#1a2850 0,#080d19 38%,#050811 100%)}
-.top{background:linear-gradient(180deg,#111d35f7,#0c1426f7);backdrop-filter:blur(14px);border-bottom-color:#35476c;box-shadow:0 8px 30px #0004}
-.brand{letter-spacing:-.5px;text-shadow:0 0 24px var(--glow)}
-.brand span{color:#9b8cff}
-.btn{transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease,background .16s ease;background:linear-gradient(180deg,#1b2b4b,#14213a);box-shadow:0 3px 10px #0003}
-.btn:hover{transform:translateY(-1px);border-color:#8f83ff;box-shadow:0 7px 20px #0005}
-.btn:active{transform:translateY(0) scale(.98)}
-.primary{background:linear-gradient(135deg,#806cff,#5d6ff5);border-color:#9b8cff;box-shadow:0 8px 24px #6d62ff45}
-.sidebar{background:linear-gradient(180deg,#0e1830,#0a1222);border-left-color:#34476b;box-shadow:inset 1px 0 #ffffff08}
-.tool{transition:.16s ease}
-.tool:hover{background:#1a2948;color:#fff;border-color:#3f5580}
-.tool.active{background:linear-gradient(135deg,#33437a,#222f59);border-color:#7f8cff;box-shadow:0 0 20px #6d7cff22}
-.right{background:linear-gradient(180deg,#121d34,#0e1729);border-right-color:#34476b}
-.section{border-bottom-color:#2d3e61}
-.section h3{font-size:13px;font-weight:800;color:#eaf0ff}
-.drop{background:linear-gradient(180deg,#162643,#101b30);border-color:#536b98;transition:.18s ease;box-shadow:inset 0 1px #fff1}
-.drop:hover{background:#1a2d4e;box-shadow:0 0 0 3px #7c6cff18}
-.workspace{background:radial-gradient(circle at 50% 45%,#121d34 0,#080d19 58%,#050811 100%)}
-.workspace.blank-view{background:linear-gradient(135deg,#e9edf5,#dfe5f0)}
-.stage{box-shadow:0 25px 90px #000c,0 0 0 1px #ffffff18}
-.emptyBox{background:linear-gradient(145deg,#12203aee,#0c1527ee);border:1px solid #42567e;box-shadow:0 25px 70px #0007,0 0 40px #6d7cff10;backdrop-filter:blur(14px)}
-.emptyBox strong{font-size:28px;background:linear-gradient(90deg,#fff,#a99dff);-webkit-background-clip:text;background-clip:text;color:transparent}
-.emptyBox .mini{margin-top:12px}
-.pagebar,.status{background:#101b30ee;border-color:#42567e;box-shadow:0 10px 30px #0006;backdrop-filter:blur(10px)}
-.modal{background:#02050bcc;backdrop-filter:blur(5px)}
-.dialog,.ai{background:linear-gradient(145deg,#14213a,#0d1729);border-color:#42567e;box-shadow:0 30px 90px #000b}
-input:focus,textarea:focus,select:focus{outline:none;border-color:#8b7dff!important;box-shadow:0 0 0 3px #7c6cff20}
-.toast{background:linear-gradient(135deg,#283d72,#1c2b51);border-color:#7081cf;box-shadow:0 12px 35px #0007}
-@media(max-width:680px){.top{gap:5px}.btn{padding:8px 10px}.emptyBox{border-radius:18px;box-shadow:0 18px 50px #0007}.pagebar{max-width:calc(100vw - 20px);overflow:auto}}
-</style>
-
-<style id="hoksh-teaching-mode">
-.teachBtn{background:linear-gradient(135deg,#10b981,#0ea5a4)!important;border-color:#35e0bd!important}.teaching-mode .sidebar,.teaching-mode .right{display:none!important}.teaching-mode .workspace{padding:10px;background:#020617}.teaching-mode .top{min-height:54px}.teaching-mode .sub{display:none}.teaching-mode .stage{box-shadow:0 24px 90px #000d,0 0 0 1px #ffffff20}.teaching-mode .teachDock{display:flex}.teachDock{display:none;position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:40;gap:6px;padding:7px;background:#0b1226ee;border:1px solid #40557f;border-radius:16px;box-shadow:0 15px 45px #0009;backdrop-filter:blur(14px);align-items:center}.teachDock button{min-width:42px;height:42px;border:1px solid #35486c;background:#15223d;color:#fff;border-radius:11px;cursor:pointer}.teachDock button.active{background:#6d63ee;border-color:#a69dff}.teachDock .teachExit{background:#243552}.teachModeBadge{display:none;position:fixed;top:70px;left:14px;z-index:41;padding:6px 10px;border-radius:10px;background:#10b981;color:#041b16;font-weight:800;font-size:11px}.teaching-mode .teachModeBadge{display:block}@media(max-width:680px){.teachDock{bottom:10px;max-width:calc(100vw - 16px);overflow:auto}.teachDock button{min-width:40px}.teachModeBadge{top:62px;left:8px}}
-</style>
-<style id="hoksh-intro-redesign">
-.hoksh-intro{position:fixed;inset:0;z-index:10001;display:grid;place-items:center;background:radial-gradient(circle at 50% 35%,#16495a 0,#0b2638 38%,#040a12 100%);overflow:hidden;transition:opacity .45s ease,visibility .45s ease}
-.hoksh-intro.hide{opacity:0;visibility:hidden;pointer-events:none}
-.intro-glow{position:absolute;width:360px;height:360px;border-radius:50%;filter:blur(75px);opacity:.22;animation:introFloat 4s ease-in-out infinite}
-.intro-glow.g1{background:#22d3b6;top:8%;right:12%}.intro-glow.g2{background:#3f7cff;bottom:8%;left:12%;animation-delay:-2s}
-.intro-card{position:relative;width:min(620px,90vw);padding:42px 28px 34px;text-align:center;border:1px solid #315b70;border-radius:32px;background:linear-gradient(145deg,#0d2638e8,#081624e8);box-shadow:0 35px 120px #000c,0 0 80px #22d3b61a;backdrop-filter:blur(18px);animation:introCardIn .7s cubic-bezier(.2,.8,.2,1)}
-.intro-logo{width:92px;height:92px;margin:0 auto 15px;border-radius:27px;display:grid;place-items:center;background:linear-gradient(135deg,#3f7cff,#22d3b6);color:#fff;font-size:42px;font-weight:1000;box-shadow:0 18px 55px #0008,0 0 45px #22d3b633;animation:introLogo 1.2s ease}
-.intro-brand{font-size:42px;font-weight:1000;letter-spacing:-1px}.intro-brand span{color:#69d8ff}
-.intro-line{width:90px;height:3px;margin:15px auto 14px;border-radius:99px;background:linear-gradient(90deg,#3f7cff,#22d3b6,#f5b84b)}
-.intro-author{font-size:20px;font-weight:900;color:#f5b84b}
-.intro-message{margin-top:10px;color:#b9cad8;font-size:14px;line-height:1.9}
-.intro-loader{width:170px;height:4px;margin:24px auto 0;border-radius:99px;background:#20394b;overflow:hidden}.intro-loader i{display:block;width:42%;height:100%;border-radius:99px;background:linear-gradient(90deg,#3f7cff,#22d3b6);animation:introLoad 1.55s ease-in-out forwards}
-@keyframes introCardIn{from{opacity:0;transform:translateY(18px) scale(.96)}to{opacity:1;transform:none}}
-@keyframes introLogo{0%{transform:scale(.75) rotate(-8deg);opacity:0}70%{transform:scale(1.05) rotate(2deg)}100%{transform:scale(1) rotate(0);opacity:1}}
-@keyframes introFloat{50%{transform:translateY(-25px) scale(1.08)}}@keyframes introLoad{from{transform:translateX(-110%)}to{transform:translateX(260%)}}
-@media(max-width:600px){.intro-card{padding:34px 20px 28px}.intro-brand{font-size:34px}.intro-logo{width:78px;height:78px;font-size:36px}.intro-author{font-size:17px}.intro-message{font-size:12px}}
-</style><style id="hoksh-welcome-redesign">
-:root{--brand1:#22d3b6;--brand2:#3f7cff;--brand3:#f5b84b}
-.hoksh-welcome{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;background:radial-gradient(circle at 50% 20%,#164a58 0,#102c42 34%,#07121f 70%,#040910 100%);overflow:auto}
-.hoksh-welcome.hidden{opacity:0;visibility:hidden;pointer-events:none;transition:opacity .25s ease,visibility .25s ease}.welcome-card{width:min(860px,96vw);padding:34px 28px 24px;text-align:center;border:1px solid #40577f;border-radius:30px;background:linear-gradient(145deg,#102d3bee,#091a2aee);box-shadow:0 35px 110px #000b,0 0 70px #7667ff14;backdrop-filter:blur(22px)}
-.welcome-logo{width:104px;height:104px;margin:0 auto 14px;border-radius:29px;display:grid;place-items:center;background:linear-gradient(135deg,var(--brand2),var(--brand1));box-shadow:0 18px 55px #0008,0 0 55px #7667ff44;color:#fff;font-size:44px;font-weight:1000}
-.welcome-title{font-size:42px;font-weight:1000;letter-spacing:-1px}.welcome-title span{color:#69d8ff}.welcome-sub{margin:8px 0 25px;color:#afbdd9;font-size:14px}
-.welcome-actions{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-.welcomeAction{min-height:128px;padding:15px 10px;border:1px solid #3a527a;border-radius:18px;background:linear-gradient(145deg,#192b4b,#101d35);color:#f1f5ff;cursor:pointer;transition:.18s;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px}
-.welcomeAction:hover{transform:translateY(-4px);border-color:#22d3b6;box-shadow:0 14px 30px #0006}
-.welcomeAction.primary{background:linear-gradient(145deg,#655ce9,#2e9f9a);border-color:#6ce8d4}
-.welcomeAction b{font-size:31px;line-height:1}.welcomeAction span{font-size:15px;font-weight:900}.welcomeAction small{font-size:10px;color:#b7c4de}.welcomeHint{margin-top:20px;color:#8798b8;font-size:11px}
-.pageCreatorDialog{width:min(780px,96vw)}
-.templateGrid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:18px 0}
-.pageTemplate{padding:9px 7px;border:1px solid #344b70;border-radius:14px;background:#0f1b31;color:#eaf0ff;cursor:pointer;transition:.16s}
-.pageTemplate:hover{transform:translateY(-2px);border-color:#7e8fff}.pageTemplate.active{border-color:#9b8cff;background:linear-gradient(145deg,#273968,#1a2745);box-shadow:0 0 0 2px #806cff22}
-.pageTemplate b{display:block;font-size:11px;margin-top:6px}.pageTemplate small{font-size:9px;color:#93a5c5}
-.paperPreview{height:74px;background:#fff;border-radius:6px;display:block;position:relative;overflow:hidden;box-shadow:0 4px 12px #0005}
-.paperPreview.lined{background:repeating-linear-gradient(to bottom,#fff 0 12px,#c8d5e7 13px)}
-.paperPreview.margin{background:linear-gradient(90deg,transparent 0 18%,#ef7373 18.5% 19.5%,transparent 20%),repeating-linear-gradient(to bottom,#fff 0 12px,#c8d5e7 13px)}
-.paperPreview.grid{background-image:linear-gradient(#d3dce8 1px,transparent 1px),linear-gradient(90deg,#d3dce8 1px,transparent 1px);background-size:13px 13px}
-.paperPreview.dots{background-image:radial-gradient(#a9b8cc 1.2px,transparent 1.3px);background-size:12px 12px}
-.paperPreview.frame:after{content:"";position:absolute;inset:7px;border:2px solid #66758d;border-radius:4px}
-.paperPreview.double:after{content:"";position:absolute;inset:7px;border:2px double #66758d;border-radius:4px}
-.paperPreview.header:after{content:"";position:absolute;left:9px;right:9px;top:17px;height:2px;background:#9cabc0;box-shadow:0 10px 0 #d2dbe7,0 20px 0 #d2dbe7,0 30px 0 #d2dbe7}
-.paperPreview.exam:before{content:"الاسم: __________";position:absolute;top:8px;left:7px;color:#65748c;font-size:7px}.paperPreview.exam:after{content:"الفصل: ______  الدرجة: ____";position:absolute;top:23px;left:7px;color:#65748c;font-size:7px;box-shadow:0 22px 0 -1px #cbd6e4,0 35px 0 -1px #cbd6e4}
-.paperPreview.cornell:after{content:"";position:absolute;left:25%;top:0;bottom:0;width:1px;background:#c5d0df;box-shadow:0 52px 0 0 #c5d0df}
-.newFileOptions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0}.newFileOptions label{font-size:11px;color:#9eabc7;display:flex;flex-direction:column;gap:6px}.newFileOptions select,.newFileOptions input{width:100%;padding:10px;border:1px solid #304565;border-radius:10px;background:#091221;color:#fff}
-@media(max-width:700px){.welcome-card{padding:25px 15px}.welcome-title{font-size:33px}.welcome-logo{width:84px;height:84px;font-size:35px}.welcome-actions{grid-template-columns:repeat(2,1fr)}.templateGrid{grid-template-columns:repeat(2,1fr)}}
-</style><style id="hoksh-global-polish">
-/* HOKSH 2.1 — cleaner controls, teaching UI, splash */
-body{background:#070b16}
-.hoksh-splash{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 38%,#263a72 0,#101a35 35%,#050811 78%);transition:opacity .55s ease,visibility .55s ease}
-.hoksh-splash.hide{opacity:0;visibility:hidden;pointer-events:none}
-.splash-card{text-align:center;animation:hokshIntro .8s ease both}
-.splash-logo{width:110px;height:110px;margin:auto;border-radius:30px;display:grid;place-items:center;background:linear-gradient(135deg,#806cff,#42d7c5);box-shadow:0 20px 70px #0008,0 0 50px #806cff55;color:#fff;font-size:42px;font-weight:1000}
-.splash-title{font-size:42px;font-weight:1000;margin-top:20px;letter-spacing:-1px}.splash-title span{color:#a89cff}
-.splash-sub{margin-top:7px;color:#aebbd7;font-size:13px}
-.splash-loader{width:150px;height:3px;border-radius:99px;background:#ffffff16;margin:25px auto 0;overflow:hidden}.splash-loader i{display:block;height:100%;width:45%;background:linear-gradient(90deg,#806cff,#4fd1c5);animation:hokshLoad 1.15s infinite}
-@keyframes hokshIntro{from{opacity:0;transform:scale(.92) translateY(12px)}to{opacity:1;transform:none}}@keyframes hokshLoad{from{transform:translateX(-150px)}to{transform:translateX(330px)}}
-body.teaching-mode .teachDock{gap:9px;padding:9px 11px;border-radius:20px}
-body.teaching-mode .teachDock button{width:48px;height:48px;min-width:48px;border-radius:14px;background:linear-gradient(145deg,#17294a,#101c34);border:1px solid #41557c;box-shadow:0 5px 16px #0005;font-size:19px;transition:.16s}
-body.teaching-mode .teachDock button:hover{transform:translateY(-2px);border-color:#8e83ff}
-body.teaching-mode .teachDock button.active{background:linear-gradient(135deg,#806cff,#5d6ff5);border-color:#a99fff;box-shadow:0 8px 22px #655cff55}
-body.teaching-mode .teachDock .teachExit{margin-right:5px;border-color:#70465a;background:#2b1a2b}
-body.teaching-mode .teachDock:before{content:"";width:1px;height:32px;background:#40516f;margin:0 3px}
-#teachingModeBtn{box-shadow:0 6px 20px #10b98135}
-@media(max-width:680px){.splash-logo{width:88px;height:88px;border-radius:25px;font-size:34px}.splash-title{font-size:34px}.teachDock{bottom:12px!important;max-width:calc(100vw - 16px);overflow-x:auto}.teachDock button{width:44px!important;height:44px!important;min-width:44px!important}}
-</style>
-<style id="hoksh-teaching-pro">
-body.teaching-mode{background:#050914!important}
-body.teaching-mode .top{background:rgba(8,14,28,.94);border-bottom:1px solid #263653;backdrop-filter:blur(18px)}
-body.teaching-mode .workspace{padding:18px 18px 105px!important;background:radial-gradient(circle at 50% 42%,#172642 0,#080e1c 55%,#040711 100%)!important}
-body.teaching-mode .pagebar{display:none!important}
-body.teaching-mode .status{bottom:104px;right:18px;opacity:.8}
-body.teaching-mode .teachDock{display:flex;gap:7px;align-items:center;position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:100;width:max-content;max-width:calc(100vw - 28px);padding:9px 11px;background:rgba(10,17,33,.94);border:1px solid #40557d;border-radius:22px;box-shadow:0 18px 65px #000b,0 0 0 1px #ffffff08;backdrop-filter:blur(22px)}
-body.teaching-mode .teachDock button{position:relative;width:48px!important;height:48px!important;min-width:48px!important;border:1px solid #334766!important;border-radius:14px!important;background:linear-gradient(145deg,#1a2a48,#101b32)!important;color:#eaf0ff!important;font-size:20px;cursor:pointer;transition:.16s ease}
-body.teaching-mode .teachDock button:hover{transform:translateY(-3px);border-color:#8190c7!important;box-shadow:0 8px 20px #0006}
-body.teaching-mode .teachDock button.active{background:linear-gradient(135deg,#806cff,#5b70f5)!important;border-color:#aaa1ff!important;box-shadow:0 8px 25px #6d63ff55}
-body.teaching-mode .teachDock .teachSep{width:1px;height:34px;background:#40516f;margin:0 3px}
-body.teaching-mode .teachDock .teachExit{background:linear-gradient(145deg,#3a2430,#261923)!important;border-color:#70485a!important}
-.teachProPop{position:fixed;z-index:110;display:none;min-width:190px;padding:12px;border-radius:16px;background:rgba(13,23,43,.98);border:1px solid #42567d;box-shadow:0 20px 55px #000b;backdrop-filter:blur(20px)}
-.teachProPop.show{display:block}
-.teachProPop h4{margin:0 0 10px;font-size:12px;color:#dfe7ff}
-.teachColors{display:grid;grid-template-columns:repeat(6,1fr);gap:7px}
-.teachColors button{width:25px!important;height:25px!important;min-width:25px!important;border-radius:50%!important;border:2px solid #ffffff33!important;padding:0}
-.teachWidth{display:flex;gap:6px}.teachWidth button{width:42px!important;height:36px!important;min-width:42px!important;font-size:11px!important}
-.teachShapeGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.teachShapeGrid button{width:48px!important;height:42px!important;min-width:48px!important;font-size:17px!important}
-@media(max-width:760px){body.teaching-mode .workspace{padding-bottom:88px!important}body.teaching-mode .teachDock{bottom:8px;gap:5px;padding:7px 8px;border-radius:18px;overflow-x:auto;justify-content:flex-start}body.teaching-mode .teachDock button{width:43px!important;height:43px!important;min-width:43px!important;font-size:18px}body.teaching-mode .status{bottom:84px}.teachProPop{max-width:calc(100vw - 24px)}}
-</style>
-<style id="hoksh-view-polish">
-/* cleaner icon language + workspace geometry */
-.btn,.tool,.teachDock button{font-weight:700}
-.tool b{font-family:system-ui;font-size:22px;line-height:1}
-.tool{border-radius:14px!important}
-.tool.active{background:linear-gradient(145deg,#394b86,#252f5b)!important;border-color:#8490ff!important}
-#viewModeBtn{background:linear-gradient(135deg,#263d68,#1a2947)!important;border-color:#4f6c9f!important}
-.viewPop{position:fixed;z-index:120;display:none;width:240px;padding:12px;border:1px solid #465c85;border-radius:18px;background:rgba(12,21,40,.98);box-shadow:0 24px 70px #000b;backdrop-filter:blur(18px)}
-.viewPop.show{display:block}
-.viewPop h4{margin:0 0 9px;color:#eef3ff;font-size:13px}
-.viewChoice{display:flex;gap:8px;align-items:center;width:100%;padding:11px 12px;margin:6px 0;border:1px solid #304565;border-radius:12px;background:#162541;color:#eaf0ff;cursor:pointer;text-align:right}
-.viewChoice:hover{border-color:#7e8fff;background:#1d3155}
-.viewChoice.active{border-color:#9b8cff;background:linear-gradient(135deg,#403c80,#263967)}
-.viewChoice b{font-size:20px;width:27px;text-align:center}
-.viewChoice small{display:block;color:#aab8d5;font-weight:500;margin-top:2px}
-.workspace{align-items:flex-start!important;overflow:auto!important}
-.stage{transform-origin:top center!important;margin-top:6px}
-body.teaching-mode .workspace{align-items:flex-start!important;overflow:auto!important}
-.viewGallery{display:none;width:min(1180px,96%);margin:18px auto 110px;padding:8px;gap:18px;align-content:flex-start}
-.viewGallery.continuous{display:grid;grid-template-columns:1fr}
-.viewGallery.side{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
-.viewCard{position:relative;background:#fff;border-radius:14px;padding:8px;box-shadow:0 12px 35px #0008;cursor:pointer;transition:.16s;min-width:0}
-.viewCard:hover{transform:translateY(-2px);box-shadow:0 18px 45px #000a}
-.viewCard canvas{display:block;width:100%;height:auto;border-radius:8px}
-.viewNum{position:absolute;top:14px;right:14px;background:#101a30e8;color:#fff;border:1px solid #6f80aa;border-radius:10px;padding:4px 8px;font-size:11px;font-weight:800}
-.viewHint{position:fixed;top:72px;left:50%;transform:translateX(-50%);z-index:55;padding:7px 12px;border-radius:12px;background:#17284aee;border:1px solid #526994;color:#dfe8ff;font-size:11px;box-shadow:0 10px 30px #0007;display:none}
-.viewHint.show{display:block}
-@media(max-width:760px){.viewGallery.side{grid-template-columns:1fr}.viewGallery{width:94%;gap:12px;margin-top:10px}.viewPop{width:220px}}
-</style><style id="hoksh-seo-content">
-.seoContent{max-width:1050px;margin:0 auto;padding:48px 22px 110px;color:#dbe7f5;line-height:1.95}
-.seoContent h1{font-size:clamp(28px,4vw,44px);margin:0 0 12px;color:#fff}
-.seoContent h2{font-size:24px;margin:34px 0 8px;color:#58ddc9}
-.seoContent p{color:#aebed1;margin:8px 0}.seoContent ul{color:#aebed1;padding-right:24px}.seoGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}.seoCard{padding:16px;border:1px solid #29445c;border-radius:16px;background:#0d1b2a}.seoCard strong{display:block;color:#fff;margin-bottom:5px}@media(max-width:700px){.seoGrid{grid-template-columns:1fr}}
-</style><style id="hoksh-mobile-pro">
-html,body{touch-action:pan-x pan-y;-webkit-user-select:none;user-select:none}.stage{touch-action:auto}.workspace{touch-action:pan-x pan-y;-webkit-overflow-scrolling:touch}#canvas{touch-action:none;-webkit-user-select:none;user-select:none}
-#canvas{touch-action:none;cursor:crosshair;-webkit-tap-highlight-color:transparent}
-@media(max-width:680px){
-  .app{height:100dvh}
-  .top{height:54px;min-height:54px;overflow:hidden;padding:5px 7px;gap:4px}
-  .top .sub,.top #leftToggle,.top #rightToggle,.top #zoomOut,.top #zoomIn,.top #zoomReset,.top #help,.top #installBtn{display:none!important}
-  .brand{font-size:19px;min-width:max-content}
-  .spacer{min-width:4px}
-  .top .btn{padding:8px 9px;border-radius:10px;font-size:11px}
-  .top #teachingModeBtn{font-size:0;width:42px;padding:8px}
-  .top #teachingModeBtn:first-letter{font-size:17px}  .top #aiBtn{font-size:0;width:42px;padding:8px}.top #aiBtn:first-letter{font-size:17px}
-  .top #viewModeBtn{font-size:0;width:42px;padding:8px}.top #viewModeBtn:first-letter{font-size:17px}
-  .top #export{font-size:0;width:42px;padding:8px}.top #export:first-letter{font-size:17px}
-  .top label[for="file"]{font-size:0;width:42px;padding:8px;text-align:center}.top label[for="file"]::first-letter{font-size:17px}
-  .workspace{padding:4px 4px 82px;overflow:auto;align-items:flex-start;justify-content:center}
-  .stage{margin-top:4px;box-shadow:0 12px 38px #000b}
-  .toolDock{bottom:calc(7px + env(safe-area-inset-bottom));padding:6px;gap:4px;border-radius:17px;max-width:calc(100vw - 10px);overflow-x:auto;overflow-y:hidden}
-  .toolDock button{width:42px;min-width:42px;height:44px;border-radius:12px;font-size:18px}
-  .toolDock .dockMove{display:none}
-  .dockSep{height:25px}
-  .hoksh-more{top:58px;right:7px}
-  .moreBtn{min-width:42px;width:42px;font-size:0;padding:9px}.moreBtn::first-letter{font-size:18px}
-  .moreMenu{width:min(270px,calc(100vw - 14px));right:0}
-  .pagebar{bottom:78px;max-width:calc(100vw - 16px);padding:5px;border-radius:13px}
-  .status{bottom:76px;right:7px;display:none}
-  .empty{padding:8px}
-  .emptyBox{max-width:calc(100vw - 24px);padding:20px 12px}
-  .emptyBox strong{font-size:22px}
-  .emptyActions{gap:6px}
-  .emptyActions .btn{min-width:0;flex:1;padding:10px 7px;font-size:11px}
-  .teachingTopTools{top:58px;max-width:calc(100vw - 10px);padding:5px}
-  .teachingTopTools button{width:40px;min-width:40px;height:40px}
-  .teaching-mode .workspace{padding:60px 3px 70px}
-  .teaching-mode .toolDock{display:none}
-  .devDialog{max-height:88dvh}
-}
-</style><style id="hoksh-dev-photo-css">.photoAvatar{overflow:hidden;position:relative}.photoAvatar img{width:100%;height:100%;object-fit:cover;display:block}.photoAvatar span{display:none;place-items:center;width:100%;height:100%;background:linear-gradient(135deg,#2f7df6,#16b8a6);color:#fff;font-size:48px;font-weight:1000}</style><style id="hoksh-intro-photo-css">.photoIntro{overflow:hidden;position:relative}.photoIntro img{width:100%;height:100%;object-fit:cover;display:block}.photoIntro span{display:none;place-items:center;width:100%;height:100%;background:linear-gradient(135deg,#3f7cff,#22d3b6);color:#fff;font-size:42px;font-weight:1000}.photoIntro:after{content:"";position:absolute;inset:0;border:2px solid #ffffff33;border-radius:inherit;pointer-events:none}</style><style id="hoksh-smart-teacher-ui">
-/* HOKSH 4 — simple teacher-board UI: one rail + one floating pen */
-.top{height:58px!important;min-height:58px!important;background:rgba(8,20,33,.96)!important;border-bottom:1px solid #284257!important;box-shadow:0 5px 22px #0006!important}
-.top .sub,.top #leftToggle,.top #rightToggle,.top #zoomOut,.top #zoomIn,.top #zoomReset,.top #help,.top #installBtn{display:none!important}
-.top .spacer{flex:1}
-.top #viewModeBtn,.top #teachingModeBtn,.top #aiBtn,.top #export{display:inline-flex!important}
-.workspace{padding:12px 78px 18px 14px!important;overflow:auto!important;align-items:flex-start!important;justify-content:center!important}
-.status,.pagebar{display:none!important}
-.toolDock,.teachingTopTools,.hoksh-more{display:none!important}
-
-.smartRail{position:fixed;right:14px;top:50%;transform:translateY(-50%);z-index:60;display:flex;flex-direction:column;align-items:center;gap:5px;width:54px;padding:7px 5px;border:1px solid #35526a;border-radius:20px;background:rgba(8,20,32,.94);box-shadow:0 18px 55px #0009;backdrop-filter:blur(18px)}
-.smartRail button{width:44px;height:42px;border:1px solid #2c465b;border-radius:12px;background:#13283a;color:#edf8ff;font-size:17px;font-weight:800;cursor:pointer;transition:.15s}
-.smartRail button:hover{border-color:#2dd4bf;background:#17384c;transform:translateY(-1px)}
-.smartRail button:active{transform:scale(.96)}
-.smartSep{width:28px;height:1px;background:#35536a;margin:2px 0}
-.smartPage{display:flex;align-items:baseline;gap:2px;justify-content:center;color:#eaf5ff;line-height:1}
-.smartPage b{font-size:14px}.smartPage small{font-size:9px;color:#8da8bd}
-#smartZoom{font-size:10px}
-.floatingPen{position:fixed;left:22px;bottom:24px;z-index:70;touch-action:none}
-.floatingPenBtn{width:60px;height:60px;border-radius:50%;border:1px solid #67e8d4;background:linear-gradient(145deg,#16b8a6,#286fe4);color:#fff;font-size:25px;font-weight:900;box-shadow:0 14px 40px #000a,0 0 0 5px #16b8a620;cursor:pointer}
-.floatingPen.open .floatingPenBtn{transform:rotate(-20deg);box-shadow:0 16px 45px #000b,0 0 0 7px #16b8a630}
-.floatingPalette{position:absolute;left:0;bottom:70px;width:300px;padding:12px;border:1px solid #36546b;border-radius:18px;background:rgba(8,20,33,.98);box-shadow:0 22px 65px #000b;backdrop-filter:blur(20px);display:none}
-.floatingPen.open .floatingPalette{display:block}
-.floatTitle{font-size:12px;font-weight:900;color:#eaf7ff;margin-bottom:9px}
-.floatTools{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}.floatTools button{height:55px;border:1px solid #2d485f;border-radius:12px;background:#12283a;color:#f0f8ff;font-size:20px;cursor:pointer}.floatTools button small{display:block;font-size:9px;color:#91a9bc;margin-top:2px}
-.floatTools button.active{background:linear-gradient(135deg,#0d9e91,#2567c6);border-color:#66ead8}
-.floatRow{display:flex;gap:10px;align-items:center;margin-top:10px}
-.floatRow label{flex:1;font-size:10px;color:#9db4c7}
-.floatRow input[type=color]{display:block;width:100%;height:28px;border:0;background:transparent}
-.floatRow input[type=range]{width:100%}
-.floatSwatches{display:flex;gap:7px;margin-top:9px}
-.floatSwatches button{width:25px;height:25px;border-radius:50%;border:2px solid #ffffff55;cursor:pointer}
-@media(max-width:680px){
-  .top{height:52px!important;min-height:52px!important;padding:4px 7px!important}
-  .top .brand{font-size:18px!important}
-  .top #viewModeBtn,.top #teachingModeBtn,.top #aiBtn,.top #export{width:40px!important;min-width:40px!important;height:40px!important;padding:7px!important;font-size:0!important}
-  .top #viewModeBtn:first-letter,.top #teachingModeBtn:first-letter,.top #aiBtn:first-letter,.top #export:first-letter{font-size:17px}
-  .workspace{padding:5px 66px 10px 5px!important}
-  .smartRail{right:6px;width:48px;padding:5px 4px;border-radius:17px}
-  .smartRail button{width:40px;height:38px;font-size:15px;border-radius:11px}
-  .smartPage b{font-size:12px}.smartPage small{font-size:8px}
-  .floatingPen{left:12px;bottom:14px}
-  .floatingPenBtn{width:56px;height:56px}
-  .floatingPalette{left:0;bottom:65px;width:min(292px,calc(100vw - 24px))}
-}
-@media(min-width:681px){.teaching-mode .smartRail{right:14px}.teaching-mode .workspace{padding-right:78px!important}}
-</style><style id="hoksh-gallery-fix">
-.viewGallery{width:min(1100px,calc(100% - 20px))!important;margin:12px auto 40px!important;padding:8px!important;gap:14px!important;overflow:visible!important}
-.viewGallery.continuous{grid-template-columns:minmax(0,1fr)!important}
-.viewGallery.side{grid-template-columns:repeat(2,minmax(0,1fr))!important}
-.viewCard{width:100%;box-sizing:border-box}
-.viewCard canvas{width:100%!important;height:auto!important;max-width:100%!important}
-.viewHint{display:none!important}
-@media(max-width:680px){
- .viewGallery{width:calc(100% - 12px)!important;margin:8px auto 28px!important;padding:3px!important;gap:10px!important}
- .viewGallery.side{grid-template-columns:1fr!important}
- .viewCard{padding:5px!important;border-radius:11px!important}
- .viewNum{top:9px;right:9px;font-size:9px;padding:3px 6px}
-}
-</style><style id="hoksh-intro-finish">
-.intro-chips{display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin:14px auto 0}
-.intro-chips span{padding:6px 10px;border-radius:999px;border:1px solid #ffffff20;background:#ffffff09;color:#dcecf6;font-size:10px;font-weight:800}
-.intro-quote{margin-top:12px;color:#69d8ff;font-size:12px;font-weight:800}
-@media(max-width:600px){.intro-chips span{font-size:9px;padding:5px 8px}.intro-quote{font-size:11px}}
-@media print{
-  body{background:#fff!important}
-  .top,.smartRail,.floatingPen,.hoksh-welcome,.hoksh-intro,.seoContent,.viewPop,.toast{display:none!important}
-  .workspace{padding:0!important;overflow:visible!important;background:#fff!important}
-  .stage{box-shadow:none!important;transform:none!important}
-}
-</style><style id="hoksh-cross-device-print-final">
-@media print{
-  html,body{width:100%!important;height:auto!important;overflow:visible!important;background:#fff!important}
-  .top,.sidebar,.right,.smartRail,.floatingPen,.hoksh-more,.teachDock,.teachingTopTools,.pagebar,.status,.hoksh-intro,.hoksh-welcome,.modal,.toast,.viewHint,.seoContent{display:none!important}
-  .app,.body,.workspace{display:block!important;width:100%!important;height:auto!important;min-height:0!important;overflow:visible!important;padding:0!important;background:#fff!important}
-  .stage{margin:0 auto!important;box-shadow:none!important;transform:none!important;page-break-inside:avoid!important}
-  .stage canvas{display:block!important}
-  .viewGallery{display:block!important;width:100%!important;margin:0!important;padding:0!important}
-  .viewCard{break-inside:avoid!important;page-break-inside:avoid!important;margin:0 auto 12mm!important}
-}
-@media (min-width:681px) and (max-width:1100px){
-  .top{min-height:58px;padding:7px 9px;gap:5px}
-  .top .sub{display:none}
-  .top .btn{padding:8px 9px}
-  .sidebar{width:64px;padding:6px}
-  .tool{height:48px}
-  .right{width:240px;padding:10px}
-  .workspace{padding:12px}
-}
-@media (min-width:681px){
-  .stage{max-width:calc(100% - 6px)}
-}
-</style><style id="hoksh-stable-ux">
-/* Stable, clean editor surface: no SEO content below the working area. */
-.seoContent{display:none!important}
-body{overflow:hidden!important}
-.workspace{overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
-.stage{will-change:transform;contain:layout paint}
-canvas{touch-action:none!important}
-@media(max-width:680px){
- .workspace{padding:6px 6px 76px!important;align-items:flex-start!important;justify-content:center!important}
- .stage{margin-top:4px;box-shadow:0 8px 28px #0007}
- .emptyBox{margin:12px!important;padding:20px!important}
-}
-/* Cleaner new-page choices */
-.pageTemplate{position:relative;min-height:128px!important;padding:12px!important;border-radius:16px!important}
-.pageTemplate .paperPreview{height:82px!important;min-height:82px!important;border-radius:9px!important}
-.pageTemplate b,.pageTemplate small{position:relative;z-index:2}
-</style></head>
+</head>
 <body>
-<div class="hoksh-intro" id="hokshIntro">
-  <div class="intro-glow g1"></div><div class="intro-glow g2"></div>
-  <div class="intro-card">
-    <div class="intro-logo photoIntro"><img src="developer.jpg" alt="محمد شعبان محارب" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><span>ح</span></div>
-    <div class="intro-brand">حوكش <span>HOKSH</span></div>
-    <div class="intro-line"></div>
-    <div class="intro-author">محمد شعبان محارب</div>
-    <div class="intro-message">مساحة كتابة وتحرير احترافية للمدرسين والطلاب<br>على الهاتف والتابلت والكمبيوتر.</div>
-    <div class="intro-chips"><span>PDF</span><span>✎ كتابة</span><span>▰ تظليل</span><span>🎓 تدريس</span></div>
-    <div class="intro-quote">اكتب براحتك… والباقي على حوكش</div>
-    <div class="intro-loader"><i></i></div>
-  </div>
-</div><div class="hoksh-welcome" id="hokshWelcome">
-  <div class="welcome-card">
-    <div class="welcome-logo">ح</div>
-    <div class="welcome-title">حوكش <span>HOKSH</span></div>
-    <div class="welcome-sub">محرر الصور وPDF الذكي للمدرسين والطلاب</div>
-    <div class="welcome-actions">
-      <button class="welcomeAction primary" id="welcomeNew"><b>＋</b><span>ملف جديد</span><small>صفحة أو مجموعة صفحات</small></button>
-      <button class="welcomeAction" id="welcomeOpen"><b>📂</b><span>إضافة ملف</span><small>PDF أو صورة</small></button>
-      <button class="welcomeAction" id="welcomeTeaching"><b>🎓</b><span>وضع التدريس</span><small>سبورة وأدوات سريعة</small></button>
-      <button class="welcomeAction" id="welcomeRestore"><b>↺</b><span>استكمال آخر عمل</span><small>من الحفظ المحلي</small></button>
-    </div>
-    <div class="welcomeHint">اختر من أين تريد أن تبدأ</div>
-  </div>
-</div>
 <div class="app">
-<header class="top">
-<div class="brand">حوكش <span>HOKSH</span></div><div class="sub">Smart Image & PDF Studio</div><div class="spacer"></div>
-<button class="btn hideM" id="undo">↶ تراجع</button><button class="btn hideM" id="redo">↷ إعادة</button>
-<button class="btn" id="zoomOut">−</button><button class="btn" id="zoomReset">100%</button><button class="btn" id="zoomIn">+</button>
-<button class="btn" id="help" aria-label="مساعدة حوكش" title="مساعدة حوكش">؟</button><button class="btn" id="installBtn" style="display:none">📲 تثبيت حوكش</button><button class="btn" id="leftToggle" title="إخفاء/إظهار أدوات الرسم">☰ الأدوات</button><button class="btn" id="rightToggle" title="إخفاء/إظهار اللوحة الجانبية">◫ اللوحة</button><button class="btn teachBtn" id="teachingModeBtn" title="وضع التدريس">🎓 وضع التدريس</button><button class="btn" id="aiBtn" title="مساعد حوكش الذكي">✦ HOKSH AI</button><button class="btn" id="viewModeBtn" title="طريقة عرض الصفحات">▦ العرض</button>
-<button class="btn primary" id="export" title="تصدير الملف">تصدير</button><label class="btn primary" for="file">📂 فتح ملف</label><input id="file" type="file" accept="image/*,.pdf,application/pdf" hidden>
-</header>
-<div class="body">
-<nav class="sidebar">
-<button class="tool active" data-tool="select"><b>↖</b>تحديد</button><button class="tool" data-tool="pen"><b>✎</b>قلم</button><button class="tool" data-tool="highlight"><b>▰</b>تظليل</button><button class="tool" data-tool="line"><b>╱</b>خط</button><button class="tool" data-tool="arrow"><b>➜</b>سهم</button><button class="tool" data-tool="rect"><b>□</b>مستطيل</button><button class="tool" data-tool="circle"><b>○</b>دائرة</button><button class="tool" data-tool="text"><b>T</b>نص</button><button class="tool" data-tool="eraser"><b>⌫</b>مسح</button>
-</nav>
-<main class="workspace" id="workspace">
-<div class="stage" id="stage"><canvas id="canvas"></canvas></div>
-<div class="empty" id="empty"><div class="emptyBox"><strong>ابدأ في حوكش</strong><div>حرّر الصور وملفات PDF، اكتب وارسم وظلل وأضف النصوص والأشكال ثم صدّر ملفك كاملًا.</div><div class="mini">JPG · PNG · WEBP · PDF &nbsp; • &nbsp; حفظ محلي &nbsp; • &nbsp; يعمل على الهاتف والكمبيوتر</div><div class="emptyActions"><label class="btn primary" for="file">📂 اختيار ملف من الجهاز</label><button class="btn" id="newPage">📄 صفحة بيضاء</button><button class="btn" id="newPages">📚 عدة صفحات</button></div></div></div>
-<div class="pagebar" id="pagebar" style="display:none" aria-hidden="true"><button class="btn" id="prev">‹</button><input class="pageInput" id="pageInput" value="1"><span id="pageTotal">/ 1</span><button class="btn" id="next">›</button><button class="btn" id="rotate">↻</button><button class="btn" id="full">⛶</button></div>
-<div class="status" id="status" aria-hidden="true">جاهز • <span id="netStatus">متصل</span></div><div class="viewGallery" id="viewGallery"></div><div class="viewHint" id="viewHint">اضغط على أي صفحة للعودة إليها وتحريرها</div>
-</main>
-<aside class="right">
-<div class="section"><h3>الملف</h3><label class="drop" for="file">📂 اضغط هنا لاختيار ملف من الهاتف<br><small>JPG · PNG · WEBP · PDF</small></label><div class="row"><button class="btn" id="newPageSide" style="width:100%">📄 إنشاء صفحة بيضاء</button></div><div class="row"><button class="btn" id="newPagesSide" style="width:100%">📚 إنشاء عدة صفحات</button></div><div class="row"><button class="btn" id="downloadOriginal" style="width:100%">⬇ تنزيل PDF الأصلي كاملًا</button></div><div class="row"><button class="btn primary" id="exportPdf" style="width:100%">📄 تنزيل PDF كامل بعد التعديل</button></div></div>
-<div class="section"><h3>أداة الرسم</h3><div class="row"><label>اللون</label><input class="color" id="color" type="color" value="#ff3158"></div><div class="row"><label>السُمك</label><input class="range" id="size" type="range" min="1" max="40" value="5"><span id="sizeVal">5</span></div><div class="row"><label>الشفافية</label><input class="range" id="opacity" type="range" min="10" max="100" value="100"><span id="opVal">100%</span></div></div>
-<div class="section"><h3>النص</h3><div class="row"><label>الحجم</label><input class="range" id="fontSize" type="range" min="12" max="96" value="32"><span id="fontVal">32</span></div><div class="mini">اختر «نص» ثم اضغط على المكان المطلوب.</div></div>
-<div class="section"><h3>حوكش</h3><div class="mini"><a href="privacy.html" target="_blank" style="color:#9aa6ff">سياسة الخصوصية</a><br>تطوير: <b style="color:#eef3ff">محمد شعبان محارب</b><br>نسخة تعمل محليًا مع دعم التثبيت على الهاتف.</div></div><div class="section"><h3>الحفظ</h3><button class="btn" id="saveLocal" style="width:100%">💾 حفظ العمل محليًا</button><button class="btn" id="restoreLocal" style="width:100%;margin-top:7px">↩ استعادة آخر حفظ</button><button class="btn danger" id="clearLocal" style="width:100%;margin-top:7px">مسح الحفظ المحلي</button><div class="mini" style="margin-top:7px">الحفظ المحلي على جهازك فقط.</div></div>
-<div class="section"><h3>اختصارات</h3><div class="mini">Ctrl/Cmd+Z تراجع<br>Ctrl/Cmd+Shift+Z إعادة<br>Delete/Backspace حذف المحدد<br>Esc إلغاء<br>Ctrl/Cmd+S حفظ محلي</div></div>
-</aside>
-</div></div>
-<div class="modal" id="textModal"><div class="dialog"><h3>إضافة نص</h3><textarea id="textInput" placeholder="اكتب النص هنا..."></textarea><div class="row" style="justify-content:flex-end"><button class="btn" id="cancelText">إلغاء</button><button class="btn primary" id="addText">إضافة</button></div></div></div>
-<div class="modal" id="pageModal"><div class="dialog pageCreatorDialog">
-<h3>✨ ملف جديد</h3>
-<div class="mini">اختار شكل الورقة والمقاس وعدد الصفحات قبل الدخول إلى المحرر.</div>
-<div class="templateGrid">
-<button class="pageTemplate active" data-template="plain"><span class="paperPreview plain"></span><b>أبيض</b><small>صفحة فارغة</small></button>
-<button class="pageTemplate" data-template="lined"><span class="paperPreview lined"></span><b>مسطر</b><small>سطور للكتابة</small></button>
-<button class="pageTemplate" data-template="margin"><span class="paperPreview margin"></span><b>هامش</b><small>سطور + هامش</small></button>
-<button class="pageTemplate" data-template="grid"><span class="paperPreview grid"></span><b>مربعات</b><small>شبكة دقيقة</small></button>
-<button class="pageTemplate" data-template="dots"><span class="paperPreview dots"></span><b>نقطي</b><small>نقاط متساوية</small></button>
-<button class="pageTemplate" data-template="frame"><span class="paperPreview frame"></span><b>إطار</b><small>إطار بسيط</small></button>
-<button class="pageTemplate" data-template="double"><span class="paperPreview double"></span><b>إطار مزدوج</b><small>شكل رسمي</small></button>
-<button class="pageTemplate" data-template="header"><span class="paperPreview header"></span><b>عنوان علوي</b><small>مساحة للعنوان</small></button>
-<button class="pageTemplate" data-template="exam"><span class="paperPreview exam"></span><b>ورقة امتحان</b><small>رأس بيانات</small></button>
-<button class="pageTemplate" data-template="cornell"><span class="paperPreview cornell"></span><b>ملاحظات</b><small>نظام ملاحظات</small></button>
+  <header class="topbar">
+    <div class="brand">حوكش <span>HOKSH</span></div>
+    <div class="topActions">
+      <label class="btn primary wide" for="fileInput">📂 فتح ملف</label>
+      <button class="btn icon" id="undoBtn" title="تراجع">↶</button>
+      <button class="btn icon" id="redoBtn" title="إعادة">↷</button>
+      <button class="btn icon wide" id="zoomOut" title="تصغير">−</button>
+      <button class="btn wide" id="zoomReset">100%</button>
+      <button class="btn icon wide" id="zoomIn" title="تكبير">+</button>
+      <button class="btn" id="moreBtn">المزيد</button>
+      <button class="btn primary" id="exportBtn">تصدير</button>
+      <input id="fileInput" type="file" hidden accept="image/*,.pdf,application/pdf">
+    </div>
+  </header>
+  <main class="main">
+    <aside class="tools">
+      <button class="tool active" data-tool="select"><b>↖</b>تحديد</button>
+      <button class="tool" data-tool="pen"><b>✎</b>قلم</button>
+      <button class="tool" data-tool="highlight"><b>▰</b>تظليل</button>
+      <button class="tool" data-tool="eraser"><b>⌫</b>مسح</button>
+      <div class="toolSep"></div>
+      <button class="tool" data-tool="text"><b>T</b>نص</button>
+      <button class="tool" data-tool="line"><b>╱</b>خط</button>
+      <button class="tool" data-tool="arrow"><b>➜</b>سهم</button>
+      <button class="tool" data-tool="rect"><b>□</b>مربع</button>
+      <button class="tool" data-tool="circle"><b>○</b>دائرة</button>
+    </aside>
+    <section class="workspace" id="workspace">
+      <div class="stage" id="stage"><canvas id="canvas"></canvas></div>
+      <div class="empty" id="empty">
+        <div class="emptyCard">
+          <h2>ابدأ ملفك</h2>
+          <p>افتح صورة أو PDF بالحجم الأصلي، أو أنشئ صفحة جديدة للكتابة.</p>
+          <div class="emptyGrid">
+            <label class="emptyBtn primary" for="fileInput"><strong>📂</strong><span>فتح ملف</span><small>صورة أو PDF</small></label>
+            <button class="emptyBtn" id="newPageBtn"><strong>＋</strong><span>صفحة جديدة</span><small>ورقة جاهزة للكتابة</small></button>
+            <button class="emptyBtn" id="restoreBtn"><strong>↻</strong><span>استئناف الأخير</span><small>من الحفظ المحلي</small></button>
+            <button class="emptyBtn" id="aboutHomeBtn"><strong>ⓘ</strong><span>عن حوكش</span><small>المطور والبرنامج</small></button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
 </div>
-<div class="newFileOptions">
-<label>المقاس<select id="pageSize"><option value="a4">A4 — رأسي</option><option value="a5">A5 — رأسي</option><option value="square">مربع</option><option value="wide">عريض</option></select></label>
-<label>عدد الصفحات<input id="pageCount" type="number" min="1" max="50" value="1"></label>
+
+<div class="dock" id="mobileDock">
+  <button id="mobileOpen">📂<span>فتح</span></button>
+  <button id="mobileUndo">↶<span>تراجع</span></button>
+  <button id="mobileTools">✎<span>أدوات</span></button>
+  <button id="mobileView">▣<span>صفحة</span></button>
+  <button id="mobileMore">⋮<span>المزيد</span></button>
 </div>
-<div class="row" style="justify-content:flex-end"><button class="btn" id="cancelPage">إلغاء</button><button class="btn primary" id="createPages">إنشاء الملف</button></div>
+
+<div class="pageBar" id="pageBar">
+  <button id="prevPage">‹</button><input class="pageNo" id="pageNo" value="1" inputmode="numeric"><span id="pageTotal">/1</span><button id="nextPage">›</button>
+</div>
+<div class="status" id="status">جاهز</div>
+<div class="bottomInfo" id="bottomInfo">حوكش HOKSH • محمد شعبان محارب</div>
+
+<div class="modal" id="toolsModal"><div class="dialog" style="width:min(430px,94vw)">
+  <h3>أدوات الكتابة</h3>
+  <div class="emptyGrid">
+    <button class="emptyBtn" data-tool="select">↖<span>تحديد</span></button>
+    <button class="emptyBtn" data-tool="pen">✎<span>قلم</span></button>
+    <button class="emptyBtn" data-tool="highlight">▰<span>تظليل</span></button>
+    <button class="emptyBtn" data-tool="eraser">⌫<span>مسح</span></button>
+    <button class="emptyBtn" data-tool="text">T<span>نص</span></button>
+    <button class="emptyBtn" data-tool="line">╱<span>خط</span></button>
+    <button class="emptyBtn" data-tool="arrow">➜<span>سهم</span></button>
+    <button class="emptyBtn" data-tool="rect">□<span>مربع</span></button>
+    <button class="emptyBtn" data-tool="circle">○<span>دائرة</span></button>
+  </div>
+  <div class="controls">
+    <label class="field">اللون<input id="color" type="color" value="#17a891"></label>
+    <label class="field">السُمك<input id="size" type="range" min="1" max="40" value="5"></label>
+    <label class="field">الشفافية<input id="opacity" type="range" min="20" max="100" value="100"></label>
+  </div>
+  <div class="row end" style="margin-top:14px"><button class="btn" id="closeTools">إغلاق</button></div>
 </div></div>
-<div class="modal" id="helpModal"><div class="dialog"><h3>مساعدة حوكش</h3><div class="mini">• من الهاتف اضغط «فتح ملف» وسيظهر لك مدير الملفات/الصور لاختيار الملف مباشرة.<br>• يمكنك إنشاء صفحة بيضاء أو عدة صفحات للكتابة.<br>• في PDF استخدم الأسهم أو رقم الصفحة للتنقل بين كل الصفحات.<br>• ارسم، ظلل، أضف أسهمًا وأشكالًا ونصوصًا.<br>• تنزيل PDF كامل بعد التعديل يجمع كل الصفحات.<br>• الحفظ المحلي يحفظ حالة الرسم على جهازك.</div><div class="row" style="justify-content:flex-end"><button class="btn primary" id="closeHelp">تمام</button></div></div></div>
-<div class="modal" id="aiModal"><div class="ai"><h3>✦ مساعد حوكش AI</h3><div class="aiTabs"><button class="btn primary" id="editorAiTab">أوامر المحرر</button><button class="btn" id="generalAiTab">مساعد عام</button></div><div id="editorAiMode" class="aiMode active"><div class="mini">أوامر مباشرة داخل حوكش بدون مفتاح API.</div><div class="aiLog" id="aiLog">اكتب مثلًا: «ارسم مستطيل» أو «أضف سهم» أو «اذهب للصفحة 5».</div><div class="aiInput"><input id="aiInput" placeholder="اكتب أمرًا للمحرر..."><button class="btn primary" id="aiSend">تنفيذ</button></div></div><div id="generalAiMode" class="aiMode"><div class="aiGeneralNote">هنا تقدر تسأل عن أي موضوع مثل ChatGPT. حاليًا المحادثة العامة تفتح ChatGPT مباشرة لأن ربط نموذج عام داخل موقع مجاني يحتاج خادمًا آمنًا لمفتاح API؛ لن نضع مفتاحًا سريًا داخل حوكش.</div><button class="btn primary" id="openChatGPT" style="width:100%">فتح المساعد العام</button></div><div class="row" style="justify-content:flex-end"><button class="btn" id="closeAI">إغلاق</button></div></div></div>
+
+<div class="modal" id="pageModal"><div class="dialog">
+  <h3>صفحة جديدة</h3>
+  <div class="templateGrid">
+    <button class="template active" data-template="plain"><div class="preview"></div><b>أبيض</b><small>صفحة عادية</small></button>
+    <button class="template" data-template="lined"><div class="preview lined"></div><b>مسطر</b><small>للكتابة</small></button>
+    <button class="template" data-template="grid"><div class="preview grid"></div><b>مربعات</b><small>رياضيات</small></button>
+    <button class="template" data-template="dots"><div class="preview dots"></div><b>نقطي</b><small>ملاحظات</small></button>
+    <button class="template" data-template="frame"><div class="preview frame"></div><b>إطار</b><small>عنوان أو ملخص</small></button>
+  </div>
+  <div class="controls">
+    <label class="field">المقاس<select id="pageSize"><option value="a4">A4</option><option value="a5">A5</option><option value="square">مربع</option><option value="wide">عريض</option></select></label>
+    <label class="field">عدد الصفحات<input id="pageCount" type="number" min="1" max="30" value="1"></label>
+  </div>
+  <div class="row end" style="margin-top:14px"><button class="btn" id="cancelPage">إلغاء</button><button class="btn primary" id="createPages">إنشاء</button></div>
+</div></div>
+
+<div class="modal" id="textModal"><div class="dialog" style="width:min(420px,94vw)">
+  <h3>إضافة نص</h3><textarea id="textInput" placeholder="اكتب النص هنا..." style="min-height:120px;resize:vertical;background:#071521;color:#fff;border:1px solid #29465b;border-radius:10px;padding:10px;width:100%"></textarea>
+  <div class="controls"><label class="field">الحجم<input id="fontSize" type="number" min="8" max="120" value="28"></label></div>
+  <div class="row end" style="margin-top:14px"><button class="btn" id="cancelText">إلغاء</button><button class="btn primary" id="addText">إضافة</button></div>
+</div></div>
+
+<div class="modal" id="moreModal"><div class="dialog" style="width:min(420px,94vw)">
+  <h3>المزيد</h3>
+  <div class="emptyGrid">
+    <button class="emptyBtn" id="saveBtn"><strong>💾</strong><span>حفظ</span><small>على الجهاز</small></button>
+    <button class="emptyBtn" id="viewBtn"><strong>▣</strong><span>طريقة العرض</span><small>صفحة أو متتالية</small></button>
+    <button class="emptyBtn" id="fullBtn"><strong>⛶</strong><span>ملء الشاشة</span><small>مساحة أكبر</small></button>
+    <button class="emptyBtn" id="chatBtn"><strong>✦</strong><span>مساعد حوكش</span><small>أوامر سريعة</small></button>
+    <button class="emptyBtn" id="developerBtn"><strong>👨‍💻</strong><span>معلومات المطور</span><small>محمد شعبان محارب</small></button>
+  </div>
+  <div class="row end" style="margin-top:14px"><button class="btn" id="closeMore">إغلاق</button></div>
+</div></div>
+
+<div class="modal" id="viewModal"><div class="dialog" style="width:min(400px,94vw)">
+  <h3>طريقة عرض الصفحات</h3>
+  <div class="emptyGrid">
+    <button class="emptyBtn" id="singleView"><strong>▣</strong><span>صفحة واحدة</span></button>
+    <button class="emptyBtn" id="continuousView"><strong>▤</strong><span>صفحات متتالية</span></button>
+  </div>
+  <div class="row end" style="margin-top:14px"><button class="btn" id="closeView">إغلاق</button></div>
+</div></div>
+
+<div class="modal" id="chatModal"><div class="dialog" style="width:min(480px,94vw)">
+  <h3>✦ مساعد حوكش</h3>
+  <p class="muted">يمكنه تنفيذ أوامر بسيطة داخل المحرر بدون مفتاح API. المساعد العام يمكن فتحه من ChatGPT.</p>
+  <input id="chatInput" placeholder="مثال: اختر القلم / اذهب للصفحة 3" style="width:100%;padding:11px;border-radius:10px;border:1px solid #29465b;background:#071521;color:#fff">
+  <div class="row end" style="margin-top:10px"><button class="btn primary" id="chatRun">تنفيذ</button><button class="btn" id="openChatGPT">فتح ChatGPT</button><button class="btn" id="closeChat">إغلاق</button></div>
+</div></div>
+
+<div class="modal" id="aboutModal"><div class="dialog" style="width:min(620px,94vw)">
+  <div class="aboutHero">
+    <div class="aboutAvatar"><img src="developer.jpg" alt="محمد شعبان محارب" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span>ح</span></div>
+    <div><h3 style="margin:0">محمد شعبان محارب</h3><div class="muted">المطور والمصمم — حوكش HOKSH</div></div>
+  </div>
+  <p class="muted" style="margin-top:18px">حوكش محرر عربي للصور وملفات PDF، مصمم للكتابة والرسم والتظليل وإضافة النصوص والأشكال ثم حفظ العمل وتصديره.</p>
+  <div class="row end"><button class="btn" id="closeAbout">إغلاق</button></div>
+</div></div>
+
 <div class="toast" id="toast"></div>
-<script>
-const canvas=document.getElementById('canvas'),ctx=canvas.getContext('2d'),stage=document.getElementById('stage'),workspace=document.getElementById('workspace');
-let bg=null,tool='select',drawing=false,start={x:0,y:0},current=null,pendingText=null,scale=1,pdf=null,pdfMode=false,page=1,pdfBytes=null,rotation=0,selected=null;\nlet pdfLibPromise=null,jsPdfPromise=null;\nfunction getPdfLib(){if(!pdfLibPromise)pdfLibPromise=import('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.mjs').then(lib=>{lib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.worker.min.mjs';return lib});return pdfLibPromise}\nfunction getJsPdf(){if(!jsPdfPromise)jsPdfPromise=import('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.es.min.js');return jsPdfPromise}\nsetTimeout(()=>{if(navigator.onLine)getPdfLib().catch(()=>{})},900);
-let pages={},strokes=[],undone=[];let deferredInstall=null;const $=id=>document.getElementById(id);const color=$('color'),size=$('size'),opacity=$('opacity');const state={w:1200,h:800};let saveTimer=null;
-function toast(s){$('toast').textContent=s;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),1800)}
-function updateNetwork(){const on=navigator.onLine;$('netStatus').textContent=on?'متصل':'بدون نت';$('netStatus').style.color=on?'#8ee6a6':'#ffd36e'}
-window.addEventListener('online',updateNetwork);window.addEventListener('offline',updateNetwork);updateNetwork();
-window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredInstall=e;$('installBtn').style.display='inline-block'});
-$('installBtn').onclick=async()=>{if(!deferredInstall)return;deferredInstall.prompt();await deferredInstall.userChoice;deferredInstall=null;$('installBtn').style.display='none'};
-function resizeCanvas(w,h){state.w=w;state.h=h;canvas.width=w;canvas.height=h;stage.style.width=w+'px';stage.style.height=h+'px';scale=1;render();requestAnimationFrame(()=>requestAnimationFrame(fit))}
-function fit(){const r=workspace.getBoundingClientRect(),pad=70;const f=Math.min((r.width-pad)/state.w,(r.height-pad)/state.h,1.5);if(scale===1)scale=f;stage.style.transform='scale('+scale+')';$('zoomReset').textContent=Math.round(scale*100)+'%'}
-function fitZoom(){stage.style.transform='scale('+scale+')';$('zoomReset').textContent=Math.round(scale*100)+'%'}
-function pos(e){const r=canvas.getBoundingClientRect();return{x:(e.clientX-r.left)/scale,y:(e.clientY-r.top)/scale}}
-function drawShape(s,c=ctx){c.save();c.globalAlpha=s.opacity??1;c.lineWidth=s.width||4;c.strokeStyle=s.color||'#ff3158';c.fillStyle=s.color||'#ff3158';c.lineCap='round';c.lineJoin='round';if(s.type==='pen'||s.type==='highlight'){c.globalAlpha=s.type==='highlight'?0.28:(s.opacity??1);c.beginPath();const pts=s.points||[];if(pts.length===1){c.arc(pts[0].x,pts[0].y,Math.max(1,(s.width||4)/2),0,Math.PI*2);c.fill()}else if(pts.length===2){c.moveTo(pts[0].x,pts[0].y);c.lineTo(pts[1].x,pts[1].y)}else{c.moveTo(pts[0].x,pts[0].y);for(let i=1;i<pts.length-1;i++){const p=pts[i],n=pts[i+1];c.quadraticCurveTo(p.x,p.y,(p.x+n.x)/2,(p.y+n.y)/2)}const a=pts[pts.length-2],b=pts[pts.length-1];c.quadraticCurveTo(a.x,a.y,b.x,b.y)}c.stroke()}else if(s.type==='line'||s.type==='arrow'){c.beginPath();c.moveTo(s.x,s.y);c.lineTo(s.x2,s.y2);c.stroke();if(s.type==='arrow'){const a=Math.atan2(s.y2-s.y,s.x2-s.x),L=18;c.beginPath();c.moveTo(s.x2,s.y2);c.lineTo(s.x2-L*Math.cos(a-.5),s.y2-L*Math.sin(a-.5));c.moveTo(s.x2,s.y2);c.lineTo(s.x2-L*Math.cos(a+.5),s.y2-L*Math.sin(a+.5));c.stroke()}}else if(s.type==='rect')c.strokeRect(Math.min(s.x,s.x2),Math.min(s.y,s.y2),Math.abs(s.x2-s.x),Math.abs(s.y2-s.y));else if(s.type==='circle'){const cx=(s.x+s.x2)/2,cy=(s.y+s.y2)/2,rx=Math.abs(s.x2-s.x)/2,ry=Math.abs(s.y2-s.y)/2;c.beginPath();c.ellipse(cx,cy,rx,ry,0,0,Math.PI*2);c.stroke()}else if(s.type==='text'){c.fillStyle=s.color;c.font=s.size+'px system-ui';c.textBaseline='top';c.fillText(s.text,s.x,s.y)}c.restore()}
-function render(){ctx.clearRect(0,0,state.w,state.h);if(bg)ctx.drawImage(bg,0,0,state.w,state.h);strokes.forEach(s=>drawShape(s));if(current)drawShape(current)}
-function commitPage(){if(pdfMode||blankMode)pages[page]=JSON.parse(JSON.stringify(strokes))}
-function loadPageState(){strokes=pages[page]?JSON.parse(JSON.stringify(pages[page])):[];undone=[];selected=null}
-function changed(){clearTimeout(saveTimer);saveTimer=setTimeout(saveLocalSilent,700)}
-function setTool(t){
-  tool=t;
-  document.querySelectorAll('.tool').forEach(b=>b.classList.toggle('active',b.dataset.tool===t));
-  document.querySelectorAll('[data-dock]').forEach(b=>b.classList.toggle('active',b.dataset.dock===t));
-  document.querySelectorAll('[data-toptool]').forEach(b=>b.classList.toggle('active',b.dataset.toptool===t));  canvas.style.cursor=t==='eraser'?'none':(t==='select'?'default':'crosshair'); canvas.style.touchAction=t==='select'?'auto':'none';
-}
-document.querySelectorAll('.tool').forEach(b=>b.onclick=()=>setTool(b.dataset.tool));
 
-let eraserPoint=null;
-function eraseAt(p){
-  const radius=Math.max(18,+size.value*2.8);
-  let changedErase=false;
-  for(let i=strokes.length-1;i>=0;i--){
-    const s=strokes[i];
-    if(s.points&&s.points.length){
-      const chunks=[]; let chunk=[];
-      for(const q of s.points){
-        if(Math.hypot(q.x-p.x,q.y-p.y)>radius) chunk.push(q);
-        else { if(chunk.length>=2) chunks.push(chunk); chunk=[]; }
-      }
-      if(chunk.length>=2) chunks.push(chunk);
-      if(chunks.length!==1 || chunks[0]?.length!==s.points.length){
-        strokes.splice(i,1,...chunks.map(points=>({...s,points})));
-        changedErase=true;
-      }
-    }else if(s.type==='text'){
-      if(p.x>=s.x-radius&&p.x<=s.x+(s.text.length*s.size*.6)+radius&&p.y>=s.y-radius&&p.y<=s.y+s.size*1.2+radius){
-        strokes.splice(i,1); changedErase=true;
-      }
-    }else if(s.x!==undefined&&s.x2!==undefined){
-      const minX=Math.min(s.x,s.x2)-radius,maxX=Math.max(s.x,s.x2)+radius;
-      const minY=Math.min(s.y,s.y2)-radius,maxY=Math.max(s.y,s.y2)+radius;
-      if(p.x>=minX&&p.x<=maxX&&p.y>=minY&&p.y<=maxY){strokes.splice(i,1);changedErase=true;}
-    }
-  }
-  if(changedErase){undone=[];commitPage();render();changed();}
-}
-canvas.addEventListener('pointerdown',e=>{
-  if(!bg)return;
-  canvas.setPointerCapture?.(e.pointerId);
-  const p=pos(e);
-  if(tool==='select'){
-    selected=strokes.slice().reverse().find(s=>{
-      if(s.type==='text')return p.x>=s.x&&p.x<=s.x+(s.text.length*s.size*.6)&&p.y>=s.y&&p.y<=s.y+s.size*1.2;
-      if(['line','arrow'].includes(s.type))return Math.hypot(p.x-(s.x+s.x2)/2,p.y-(s.y+s.y2)/2)<18;
-      return false;
-    })||null;
-    render(); return;
-  }
-  if(tool==='eraser'){eraseAt(p);return;}
-  if(tool==='text'){pendingText=p;$('textModal').classList.add('show');$('textInput').focus();return;}
-  drawing=true;start=p;
-  if(tool==='pen'||tool==='highlight')current={type:tool,points:[p],color:color.value,width:+size.value,opacity:+opacity.value/100};
-  else if(['line','arrow','rect','circle'].includes(tool))current={type:tool,x:p.x,y:p.y,x2:p.x,y2:p.y,color:color.value,width:+size.value,opacity:+opacity.value/100};
-});
-canvas.addEventListener('pointermove',e=>{
-  e.preventDefault();
-  const events=e.getCoalescedEvents?e.getCoalescedEvents():[e];
-  if(tool==='eraser'){
-    showEraserCursor(e);
-    if(e.buttons) events.forEach(ev=>eraseAt(pos(ev)));
-    return;
-  }
-  if(!drawing)return;
-  if(current?.points){
-    events.forEach(ev=>{const p=pos(ev);const last=current.points[current.points.length-1];if(!last||Math.hypot(p.x-last.x,p.y-last.y)>0.45)current.points.push(p)});
-  }else if(current){const p=pos(events[events.length-1]);current.x2=p.x;current.y2=p.y}
-  render();
-});
-function finishPointer(e){if(!drawing)return;drawing=false;if(current){strokes.push(current);undone=[];current=null;commitPage();render();changed();}}
-canvas.addEventListener('pointerup',finishPointer);
-canvas.addEventListener('pointercancel',finishPointer);
-
-function undo(){if(strokes.length){undone.push(strokes.pop());commitPage();render();changed()}}function redo(){if(undone.length){strokes.push(undone.pop());commitPage();render();changed()}}$('undo').onclick=undo;$('redo').onclick=redo;
-$('size').oninput=e=>$('sizeVal').textContent=e.target.value;$('opacity').oninput=e=>$('opVal').textContent=e.target.value+'%';$('fontSize').oninput=e=>$('fontVal').textContent=e.target.value;
-$('zoomIn').onclick=()=>{scale=Math.min(scale*1.15,4);fitZoom()};$('zoomOut').onclick=()=>{scale=Math.max(scale/1.15,.2);fitZoom()};$('zoomReset').onclick=()=>{scale=1;fit()};
-$('cancelText').onclick=()=>{pendingText=null;$('textModal').classList.remove('show')};$('addText').onclick=()=>{const text=$('textInput').value.trim();if(text&&pendingText){strokes.push({type:'text',text,x:pendingText.x,y:pendingText.y,color:color.value,size:+$('fontSize').value,opacity:+opacity.value/100});undone=[];commitPage();render();changed()}$('textInput').value='';pendingText=null;$('textModal').classList.remove('show')};
-document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='z'){e.preventDefault();undo()}else if((e.ctrlKey||e.metaKey)&&(e.key.toLowerCase()==='y'||(e.shiftKey&&e.key.toLowerCase()==='z'))){e.preventDefault();redo()}else if((e.key==='Delete'||e.key==='Backspace')&&selected){strokes=strokes.filter(s=>s!==selected);selected=null;commitPage();render();changed()}else if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='s'){e.preventDefault();saveLocal()}else if(e.key==='Escape'){document.querySelectorAll('.modal').forEach(m=>m.classList.remove('show'))}});
-$('file').onchange=e=>{if(e.target.files[0])loadFile(e.target.files[0]);e.target.value=''};workspace.addEventListener('dragover',e=>e.preventDefault());workspace.addEventListener('drop',e=>{e.preventDefault();loadFile(e.dataTransfer.files[0])});
-async function loadFile(file){if(!file)return;$('empty').style.display='none';pages={};strokes=[];undone=[];pdf=null;pdfMode=false;blankMode=false;pdfBytes=null;page=1;rotation=0;workspace.classList.remove('blank-view');if(file.type==='application/pdf'||file.name.toLowerCase().endsWith('.pdf')){try{pdfBytes=await file.arrayBuffer();const lib=await getPdfLib();pdf=await lib.getDocument({data:pdfBytes.slice(0)}).promise;pdfMode=true;$('pagebar').style.display='flex';await renderPdfPage();toast('تم فتح PDF بكل صفحاته')}catch(err){console.error(err);toast('تعذر فتح PDF')}}else{workspace.classList.remove('blank-view');const img=new Image();img.onload=()=>{bg=img;resizeCanvas(img.naturalWidth,img.naturalHeight);$('pagebar').style.display='none';$('status').textContent='صورة';toast('تم فتح الملف من الجهاز')};img.onerror=()=>toast('تعذر قراءة الملف');img.src=URL.createObjectURL(file)}}
-async function renderPdfPage(){const pg=await pdf.getPage(page),vp=pg.getViewport({scale:1.5,rotation});const c=document.createElement('canvas'),cc=c.getContext('2d');c.width=vp.width;c.height=vp.height;await pg.render({canvasContext:cc,viewport:vp}).promise;bg=c;resizeCanvas(c.width,c.height);loadPageState();$('pageInput').value=page;$('pageTotal').textContent='/ '+pdf.numPages;$('status').textContent='صفحة '+page+' من '+pdf.numPages}
-$('prev').onclick=async()=>{if(pdf&&page>1){commitPage();page--;rotation=0;await renderPdfPage()}};$('next').onclick=async()=>{if(pdf&&page<pdf.numPages){commitPage();page++;rotation=0;await renderPdfPage()}};$('pageInput').onchange=async e=>{let n=Math.max(1,Math.min(pdf?.numPages||1,+e.target.value||1));if(pdf){commitPage();page=n;rotation=0;await renderPdfPage()}};$('rotate').onclick=async()=>{if(pdf){rotation=(rotation+90)%360;await renderPdfPage()}};$('full').onclick=()=>{if(document.fullscreenElement)document.exitFullscreen();else workspace.requestFullscreen?.()};
-function downloadBlob(blob,name){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1500)}
-$('downloadOriginal').onclick=()=>{if(!pdfBytes){toast('افتح ملف PDF أولًا');return}downloadBlob(new Blob([pdfBytes],{type:'application/pdf'}),'HOKSH-original-full.pdf');toast('تم تنزيل PDF الأصلي كاملًا')};
-function exportCurrentPNG(){if(!bg){toast('افتح ملفًا أولًا');return}const out=document.createElement('canvas');out.width=state.w;out.height=state.h;const oc=out.getContext('2d');oc.drawImage(bg,0,0,state.w,state.h);strokes.forEach(s=>drawShape(s,oc));out.toBlob(b=>downloadBlob(b,'HOKSH-page-'+page+'.png'),'image/png')}
-$('export').onclick=()=>{if(pdfMode||blankMode)exportPdf();else exportCurrentPNG()};
-async function exportPdf(){if(!pdf&&!blankMode){toast('افتح ملف PDF أو أنشئ صفحات بيضاء أولًا');return}if(blankMode){commitPage();const js=await getJsPdf();const first=pages[1]||[];const sizes=blankSizes;const doc=new js.jsPDF({orientation:sizes.w>sizes.h?'landscape':'portrait',unit:'pt',format:[sizes.w/3.125,sizes.h/3.125],compress:true});for(let i=1;i<=blankCount;i++){if(i>1)doc.addPage([sizes.w/3.125,sizes.h/3.125],sizes.w>sizes.h?'landscape':'portrait');const c=document.createElement('canvas');c.width=sizes.w;c.height=sizes.h;const cc=c.getContext('2d');cc.fillStyle='#fff';cc.fillRect(0,0,c.width,c.height);(pages[i]||[]).forEach(s=>drawShape(s,cc));doc.addImage(c.toDataURL('image/jpeg',.94),'JPEG',0,0,sizes.w/3.125,sizes.h/3.125,'','FAST')}doc.save('HOKSH-blank-notes.pdf');toast('تم تنزيل صفحات الكتابة PDF');return}
-commitPage();toast('جاري تجهيز PDF كامل...');try{const js=await getJsPdf();const first=await pdf.getPage(1),v=first.getViewport({scale:1});const doc=new js.jsPDF({orientation:v.width>v.height?'landscape':'portrait',unit:'pt',format:[v.width,v.height],compress:true});for(let i=1;i<=pdf.numPages;i++){const pg=await pdf.getPage(i),vp=pg.getViewport({scale:2,rotation:0});const c=document.createElement('canvas'),cc=c.getContext('2d');c.width=vp.width;c.height=vp.height;await pg.render({canvasContext:cc,viewport:vp}).promise;(pages[i]||[]).forEach(s=>drawShape(s,cc));const data=c.toDataURL('image/png');const pv=pg.getViewport({scale:1});if(i>1)doc.addPage([pv.width,pv.height],pv.width>pv.height?'landscape':'portrait');doc.setPage(i);doc.addImage(data,'PNG',0,0,pv.width,pv.height,undefined,'FAST')}doc.save('HOKSH-edited-full.pdf');toast('تم تنزيل PDF كامل بعد التعديل')}catch(err){console.error(err);toast('حدث خطأ أثناء تصدير PDF')}}
-let blankMode=false,blankCount=0,blankSizes={w:2480,h:3508},blankTemplate='plain';
-const blankTemplateNames={plain:'أبيض',lined:'مسطر',margin:'هامش',grid:'مربعات',dots:'نقطي',frame:'إطار',double:'إطار مزدوج',header:'عنوان علوي',exam:'ورقة امتحان',cornell:'ملاحظات'};
-function drawBlankBackground(c,t){const x=c.getContext('2d'),w=c.width,h=c.height;x.clearRect(0,0,w,h);x.fillStyle='#fff';x.fillRect(0,0,w,h);x.save();x.lineWidth=Math.max(2,w/900);x.strokeStyle='#c9d5e5';x.fillStyle='#63748e';
-if(t==='lined'||t==='margin'||t==='header'||t==='exam'||t==='cornell'){const gap=Math.max(90,w/27);x.strokeStyle='#c9d5e5';for(let y=gap;y<h;y+=gap){x.beginPath();x.moveTo(90,y);x.lineTo(w-90,y);x.stroke()}}
-if(t==='margin'){x.strokeStyle='#e87b86';x.beginPath();x.moveTo(w*.18,0);x.lineTo(w*.18,h);x.stroke()}
-if(t==='grid'){const g=Math.max(80,w/30);x.strokeStyle='#d7e0eb';for(let xx=0;xx<=w;xx+=g){x.beginPath();x.moveTo(xx,0);x.lineTo(xx,h);x.stroke()}for(let yy=0;yy<=h;yy+=g){x.beginPath();x.moveTo(0,yy);x.lineTo(w,yy);x.stroke()}}
-if(t==='dots'){const g=Math.max(90,w/27);x.fillStyle='#aebdce';for(let yy=g;yy<h;yy+=g)for(let xx=g;xx<w;xx+=g){x.beginPath();x.arc(xx,yy,4,0,Math.PI*2);x.fill()}}
-if(t==='frame'||t==='double'){x.strokeStyle='#677890';x.lineWidth=Math.max(4,w/620);x.strokeRect(55,55,w-110,h-110);if(t==='double'){x.lineWidth=Math.max(2,w/1000);x.strokeRect(75,75,w-150,h-150)}}
-if(t==='header'){x.strokeStyle='#8090a8';x.lineWidth=Math.max(3,w/700);x.strokeRect(70,55,w-140,180)}
-if(t==='exam'){x.font=Math.max(26,w/75)+'px sans-serif';x.fillText('الاسم: ____________________',90,100);x.fillText('الفصل: __________    الدرجة: __________',90,160)}
-if(t==='cornell'){x.strokeStyle='#8b99ad';x.lineWidth=Math.max(3,w/800);x.beginPath();x.moveTo(w*.27,0);x.lineTo(w*.27,h);x.stroke();x.beginPath();x.moveTo(0,h*.82);x.lineTo(w,h*.82);x.stroke()}
-x.restore()}
-function openPageCreator(count=1){$('pageCount').value=count;$('pageModal').classList.add('show');document.querySelector('.pageTemplate.active')?.scrollIntoView({block:'nearest'});$('pageCount').focus()}
-function createBlankPages(){const type=$('pageSize').value,map={a4:{w:2480,h:3508},a5:{w:1748,h:2480},square:{w:2000,h:2000},wide:{w:2480,h:1400}};blankSizes=map[type];blankCount=Math.max(1,Math.min(50,+$('pageCount').value||1));blankMode=true;pdfMode=false;pdf=null;workspace.classList.add('blank-view');pdfBytes=null;pages={};strokes=[];undone=[];page=1;rotation=0;bg=document.createElement('canvas');bg.width=blankSizes.w;bg.height=blankSizes.h;drawBlankBackground(bg,blankTemplate);$('empty').style.display='none';$('pagebar').style.display='flex';$('pageTotal').textContent='/ '+blankCount;$('pageInput').value=1;$('status').textContent='صفحة '+blankTemplateNames[blankTemplate]+' 1 من '+blankCount;resizeCanvas(blankSizes.w,blankSizes.h);$('pageModal').classList.remove('show');toast('تم إنشاء '+blankCount+' صفحة — '+blankTemplateNames[blankTemplate])}
-function goBlank(n){commitPage();page=Math.max(1,Math.min(blankCount,n));loadPageState();$('pageInput').value=page;$('status').textContent='صفحة بيضاء '+page+' من '+blankCount;render()}
-$('newPage').onclick=()=>openPageCreator(1);$('newPages').onclick=()=>openPageCreator(5);$('newPageSide').onclick=()=>openPageCreator(1);$('newPagesSide').onclick=()=>openPageCreator(5);$('cancelPage').onclick=()=>$('pageModal').classList.remove('show');$('createPages').onclick=createBlankPages;
-const oldPrev=$('prev').onclick,oldNext=$('next').onclick;$('prev').onclick=async()=>{if(blankMode){goBlank(page-1)}else if(pdf&&page>1){commitPage();page--;rotation=0;await renderPdfPage()}};$('next').onclick=async()=>{if(blankMode){goBlank(page+1)}else if(pdf&&page<pdf.numPages){commitPage();page++;rotation=0;await renderPdfPage()}};
-function saveLocalSilent(){try{commitPage();localStorage.setItem('hoksh_state',JSON.stringify({page,pages,pdfMode,blankMode,blankCount,blankSizes,blankTemplate,state,rotation}));}catch(e){}}function saveLocal(){saveLocalSilent();toast('تم الحفظ محليًا')}$('saveLocal').onclick=saveLocal;
-$('restoreLocal').onclick=()=>{try{const d=JSON.parse(localStorage.getItem('hoksh_state'));if(!d){toast('لا يوجد حفظ سابق');return}pages=d.pages||{};page=d.page||1;blankMode=!!d.blankMode;blankCount=d.blankCount||0;blankSizes=d.blankSizes||blankSizes;blankTemplate=d.blankTemplate||'plain';pdfMode=!!d.pdfMode;if(blankMode){workspace.classList.add('blank-view');bg=document.createElement('canvas');bg.width=blankSizes.w;bg.height=blankSizes.h;drawBlankBackground(bg,blankTemplate);$('empty').style.display='none';$('pagebar').style.display='flex';resizeCanvas(blankSizes.w,blankSizes.h);goBlank(page)}else toast('تمت استعادة بيانات الرسم — أعد فتح الـPDF إذا لزم')}catch(e){toast('تعذر الاستعادة')}};$('clearLocal').onclick=()=>{localStorage.removeItem('hoksh_state');toast('تم مسح الحفظ المحلي')};$('help').onclick=()=>$('helpModal').classList.add('show');$('closeHelp').onclick=()=>$('helpModal').classList.remove('show');
-$('aiBtn').onclick=()=>{$('aiModal').classList.add('show');$('aiInput').focus()};$('closeAI').onclick=()=>$('aiModal').classList.remove('show');$('openChatGPT').onclick=()=>window.open('https://chatgpt.com/','_blank');
-function aiSay(a,b){$('aiLog').innerHTML+='<div><b>أنت:</b> '+a+'</div><div><b>حوكش:</b> '+b+'</div>';$('aiLog').scrollTop=$('aiLog').scrollHeight}
-function aiRun(){const q=$('aiInput').value.trim();if(!q)return;let reply='لم أفهم الأمر بعد. جرّب: ارسم مستطيل، أضف سهم، ظلل، اكتب ملاحظة، امسح المحدد، كبّر، صغّر، اذهب للصفحة 5.';if(/كبّر|تكبير|zoom in/i.test(q)){scale=Math.min(scale*1.2,4);fitZoom();reply='تم التكبير.'}else if(/صغّر|تصغير|zoom out/i.test(q)){scale=Math.max(scale/1.2,.2);fitZoom();reply='تم التصغير.'}else if(/الصفحة\s*(\d+)/i.test(q)){const n=+(q.match(/الصفحة\s*(\d+)/i)||[])[1];if(pdf){commitPage();page=Math.max(1,Math.min(pdf.numPages,n));renderPdfPage();reply='ذهبت إلى الصفحة '+page+'.'}else if(blankMode){goBlank(n);reply='ذهبت إلى الصفحة '+page+'.'}else reply='افتح PDF أو أنشئ صفحات أولًا.'}else if(/مستطيل/.test(q)){setTool('rect');reply='تم اختيار أداة المستطيل. ارسمه على الصفحة.'}else if(/دائر|circle/.test(q)){setTool('circle');reply='تم اختيار أداة الدائرة.'}else if(/سهم/.test(q)){setTool('arrow');reply='تم اختيار أداة السهم.'}else if(/خط/.test(q)){setTool('line');reply='تم اختيار أداة الخط.'}else if(/ظلّل|تظليل|هايلايتر/.test(q)){setTool('highlight');reply='تم اختيار أداة التظليل.'}else if(/قلم|ارسم/.test(q)){setTool('pen');reply='تم اختيار القلم.'}else if(/نص|ملاحظة|اكتب/.test(q)){setTool('text');reply='تم اختيار أداة النص.'}else if(/امسح|احذف/.test(q)&&selected){strokes=strokes.filter(s=>s!==selected);selected=null;commitPage();render();changed();reply='تم حذف العنصر المحدد.'}aiSay(q,reply);$('aiInput').value=''}$('aiSend').onclick=aiRun;$('aiInput').onkeydown=e=>{if(e.key==='Enter')aiRun()};
-document.querySelectorAll('.pageTemplate').forEach(b=>b.onclick=()=>{document.querySelectorAll('.pageTemplate').forEach(x=>x.classList.remove('active'));b.classList.add('active');blankTemplate=b.dataset.template});
-document.getElementById('welcomeNew')?.addEventListener('click',()=>{document.getElementById('hokshWelcome')?.classList.add('hidden');openPageCreator(1)});
-document.getElementById('welcomeOpen')?.addEventListener('click',()=>{document.getElementById('hokshWelcome')?.classList.add('hidden');document.getElementById('file')?.click()});
-document.getElementById('welcomeTeaching')?.addEventListener('click',()=>{document.getElementById('hokshWelcome')?.classList.add('hidden');document.getElementById('teachingModeBtn')?.click()});
-document.getElementById('welcomeRestore')?.addEventListener('click',()=>{document.getElementById('hokshWelcome')?.classList.add('hidden');document.getElementById('restoreLocal')?.click()});
-document.getElementById('hokshWelcome')?.addEventListener('pointerdown',e=>{if(e.target.id==='hokshWelcome')e.preventDefault()});
-resizeCanvas(1200,800);$('leftToggle').onclick=()=>document.querySelector('.sidebar').classList.toggle('collapsed');$('rightToggle').onclick=()=>document.querySelector('.right').classList.toggle('collapsed');$('editorAiTab').onclick=()=>{$('editorAiTab').classList.add('primary');$('generalAiTab').classList.remove('primary');$('editorAiMode').classList.add('active');$('generalAiMode').classList.remove('active')};$('generalAiTab').onclick=()=>{$('generalAiTab').classList.add('primary');$('editorAiTab').classList.remove('primary');$('generalAiMode').classList.add('active');$('editorAiMode').classList.remove('active')};window.addEventListener('resize',()=>{if(scale===1)fit()});if('serviceWorker'in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
-
-/* HOKSH PRO 2.0 */
-(function(){
-  function hitShape(s,p){
-    if(s.type==='text')return p.x>=s.x-12&&p.x<=s.x+s.text.length*s.size*.62+12&&p.y>=s.y-12&&p.y<=s.y+s.size*1.4;
-    if(s.points){const xs=s.points.map(q=>q.x),ys=s.points.map(q=>q.y);return p.x>=Math.min(...xs)-14&&p.x<=Math.max(...xs)+14&&p.y>=Math.min(...ys)-14&&p.y<=Math.max(...ys)+14}
-    return p.x>=Math.min(s.x,s.x2)-14&&p.x<=Math.max(s.x,s.x2)+14&&p.y>=Math.min(s.y,s.y2)-14&&p.y<=Math.max(s.y,s.y2)+14;
-  }
-  function hit(p){return strokes.slice().reverse().find(s=>hitShape(s,p))||null}
-  function move(s,dx,dy){if(s.points)s.points.forEach(p=>{p.x+=dx;p.y+=dy});else{s.x+=dx;s.y+=dy;s.x2+=dx;s.y2+=dy}}
-  const baseRender=render;
-  render=function(){baseRender();if(selected){ctx.save();ctx.strokeStyle='#6d7cff';ctx.lineWidth=3/Math.max(scale,.2);ctx.setLineDash([10,7]);if(selected.type==='text')ctx.strokeRect(selected.x-10,selected.y-10,selected.text.length*selected.size*.62+20,selected.size*1.45);else if(selected.points){const xs=selected.points.map(p=>p.x),ys=selected.points.map(p=>p.y);ctx.strokeRect(Math.min(...xs)-10,Math.min(...ys)-10,Math.max(...xs)-Math.min(...xs)+20,Math.max(...ys)-Math.min(...ys)+20)}else ctx.strokeRect(Math.min(selected.x,selected.x2)-10,Math.min(selected.y,selected.y2)-10,Math.abs(selected.x2-selected.x)+20,Math.abs(selected.y2-selected.y)+20);ctx.restore()}};
-  let drag=false,last=null;
-  canvas.addEventListener('pointerdown',e=>{if(tool!=='select'||!bg)return;e.stopImmediatePropagation();const p=pos(e);selected=hit(p);drag=!!selected;last=p;if(drag)canvas.setPointerCapture?.(e.pointerId);render()},true);
-  canvas.addEventListener('pointermove',e=>{if(!drag||!selected)return;e.stopImmediatePropagation();const p=pos(e);move(selected,p.x-last.x,p.y-last.y);last=p;render()},true);
-  canvas.addEventListener('pointerup',e=>{if(!drag)return;e.stopImmediatePropagation();drag=false;commitPage();changed();render()},true);
-  document.addEventListener('keydown',e=>{
-    if(selected&&['ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.key)){e.preventDefault();const d=e.shiftKey?10:2;move(selected,e.key==='ArrowLeft'?-d:e.key==='ArrowRight'?d:0,e.key==='ArrowUp'?-d:e.key==='ArrowDown'?d:0);commitPage();changed();render()}
-    if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='c'&&selected){e.preventDefault();localStorage.setItem('hoksh_clipboard',JSON.stringify(selected));toast('تم نسخ العنصر')}
-    if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='v'){const raw=localStorage.getItem('hoksh_clipboard');if(raw){e.preventDefault();const x=JSON.parse(raw);move(x,24,24);strokes.push(x);selected=x;commitPage();changed();render();toast('تم لصق العنصر')}}
-  });
-  // Blank-page duplicate/delete controls
-  const pb=$('pagebar');if(pb&&!$('duplicatePage')){const d=document.createElement('button');d.className='btn';d.id='duplicatePage';d.textContent='⧉';d.title='تكرار الصفحة';pb.appendChild(d);const x=document.createElement('button');x.className='btn';x.id='deletePage';x.textContent='🗑';x.title='حذف الصفحة';pb.appendChild(x);
-    d.onclick=()=>{if(!blankMode)return toast('التكرار متاح للصفحات البيضاء');commitPage();for(let i=blankCount;i>page;i--)pages[i]=pages[i-1];pages[page+1]=JSON.parse(JSON.stringify(pages[page]||[]));blankCount++;page++;loadPageState();$('pageTotal').textContent='/ '+blankCount;$('pageInput').value=page;render();changed();toast('تم تكرار الصفحة')};
-    x.onclick=()=>{if(!blankMode)return toast('الحذف متاح للصفحات البيضاء');if(blankCount<=1)return toast('لا يمكن حذف الصفحة الوحيدة');commitPage();for(let i=page;i<blankCount;i++)pages[i]=pages[i+1]||[];delete pages[blankCount];blankCount--;page=Math.min(page,blankCount);loadPageState();$('pageTotal').textContent='/ '+blankCount;$('pageInput').value=page;render();changed();toast('تم حذف الصفحة')};
-  }
-})();
-</script><div class="teachModeBadge">🎓 وضع التدريس</div>
-<div class="teachDock" id="teachDock">
-<button data-teach="pen" title="قلم">✎</button><button data-teach="highlight" title="تظليل">▰</button><button data-teach="eraser" title="مسح">⌫</button><button data-teach="text" title="نص">T</button><button data-teach="undo" title="تراجع">↶</button><button data-teach="redo" title="إعادة">↷</button><button data-teach="new" title="صفحة بيضاء">＋</button><button data-teach="prev" title="السابق">‹</button><button data-teach="next" title="التالي">›</button><button data-teach="full" title="ملء الشاشة">⛶</button><button class="teachExit" id="teachExit" title="الخروج من وضع التدريس">✕</button>
-</div>
-<script>
-(function(){
- const btn=document.getElementById('teachingModeBtn'),dock=document.getElementById('teachDock'),exit=document.getElementById('teachExit');
- if(!btn||!dock)return;
- function setTeaching(on){document.body.classList.toggle('teaching-mode',on);btn.textContent=on?'🎓 إنهاء التدريس':'🎓 وضع التدريس';if(on){toast('تم تشغيل وضع التدريس — الأدوات الأساسية فقط');}else toast('تم إنهاء وضع التدريس');}
- btn.onclick=()=>setTeaching(!document.body.classList.contains('teaching-mode'));exit.onclick=()=>setTeaching(false);
- dock.querySelectorAll('[data-teach]').forEach(b=>b.onclick=async()=>{const a=b.dataset.teach;
-   if(['pen','highlight','eraser','text'].includes(a)){setTool(a);dock.querySelectorAll('[data-teach]').forEach(x=>x.classList.remove('active'));b.classList.add('active')}
-   else if(a==='undo')undo(); else if(a==='redo')redo();
-   else if(a==='new')openPageCreator(1);
-   else if(a==='prev')document.getElementById('prev')?.click();
-   else if(a==='next')document.getElementById('next')?.click();
-   else if(a==='full'){if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen?.()}
- });
- document.addEventListener('keydown',e=>{if(e.key==='F8'){e.preventDefault();setTeaching(!document.body.classList.contains('teaching-mode'))}});
-})();
-</script>
-<div class="teachProPop" id="teachColorPop"><h4>لون القلم</h4><div class="teachColors">
-<button data-color="#ff3158" style="background:#ff3158"></button><button data-color="#ff7a00" style="background:#ff7a00"></button><button data-color="#ffd400" style="background:#ffd400"></button><button data-color="#20c997" style="background:#20c997"></button><button data-color="#00b7ff" style="background:#00b7ff"></button><button data-color="#6d63ff" style="background:#6d63ff"></button><button data-color="#ffffff" style="background:#ffffff"></button><button data-color="#111827" style="background:#111827"></button><button data-color="#8b5cf6" style="background:#8b5cf6"></button><button data-color="#ec4899" style="background:#ec4899"></button><button data-color="#22c55e" style="background:#22c55e"></button><button data-color="#3b82f6" style="background:#3b82f6"></button></div></div>
-<div class="teachProPop" id="teachWidthPop"><h4>سُمك القلم</h4><div class="teachWidth"><button data-width="3">رفيع</button><button data-width="7">متوسط</button><button data-width="14">عريض</button><button data-width="24">عريض جدًا</button></div></div>
-<div class="teachProPop" id="teachShapePop"><h4>أشكال سريعة</h4><div class="teachShapeGrid"><button data-shape="line">╱</button><button data-shape="arrow">➜</button><button data-shape="rect">□</button><button data-shape="circle">○</button><button data-shape="select">↖</button><button data-shape="text">T</button></div></div><script id="hoksh-splash-script">
-(function(){
-  const intro=document.getElementById('hokshIntro'),welcome=document.getElementById('hokshWelcome');
-  welcome?.classList.remove('hidden');
-  setTimeout(()=>intro?.classList.add('hide'),3200);
-  setTimeout(()=>{if(intro)intro.remove()},3750);
-})();
-</script>
-<script id="hoksh-teaching-pro-js">(function(){
-const dock=document.getElementById('teachDock');if(!dock)return;
-dock.innerHTML=`
-<button data-teach="select" title="تحديد">↖</button><button data-teach="pen" title="قلم">✎</button><button data-teach="highlight" title="تظليل">▰</button><button data-pop="color" title="ألوان">●</button><button data-pop="width" title="السُمك">╏</button><button data-pop="shape" title="أشكال">◇</button><button data-teach="eraser" title="مسح">⌫</button><button data-teach="text" title="نص">T</button><span class="teachSep"></span><button data-teach="undo" title="تراجع">↶</button><button data-teach="redo" title="إعادة">↷</button><button data-teach="new" title="صفحة جديدة">＋</button><button data-teach="prev" title="الصفحة السابقة">‹</button><button data-teach="next" title="الصفحة التالية">›</button><button data-teach="full" title="ملء الشاشة">⛶</button><span class="teachSep"></span><button class="teachExit" id="teachExitPro" title="الخروج من وضع التدريس">✕</button>`;
-const pops={color:document.getElementById('teachColorPop'),width:document.getElementById('teachWidthPop'),shape:document.getElementById('teachShapePop')};
-function closePops(){Object.values(pops).forEach(p=>p?.classList.remove('show'))}
-function place(pop,btn){closePops();if(!pop)return;const r=btn.getBoundingClientRect();requestAnimationFrame(()=>{pop.style.left=Math.max(8,Math.min(window.innerWidth-pop.offsetWidth-8,r.left+r.width/2-pop.offsetWidth/2))+'px';pop.style.bottom=(window.innerHeight-r.top+10)+'px';pop.classList.add('show')})}
-dock.querySelectorAll('[data-pop]').forEach(b=>b.onclick=()=>place(pops[b.dataset.pop],b));
-document.querySelectorAll('#teachColorPop [data-color]').forEach(b=>b.onclick=()=>{const c=document.getElementById('color');if(c){c.value=b.dataset.color;c.dispatchEvent(new Event('input',{bubbles:true}))}closePops()});
-document.querySelectorAll('#teachWidthPop [data-width]').forEach(b=>b.onclick=()=>{const s=document.getElementById('size');if(s){s.value=b.dataset.width;s.dispatchEvent(new Event('input',{bubbles:true}))}closePops()});
-function mark(a){dock.querySelectorAll('[data-teach]').forEach(x=>x.classList.remove('active'));dock.querySelector('[data-teach="'+a+'"]')?.classList.add('active')}
-document.querySelectorAll('#teachShapePop [data-shape]').forEach(b=>b.onclick=()=>{setTool(b.dataset.shape);mark(b.dataset.shape);closePops()});
-dock.querySelectorAll('[data-teach]').forEach(b=>b.onclick=async()=>{const a=b.dataset.teach;if(['select','pen','highlight','eraser','text'].includes(a)){setTool(a);mark(a)}else if(a==='undo')undo();else if(a==='redo')redo();else if(a==='new')openPageCreator(1);else if(a==='prev')document.getElementById('prev')?.click();else if(a==='next')document.getElementById('next')?.click();else if(a==='full'){if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen?.()}});
-document.getElementById('teachExitPro').onclick=()=>document.getElementById('teachingModeBtn')?.click();
-window.addEventListener('resize',closePops);document.addEventListener('pointerdown',e=>{if(!e.target.closest('.teachProPop')&&!e.target.closest('#teachDock'))closePops()});mark('pen');
-})();</script>
-<script id="hoksh-view-system">
-(function(){
-const btn=document.getElementById('viewModeBtn'),gallery=document.getElementById('viewGallery'),workspace=document.getElementById('workspace'),stage=document.getElementById('stage'),empty=document.getElementById('empty'),pagebar=document.getElementById('pagebar'),hint=document.getElementById('viewHint');
-if(!btn||!gallery)return;
-const pop=document.createElement('div');pop.className='viewPop';pop.id='hokshViewPop';pop.innerHTML='<h4>طريقة عرض الصفحات</h4><button class="viewChoice active" data-view="single"><b>▣</b><span>صفحة واحدة<small>التحرير والتركيز على صفحة</small></span></button><button class="viewChoice" data-view="continuous"><b>▤</b><span>صفحات متتالية<small>صفحة تحت صفحة</small></span></button><button class="viewChoice" data-view="side"><b>▦</b><span>صفحات جانبية<small>صفحتان جنب بعض</small></span></button>';
-document.body.appendChild(pop);
-let mode='single';
-function placePop(){const r=btn.getBoundingClientRect();pop.style.top=(r.bottom+8)+'px';pop.style.left=Math.max(8,Math.min(innerWidth-pop.offsetWidth-8,r.left-pop.offsetWidth+btn.offsetWidth))+'px';pop.classList.add('show')}
-btn.onclick=e=>{e.stopPropagation();pop.classList.contains('show')?pop.classList.remove('show'):placePop()};
-document.addEventListener('pointerdown',e=>{if(!e.target.closest('#hokshViewPop')&&!e.target.closest('#viewModeBtn'))pop.classList.remove('show')});document.querySelectorAll('.viewChoice').forEach(b=>b.onclick=async()=>{pop.classList.remove('show');await setMode(b.dataset.view)});
-async function setMode(m){
- mode=m;document.querySelectorAll('.viewChoice').forEach(x=>x.classList.toggle('active',x.dataset.view===m));
- if(m==='single'){gallery.style.display='none';gallery.className='viewGallery';stage.style.display='block';empty.style.display=empty.dataset.originalHidden==='1'?'none':empty.style.display;pagebar.style.display='none';hint.classList.remove('show');fit();return}
- if(!pdf&&!blankMode){toast('افتح PDF أو أنشئ صفحات أولًا');mode='single';return}
- commitPage();stage.style.display='none';empty.style.display='none';pagebar.style.display='none';gallery.className='viewGallery '+m;gallery.style.display='grid';hint.classList.add('show');setTimeout(()=>hint.classList.remove('show'),3000);await buildGallery();
-}
-async function buildGallery(){
- gallery.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:30px;color:#aebbd7">جاري تجهيز الصفحات…</div>';
- const total=pdf?pdf.numPages:blankCount;const frag=document.createDocumentFragment();
- for(let i=1;i<=total;i++){
-  const card=document.createElement('div');card.className='viewCard';const n=document.createElement('div');n.className='viewNum';n.textContent='صفحة '+i;card.appendChild(n);
-  const cv=document.createElement('canvas');card.appendChild(cv);frag.appendChild(card);
-  if(pdf){const pg=await pdf.getPage(i),vp=pg.getViewport({scale:.55});cv.width=Math.round(vp.width);cv.height=Math.round(vp.height);await pg.render({canvasContext:cv.getContext('2d'),viewport:vp}).promise;const arr=pages[i]||[];const k=.55/1.5;const cc=cv.getContext('2d');cc.save();cc.scale(k,k);arr.forEach(s=>drawShape(s,cc));cc.restore()}
-  else{cv.width=blankSizes.w;cv.height=blankSizes.h;const cc=cv.getContext('2d');cc.fillStyle='#fff';cc.fillRect(0,0,cv.width,cv.height);(pages[i]||[]).forEach(s=>drawShape(s,cc));}
-  card.onclick=async()=>{commitPage();page=i;await setMode('single');if(pdf){rotation=0;await renderPdfPage()}else goBlank(i)};
- }
- gallery.innerHTML='';gallery.appendChild(frag);
-}
-window.hokshSetViewMode=setMode;
-document.getElementById('file')?.addEventListener('change',()=>{setTimeout(()=>setMode('single'),50)});
-})();
-</script>
-<style id="hoksh-3-ui">
-:root{--p:#101c2c;--p2:#16263a;--line:#30465f;--a:#16b8a6;--a2:#2f7df6;--gold:#f2b84b;--muted:#9fb0c6}
-.top{background:linear-gradient(180deg,#102235,#0c1726);border-bottom-color:#29435b}
-.brand span{color:#43d8c5}.primary{background:linear-gradient(135deg,#14b8a6,#287df2)!important;border-color:#4ee7d3!important}
-.sidebar{display:none!important}.right{display:none!important}
-.workspace{padding:18px;background:radial-gradient(circle at 50% 40%,#12283a,#07111d 65%,#040910)}
-.tool.active{background:linear-gradient(135deg,#0d8f88,#245fc2);border-color:#4ee7d3}
-.hoksh-more{position:fixed;right:14px;top:72px;z-index:42}.moreBtn{min-width:92px;font-weight:800;background:#13263a;border-color:#3b5975}.moreMenu{display:none;position:absolute;right:0;top:44px;width:235px;padding:8px;background:#0d1b2b;border:1px solid #36516c;border-radius:16px;box-shadow:0 20px 55px #0009;backdrop-filter:blur(18px)}.moreMenu.show{display:block}.moreMenu button{width:100%;padding:11px;border:0;border-radius:10px;background:transparent;color:#eaf3ff;text-align:right;cursor:pointer}.moreMenu button:hover{background:#17334a}.moreTitle{font-size:10px;color:#7f9ab5;padding:5px 9px}
-.toolDock{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:38;display:flex;gap:6px;align-items:center;padding:7px 9px;border:1px solid #38546d;border-radius:18px;background:#0b1725ef;box-shadow:0 16px 50px #0009;backdrop-filter:blur(18px)}.toolDock button{width:44px;height:44px;border:1px solid #304a63;border-radius:12px;background:#14283b;color:#eef7ff;cursor:pointer;font-size:19px}.toolDock button:hover{border-color:#2dd4bf;background:#18364a}.toolDock button.active{background:linear-gradient(135deg,#0d9e91,#2467ca);border-color:#5cead7}.dockSep{width:1px;height:28px;background:#35506a}.dockMove{font-size:10px!important;width:42px!important}
-.teaching-mode .toolDock{display:none}.teachingTopTools{display:none;position:fixed;top:70px;left:50%;transform:translateX(-50%);z-index:43;gap:5px;padding:6px;border:1px solid #36536e;border-radius:15px;background:#0b1827ef;box-shadow:0 12px 40px #0008;backdrop-filter:blur(15px)}.teachingTopTools button{width:42px;height:42px;border:1px solid #35516a;border-radius:11px;background:#142a3e;color:#fff;cursor:pointer}.teachingTopTools button.active{background:#0e9f92;border-color:#58e5d4}
-.teaching-mode .workspace{padding-top:70px}.teaching-mode .pagebar{display:none!important}.teaching-mode .status{bottom:82px}
-.toolDock.pos-right{left:auto;right:12px;transform:none}.toolDock.pos-left{left:12px;transform:none}.toolDock.pos-top{bottom:auto;top:72px;left:50%;transform:translateX(-50%)}
-@media(max-width:680px){.toolDock{max-width:calc(100vw - 12px);overflow:auto;bottom:8px}.toolDock button{min-width:42px}.hoksh-more{right:8px;top:62px}.teachingTopTools{top:62px;max-width:calc(100vw - 12px);overflow:auto}.teaching-mode .workspace{padding-top:62px}}
-</style>
-<style id="hoksh-eraser-about">
-#hokshEraserCursor{position:fixed;z-index:10020;width:34px;height:34px;border:2px solid #fff;border-radius:50%;background:#0b1725cc;box-shadow:0 0 0 2px #16b8a6,0 6px 20px #0008;pointer-events:none;display:none;transform:translate(-50%,-50%)}
-#hokshEraserCursor.show{display:block}
-.eraserToolOn .toolDock [data-dock="eraser"],.eraserToolOn .teachingTopTools [data-toptool="eraser"]{background:linear-gradient(135deg,#e85d75,#c63d62)!important;border-color:#ff9caf!important}
-.devDialog{width:min(680px,94vw);padding:0;overflow:hidden}.devHero{padding:28px;text-align:center;background:radial-gradient(circle at 50% 0,#1b5b68,#10253b 55%,#0b1525)}.devAvatar{width:118px;height:118px;margin:0 auto 14px;border-radius:34px;display:grid;place-items:center;background:linear-gradient(135deg,#2f7df6,#16b8a6);font-size:48px;font-weight:1000;box-shadow:0 18px 45px #0008}.devHero h2{margin:0;font-size:25px}.devHero p{margin:7px 0 0;color:#a9bfd0}.devBody{padding:22px}.devGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.devItem{padding:14px;border:1px solid #30465f;border-radius:14px;background:#0d1a2a}.devItem b{display:block;font-size:11px;color:#7edfd1;margin-bottom:5px}.devItem span{font-size:12px;color:#dce7f4}.devNote{margin-top:14px;padding:13px;border-radius:13px;background:#10263a;border:1px solid #2c526c;color:#a9bfd0;font-size:11px;line-height:1.8}@media(max-width:600px){.devGrid{grid-template-columns:1fr}.devAvatar{width:96px;height:96px}}
-</style>
-<div id="hokshEraserCursor"></div>
-<div class="modal" id="developerModal"><div class="dialog devDialog">
-  <div class="devHero"><div class="devAvatar photoAvatar"><img src="developer.jpg" alt="محمد شعبان محارب" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><span>ح</span></div><h2>محمد شعبان محارب</h2><p>مطور ومصمم حوكش HOKSH</p></div>
-  <div class="devBody"><div class="devGrid">
-    <div class="devItem"><b>اسم المشروع</b><span>حوكش HOKSH</span></div>
-    <div class="devItem"><b>نوع التطبيق</b><span>محرر الصور وملفات PDF</span></div>
-    <div class="devItem"><b>اللغة</b><span>العربية</span></div>
-  </div><div class="devNote">هذا التطبيق تم تطويره لخدمة المدرسين والطلاب في الكتابة والرسم والتظليل والتعامل مع ملفات PDF، مع العمل على تطوير أدواته باستمرار.</div>
-  <div class="row" style="justify-content:flex-end;margin-bottom:0"><button class="btn" id="closeDeveloper">إغلاق</button></div></div>
-</div></div>
-<script id="hoksh-eraser-about-js">
-(function(){
- const cur=document.getElementById('hokshEraserCursor');
- window.showEraserCursor=function(e){if(!cur)return;cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';cur.classList.add('show')};
- window.hideEraserCursor=function(){cur?.classList.remove('show')};
- const sync=()=>document.body.classList.toggle('eraserToolOn',tool==='eraser');
- const oldSet=window.setTool;
- document.addEventListener('pointerover',e=>{if(e.target.closest('canvas')&&tool==='eraser')showEraserCursor(e)});
- canvas.addEventListener('pointerleave',hideEraserCursor);
- document.addEventListener('pointerdown',e=>{if(!e.target.closest('canvas'))hideEraserCursor()});
- const mo=new MutationObserver(sync); mo.observe(document.body,{attributes:true,attributeFilter:['class']}); sync();
- document.getElementById('closeDeveloper')?.addEventListener('click',()=>document.getElementById('developerModal')?.classList.remove('show'));
-})();
-</script>
-<section class="seoContent" aria-label="عن حوكش">
-<h1>حوكش HOKSH — محرر الصور وPDF الذكي</h1>
-<p>حوكش هو محرر عربي مجاني للصور وملفات PDF يساعد المدرسين والطلاب على الكتابة والرسم والتظليل وإضافة النصوص والأشكال والأسهم، مع إنشاء صفحات جديدة وتصدير ملف PDF بعد التعديل.</p>
-<div class="seoGrid">
-<div class="seoCard"><strong>تحرير PDF</strong><span>افتح ملفات PDF واعرض صفحاتها وعدّل عليها بسهولة.</span></div>
-<div class="seoCard"><strong>أدوات التعليم</strong><span>قلم، تظليل، أستيكة، نصوص، أسهم وأشكال لوضع التدريس.</span></div>
-<div class="seoCard"><strong>العمل من الهاتف</strong><span>يعمل من المتصفح ويمكن تثبيته كتطبيق على الهاتف.</span></div>
-</div>
-<h2>محرر PDF للمدرسين والطلاب</h2>
-<p>يمكن استخدام حوكش أثناء الشرح والمراجعة وحل الأسئلة، وفتح المستندات والصور وإضافة الملاحظات والتحديدات عليها. يدعم الموقع واجهة عربية وتجربة مناسبة للهاتف والكمبيوتر.</p>
-<h2>أدوات الكتابة والرسم والتظليل</h2>
-<p>يوفر حوكش أدوات للقلم والتظليل والمسح والنص والخط والسهم والمستطيل والدائرة، مع خيارات للون وسُمك القلم، بالإضافة إلى وضع تدريس سريع للوصول إلى الأدوات الأساسية.</p>
-<h2>إنشاء صفحات وملفات تعليمية</h2>
-<p>يمكن إنشاء صفحات جديدة بمقاسات وقوالب مختلفة، واستخدام أكثر من صفحة، ثم حفظ العمل محليًا وتصدير ملف PDF كامل بعد التعديل.</p>
-<h2>حوكش على الهاتف</h2>
-<p>يمكن تثبيت حوكش كتطبيق ويب على الهاتف من المتصفح، ليصبح الوصول إليه أسرع من الشاشة الرئيسية، مع دعم واجهة متجاوبة للشاشات الصغيرة والكبيرة.</p>
-<h2>لماذا حوكش؟</h2>
-<p>صُمم حوكش ليجمع أدوات تحرير الصور وPDF والرسم التعليمي في مساحة واحدة باللغة العربية، مع التركيز على سهولة الاستخدام وسرعة الوصول إلى الأدوات.</p>
-</section><div class="hoksh-more"><button class="btn moreBtn" id="hokshMoreBtn">☰ المزيد</button><div class="moreMenu" id="hokshMoreMenu">
-<div class="moreTitle">أدوات وإضافات حوكش</div>
-<button data-more="panel">⚙️ الإعدادات واللوحة</button><button data-more="calc">🧮 الآلة الحاسبة</button><button data-more="symbols">🔣 الرموز والأشكال</button><button data-more="axes">📈 المحاور والرسم البياني</button><button data-more="view">▦ طريقة عرض الصفحات</button><button data-more="developer">👨‍💻 معلومات المطور</button><button data-more="ai">✦ HOKSH AI</button>
-</div></div>
-<div class="smartRail" id="smartRail" aria-label="شريط حوكش السريع">
-  <button id="smartOpen" title="فتح ملف">📂</button>
-  <button id="smartSave" title="حفظ العمل">💾</button>
-  <button id="smartPrint" title="طباعة">🖨</button>
-  <span class="smartSep"></span>
-  <button id="smartPrev" title="الصفحة السابقة">↑</button>
-  <div class="smartPage"><b id="smartPageNow">1</b><small id="smartPageTotal">/1</small></div>
-  <button id="smartNext" title="الصفحة التالية">↓</button>
-  <span class="smartSep"></span>
-  <button id="smartZoom" title="حجم الصفحة">100%</button>
-  <button id="smartUndo" title="تراجع">↶</button>
-  <button id="smartRedo" title="إعادة">↷</button>
-  <button id="smartNew" title="صفحة جديدة">＋</button>
-</div>
-<div class="floatingPen" id="floatingPen" title="أدوات القلم">
-  <button class="floatingPenBtn" id="floatingPenBtn" aria-label="فتح أدوات القلم">✎</button>
-  <div class="floatingPalette" id="floatingPalette">
-    <div class="floatTitle">أدوات القلم</div>
-    <div class="floatTools">
-      <button data-float-tool="pen">✎<small>قلم</small></button>
-      <button data-float-tool="highlight">▰<small>تظليل</small></button>
-      <button data-float-tool="eraser">⌫<small>مسح</small></button>
-      <button data-float-tool="text">T<small>نص</small></button>
-      <button data-float-tool="line">╱<small>خط</small></button>
-      <button data-float-tool="arrow">➜<small>سهم</small></button>
-      <button data-float-tool="rect">□<small>مربع</small></button>
-      <button data-float-tool="circle">○<small>دائرة</small></button>
+<div class="homeOverlay" id="homeOverlay">
+  <div class="homeBox">
+    <div class="homeLogo"><img src="icon.svg" alt="حوكش HOKSH"></div>
+    <div class="homeTitle">حوكش <span>HOKSH</span></div>
+    <div class="homeSub">محرر الصور وملفات PDF — بسيط، سريع، واضح</div>
+    <div class="homeActions">
+      <label class="homeAction primary" for="fileInput"><b>📂</b><span>فتح ملف</span><small>صورة أو PDF</small></label>
+      <button class="homeAction" id="homeNew"><b>＋</b><span>صفحة جديدة</span><small>ابدأ الكتابة فورًا</small></button>
+      <button class="homeAction" id="homeRestore"><b>↻</b><span>استئناف الأخير</span><small>العمل المحفوظ</small></button>
+      <button class="homeAction" id="homeAbout"><b>ⓘ</b><span>معلومات حوكش</span><small>المطور والبرنامج</small></button>
     </div>
-    <div class="floatRow"><label>اللون <input id="floatColor" type="color" value="#ff3158"></label><label>السُمك <input id="floatSize" type="range" min="1" max="40" value="5"></label></div>
-    <div class="floatSwatches" aria-label="ألوان سريعة">
-      <button data-color="#ff3158" style="background:#ff3158"></button><button data-color="#111827" style="background:#111827"></button><button data-color="#2563eb" style="background:#2563eb"></button><button data-color="#16a34a" style="background:#16a34a"></button><button data-color="#f59e0b" style="background:#f59e0b"></button><button data-color="#ffffff" style="background:#ffffff"></button>
-    </div>
+    <div class="homeCredit">المطور محمد شعبان محارب</div>
   </div>
 </div>
-<script id="hoksh-3-ui-js">
-(function(){
-const dock=document.getElementById('mainToolDock'),more=document.getElementById('hokshMoreMenu'),mb=document.getElementById('hokshMoreBtn');
-mb.onclick=e=>{e.stopPropagation();more.classList.toggle('show')};
-document.addEventListener('pointerdown',e=>{if(!e.target.closest('.hoksh-more'))more.classList.remove('show')});
-document.querySelectorAll('[data-dock]').forEach(b=>b.onclick=()=>{const a=b.dataset.dock;if(['select','pen','highlight','eraser','text'].includes(a)){setTool(a);dock.querySelectorAll('[data-dock]').forEach(x=>x.classList.remove('active'));b.classList.add('active')}else if(a==='undo')undo();else if(a==='redo')redo();else if(a==='new')openPageCreator(1)});
-document.getElementById('dockMove').onclick=()=>{const m=dock.classList;const states=['','pos-right','pos-left','pos-top'];let cur='';for(const x of states){if(x&&m.contains(x))cur=x}const n=(states.indexOf(cur)+1)%states.length;states.forEach(x=>x&&m.remove(x));if(states[n])m.add(states[n]);localStorage.setItem('hoksh_dock_pos',states[n]||'')};
-const saved=localStorage.getItem('hoksh_dock_pos');if(saved)dock.classList.add(saved);
-document.querySelectorAll('[data-more]').forEach(b=>b.onclick=()=>{const a=b.dataset.more;more.classList.remove('show');if(a==='panel'){const r=document.querySelector('.right');if(r)r.classList.toggle('collapsed')}else if(a==='view')document.getElementById('viewModeBtn')?.click();else if(a==='ai')document.getElementById('aiBtn')?.click();else if(a==='developer')document.getElementById('developerModal')?.classList.add('show');else if(a==='calc')window.open('https://www.google.com/search?q=Casio+ClassWiz+online+calculator','_blank','noopener');else if(a==='symbols')toast('مكتبة الرموز والأشكال ستُضاف في التحديث التالي');else if(a==='axes')toast('أداة المحاور والرسم البياني ستُضاف في التحديث التالي')});
-document.querySelectorAll('[data-toptool]').forEach(b=>b.onclick=()=>setTool(b.dataset.toptool));
-document.getElementById('teachTopColor').onclick=()=>document.getElementById('teachColorPop')?.classList.toggle('show');
-document.getElementById('teachTopMore').onclick=()=>document.getElementById('hokshMoreBtn')?.click();
-document.getElementById('teachingModeBtn')?.addEventListener('click',()=>setTimeout(()=>{document.getElementById('teachingTopTools').style.display=document.body.classList.contains('teaching-mode')?'flex':'none'},30));
-})();
-</script>
-<script id="hoksh-smart-teacher-js">
-(function(){
-  const rail=document.getElementById('smartRail'), pen=document.getElementById('floatingPen'), penBtn=document.getElementById('floatingPenBtn'), palette=document.getElementById('floatingPalette');
-  if(!rail||!pen)return;
-  const click=id=>document.getElementById(id)?.click();
-  const syncPages=()=>{
-    const total=(typeof pdf!=='undefined'&&pdf)?pdf.numPages:(typeof blankCount!=='undefined'&&blankCount?blankCount:1);
-    document.getElementById('smartPageNow').textContent=String((typeof page!=='undefined'?page:1));
-    document.getElementById('smartPageTotal').textContent='/'+String(total);
-  };
-  document.getElementById('smartOpen').onclick=()=>click('file');
-  document.getElementById('smartSave').onclick=()=>{click('saveLocal');toast('تم حفظ العمل محليًا');};
-  document.getElementById('smartPrint').onclick=()=>window.print();
-  document.getElementById('smartPrev').onclick=()=>{click('prev');setTimeout(syncPages,60)};
-  document.getElementById('smartNext').onclick=()=>{click('next');setTimeout(syncPages,60)};  document.getElementById('smartUndo').onclick=()=>click('undo');
-  document.getElementById('smartRedo').onclick=()=>click('redo');
-  document.getElementById('smartNew').onclick=()=>document.getElementById('newPage')?.click();  let zoomStep=0;
-  const zooms=[.75,1,1.25,1.5,2];
-  document.getElementById('smartZoom').onclick=()=>{
-    zoomStep=(zoomStep+1)%zooms.length;
-    scale=zooms[zoomStep];fitZoom();
-    document.getElementById('smartZoom').textContent=Math.round(scale*100)+'%';
-  };
-  penBtn.onclick=(e)=>{e.stopPropagation();pen.classList.toggle('open')};
-  document.addEventListener('pointerdown',e=>{if(!e.target.closest('#floatingPen'))pen.classList.remove('open')});
-  document.querySelectorAll('[data-float-tool]').forEach(b=>b.onclick=()=>{
-    setTool(b.dataset.floatTool);
-    document.querySelectorAll('[data-float-tool]').forEach(x=>x.classList.toggle('active',x===b));
-  });
-  const fc=document.getElementById('floatColor'),fs=document.getElementById('floatSize');
-  fc?.addEventListener('input',()=>{color.value=fc.value});
-  fs?.addEventListener('input',()=>{size.value=fs.value;size.dispatchEvent(new Event('input'))});
-  document.querySelectorAll('[data-color]').forEach(b=>b.onclick=()=>{const v=b.dataset.color;color.value=v;if(fc)fc.value=v});
-  function syncTool(){
-    document.querySelectorAll('[data-float-tool]').forEach(x=>x.classList.toggle('active',x.dataset.floatTool===tool));
-    if(fc)fc.value=color.value;if(fs)fs.value=size.value;syncPages();
-  }
-  const oldSetTool=window.setTool;
-  if(oldSetTool)window.setTool= function(t){oldSetTool(t);syncTool()};
-  setTimeout(syncTool,100);
-  setInterval(syncPages,700);
 
-  // Drag the floating pen anywhere on screen; a tap still opens the palette.
-  let drag=false,moved=false,ox=0,oy=0,sx=0,sy=0;
-  pen.addEventListener('pointerdown',e=>{
-    if(e.target!==penBtn)return;
-    drag=true;moved=false;pen.setPointerCapture?.(e.pointerId);
-    const r=pen.getBoundingClientRect();ox=e.clientX-r.left;oy=e.clientY-r.top;sx=e.clientX;sy=e.clientY;
-  });
-  pen.addEventListener('pointermove',e=>{
-    if(!drag)return;
-    if(Math.hypot(e.clientX-sx,e.clientY-sy)>6)moved=true;
-    if(moved){
-      const x=Math.max(6,Math.min(innerWidth-66,e.clientX-ox)),y=Math.max(60,Math.min(innerHeight-66,e.clientY-oy));
-      pen.style.left=x+'px';pen.style.top=y+'px';pen.style.bottom='auto';
-    }
-  });
-  pen.addEventListener('pointerup',()=>{if(drag&&moved)pen.classList.remove('open');drag=false});
-})();
-</script>
-<style id="hoksh-mobile-final">
-@media (max-width:680px){
-  html,body{width:100%;height:100%;overflow:hidden;background:#07111d!important}
-  body{font-size:14px}
-  .app{height:100dvh!important;min-height:100dvh!important}
-  .top{height:52px!important;min-height:52px!important;padding:4px 8px!important;gap:5px!important;background:rgba(7,17,29,.98)!important;border-bottom:1px solid #28445a!important;z-index:80}
-  .top .brand{font-size:19px!important;letter-spacing:-.4px}
-  .top .spacer{flex:1}
-  .top #viewModeBtn,.top #export{display:inline-flex!important;align-items:center;justify-content:center;width:39px!important;min-width:39px!important;height:39px!important;padding:7px!important;font-size:0!important}
-  .top #viewModeBtn::before{content:"▦";font-size:18px}
-  .top #export::before{content:"⇩";font-size:19px;font-weight:900}
-  .top #teachingModeBtn,.top #aiBtn,.top #installBtn,.top #help,.top #undo,.top #redo,.top #zoomOut,.top #zoomReset,.top #zoomIn,.top #leftToggle,.top #rightToggle,.top label[for="file"]{display:none!important}
-  .body{min-height:0!important;height:calc(100dvh - 52px)!important;display:block!important}
-  .sidebar,.right,.smartRail,.floatingPen,.status{display:none!important}
-  .workspace{width:100%!important;height:100%!important;min-height:0!important;padding:7px 5px 74px!important;overflow:auto!important;display:flex!important;align-items:flex-start!important;justify-content:center!important;background:#07111d!important;-webkit-overflow-scrolling:touch!important}
-  .stage{margin:0 auto 24px!important;flex:0 0 auto!important;box-shadow:0 10px 34px #000b!important;border-radius:2px!important}
-  .stage canvas{display:block!important}
-  .empty{position:absolute!important;inset:7px 5px 74px!important;padding:8px!important}
-  .emptyBox{width:min(94vw,420px)!important;max-width:none!important;padding:22px 15px!important;border-radius:20px!important}
-  .emptyBox strong{font-size:23px!important}
-  .emptyBox .mini{font-size:10px!important}
-  .emptyActions{display:grid!important;grid-template-columns:1fr 1fr!important}
-  .emptyActions .btn{min-width:0!important;width:100%!important}
-  .emptyActions label{grid-column:1/-1}
-  .pagebar{display:flex!important;position:fixed!important;left:50%!important;bottom:76px!important;transform:translateX(-50%)!important;z-index:76!important;padding:4px!important;border-radius:12px!important;background:#0a1828ee!important;border:1px solid #36556c!important;box-shadow:0 10px 30px #0008!important}
-  .pagebar button{min-width:34px!important;height:34px!important;padding:5px!important}
-  .pagebar .pageInput{width:45px!important;height:30px!important;padding:4px!important}
-  .hoksh-more{position:fixed!important;right:8px!important;top:auto!important;bottom:78px!important;z-index:90!important}
-  .moreBtn{width:38px!important;min-width:38px!important;height:38px!important;padding:6px!important;font-size:0!important;border-radius:11px!important}
-  .moreBtn::before{content:"⋮";font-size:23px;line-height:1}
-  .moreMenu{top:auto!important;bottom:45px!important;right:0!important;width:min(290px,calc(100vw - 16px))!important;max-height:65dvh!important;overflow:auto!important;border-radius:16px!important}
-  #mobileBar{position:fixed;left:6px;right:6px;bottom:calc(6px + env(safe-area-inset-bottom));height:58px;z-index:88;display:flex;align-items:center;justify-content:space-around;gap:4px;padding:5px 6px;background:rgba(7,18,30,.97);border:1px solid #2f4d64;border-radius:18px;box-shadow:0 14px 45px #000b;backdrop-filter:blur(18px)}
-  #mobileBar button{flex:1;min-width:0;height:46px;border:0;border-radius:13px;background:transparent;color:#dcecf7;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;font-size:18px}
-  #mobileBar button span{font-size:8px;color:#8fa9bb;line-height:1}
-  #mobileBar button.active{background:#12354a;color:#63e6d2}
-  #mobileToolSheet{position:fixed;left:8px;right:8px;bottom:72px;z-index:87;padding:12px;border:1px solid #36566e;border-radius:18px;background:#0a1929f7;box-shadow:0 20px 60px #000c;backdrop-filter:blur(18px);display:none}
-  #mobileToolSheet.show{display:block}
-  .mobileToolsGrid{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}
-  .mobileToolsGrid button{height:50px;border:1px solid #294960;border-radius:12px;background:#10263a;color:#eef8ff;font-size:18px}
-  .mobileToolsGrid button small{display:block;font-size:8px;color:#8fa9bb;margin-top:2px}
-  .mobileToolsGrid button.active{background:linear-gradient(135deg,#0d9f91,#2568c8);border-color:#5fe7d6}
-  .mobileToolControls{display:flex;gap:10px;align-items:center;margin-top:10px}
-  .mobileToolControls label{flex:1;font-size:9px;color:#9bb2c4}
-  .mobileToolControls input{width:100%}
-  #mobileColor{height:32px}
-  #mobileSize{accent-color:#22b8a6}
-  .mobileSheetTitle{font-size:11px;font-weight:900;color:#effaff;margin-bottom:8px}
-  .mobileFileTitle{display:none}
-  .viewGallery{width:calc(100% - 8px)!important;margin:6px auto 30px!important}
-  .viewGallery.continuous{grid-template-columns:1fr!important}
-  .viewGallery.side{grid-template-columns:1fr!important}
-  body.mobile-reading .top,body.mobile-reading #mobileBar,body.mobile-reading .hoksh-more{opacity:0;pointer-events:none}
-  body.mobile-reading .workspace{padding:0!important}
-  body.mobile-reading .empty{inset:0!important}
-  body.mobile-reading .stage{margin-bottom:0!important}
+<script>
+const $=id=>document.getElementById(id);
+const canvas=$('canvas'),ctx=canvas.getContext('2d',{alpha:false}),stage=$('stage'),workspace=$('workspace');
+const state={w:1200,h:800};let bg=null,bgType=null,bgName='',pdf=null,pdfBytes=null,pdfPages=0,page=1;
+let pdfLibPromise=null,pdfExportPromise=null;
+let blankMode=false,blankCount=0,blankSize={w:2480,h:3508},blankTemplate='plain';
+let scale=1,tool='select',drawing=false,current=null,start=null,pendingText=null,selected=null;
+let strokes=[],pages={},undone=[],saveTimer=null,viewMode='single';
+
+function toast(msg){$('toast').textContent=msg;$('toast').classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>$('toast').classList.remove('show'),1800)}
+function fit(){if(!state.w||!state.h)return;const r=workspace.getBoundingClientRect();const pad=35;const sx=(r.width-pad)/state.w,sy=(r.height-pad)/state.h;scale=Math.min(sx,sy,1.45);if(scale<=0)scale=.25;stage.style.transform='scale('+scale+')';$('zoomReset').textContent=Math.round(scale*100)+'%'}
+function zoomTo(v){scale=Math.max(.2,Math.min(4,v));stage.style.transform='scale('+scale+')';$('zoomReset').textContent=Math.round(scale*100)+'%'}
+function fitLater(){requestAnimationFrame(()=>requestAnimationFrame(fit))}
+function resizeCanvas(w,h){state.w=w;state.h=h;canvas.width=w;canvas.height=h;stage.style.width=w+'px';stage.style.height=h+'px';render();fitLater()}
+function pos(e){const r=canvas.getBoundingClientRect();return{x:(e.clientX-r.left)/scale,y:(e.clientY-r.top)/scale}}
+function drawStroke(s,c=ctx,sc=1){
+  c.save();c.globalAlpha=s.opacity??1;c.strokeStyle=s.color||'#17a891';c.fillStyle=s.color||'#17a891';c.lineWidth=(s.width||4)*sc;c.lineCap='round';c.lineJoin='round';
+  if(s.type==='pen'||s.type==='highlight'){
+    c.globalAlpha=s.type==='highlight'?0.28:(s.opacity??1);const pts=s.points||[];c.beginPath();
+    if(!pts.length){c.restore();return}
+    if(pts.length===1){c.arc(pts[0].x*sc,pts[0].y*sc,Math.max(1,(s.width||4)*sc/2),0,Math.PI*2);c.fill()}
+    else{c.moveTo(pts[0].x*sc,pts[0].y*sc);for(let i=1;i<pts.length-1;i++){const p=pts[i],n=pts[i+1];c.quadraticCurveTo(p.x*sc,p.y*sc,(p.x+n.x)*sc/2,(p.y+n.y)*sc/2)}const a=pts[Math.max(0,pts.length-2)],b=pts[pts.length-1];c.quadraticCurveTo(a.x*sc,a.y*sc,b.x*sc,b.y*sc);c.stroke()}
+  }else if(['line','arrow'].includes(s.type)){
+    c.beginPath();c.moveTo(s.x*sc,s.y*sc);c.lineTo(s.x2*sc,s.y2*sc);c.stroke();if(s.type==='arrow'){const a=Math.atan2(s.y2-s.y,s.x2-s.x),L=18;c.beginPath();c.moveTo(s.x2*sc,s.y2*sc);c.lineTo((s.x2-L*Math.cos(a-.5))*sc,(s.y2-L*Math.sin(a-.5))*sc);c.moveTo(s.x2*sc,s.y2*sc);c.lineTo((s.x2-L*Math.cos(a+.5))*sc,(s.y2-L*Math.sin(a+.5))*sc);c.stroke()}
+  }else if(s.type==='rect')c.strokeRect(Math.min(s.x,s.x2)*sc,Math.min(s.y,s.y2)*sc,Math.abs(s.x2-s.x)*sc,Math.abs(s.y2-s.y)*sc);
+  else if(s.type==='circle'){const cx=(s.x+s.x2)/2,cy=(s.y+s.y2)/2,rx=Math.abs(s.x2-s.x)/2,ry=Math.abs(s.y2-s.y)/2;c.beginPath();c.ellipse(cx*sc,cy*sc,rx*sc,ry*sc,0,0,Math.PI*2);c.stroke()}
+  else if(s.type==='text'){c.fillStyle=s.color||'#111827';c.font=(s.size||28)*sc+'px system-ui,sans-serif';c.textBaseline='top';c.direction='rtl';c.textAlign='left';c.fillText(s.text,s.x*sc,s.y*sc)}
+  c.restore();
 }
-@media(min-width:681px){#mobileBar,#mobileToolSheet{display:none!important}}
-</style>
-<script id="hoksh-mobile-final-js">
-(function(){
-  if(window.innerWidth>680)return;
-  const bar=document.createElement('nav');bar.id='mobileBar';bar.setAttribute('aria-label','أدوات حوكش على الهاتف');
-  bar.innerHTML=
-    '<button id="mOpen" title="فتح ملف">📂<span>فتح</span></button>'+
-    '<button id="mUndo" title="تراجع">↶<span>تراجع</span></button>'+
-    '<button id="mTools" title="أدوات الكتابة">✎<span>أدوات</span></button>'+
-    '<button id="mView" title="طريقة العرض">▦<span>العرض</span></button>'+
-    '<button id="mMore" title="المزيد">⋮<span>المزيد</span></button>';
-  document.body.appendChild(bar);
-  const sheet=document.createElement('section');sheet.id='mobileToolSheet';
-  sheet.innerHTML=
-    '<div class="mobileSheetTitle">أدوات الكتابة والرسم</div>'+
-    '<div class="mobileToolsGrid">'+
-    '<button data-mtool="select">↖<small>تحديد</small></button>'+
-    '<button data-mtool="pen">✎<small>قلم</small></button>'+
-    '<button data-mtool="highlight">▰<small>تظليل</small></button>'+
-    '<button data-mtool="eraser">⌫<small>ممحاة</small></button>'+
-    '<button data-mtool="text">T<small>نص</small></button>'+
-    '<button data-mtool="line">╱<small>خط</small></button>'+
-    '<button data-mtool="arrow">➜<small>سهم</small></button>'+
-    '<button data-mtool="rect">□<small>مربع</small></button>'+
-    '<button data-mtool="circle">○<small>دائرة</small></button>'+
-    '<button id="mFull" title="ملء الشاشة">⛶<small>ملء الشاشة</small></button>'+
-    '</div>'+
-    '<div class="mobileToolControls"><label>اللون<input id="mobileColor" type="color" value="#ff3158"></label><label>السُمك<input id="mobileSize" type="range" min="1" max="40" value="5"></label></div>';
-  document.body.appendChild(sheet);
-  const click=id=>document.getElementById(id)?.click();
-  const closeTools=()=>sheet.classList.remove('show');
-  document.getElementById('mOpen').onclick=()=>click('file');
-  document.getElementById('mUndo').onclick=()=>click('undo');
-  document.getElementById('mView').onclick=()=>click('viewModeBtn');
-  document.getElementById('mMore').onclick=e=>{e.stopPropagation();document.getElementById('hokshMoreBtn')?.click()};
-  document.getElementById('mTools').onclick=e=>{e.stopPropagation();sheet.classList.toggle('show')};
-  document.addEventListener('pointerdown',e=>{if(sheet.classList.contains('show')&&!e.target.closest('#mobileToolSheet')&&!e.target.closest('#mTools'))closeTools()});
-  document.querySelectorAll('[data-mtool]').forEach(b=>b.onclick=()=>{
-    const t=b.dataset.mtool;
-    if(typeof setTool==='function')setTool(t);
-    document.querySelectorAll('[data-mtool]').forEach(x=>x.classList.toggle('active',x===b));
-    closeTools();
-  });
-  document.getElementById('mFull').onclick=()=>{
-    const el=document.documentElement;
-    if(!document.fullscreenElement)el.requestFullscreen?.().catch(()=>{});
-    else document.exitFullscreen?.();
-  };
-  const mc=document.getElementById('mobileColor'),ms=document.getElementById('mobileSize');
-  mc.addEventListener('input',()=>{const c=document.getElementById('color');if(c){c.value=mc.value;c.dispatchEvent(new Event('input',{bubbles:true}))}});
-  ms.addEventListener('input',()=>{const s=document.getElementById('size');if(s){s.value=ms.value;s.dispatchEvent(new Event('input',{bubbles:true}))}});
-  const sync=()=>{
-    const t=typeof tool!=='undefined'?tool:'select';
-    document.querySelectorAll('[data-mtool]').forEach(x=>x.classList.toggle('active',x.dataset.mtool===t));
-    const c=document.getElementById('color'),s=document.getElementById('size');
-    if(c)mc.value=c.value;if(s)ms.value=s.value;
-  };
-  setInterval(sync,500);sync();
-  const fitMobile=()=>{
-    const cv=document.getElementById('canvas'),ws=document.getElementById('workspace');
-    if(window.innerWidth>680||!cv||!ws||typeof state==='undefined')return;
-    if(!cv.width)return;
-    const avail=Math.max(260,ws.clientWidth-10);
-    const desired=Math.min(1.65,avail/state.w);
-    if(typeof scale==='number' && (scale<=1.51 || scale===1)){
-      scale=Math.max(.25,desired);
-      if(typeof fitZoom==='function')fitZoom();
+function render(){ctx.clearRect(0,0,state.w,state.h);if(bg)ctx.drawImage(bg,0,0,state.w,state.h);for(const s of strokes)drawStroke(s);if(current)drawStroke(current)}
+function setTool(t){tool=t;document.querySelectorAll('[data-tool]').forEach(b=>b.classList.toggle('active',b.dataset.tool===t));canvas.style.cursor=t==='eraser'?'crosshair':(t==='select'?'default':'crosshair')}
+document.querySelectorAll('[data-tool]').forEach(b=>b.addEventListener('click',()=>{setTool(b.dataset.tool);$('toolsModal').classList.remove('show')}));
+function addPoint(p){if(current?.points){const last=current.points[current.points.length-1];if(!last||Math.hypot(p.x-last.x,p.y-last.y)>0.5)current.points.push(p)}else if(current){current.x2=p.x;current.y2=p.y}}
+function finishDraw(){if(!drawing)return;drawing=false;if(current){strokes.push(current);current=null;commitPage();scheduleSave();render()}}
+canvas.addEventListener('pointerdown',e=>{
+  e.preventDefault();canvas.setPointerCapture?.(e.pointerId);if(!bg)return;const p=pos(e);
+  if(tool==='select'){selected=findHit(p);render();return}
+  if(tool==='eraser'){eraseAt(p);return}
+  if(tool==='text'){pendingText=p;$('textInput').value='';$('textModal').classList.add('show');setTimeout(()=>$('textInput').focus(),20);return}
+  drawing=true;start=p;const common={color:$('color').value,width:+$('size').value,opacity:+$('opacity').value/100};
+  if(tool==='pen'||tool==='highlight')current={type:tool,points:[p],...common};
+  else current={type:tool,x:p.x,y:p.y,x2:p.x,y2:p.y,...common};
+},{passive:false});
+canvas.addEventListener('pointermove',e=>{e.preventDefault();if(tool==='eraser'){if(e.buttons)eraseAt(pos(e));return}if(!drawing)return;for(const ev of (e.getCoalescedEvents?.()||[e]))addPoint(pos(ev));render()},{passive:false});
+canvas.addEventListener('pointerup',finishDraw);canvas.addEventListener('pointercancel',finishDraw);
+function distanceToSegment(p,a,b){const dx=b.x-a.x,dy=b.y-a.y;if(!dx&&!dy)return Math.hypot(p.x-a.x,p.y-a.y);const t=Math.max(0,Math.min(1,((p.x-a.x)*dx+(p.y-a.y)*dy)/(dx*dx+dy*dy)));return Math.hypot(p.x-(a.x+t*dx),p.y-(a.y+t*dy))}
+function strokeHit(s,p){
+  const r=Math.max(14,(s.width||4)*2.5);
+  if(s.points){for(let i=1;i<s.points.length;i++)if(distanceToSegment(p,s.points[i-1],s.points[i])<=r)return true;return s.points.length===1&&Math.hypot(p.x-s.points[0].x,p.y-s.points[0].y)<=r}
+  if(s.type==='text')return p.x>=s.x-r&&p.x<=s.x+(s.text.length*(s.size||28)*.65)+r&&p.y>=s.y-r&&p.y<=s.y+(s.size||28)*1.3+r;
+  return p.x>=Math.min(s.x,s.x2)-r&&p.x<=Math.max(s.x,s.x2)+r&&p.y>=Math.min(s.y,s.y2)-r&&p.y<=Math.max(s.y,s.y2)+r;
+}
+function findHit(p){for(let i=strokes.length-1;i>=0;i--)if(strokeHit(strokes[i],p))return strokes[i];return null}
+function eraseAt(p){let hit=false;for(let i=strokes.length-1;i>=0;i--){if(strokeHit(strokes[i],p)){strokes.splice(i,1);hit=true;break}}if(hit){undone=[];commitPage();scheduleSave();render()}}
+function undo(){if(strokes.length){undone.push(strokes.pop());commitPage();scheduleSave();render()}}
+function redo(){if(undone.length){strokes.push(undone.pop());commitPage();scheduleSave();render()}}
+$('undoBtn').onclick=undo;$('redoBtn').onclick=redo;$('mobileUndo').onclick=undo;
+$('zoomIn').onclick=()=>zoomTo(scale*1.15);$('zoomOut').onclick=()=>zoomTo(scale/1.15);$('zoomReset').onclick=fit;
+$('size').oninput=()=>{};$('opacity').oninput=()=>{};
+$('cancelText').onclick=()=>{$('textModal').classList.remove('show');pendingText=null};
+$('addText').onclick=()=>{const text=$('textInput').value.trim();if(text&&pendingText){strokes.push({type:'text',text,x:pendingText.x,y:pendingText.y,color:$('color').value,size:+$('fontSize').value,opacity:+$('opacity').value/100});undone=[];commitPage();scheduleSave();render()}pendingText=null;$('textModal').classList.remove('show')};
+document.addEventListener('keydown',e=>{
+  if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='z'){e.preventDefault();undo()}
+  else if((e.ctrlKey||e.metaKey)&&(e.key.toLowerCase()==='y'||(e.shiftKey&&e.key.toLowerCase()==='z'))){e.preventDefault();redo()}
+  else if(e.key==='Delete'||e.key==='Backspace'){if(selected){strokes=strokes.filter(x=>x!==selected);selected=null;commitPage();scheduleSave();render()}}
+  else if(!e.ctrlKey&&!e.metaKey&&!e.altKey&&!/input|textarea|select/i.test(document.activeElement?.tagName||'')){const m={p:'pen',h:'highlight',e:'eraser',t:'text',v:'select'};if(m[e.key.toLowerCase()])setTool(m[e.key.toLowerCase()])}
+});
+$('fileInput').addEventListener('change',e=>{const f=e.target.files?.[0];e.target.value='';if(f)loadFile(f)});
+function getPdfLib(){if(!pdfLibPromise)pdfLibPromise=import('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.min.mjs').then(m=>{m.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.worker.min.mjs';return m});return pdfLibPromise}
+function getPdfExport(){if(!pdfExportPromise)pdfExportPromise=import('https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/+esm');return pdfExportPromise}
+function blobDownload(blob,name){const u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),1500)}
+function showEditor(){ $('homeOverlay').classList.add('hidden');$('empty').style.display='none';}
+function showEmpty(){ $('homeOverlay').classList.add('hidden');$('empty').style.display='grid';}
+async function loadFile(file){
+  showEmpty();pages={};strokes=[];undone=[];selected=null;pdf=null;pdfBytes=null;pdfPages=0;page=1;blankMode=false;blankCount=0;bgType=file.type;bgName=file.name;
+  $('pageBar').style.display='none';$('status').textContent='جاري الفتح…';
+  if(file.type==='application/pdf'||/\.pdf$/i.test(file.name)){
+    try{pdfBytes=await file.arrayBuffer();const lib=await getPdfLib();pdf=await lib.getDocument({data:pdfBytes.slice(0)}).promise;pdfPages=pdf.numPages;$('pageBar').style.display='flex';$('pageTotal').textContent='/'+pdfPages;await renderPdfPage();toast('تم فتح PDF');}
+    catch(err){console.error(err);$('status').textContent='تعذر فتح PDF';toast('تعذر فتح PDF')}
+  }else{
+    try{const url=URL.createObjectURL(file);const img=new Image();img.onload=()=>{bg=img;resizeCanvas(img.naturalWidth,img.naturalHeight);$('status').textContent='صورة '+img.naturalWidth+'×'+img.naturalHeight;URL.revokeObjectURL(url);toast('تم فتح الصورة بجودتها الأصلية')};img.onerror=()=>{URL.revokeObjectURL(url);toast('تعذر قراءة الصورة')};img.src=url}
+    catch(err){toast('تعذر فتح الملف')}
+  }
+}
+async function renderPdfPage(){
+  const pg=await pdf.getPage(page);const vp=pg.getViewport({scale:1.5,rotation:0});const c=document.createElement('canvas'),cc=c.getContext('2d');c.width=Math.round(vp.width);c.height=Math.round(vp.height);await pg.render({canvasContext:cc,viewport:vp}).promise;bg=c;resizeCanvas(c.width,c.height);loadPageState();$('pageNo').value=page;$('pageTotal').textContent='/'+pdfPages;$('status').textContent='صفحة '+page+' من '+pdfPages;fitLater()
+}
+function commitPage(){if(pdf||blankMode)pages[page]=JSON.parse(JSON.stringify(strokes))}
+function loadPageState(){strokes=pages[page]?JSON.parse(JSON.stringify(pages[page])):[];undone=[];selected=null}
+$('prevPage').onclick=async()=>{if(pdf&&page>1){commitPage();page--;await renderPdfPage()}else if(blankMode&&page>1){commitPage();page--;renderBlankPage()}}
+$('nextPage').onclick=async()=>{if(pdf&&page<pdfPages){commitPage();page++;await renderPdfPage()}else if(blankMode&&page<blankCount){commitPage();page++;renderBlankPage()}}
+$('pageNo').onchange=async()=>{let n=Math.max(1,Math.min(pdf?pdfPages:(blankMode?blankCount:1),parseInt($('pageNo').value)||1));if(n===page)return;commitPage();page=n;if(pdf)await renderPdfPage();else if(blankMode)renderBlankPage()}
+function drawBlank(c,t){const x=c.getContext('2d'),w=c.width,h=c.height;x.fillStyle='#fff';x.fillRect(0,0,w,h);x.strokeStyle='#d0dbe4';x.lineWidth=Math.max(2,w/900);if(t==='lined'){for(let y=100;y<h;y+=100){x.beginPath();x.moveTo(90,y);x.lineTo(w-90,y);x.stroke()}}else if(t==='grid'){for(let a=0;a<=w;a+=90){x.beginPath();x.moveTo(a,0);x.lineTo(a,h);x.stroke()}for(let a=0;a<=h;a+=90){x.beginPath();x.moveTo(0,a);x.lineTo(w,a);x.stroke()}}else if(t==='dots'){x.fillStyle='#aebeca';for(let y=80;y<h;y+=100)for(let a=80;a<w;a+=100){x.beginPath();x.arc(a,y,4,0,Math.PI*2);x.fill()}}else if(t==='frame'){x.strokeStyle='#60798c';x.lineWidth=6;x.strokeRect(60,60,w-120,h-120)}}
+function openPageModal(count=1){$('pageCount').value=count;$('pageModal').classList.add('show')}
+$('newPageBtn').onclick=()=>openPageModal(1);$('newPage').onclick=()=>openPageModal(1);$('homeNew').onclick=()=>{openPageModal(1);$('homeOverlay').classList.add('hidden')};$('homeRestore').onclick=restoreProject;$('restoreBtn').onclick=restoreProject;
+$('cancelPage').onclick=()=>$('pageModal').classList.remove('show');
+document.querySelectorAll('.template').forEach(b=>b.onclick=()=>{document.querySelectorAll('.template').forEach(x=>x.classList.remove('active'));b.classList.add('active');blankTemplate=b.dataset.template});
+function createBlank(){const map={a4:{w:2480,h:3508},a5:{w:1748,h:2480},square:{w:2000,h:2000},wide:{w:2480,h:1400}};blankSize=map[$('pageSize').value];blankCount=Math.max(1,Math.min(30,+$('pageCount').value||1));blankMode=true;pdf=null;pdfBytes=null;pdfPages=0;pages={};strokes=[];undone=[];page=1;bg=document.createElement('canvas');bg.width=blankSize.w;bg.height=blankSize.h;drawBlank(bg,blankTemplate);resizeCanvas(bg.width,bg.height);$('pageBar').style.display='flex';$('pageTotal').textContent='/'+blankCount;$('pageNo').value=1;$('status').textContent='صفحة '+page+' من '+blankCount;$('pageModal').classList.remove('show');$('homeOverlay').classList.add('hidden');$('empty').style.display='none';toast('تم إنشاء الصفحة')}
+$('createPages').onclick=createBlank;
+function renderBlankPage(){const c=document.createElement('canvas');c.width=blankSize.w;c.height=blankSize.h;drawBlank(c,blankTemplate);bg=c;resizeCanvas(c.width,c.height);loadPageState();$('pageNo').value=page;$('status').textContent='صفحة '+page+' من '+blankCount}
+async function exportImage(){if(!bg){toast('افتح ملفًا أولًا');return}const out=document.createElement('canvas');out.width=state.w;out.height=state.h;const c=out.getContext('2d');c.drawImage(bg,0,0,state.w,state.h);strokes.forEach(s=>drawStroke(s,c,1));out.toBlob(b=>blobDownload(b,(bgName||'HOKSH')+'.png'),'image/png')}
+async function exportPdf(){
+  try{
+    const {PDFDocument}=await getPdfExport();const out=pdf?await PDFDocument.load(pdfBytes):await PDFDocument.create();
+    if(blankMode){
+      const keepPages=[];for(let i=0;i<out.getPageCount();i++)keepPages.push(out.getPage(i)); // empty document has none
+      for(let i=0;i<blankCount;i++){const p=out.addPage([blankSize.w/3.125,blankSize.h/3.125]);const overlay=await overlayPngForPage(i+1,p.getWidth(),p.getHeight(),2);if(overlay){const im=await out.embedPng(overlay);p.drawImage(im,{x:0,y:0,width:p.getWidth(),height:p.getHeight()})}}
+    }else{
+      commitPage();
+      for(let i=1;i<=pdfPages;i++){const p=out.getPage(i);const overlay=await overlayPngForPage(i,p.getWidth(),p.getHeight(),2);if(overlay){const im=await out.embedPng(overlay);p.drawImage(im,{x:0,y:0,width:p.getWidth(),height:p.getHeight()})}}
     }
-  };
-  const resize=()=>setTimeout(fitMobile,80);
-  window.addEventListener('resize',resize,{passive:true});
-  new MutationObserver(resize).observe(document.getElementById('canvas'),{attributes:true,attributeFilter:['width','height']});
-  setTimeout(fitMobile,350);setTimeout(fitMobile,1000);
-  document.getElementById('workspace')?.addEventListener('dblclick',()=>{
-    if(document.body.classList.contains('mobile-reading'))document.body.classList.remove('mobile-reading');
-    else document.body.classList.add('mobile-reading');
-  });
-})();
-</script><script id="hoksh-cross-device-final-js">
-(function(){
-  // Keep printing branded as HOKSH. Browser print headers/footers are controlled by the browser;
-  // the app itself never writes an email address into the printed document.
-  const printButtons=['smartPrint'];
-  printButtons.forEach(id=>{
-    const b=document.getElementById(id);
-    if(!b)return;
-    b.onclick=()=>{
-      const old=document.title;
-      document.title='حوكش HOKSH — محمد شعبان محارب';
-      requestAnimationFrame(()=>window.print());
-      setTimeout(()=>{document.title=old},1200);
-    };
-  });
-  // Prevent optional UI enhancements from breaking the core editor if a browser lacks an API.
-  window.addEventListener('error',e=>{
-    if(e.message && /requestFullscreen|beforeinstallprompt|showOpenFilePicker/i.test(e.message)) e.preventDefault();
-  });
-})();
+    const bytes=await out.save({useObjectStreams:true});blobDownload(new Blob([bytes],{type:'application/pdf'}),'HOKSH-edited-full.pdf');toast('تم تنزيل PDF كامل');
+  }catch(err){console.error(err);toast('تعذر تصدير PDF')}
+}
+async function overlayPngForPage(n,wPt,hPt,sc){
+  const arr=pages[n]||[];if(!arr.length)return null;const c=document.createElement('canvas');c.width=Math.max(1,Math.round(wPt*sc));c.height=Math.max(1,Math.round(hPt*sc));const cc=c.getContext('2d');cc.clearRect(0,0,c.width,c.height);arr.forEach(s=>drawStroke(s,cc,sc/(1/3.125)));return await new Promise(res=>c.toBlob(b=>res(b),'image/png'))
+}
+$('exportBtn').onclick=()=>{if(pdf||blankMode)exportPdf();else exportImage()};
+$('saveBtn').onclick=saveProject;
+async function saveProject(){try{const payload={name:bgName,type:bgType,page,pdf:!!pdf,blankMode,blankCount,blankSize,blankTemplate,pages};let bytes=null;if(pdfBytes)bytes=pdfBytes;else if(bgType&&bgType!=='application/pdf'&&bg?.src?.startsWith('blob:')){toast('احفظ المشروع ثم أعد فتح الصورة عند الاستئناف')}localStorage.setItem('hoksh_project',JSON.stringify({meta:payload}));if(bytes){const idb=await openDb();await idbSet(idb,'project',{meta:payload,bytes});idb.close()}toast('تم الحفظ على الجهاز')}catch(err){toast('تعذر الحفظ')}}
+function openDb(){return new Promise((res,rej)=>{const r=indexedDB.open('hoksh-db',1);r.onupgradeneeded=()=>r.result.createObjectStore('files',{keyPath:'id'});r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})}
+function idbSet(db,store,v){return new Promise((res,rej)=>{const t=db.transaction(store,'readwrite');t.objectStore(store).put({id:'project',...v});t.oncomplete=res;t.onerror=()=>rej(t.error)})}
+function idbGet(db,store,id){return new Promise((res,rej)=>{const t=db.transaction(store);const q=t.objectStore(store).get(id);q.onsuccess=()=>res(q.result);q.onerror=()=>rej(q.error)})}
+async function restoreProject(){try{const db=await openDb(),v=await idbGet(db,'files','project');db.close();if(!v){toast('لا يوجد عمل محفوظ');return}if(v.meta.pdf&&v.bytes){const f=new File([v.bytes],v.meta.name||'project.pdf',{type:'application/pdf'});await loadFile(f);setTimeout(()=>{page=v.meta.page||1;if(pdf&&page>1)renderPdfPage()},250);pages=v.meta.pages||{};toast('تم استئناف العمل')}else if(v.meta.blankMode){blankMode=true;blankCount=v.meta.blankCount;blankSize=v.meta.blankSize;blankTemplate=v.meta.blankTemplate;pages=v.meta.pages||{};page=v.meta.page||1;bg=document.createElement('canvas');bg.width=blankSize.w;bg.height=blankSize.h;drawBlank(bg,blankTemplate);$('homeOverlay').classList.add('hidden');$('empty').style.display='none';$('pageBar').style.display='flex';resizeCanvas(bg.width,bg.height);loadPageState()}else toast('افتح الصورة الأصلية مرة أخرى لاستعادة التعليقات')}catch(err){toast('تعذر الاستئناف')}}
+function scheduleSave(){clearTimeout(saveTimer);saveTimer=setTimeout(()=>{try{localStorage.setItem('hoksh_annotations',JSON.stringify({page,pages}))}catch(e){}},500)}
+$('mobileOpen').onclick=()=>$('fileInput').click();$('mobileUndo').onclick=undo;$('mobileTools').onclick=()=>$('toolsModal').classList.add('show');$('mobileView').onclick=()=>$('viewModal').classList.add('show');$('mobileMore').onclick=()=>$('moreModal').classList.add('show');
+$('closeTools').onclick=()=>$('toolsModal').classList.remove('show');
+$('moreBtn').onclick=()=>$('moreModal').classList.add('show');$('closeMore').onclick=()=>$('moreModal').classList.remove('show');
+$('viewBtn').onclick=()=>{ $('moreModal').classList.remove('show');$('viewModal').classList.add('show')};$('closeView').onclick=()=>$('viewModal').classList.remove('show');
+$('singleView').onclick=()=>{viewMode='single';$('viewModal').classList.remove('show');$('pageBar').style.display=(pdf||blankMode)?'flex':'none';$('empty').style.display='none';fitLater()};
+$('continuousView').onclick=async()=>{if(!pdf&&!blankMode){toast('افتح PDF أو أنشئ صفحات أولًا');return}viewMode='continuous';$('viewModal').classList.remove('show');toast('عرض الصفحات المتتالية متاح بالتنقل من شريط الصفحات')};
+$('fullBtn').onclick=async()=>{try{if(!document.fullscreenElement)await document.documentElement.requestFullscreen();else await document.exitFullscreen()}catch(e){}$('moreModal').classList.remove('show')};
+$('chatBtn').onclick=()=>{$('moreModal').classList.remove('show');$('chatModal').classList.add('show')};$('closeChat').onclick=()=>$('chatModal').classList.remove('show');$('openChatGPT').onclick=()=>window.open('https://chatgpt.com/','_blank','noopener');
+$('chatRun').onclick=()=>{const q=$('chatInput').value.trim();if(!q)return;let r='لم أفهم الأمر. جرّب: القلم، التظليل، المسح، النص، المستطيل، الدائرة، الصفحة 3.';if(/قلم|ارسم/.test(q)){setTool('pen');r='تم اختيار القلم.'}else if(/تظليل/.test(q)){setTool('highlight');r='تم اختيار التظليل.'}else if(/مسح|ممحاة/.test(q)){setTool('eraser');r='تم اختيار المسح.'}else if(/نص|اكتب/.test(q)){setTool('text');r='تم اختيار النص.'}else if(/مستطيل/.test(q)){setTool('rect');r='تم اختيار المستطيل.'}else if(/دائر/.test(q)){setTool('circle');r='تم اختيار الدائرة.'}else if(/الصفحة\s*(\d+)/.test(q)){const n=+(q.match(/الصفحة\s*(\d+)/)||[])[1]||1;if(pdf){page=Math.max(1,Math.min(pdfPages,n));renderPdfPage();r='تم الانتقال للصفحة '+page+'.'}else if(blankMode){page=Math.max(1,Math.min(blankCount,n));renderBlankPage();r='تم الانتقال للصفحة '+page+'.'}}toast(r);$('chatInput').value=''};
+$('developerBtn').onclick=()=>{$('moreModal').classList.remove('show');$('aboutModal').classList.add('show')};$('aboutHomeBtn').onclick=()=>{$('homeOverlay').classList.add('hidden');$('aboutModal').classList.add('show')};$('homeAbout').onclick=()=>{$('homeOverlay').classList.add('hidden');$('aboutModal').classList.add('show')};$('closeAbout').onclick=()=>$('aboutModal').classList.remove('show');
+document.addEventListener('click',e=>{if(e.target.classList.contains('modal'))e.target.classList.remove('show')});
+window.addEventListener('resize',fitLater);window.addEventListener('orientationchange',()=>setTimeout(fitLater,100));
+setTimeout(()=>$('homeOverlay').classList.remove('hidden'),300);setTimeout(()=>{$('homeOverlay').classList.add('hidden')},2600);
 </script>
-<script id="hoksh-final-reliability-js">
-(function(){
-  document.addEventListener('click',e=>{
-    const b=e.target.closest('.tool,[data-dock],[data-toptool],[data-float-tool],[data-mtool]');
-    if(!b||typeof setTool!=='function')return;
-    const t=b.dataset.tool||b.dataset.dock||b.dataset.toptool||b.dataset.floatTool||b.dataset.mtool;
-    if(t)setTool(t);
-  });
-  document.addEventListener('keydown',e=>{
-    if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='z'){e.preventDefault();if(typeof undo==='function')undo();}
-    else if((e.ctrlKey||e.metaKey)&&(e.key.toLowerCase()==='y'||(e.shiftKey&&e.key.toLowerCase()==='z'))){e.preventDefault();if(typeof redo==='function')redo();}
-    else if(!e.ctrlKey&&!e.metaKey&&!e.altKey){
-      const map={p:'pen',h:'highlight',e:'eraser',t:'text',v:'select'},t=map[e.key.toLowerCase()];
-      if(t&&typeof setTool==='function'&&!/input|textarea|select/i.test(document.activeElement?.tagName||''))setTool(t);
-    }
-  });
-  document.title='حوكش HOKSH — محرر الصور والـPDF الذكي';
-})();
-</script><script id="hoksh-stable-ux-js"></script></body></html>
+</body>
+</html>
