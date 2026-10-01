@@ -3,450 +3,249 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#07131f">
-<meta name="description" content="حوكش HOKSH — محرر بسيط وسريع للصور وملفات PDF.">
+<meta name="theme-color" content="#111827">
+<meta name="description" content="مجتمع PDF المفتوح — المذكرات والكتب والمراجع والمجموعات في مكان واحد.">
 <meta name="author" content="محمد شعبان محارب">
 <meta name="application-name" content="حوكش HOKSH">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="manifest" href="manifest.webmanifest">
-<title>حوكش HOKSH — محرر الصور وPDF</title>
+<title>حوكش HOKSH — مجتمع PDF المفتوح</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.min.mjs" type="module"></script>
 <style>
-:root{
-  --bg:#07131f;--panel:#0c1d2b;--panel2:#10283a;--line:#244158;--text:#eef7fb;
-  --muted:#94adbf;--accent:#21c7b0;--accent2:#3d83f6;--danger:#e75b70;--paper:#fff;
-}
-*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden}
-body{font-family:system-ui,-apple-system,"Segoe UI",Tahoma,Arial,sans-serif;background:var(--bg);color:var(--text)}
-button,input,textarea,select{font:inherit}
-button{cursor:pointer}
-.app{height:100dvh;display:flex;flex-direction:column}
-.topbar{height:58px;min-height:58px;display:flex;align-items:center;gap:7px;padding:7px 10px;background:#081722;border-bottom:1px solid var(--line);z-index:20}
-.brand{display:flex;align-items:baseline;gap:6px;font-size:21px;font-weight:950;white-space:nowrap}
-.brand span{font-size:12px;color:var(--accent);font-weight:800;letter-spacing:.4px}
-.topActions{display:flex;align-items:center;gap:6px;margin-right:auto}
-.btn{height:40px;border:1px solid #2a4961;border-radius:11px;padding:0 12px;background:#10283a;color:#eff8fc}
-.btn:hover{border-color:#48dbc8}.btn.primary{background:linear-gradient(135deg,#17bda9,#3f7ff0);border-color:#4fddcc}.btn.icon{width:40px;padding:0;display:grid;place-items:center;font-size:18px}.btn:active{transform:scale(.98)}
-.main{flex:1;min-height:0;display:flex}
-.tools{width:66px;min-width:66px;background:#091925;border-left:1px solid var(--line);padding:7px 6px;display:flex;flex-direction:column;gap:5px;z-index:10}
-.tool{width:54px;height:49px;border:1px solid transparent;border-radius:11px;background:transparent;color:#bed0dc;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;font-size:10px}
-.tool b{font-size:18px;line-height:1}.tool.active{background:#13394b;border-color:#2cc9b8;color:#fff}
-.toolSep{height:1px;background:#203a4e;margin:3px 2px}
-.workspace{position:relative;flex:1;min-width:0;background:#05101a;overflow:auto;display:flex;align-items:center;justify-content:center;padding:20px}
-.stage{position:relative;flex:0 0 auto;background:#fff;transform-origin:top center;box-shadow:0 20px 80px #000b}
-#canvas{display:block;background:#fff;touch-action:none}
-.empty{position:absolute;inset:0;display:grid;place-items:center;padding:20px}
-.emptyCard{width:min(520px,94vw);padding:26px;border:1px solid #31536b;border-radius:22px;background:linear-gradient(145deg,#0e2232,#091925);text-align:center;box-shadow:0 25px 80px #0008}
-.emptyCard h2{margin:0 0 7px;font-size:25px}.emptyCard p{margin:0;color:var(--muted);line-height:1.8;font-size:12px}
-.emptyGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:18px}
-.emptyBtn{min-height:94px;border:1px solid #2d4c63;border-radius:16px;background:#112a3c;color:#eef8fc;padding:12px}.emptyBtn strong{display:block;font-size:23px;margin-bottom:5px}.emptyBtn span{font-weight:800;font-size:12px}.emptyBtn small{display:block;color:#91acbd;font-size:9px;margin-top:4px}.emptyBtn.primary{background:linear-gradient(145deg,#11675f,#225db2);border-color:#48dbc8}
-.bottomInfo{position:fixed;left:50%;bottom:13px;transform:translateX(-50%);display:flex;gap:8px;align-items:center;background:#091825ee;border:1px solid #28485e;border-radius:14px;padding:6px 10px;font-size:10px;color:#9fb5c3;z-index:15;backdrop-filter:blur(12px)}
-.pageBar{position:fixed;left:50%;bottom:13px;transform:translateX(-50%);display:none;align-items:center;gap:5px;background:#091825f5;border:1px solid #2d4e65;border-radius:14px;padding:6px;z-index:16}
-.pageBar button{height:34px;min-width:34px;border:1px solid #2a4a61;border-radius:9px;background:#10283a;color:#fff}
-.pageNo{width:48px;text-align:center;border:1px solid #2a4a61;background:#071521;color:#fff;border-radius:8px;height:32px}
-.status{position:fixed;right:12px;bottom:13px;background:#091825e8;border:1px solid #29475d;padding:7px 10px;border-radius:11px;font-size:10px;color:#9db3c1;z-index:15}
-.dock{display:none}
-.modal{position:fixed;inset:0;background:#0009;display:none;align-items:center;justify-content:center;z-index:100;backdrop-filter:blur(5px)}
-.modal.show{display:flex}.dialog{width:min(760px,94vw);max-height:90dvh;overflow:auto;background:#0c1d2b;border:1px solid #2c4c63;border-radius:20px;box-shadow:0 30px 100px #000c;padding:20px}
-.dialog h3{margin:0 0 12px}.row{display:flex;gap:8px;align-items:center}.row.end{justify-content:flex-end}
-.templateGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0}
-.template{border:1px solid #2b4b62;border-radius:13px;background:#0b1b28;color:#fff;padding:8px}.template.active{border-color:#3fd7c5;box-shadow:0 0 0 2px #3fd7c522;background:#123247}
-.preview{height:84px;background:#fff;border-radius:7px;position:relative;overflow:hidden}.preview.lined{background:repeating-linear-gradient(to bottom,#fff 0 13px,#d8e2ea 14px)}.preview.grid{background-image:linear-gradient(#d8e2ea 1px,transparent 1px),linear-gradient(90deg,#d8e2ea 1px,transparent 1px);background-size:14px 14px}.preview.dots{background-image:radial-gradient(#adbfcd 1px,transparent 1.5px);background-size:13px 13px}.preview.frame:after{content:"";position:absolute;inset:8px;border:2px solid #70889a}.template b{display:block;margin-top:6px;font-size:11px}.template small{display:block;color:#93acbb;font-size:8px;margin-top:2px}
-.controls{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}.field{display:flex;flex-direction:column;gap:5px;font-size:10px;color:#99b2c1}.field input,.field select,.field textarea{width:100%;border:1px solid #29465b;background:#071521;color:#fff;border-radius:10px;padding:9px}
-.aboutHero{display:flex;align-items:center;gap:15px}.aboutAvatar{width:84px;height:84px;border-radius:24px;overflow:hidden;background:linear-gradient(135deg,#3d83f6,#20c7b1);display:grid;place-items:center;font-size:34px;font-weight:950}.aboutAvatar img{width:100%;height:100%;object-fit:cover}.muted{color:var(--muted);font-size:11px;line-height:1.8}
-.toast{position:fixed;top:68px;left:50%;transform:translateX(-50%);z-index:200;background:#133247;border:1px solid #3a637e;color:#fff;padding:8px 14px;border-radius:11px;display:none;font-size:11px}.toast.show{display:block}
-.homeOverlay{position:fixed;inset:0;z-index:1000;background:linear-gradient(160deg,#06202b,#07131f 58%,#050b12);display:flex;align-items:center;justify-content:center;padding:18px;transition:opacity .45s ease,visibility .45s ease}
-.homeOverlay.hidden{opacity:0;visibility:hidden;pointer-events:none}
-.homeBox{width:min(920px,96vw);padding:28px;border:1px solid #245166;border-radius:28px;background:linear-gradient(145deg,#0c2634,#081722);box-shadow:0 40px 120px #000b;text-align:center}
-.homeLogo{width:92px;height:92px;margin:0 auto 10px;border-radius:25px;overflow:hidden;box-shadow:0 18px 50px #0007}.homeLogo img{width:100%;height:100%;display:block}
-.homeTitle{font-size:40px;font-weight:1000}.homeTitle span{color:#3ad8c6}.homeSub{color:#9eb4c2;font-size:12px;margin:4px 0 22px}
-.homeActions{display:grid;grid-template-columns:repeat(4,1fr);gap:11px}.homeAction{min-height:128px;border:1px solid #2d4d63;border-radius:18px;background:#102a3c;color:#fff;padding:15px 10px}.homeAction.primary{background:linear-gradient(145deg,#117063,#245eb5);border-color:#42d9c6}.homeAction b{display:block;font-size:30px;margin-bottom:7px}.homeAction span{font-size:13px;font-weight:900}.homeAction small{display:block;color:#a6bac7;font-size:9px;margin-top:4px}.homeCredit{margin-top:18px;color:#7f9aa9;font-size:10px}
-@media(max-width:850px){.tools{display:none}.homeActions{grid-template-columns:repeat(2,1fr)}.topbar{padding:6px}.topActions .wide{display:none}.workspace{padding:10px 6px 80px}}
-@media(max-width:600px){.brand{font-size:18px}.brand span{font-size:10px}.topbar{height:52px;min-height:52px}.topActions{gap:4px}.btn{height:38px;padding:0 9px}.btn.icon{width:38px}.workspace{align-items:flex-start;padding-top:8px}.bottomInfo{display:none}.status{bottom:72px;right:8px}.pageBar{bottom:70px}.dock{position:fixed;left:6px;right:6px;bottom:7px;height:56px;display:flex;gap:4px;padding:5px;background:#081723f5;border:1px solid #2a4a60;border-radius:17px;z-index:90}.dock button{flex:1;border:0;border-radius:12px;background:transparent;color:#e9f4f8;font-size:18px}.dock button span{display:block;font-size:8px;color:#87a3b3}.dock button.active{background:#123b4d;color:#4de0cf}.empty{inset:0;padding:10px 8px 78px}.emptyCard{padding:21px 13px}.emptyGrid{gap:8px}.emptyBtn{min-height:86px}.templateGrid{grid-template-columns:repeat(2,1fr)}.controls{grid-template-columns:1fr}.homeBox{padding:22px 14px}.homeTitle{font-size:31px}.homeLogo{width:78px;height:78px}.homeActions{gap:8px}.homeAction{min-height:112px}.dialog{padding:15px}}
-<style id="hoksh-step1-welcome">
-:root{--welcome-dark:#101923;--welcome-dark2:#172532;--welcome-line:#2c3d4c;--welcome-accent:#17b9a5;--welcome-accent2:#3478ee;--welcome-light:#f6f8fb;--welcome-card:#ffffff;--welcome-ink:#14202a}
-.welcomeShell{position:fixed;inset:0;z-index:1000;display:grid;grid-template-columns:300px 1fr;background:var(--welcome-light);color:var(--welcome-ink);direction:rtl;overflow:hidden}
-.welcomeShell.hidden{opacity:0;visibility:hidden;pointer-events:none;transition:opacity .35s ease,visibility .35s ease}
-.welcomeSide{background:linear-gradient(180deg,var(--welcome-dark),#0c141c);color:#eef5f8;padding:18px 14px;display:flex;flex-direction:column;min-width:0}
-.welcomeSideTop{padding:4px 4px 18px;border-bottom:1px solid var(--welcome-line)}
-.welcomeMiniBrand{font-size:13px;color:#9bb0bd;font-weight:700;margin-bottom:3px}.welcomeSideTitle{font-size:22px;font-weight:950}.welcomeSideTitle span{color:#46dac8}
-.newGroupBtn{width:100%;height:44px;margin-top:14px;border:1px solid #2b4a5b;border-radius:11px;background:linear-gradient(135deg,#153748,#164c57);color:#effaff;font-weight:850}
-.newGroupBtn:hover{border-color:#43d9c5}
-.sideSection{margin-top:18px}.sideSection h3{margin:0 4px 8px;color:#93a8b5;font-size:11px;font-weight:800}.recentList,.groupList{display:flex;flex-direction:column;gap:4px;overflow:auto}
-.recentItem,.groupItem{width:100%;border:1px solid transparent;border-radius:9px;background:transparent;color:#dce8ed;text-align:right;padding:9px 10px;font-size:11px}.recentItem:hover,.groupItem:hover{background:#182936;border-color:#284353}
-.recentEmpty{padding:10px;color:#718795;font-size:10px;line-height:1.7}
-.welcomeMain{position:relative;background:linear-gradient(180deg,#fbfcfe,#f2f5f8);overflow:auto;padding:clamp(24px,5vw,64px)}
-.welcomeMainInner{max-width:980px;margin:0 auto}
-.welcomeTopLine{display:flex;justify-content:space-between;gap:12px;align-items:center;color:#6f7f8d;font-size:11px;margin-bottom:26px}
-.welcomeStatus{padding:7px 10px;border:1px solid #dce4ea;border-radius:999px;background:#fff}
-.welcomeHero{display:grid;grid-template-columns:1fr 340px;gap:30px;align-items:center}
-.welcomeHeroCopy h1{margin:0;font-size:clamp(26px,4vw,42px);line-height:1.25;font-weight:950;color:#14202a}.welcomeHeroCopy p{margin:11px 0 0;color:#6d7e8b;line-height:1.9;font-size:13px;max-width:650px}
-.welcomeUpload{margin-top:24px;width:min(100%,390px);min-height:62px;border-radius:14px;border:1px solid #3fd7c5;background:linear-gradient(135deg,#18b7a3,#3178ee);color:#fff;font-size:16px;font-weight:950;box-shadow:0 14px 30px #2d8f9140;display:flex;align-items:center;justify-content:center;gap:10px}
-.welcomeUpload:hover{transform:translateY(-1px)}
-.welcomeFeatures{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:32px}
-.welcomeFeature{padding:15px;border:1px solid #e1e7ec;border-radius:14px;background:#fff}.welcomeFeature b{display:block;font-size:12px;margin-bottom:4px}.welcomeFeature span{display:block;color:#758693;font-size:10px;line-height:1.7}
-.welcomePreview{min-height:270px;border:1px solid #dbe3e9;border-radius:22px;background:#fff;box-shadow:0 20px 50px #13202a12;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
-.welcomePreview:before{content:"";position:absolute;inset:28px;border:1px solid #e5ebef;border-radius:14px;background:linear-gradient(180deg,#ffffff,#f7f9fb)}
-.previewToolbar{position:absolute;left:24px;right:24px;top:42px;height:36px;border-radius:8px;background:#152530;display:flex;align-items:center;gap:6px;padding:5px}.previewToolbar i{width:26px;height:26px;border-radius:6px;background:#243c4b}.previewPage{position:absolute;top:94px;bottom:28px;width:62%;background:#fff;border:1px solid #dce4e9;box-shadow:0 8px 20px #192a3514;border-radius:5px;padding:26px 20px}.previewPage div{height:6px;background:#e5eaee;border-radius:4px;margin-bottom:11px}.previewPage div:nth-child(1){width:80%}.previewPage div:nth-child(2){width:62%}.previewPage div:nth-child(3){width:90%}.previewMark{position:absolute;width:110px;height:18px;background:#b9f2e9;opacity:.8;transform:rotate(-5deg);top:154px;right:48px;border-radius:4px}
-.welcomeFoot{margin-top:34px;color:#8a9aa6;font-size:10px}
-.groupDialog{width:min(430px,94vw)}.groupInput{width:100%;height:46px;border:1px solid #2c4c63;background:#071521;color:#fff;border-radius:10px;padding:0 12px}
-@media(max-width:900px){.welcomeShell{grid-template-columns:235px 1fr}.welcomeHero{grid-template-columns:1fr}.welcomePreview{display:none}}
-@media(max-width:680px){.welcomeShell{grid-template-columns:1fr}.welcomeSide{display:none}.welcomeMain{padding:22px 14px 90px}.welcomeTopLine{margin-bottom:22px}.welcomeFeatures{grid-template-columns:1fr}.welcomeUpload{width:100%;min-height:58px}.welcomeHeroCopy h1{font-size:29px}.welcomeFoot{margin-top:24px;text-align:center}}
-</style>
+:root{--bg:#0b1220;--panel:#111827;--panel2:#172235;--line:#28384e;--text:#f7fafc;--muted:#9cafc1;--accent:#22c7b7;--blue:#3d7cf5;--danger:#ef6479;--gold:#f4bf52;--paper:#f5f7fa;--card:#fff;--ink:#17202b}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;font-family:system-ui,-apple-system,"Segoe UI",Tahoma,Arial,sans-serif}
+body{background:var(--paper);color:var(--ink)}button,input,textarea,select{font:inherit}button{cursor:pointer}
+.app{height:100dvh;display:flex;flex-direction:column}.top{height:58px;min-height:58px;background:var(--panel);color:var(--text);display:flex;align-items:center;gap:9px;padding:7px 12px;border-bottom:1px solid var(--line);z-index:50}
+.logo{display:flex;align-items:center;gap:8px;font-weight:950;white-space:nowrap}.logo img{width:31px;height:31px;border-radius:9px}.logo span{font-size:20px}.logo small{color:var(--accent);font-size:10px}
+.topSearch{flex:1;max-width:680px;margin:0 auto;position:relative}.topSearch input{width:100%;height:40px;border:1px solid #31445d;background:#0d1726;color:#fff;border-radius:12px;padding:0 42px 0 12px;outline:none}.topSearch input:focus{border-color:#38d4c4}.searchIcon{position:absolute;right:13px;top:10px;color:#7f94a9}
+.topActions{display:flex;gap:6px}.btn{height:40px;border:1px solid #30455d;background:#162337;color:#eef4f8;border-radius:10px;padding:0 12px}.btn.primary{border-color:#3dd7c5;background:linear-gradient(135deg,#16b5a3,#3b78ef)}.btn.icon{width:40px;padding:0}.btn:hover{border-color:#4dd8ca}
+.layout{flex:1;min-height:0;display:flex;direction:rtl}.sidebar{width:265px;background:#0d1725;color:var(--text);border-left:1px solid var(--line);padding:14px 10px;display:flex;flex-direction:column;overflow:auto}.navTitle{font-size:11px;color:#8093a7;margin:4px 8px 8px;font-weight:800}.navBtn{width:100%;border:1px solid transparent;background:transparent;color:#dbe7ef;text-align:right;padding:11px 12px;border-radius:10px;margin-bottom:4px}.navBtn:hover{background:#152337}.navBtn.active{background:#14394a;border-color:#275a69;color:#53daca}.sideSep{height:1px;background:#1c3044;margin:12px 3px}.groupMini{display:flex;align-items:center;gap:8px;padding:9px 11px;border-radius:9px;color:#cfe0ea;font-size:11px}.groupMini:hover{background:#142437}.groupDot{width:8px;height:8px;border-radius:50%;background:var(--accent);flex:none}
+.content{flex:1;min-width:0;overflow:auto;background:var(--paper)}.page{max-width:1240px;margin:0 auto;padding:28px}.hidden{display:none!important}
+.hero{background:linear-gradient(135deg,#0f2030,#143c49);color:#fff;border-radius:22px;padding:28px 30px;box-shadow:0 18px 50px #0a16221a}.hero h1{margin:0;font-size:30px}.hero p{margin:8px 0 0;color:#b7cbd8;line-height:1.9;font-size:13px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.section{margin-top:24px}.sectionHead{display:flex;justify-content:space-between;align-items:center;margin-bottom:11px}.sectionHead h2{font-size:17px;margin:0}.muted{color:var(--muted);font-size:11px;line-height:1.7}
+.card{background:var(--card);border:1px solid #e4e9ee;border-radius:16px;padding:15px;box-shadow:0 7px 20px #17233208}.card h3{font-size:14px;margin:0 0 6px}.chip{display:inline-flex;align-items:center;gap:5px;padding:5px 8px;background:#eef4f7;border-radius:999px;font-size:9px;color:#607283}.docCard,.groupCard{cursor:pointer}.docMeta{display:flex;justify-content:space-between;gap:7px;margin-top:10px;font-size:9px;color:#738594}.docThumb{height:125px;background:linear-gradient(180deg,#f9fbfd,#eef2f5);border:1px solid #dfe6ec;border-radius:10px;margin-bottom:10px;display:grid;place-items:center;color:#7a8b98;font-size:33px}.stars{color:#efaf2e;letter-spacing:1px;font-size:10px}
+.authWrap{min-height:calc(100dvh - 58px);display:grid;place-items:center;padding:24px;background:linear-gradient(160deg,#f8fafc,#e8eef4)}.authCard{width:min(470px,94vw);background:#fff;border:1px solid #dfe7ed;border-radius:22px;padding:25px;box-shadow:0 22px 60px #17233218}.authCard h1{margin:0;font-size:24px}.authCard .sub{margin:7px 0 18px;color:#718291;font-size:11px}.field{display:flex;flex-direction:column;gap:6px;margin:10px 0}.field label{font-size:10px;color:#667b89}.field input,.field textarea,.field select{width:100%;height:42px;padding:0 11px;border:1px solid #cfdbe3;background:#fff;color:#16212a;border-radius:10px;outline:none}.field textarea{height:90px;padding-top:10px;resize:vertical}.field input:focus,.field textarea:focus,.field select:focus{border-color:#18b8a7;box-shadow:0 0 0 3px #18b8a715}.authBtn{width:100%;height:44px;margin-top:9px;border-radius:10px;border:1px solid #39d2bf;background:linear-gradient(135deg,#16b6a4,#3d79ef);color:#fff;font-weight:900}.googleBtn{width:100%;height:44px;margin-top:8px;border-radius:10px;border:1px solid #d6dfe5;background:#fff;color:#23313b;font-weight:800}.switch{margin-top:13px;text-align:center;font-size:10px;color:#738290}.switch button{border:0;background:none;color:#2e6fe5;padding:0}
+.toolbar{position:sticky;top:0;z-index:10;height:52px;background:#fff;border-bottom:1px solid #dfe6ec;display:flex;align-items:center;gap:6px;padding:6px 10px}.toolbar .toolBtn{height:38px;border:1px solid #d6e0e6;background:#fff;color:#445765;border-radius:9px;padding:0 10px}.toolbar .toolBtn.active{background:#e3f8f5;border-color:#3acabb;color:#0b8275}.reader{background:#e5eaf0;min-height:calc(100dvh - 110px);padding:25px;display:flex;justify-content:center;overflow:auto}.pdfSheet{background:#fff;box-shadow:0 12px 32px #15243328;position:relative}.pdfSheet canvas{display:block}.notePin{position:absolute;width:24px;height:24px;border-radius:50%;background:#f4bd4f;border:2px solid #fff;box-shadow:0 4px 10px #0004;color:#5a4012;display:grid;place-items:center;font-size:11px}
+.drawer{position:fixed;top:58px;right:0;bottom:0;width:min(330px,88vw);background:#0f1a29;color:#fff;z-index:70;transform:translateX(110%);transition:.22s;box-shadow:-20px 0 50px #0005;padding:15px}.drawer.show{transform:none}.drawer h3{margin:2px 0 14px}.drawer .navBtn{color:#d7e4ec}
+.modal{position:fixed;inset:0;background:#0008;display:none;align-items:center;justify-content:center;z-index:100;backdrop-filter:blur(4px)}.modal.show{display:flex}.dialog{width:min(650px,94vw);max-height:90dvh;overflow:auto;background:#fff;border-radius:18px;padding:20px}.dialog h2{margin:0 0 12px;font-size:20px}.optionRow{display:flex;gap:10px}.option{flex:1;border:1px solid #d8e2e8;border-radius:11px;padding:12px;background:#fff;text-align:right}.option.selected{border-color:#25c6b4;background:#eafaf7}.actions{display:flex;justify-content:flex-end;gap:7px;margin-top:14px}.notice{padding:10px 12px;border-radius:10px;background:#fff6df;color:#795813;font-size:10px;line-height:1.8}
+.toast{position:fixed;top:70px;left:50%;transform:translateX(-50%);z-index:300;background:#12263a;color:#fff;border:1px solid #3c5e77;padding:9px 14px;border-radius:10px;font-size:11px;display:none}.toast.show{display:block}
+.mobileNav{display:none}
+.onboarding{position:fixed;inset:0;z-index:500;background:linear-gradient(160deg,#0b1724,#102536 55%,#123f46);color:#fff;display:flex;align-items:center;justify-content:center;padding:18px}.onboarding.hide{display:none}.onboardCard{width:min(950px,95vw);min-height:560px;background:#f7fafc;color:#16212a;border-radius:26px;display:grid;grid-template-columns:1.1fr .9fr;overflow:hidden;box-shadow:0 35px 100px #0008}.onboardVisual{background:linear-gradient(145deg,#0f2d3b,#0d1724);color:#fff;display:flex;flex-direction:column;justify-content:center;padding:40px}.onboardVisual img{width:74px;height:74px;border-radius:20px;margin-bottom:18px}.onboardVisual h2{font-size:31px;margin:0 0 10px}.onboardVisual p{color:#aec2ce;line-height:1.9;font-size:13px;max-width:450px}.onboardCopy{padding:42px;display:flex;flex-direction:column;justify-content:center}.stepDots{display:flex;gap:6px;margin-bottom:18px}.dot{width:8px;height:8px;border-radius:50%;background:#d5dee5}.dot.active{background:#1db9a7}.onboardCopy h1{font-size:28px;line-height:1.5;margin:0}.onboardCopy p{font-size:12px;color:#71818d;line-height:2;margin:12px 0 24px}.onboardBtns{display:flex;gap:8px}.onboardBtns button{height:44px;border-radius:10px;padding:0 18px;border:1px solid #d8e2e8;background:#fff}.onboardBtns .primary{background:linear-gradient(135deg,#16b6a4,#3d7bf0);color:#fff;border-color:#38d2c0}
+.emptyState{display:grid;place-items:center;min-height:70vh;text-align:center}.emptyState strong{font-size:50px;display:block}.emptyState h2{margin:10px 0 5px}.emptyState p{margin:0;color:#758692;font-size:12px}
+@media(max-width:900px){.sidebar{display:none}.grid3{grid-template-columns:1fr 1fr}.topSearch{max-width:none}.mobileNav{position:fixed;display:flex;left:7px;right:7px;bottom:7px;height:57px;background:#0c1a28ee;border:1px solid #2a4154;border-radius:16px;z-index:80;padding:4px;gap:4px;backdrop-filter:blur(12px)}.mobileNav button{flex:1;border:0;background:none;color:#d8e8ef;border-radius:12px;font-size:17px}.mobileNav button span{display:block;font-size:8px;color:#8ea8b7}.mobileNav button.active{background:#15384a;color:#47d7c4}.content{padding-bottom:66px}.onboardCard{grid-template-columns:1fr}.onboardVisual{display:none}}
+@media(max-width:560px){.top{height:53px;min-height:53px;padding:6px 8px}.logo span{font-size:17px}.logo small{display:none}.topActions .hideM{display:none}.topSearch input{height:38px}.page{padding:16px 12px}.grid3{grid-template-columns:1fr}.hero{padding:22px}.hero h1{font-size:24px}.reader{padding:12px}.toolbar{overflow:auto}.toolbar .toolBtn{white-space:nowrap}.onboardCopy{padding:27px 20px}.onboardCopy h1{font-size:23px}.onboardCopy p{font-size:11px}.onboardBtns button{flex:1}}
 </style>
 </head>
 <body>
 <div class="app">
-  <header class="topbar">
-    <div class="brand">حوكش <span>HOKSH</span></div>
-    <div class="topActions">
-      <label class="btn primary wide" for="fileInput">📂 فتح ملف</label>
-      <button class="btn icon" id="undoBtn" title="تراجع">↶</button>
-      <button class="btn icon" id="redoBtn" title="إعادة">↷</button>
-      <button class="btn icon wide" id="zoomOut" title="تصغير">−</button>
-      <button class="btn wide" id="zoomReset">100%</button>
-      <button class="btn icon wide" id="zoomIn" title="تكبير">+</button>
-      <button class="btn" id="moreBtn">المزيد</button>
-      <button class="btn primary" id="exportBtn">تصدير</button>
-      <input id="fileInput" type="file" hidden accept="image/*,.pdf,application/pdf">
-    </div>
-  </header>
-  <main class="main">
-    <aside class="tools">
-      <button class="tool active" data-tool="select"><b>↖</b>تحديد</button>
-      <button class="tool" data-tool="pen"><b>✎</b>قلم</button>
-      <button class="tool" data-tool="highlight"><b>▰</b>تظليل</button>
-      <button class="tool" data-tool="eraser"><b>⌫</b>مسح</button>
-      <div class="toolSep"></div>
-      <button class="tool" data-tool="text"><b>T</b>نص</button>
-      <button class="tool" data-tool="line"><b>╱</b>خط</button>
-      <button class="tool" data-tool="arrow"><b>➜</b>سهم</button>
-      <button class="tool" data-tool="rect"><b>□</b>مربع</button>
-      <button class="tool" data-tool="circle"><b>○</b>دائرة</button>
-    </aside>
-    <section class="workspace" id="workspace">
-      <div class="stage" id="stage"><canvas id="canvas"></canvas></div>
-      <div class="empty" id="empty">
-        <div class="emptyCard">
-          <h2>ابدأ ملفك</h2>
-          <p>افتح صورة أو PDF بالحجم الأصلي، أو أنشئ صفحة جديدة للكتابة.</p>
-          <div class="emptyGrid">
-            <label class="emptyBtn primary" for="fileInput"><strong>📂</strong><span>فتح ملف</span><small>صورة أو PDF</small></label>
-            <button class="emptyBtn" id="newPageBtn"><strong>＋</strong><span>صفحة جديدة</span><small>ورقة جاهزة للكتابة</small></button>
-            <button class="emptyBtn" id="restoreBtn"><strong>↻</strong><span>استئناف الأخير</span><small>من الحفظ المحلي</small></button>
-            <button class="emptyBtn" id="aboutHomeBtn"><strong>ⓘ</strong><span>عن حوكش</span><small>المطور والبرنامج</small></button>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
+<header class="top">
+  <div class="logo"><img src="icon.svg" alt="حوكش"><div><span>حوكش HOKSH</span><small> مجتمع PDF المفتوح</small></div></div>
+  <div class="topSearch"><span class="searchIcon">⌕</span><input id="globalSearch" placeholder="ابحث عن كتاب، مذكرة، أو اسم المجموعة..."></div>
+  <div class="topActions">
+    <button class="btn icon hideM" id="notifBtn" title="الإشعارات">🔔</button>
+    <button class="btn icon hideM" id="menuBtn" title="القائمة">☰</button>
+    <button class="btn primary hideM" id="uploadTop">رفع ملف</button>
+  </div>
+</header>
+
+<div class="layout">
+<aside class="sidebar">
+  <div class="navTitle">الرئيسية</div>
+  <button class="navBtn active" data-page="home">🏠 الرئيسية</button>
+  <button class="navBtn" data-page="groups">👥 مجموعاتي</button>
+  <button class="navBtn" data-page="saved">💾 الملفات المحفوظة (بدون إنترنت)</button>
+  <button class="navBtn" data-page="profile">👤 الملف الشخصي</button>
+  <button class="navBtn" data-page="settings">⚙️ إعدادات التطبيق</button>
+  <div class="sideSep"></div>
+  <div class="navTitle">مجموعاتك</div>
+  <div id="sideGroups"></div>
+  <button class="navBtn" id="createGroupSide">➕ إنشاء مجموعة جديدة</button>
+  <div style="margin-top:auto"><div class="sideSep"></div><button class="navBtn" id="logoutSide">🚪 تسجيل الخروج</button></div>
+</aside>
+
+<main class="content" id="content">
+<section class="page" id="homePage">
+  <div class="hero">
+    <h1>مجتمع PDF المفتوح</h1>
+    <p>كل المذكرات، الكتب، والمراجع التي تبحث عنها في مكان واحد. اكتشف الملفات، انضم إلى مجموعات تخصصك، واحفظ ما تحتاجه للقراءة بدون إنترنت.</p>
+  </div>
+  <div class="section"><div class="sectionHead"><h2>المجموعات النشطة الآن</h2><button class="btn" id="seeGroups">عرض الكل</button></div><div class="grid3" id="activeGroups"></div></div>
+  <div class="section"><div class="sectionHead"><h2>الملفات الأكثر تحميلاً هذا الأسبوع</h2></div><div class="grid3" id="popularDocs"></div></div>
+  <div class="section"><div class="sectionHead"><h2>أحدث المذكرات المضافة</h2></div><div class="grid3" id="latestDocs"></div></div>
+  <div class="section"><div class="sectionHead"><h2>كتب ومراجع موصى بها</h2></div><div class="grid3" id="recommendedDocs"></div></div>
+</section>
+
+<section class="page hidden" id="groupsPage"><div class="sectionHead"><h2>مجموعاتي</h2><button class="btn primary" id="createGroupMain">➕ إنشاء مجموعة جديدة</button></div><div class="grid3" id="allGroups"></div></section>
+
+<section class="page hidden" id="savedPage"><div class="sectionHead"><h2>الملفات المحفوظة (بدون إنترنت)</h2></div><div class="grid3" id="savedDocs"></div></section>
+
+<section class="page hidden" id="profilePage"><div class="card"><h2>الملف الشخصي</h2><div id="profileData"></div></div></section>
+
+<section class="page hidden" id="settingsPage"><div class="card"><h2>إعدادات التطبيق</h2><div class="field"><label>المظهر</label><select id="themeSelect"><option value="light">فاتح</option><option value="dark">مظلم</option></select></div><div class="field"><label>التنبيهات</label><select id="notifySelect"><option>مفعلة</option><option>متوقفة</option></select></div></div></section>
+
+<section class="page hidden" id="groupPage">
+  <div class="sectionHead"><div><button class="btn" id="backHome">‹ الرئيسية</button><h2 id="groupTitle" style="display:inline-block;margin-right:8px"></h2></div><button class="btn" id="groupInfoBtn">ℹ️ معلومات</button></div>
+  <div class="grid3">
+    <div class="card"><h3>💬 المحادثة الفورية</h3><div id="chatList" style="height:260px;overflow:auto;border-top:1px solid #edf1f4;margin-top:8px;padding-top:8px"></div><div class="row" style="display:flex;gap:6px;margin-top:8px"><input id="chatInput" placeholder="اكتب رسالة..." style="flex:1;height:40px;border:1px solid #d5dfe6;border-radius:9px;padding:0 10px"><button class="btn primary" id="sendChat">إرسال</button></div></div>
+    <div class="card" style="grid-column:span 2"><h3>📚 مكتبة الملفات المشتركة</h3><div class="grid3" id="groupDocs"></div></div>
+  </div>
+  <div class="section"><div class="card"><h3>👥 أعضاء المجموعة</h3><div id="membersList" class="muted"></div></div></div>
+</section>
+</main>
+</div>
 </div>
 
-<div class="dock" id="mobileDock">
-  <button id="mobileOpen">📂<span>فتح</span></button>
-  <button id="mobileUndo">↶<span>تراجع</span></button>
-  <button id="mobileTools">✎<span>أدوات</span></button>
-  <button id="mobileView">▣<span>صفحة</span></button>
-  <button id="mobileMore">⋮<span>المزيد</span></button>
+<nav class="mobileNav">
+<button data-page="home" class="active">🏠<span>الرئيسية</span></button>
+<button data-page="groups">👥<span>مجموعاتي</span></button>
+<button id="mobileUpload">📤<span>رفع</span></button>
+<button data-page="saved">💾<span>محفوظة</span></button>
+<button id="mobileMenu">☰<span>المزيد</span></button>
+</nav>
+
+<div class="drawer" id="drawer">
+<h3>القائمة</h3>
+<button class="navBtn" data-page="profile">الملف الشخصي</button>
+<button class="navBtn" data-page="groups">مجموعاتي</button>
+<button class="navBtn" data-page="saved">الملفات المحفوظة (بدون إنترنت)</button>
+<button class="navBtn" data-page="settings">إعدادات التطبيق</button>
+<button class="navBtn" id="drawerLogout">تسجيل الخروج</button>
 </div>
 
-<div class="pageBar" id="pageBar">
-  <button id="prevPage">‹</button><input class="pageNo" id="pageNo" value="1" inputmode="numeric"><span id="pageTotal">/1</span><button id="nextPage">›</button>
-</div>
-<div class="status" id="status">جاهز</div>
-<div class="bottomInfo" id="bottomInfo">حوكش HOKSH • محمد شعبان محارب</div>
-
-<div class="modal" id="toolsModal"><div class="dialog" style="width:min(430px,94vw)">
-  <h3>أدوات الكتابة</h3>
-  <div class="emptyGrid">
-    <button class="emptyBtn" data-tool="select">↖<span>تحديد</span></button>
-    <button class="emptyBtn" data-tool="pen">✎<span>قلم</span></button>
-    <button class="emptyBtn" data-tool="highlight">▰<span>تظليل</span></button>
-    <button class="emptyBtn" data-tool="eraser">⌫<span>مسح</span></button>
-    <button class="emptyBtn" data-tool="text">T<span>نص</span></button>
-    <button class="emptyBtn" data-tool="line">╱<span>خط</span></button>
-    <button class="emptyBtn" data-tool="arrow">➜<span>سهم</span></button>
-    <button class="emptyBtn" data-tool="rect">□<span>مربع</span></button>
-    <button class="emptyBtn" data-tool="circle">○<span>دائرة</span></button>
-  </div>
-  <div class="controls">
-    <label class="field">اللون<input id="color" type="color" value="#17a891"></label>
-    <label class="field">السُمك<input id="size" type="range" min="1" max="40" value="5"></label>
-    <label class="field">الشفافية<input id="opacity" type="range" min="20" max="100" value="100"></label>
-  </div>
-  <div class="row end" style="margin-top:14px"><button class="btn" id="closeTools">إغلاق</button></div>
+<div class="modal" id="groupModal"><div class="dialog">
+<h2>إنشاء مجموعة جديدة</h2>
+<div class="field"><label>اسم المجموعة (مثال: طب بشري - الدفعة الثانية)</label><input id="newGroupName"></div>
+<div class="field"><label>وصف المجموعة (اكتب تخصص المجموعة وشروط الانضمام)</label><textarea id="newGroupDesc"></textarea></div>
+<div class="field"><label>نوع المجموعة</label><div class="optionRow"><button class="option selected" data-group-type="public">🌐 مجموعة عامة (يمكن للجميع الانضمام)</button><button class="option" data-group-type="private">🔒 مجموعة خاصة (تتطلب رمز دخول)</button></div></div>
+<div class="field hidden" id="groupCodeField"><label>رمز الدخول</label><input id="groupCode"></div>
+<div class="actions"><button class="btn" id="cancelGroup">إلغاء</button><button class="btn primary" id="confirmGroup">تأسيس المجموعة</button></div>
 </div></div>
 
-<div class="modal" id="pageModal"><div class="dialog">
-  <h3>صفحة جديدة</h3>
-  <div class="templateGrid">
-    <button class="template active" data-template="plain"><div class="preview"></div><b>أبيض</b><small>صفحة عادية</small></button>
-    <button class="template" data-template="lined"><div class="preview lined"></div><b>مسطر</b><small>للكتابة</small></button>
-    <button class="template" data-template="grid"><div class="preview grid"></div><b>مربعات</b><small>رياضيات</small></button>
-    <button class="template" data-template="dots"><div class="preview dots"></div><b>نقطي</b><small>ملاحظات</small></button>
-    <button class="template" data-template="frame"><div class="preview frame"></div><b>إطار</b><small>عنوان أو ملخص</small></button>
-  </div>
-  <div class="controls">
-    <label class="field">المقاس<select id="pageSize"><option value="a4">A4</option><option value="a5">A5</option><option value="square">مربع</option><option value="wide">عريض</option></select></label>
-    <label class="field">عدد الصفحات<input id="pageCount" type="number" min="1" max="30" value="1"></label>
-  </div>
-  <div class="row end" style="margin-top:14px"><button class="btn" id="cancelPage">إلغاء</button><button class="btn primary" id="createPages">إنشاء</button></div>
+<div class="modal" id="uploadModal"><div class="dialog">
+<h2>رفع ملف</h2>
+<div class="field"><label>اضغط هنا لاختيار ملف PDF من جهازك</label><input id="uploadFile" type="file" accept=".pdf,application/pdf"></div>
+<div class="field"><label>عنوان الملف أو الكتاب</label><input id="uploadTitle"></div>
+<div class="field"><label>وصف مختصر للمحتوى</label><textarea id="uploadDesc"></textarea></div>
+<div class="field"><label>الوسوم / الكلمات المفتاحية (لفصلها استخدم فاصلة)</label><input id="uploadTags"></div>
+<div class="field"><label>اختر القسم المناسب للملف</label><select id="uploadCategory"><option>طب</option><option>علوم</option><option>رياضيات</option><option>لغة إنجليزية</option><option>لغة عربية</option><option>فيزياء</option><option>كيمياء</option><option>أخرى</option></select></div>
+<div class="notice">في هذه النسخة يعمل الرفع على جهازك للتجربة ويحفظ الملف محليًا. المشاركة الفعلية بين مستخدمين تحتاج خدمة خلفية وقاعدة بيانات.</div>
+<div class="actions"><button class="btn" id="cancelUpload">إلغاء</button><button class="btn primary" id="confirmUpload">نشر الملف في التطبيق</button></div>
 </div></div>
 
-<div class="modal" id="textModal"><div class="dialog" style="width:min(420px,94vw)">
-  <h3>إضافة نص</h3><textarea id="textInput" placeholder="اكتب النص هنا..." style="min-height:120px;resize:vertical;background:#071521;color:#fff;border:1px solid #29465b;border-radius:10px;padding:10px;width:100%"></textarea>
-  <div class="controls"><label class="field">الحجم<input id="fontSize" type="number" min="8" max="120" value="28"></label></div>
-  <div class="row end" style="margin-top:14px"><button class="btn" id="cancelText">إلغاء</button><button class="btn primary" id="addText">إضافة</button></div>
-</div></div>
+<div class="modal" id="authModal"><div class="dialog"><div id="authContent"></div></div></div>
+<div class="modal" id="notificationModal"><div class="dialog"><h2>الإشعارات</h2><div id="notificationList"></div><div class="actions"><button class="btn" id="closeNotifs">إغلاق</button></div></div></div>
+<div class="modal" id="docInfoModal"><div class="dialog"><h2>بيانات الملف</h2><div id="docInfo"></div><div class="actions"><button class="btn" id="closeDocInfo">إغلاق</button></div></div></div>
+<div class="modal" id="noteModal"><div class="dialog"><h2>إضافة ملاحظة على هذه الصفحة</h2><div class="field"><label>الملاحظة</label><textarea id="noteText"></textarea></div><div class="actions"><button class="btn" id="cancelNote">إلغاء</button><button class="btn primary" id="saveNote">حفظ الملاحظة</button></div></div></div>
 
-<div class="modal" id="moreModal"><div class="dialog" style="width:min(420px,94vw)">
-  <h3>المزيد</h3>
-  <div class="emptyGrid">
-    <button class="emptyBtn" id="saveBtn"><strong>💾</strong><span>حفظ</span><small>على الجهاز</small></button>
-    <button class="emptyBtn" id="viewBtn"><strong>▣</strong><span>طريقة العرض</span><small>صفحة أو متتالية</small></button>
-    <button class="emptyBtn" id="fullBtn"><strong>⛶</strong><span>ملء الشاشة</span><small>مساحة أكبر</small></button>
-    <button class="emptyBtn" id="chatBtn"><strong>✦</strong><span>مساعد حوكش</span><small>أوامر سريعة</small></button>
-    <button class="emptyBtn" id="developerBtn"><strong>👨‍💻</strong><span>معلومات المطور</span><small>محمد شعبان محارب</small></button>
+<div class="onboarding" id="onboarding"><div class="onboardCard">
+  <div class="onboardVisual"><img src="icon.svg" alt="حوكش HOKSH"><h2>حوكش HOKSH</h2><p>مجتمع PDF المفتوح — مكان واحد لاكتشاف المذكرات والكتب والمراجع والتعاون مع الزملاء.</p></div>
+  <div class="onboardCopy">
+    <div class="stepDots"><i class="dot active"></i><i class="dot"></i></div>
+    <h1 id="onboardTitle"></h1><p id="onboardText"></p>
+    <div class="onboardBtns"><button id="onboardNext" class="primary">التالي</button><button id="onboardSkip">تخطي</button></div>
   </div>
-  <div class="row end" style="margin-top:14px"><button class="btn" id="closeMore">إغلاق</button></div>
-</div></div>
-
-<div class="modal" id="viewModal"><div class="dialog" style="width:min(400px,94vw)">
-  <h3>طريقة عرض الصفحات</h3>
-  <div class="emptyGrid">
-    <button class="emptyBtn" id="singleView"><strong>▣</strong><span>صفحة واحدة</span></button>
-    <button class="emptyBtn" id="continuousView"><strong>▤</strong><span>صفحات متتالية</span></button>
-  </div>
-  <div class="row end" style="margin-top:14px"><button class="btn" id="closeView">إغلاق</button></div>
-</div></div>
-
-<div class="modal" id="chatModal"><div class="dialog" style="width:min(480px,94vw)">
-  <h3>✦ مساعد حوكش</h3>
-  <p class="muted">يمكنه تنفيذ أوامر بسيطة داخل المحرر بدون مفتاح API. المساعد العام يمكن فتحه من ChatGPT.</p>
-  <input id="chatInput" placeholder="مثال: اختر القلم / اذهب للصفحة 3" style="width:100%;padding:11px;border-radius:10px;border:1px solid #29465b;background:#071521;color:#fff">
-  <div class="row end" style="margin-top:10px"><button class="btn primary" id="chatRun">تنفيذ</button><button class="btn" id="openChatGPT">فتح ChatGPT</button><button class="btn" id="closeChat">إغلاق</button></div>
-</div></div>
-
-<div class="modal" id="aboutModal"><div class="dialog" style="width:min(620px,94vw)">
-  <div class="aboutHero">
-    <div class="aboutAvatar"><img src="developer.jpg" alt="محمد شعبان محارب" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span>ح</span></div>
-    <div><h3 style="margin:0">محمد شعبان محارب</h3><div class="muted">المطور والمصمم — حوكش HOKSH</div></div>
-  </div>
-  <p class="muted" style="margin-top:18px">حوكش محرر عربي للصور وملفات PDF، مصمم للكتابة والرسم والتظليل وإضافة النصوص والأشكال ثم حفظ العمل وتصديره.</p>
-  <div class="row end"><button class="btn" id="closeAbout">إغلاق</button></div>
 </div></div>
 
 <div class="toast" id="toast"></div>
 
-<div class="welcomeShell" id="homeOverlay">
-  <aside class="welcomeSide">
-    <div class="welcomeSideTop">
-      <div class="welcomeMiniBrand">HOKSH</div>
-      <div class="welcomeSideTitle">مُحَرِّر الـPDF <span>التَّعَاوُنِي</span></div>
-      <button class="newGroupBtn" id="newGroupBtn">➕ إنشاء جروب عمل جديد</button>
-    </div>
-    <div class="sideSection">
-      <h3>مَجْمُوعَاتُ الْعَمَلِ</h3>
-      <div class="groupList" id="groupList"><div class="recentEmpty">لم يتم إنشاء جروبات بعد</div></div>
-    </div>
-    <div class="sideSection" style="margin-top:auto">
-      <h3>أَحْدَثُ الْمُسْتَنَدَاتِ</h3>
-      <div class="recentList" id="recentList"><div class="recentEmpty">لا توجد مستندات مفتوحة مؤخرًا</div></div>
-    </div>
-  </aside>
-  <main class="welcomeMain">
-    <div class="welcomeMainInner">
-      <div class="welcomeTopLine">
-        <span>حوكش HOKSH</span>
-        <span class="welcomeStatus">جاهز للعمل</span>
-      </div>
-      <section class="welcomeHero">
-        <div class="welcomeHeroCopy">
-          <h1>مَرْحَبًا بِكَ فِي مُحَرِّرِ الـ PDF التَّعَاوُنِيِّ الرَّئِيسِيِّ</h1>
-          <p>افتح مستندك وابدأ القراءة والتعديل والمراجعة داخل مساحة عمل واحدة، ثم انتقل لاحقًا إلى الجروبات والقنوات للتعاون.</p>
-          <label class="welcomeUpload" for="fileInput">📁 رَفْعُ مَلَفِّ PDF جَدِيدٍ</label>
-          <div class="welcomeFeatures">
-            <div class="welcomeFeature"><b>📄 عرض واضح</b><span>عرض المستند داخل مساحة عمل فاتحة ونظيفة.</span></div>
-            <div class="welcomeFeature"><b>✍️ تعديل سريع</b><span>الوصول إلى أدوات الكتابة والمراجعة من شريط واحد.</span></div>
-            <div class="welcomeFeature"><b>👥 تعاون</b><span>هيكل جروبات وقنوات جاهز للخطوات التالية.</span></div>
-          </div>
-        </div>
-        <div class="welcomePreview" aria-hidden="true">
-          <div class="previewToolbar"><i></i><i></i><i></i><i></i><i></i></div>
-          <div class="previewPage"><div></div><div></div><div></div></div>
-          <div class="previewMark"></div>
-        </div>
-      </section>
-      <div class="welcomeFoot">المطور محمد شعبان محارب</div>
-    </div>
-  </main>
-</div>
+<script type="module">
+import * as pdfjsLib from 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.min.mjs';
+pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.worker.min.mjs';
 
-<div class="modal" id="groupModal"><div class="dialog groupDialog">
-  <h3>إنشاء جروب عمل جديد</h3>
-  <p class="muted">اكتب اسم الجروب ليظهر في قائمة مجموعات العمل.</p>
-  <input id="groupName" class="groupInput" placeholder="مثال: فريق المراجعة">
-  <div class="row end" style="margin-top:12px"><button class="btn" id="cancelGroup">إلغاء</button><button class="btn primary" id="createGroup">إنشاء الجروب</button></div>
-</div></div>
-
-
-
-<script>
 const $=id=>document.getElementById(id);
-const canvas=$('canvas'),ctx=canvas.getContext('2d',{alpha:false}),stage=$('stage'),workspace=$('workspace');
-const state={w:1200,h:800};let bg=null,bgType=null,bgName='',pdf=null,pdfBytes=null,pdfPages=0,page=1;
-let pdfLibPromise=null,pdfExportPromise=null;
-let blankMode=false,blankCount=0,blankSize={w:2480,h:3508},blankTemplate='plain';
-let scale=1,tool='select',drawing=false,current=null,start=null,pendingText=null,selected=null;
-let strokes=[],pages={},undone=[],saveTimer=null,viewMode='single';
+const DB='hoksh-community-db',STORE='files';
+let currentUser=JSON.parse(localStorage.getItem('hoksh_user')||'null');
+let currentGroup=null,currentDoc=null,currentPdf=null,currentPdfPage=1,currentPdfDark=false,currentPdfNotes={},groupType='public';
+const demoGroups=()=>{try{return JSON.parse(localStorage.getItem('hoksh_groups')||'[]')}catch{return[]}};
+const demoDocs=()=>{try{return JSON.parse(localStorage.getItem('hoksh_docs')||'[]')}catch{return[]}};
+const demoNotifs=()=>{try{return JSON.parse(localStorage.getItem('hoksh_notifications')||'[]')}catch{return[]}};
+const save=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
+function toast(s){$('toast').textContent=s;$('toast').classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>$('toast').classList.remove('show'),2000)}
+function bytesMB(n){return (n/1024/1024).toFixed(1)}
+function fmtDate(x){return new Date(x).toLocaleDateString('ar-EG',{day:'numeric',month:'short',year:'numeric'})}
 
-function toast(msg){$('toast').textContent=msg;$('toast').classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>$('toast').classList.remove('show'),1800)}
-function fit(){if(!state.w||!state.h)return;const r=workspace.getBoundingClientRect();const pad=35;const sx=(r.width-pad)/state.w,sy=(r.height-pad)/state.h;scale=Math.min(sx,sy,1.45);if(scale<=0)scale=.25;stage.style.transform='scale('+scale+')';$('zoomReset').textContent=Math.round(scale*100)+'%'}
-function zoomTo(v){scale=Math.max(.2,Math.min(4,v));stage.style.transform='scale('+scale+')';$('zoomReset').textContent=Math.round(scale*100)+'%'}
-function fitLater(){requestAnimationFrame(()=>requestAnimationFrame(fit))}
-function resizeCanvas(w,h){state.w=w;state.h=h;canvas.width=w;canvas.height=h;stage.style.width=w+'px';stage.style.height=h+'px';render();fitLater()}
-function pos(e){const r=canvas.getBoundingClientRect();return{x:(e.clientX-r.left)/scale,y:(e.clientY-r.top)/scale}}
-function drawStroke(s,c=ctx,sc=1){
-  c.save();c.globalAlpha=s.opacity??1;c.strokeStyle=s.color||'#17a891';c.fillStyle=s.color||'#17a891';c.lineWidth=(s.width||4)*sc;c.lineCap='round';c.lineJoin='round';
-  if(s.type==='pen'||s.type==='highlight'){
-    c.globalAlpha=s.type==='highlight'?0.28:(s.opacity??1);const pts=s.points||[];c.beginPath();
-    if(!pts.length){c.restore();return}
-    if(pts.length===1){c.arc(pts[0].x*sc,pts[0].y*sc,Math.max(1,(s.width||4)*sc/2),0,Math.PI*2);c.fill()}
-    else{c.moveTo(pts[0].x*sc,pts[0].y*sc);for(let i=1;i<pts.length-1;i++){const p=pts[i],n=pts[i+1];c.quadraticCurveTo(p.x*sc,p.y*sc,(p.x+n.x)*sc/2,(p.y+n.y)*sc/2)}const a=pts[Math.max(0,pts.length-2)],b=pts[pts.length-1];c.quadraticCurveTo(a.x*sc,a.y*sc,b.x*sc,b.y*sc);c.stroke()}
-  }else if(['line','arrow'].includes(s.type)){
-    c.beginPath();c.moveTo(s.x*sc,s.y*sc);c.lineTo(s.x2*sc,s.y2*sc);c.stroke();if(s.type==='arrow'){const a=Math.atan2(s.y2-s.y,s.x2-s.x),L=18;c.beginPath();c.moveTo(s.x2*sc,s.y2*sc);c.lineTo((s.x2-L*Math.cos(a-.5))*sc,(s.y2-L*Math.sin(a-.5))*sc);c.moveTo(s.x2*sc,s.y2*sc);c.lineTo((s.x2-L*Math.cos(a+.5))*sc,(s.y2-L*Math.sin(a+.5))*sc);c.stroke()}
-  }else if(s.type==='rect')c.strokeRect(Math.min(s.x,s.x2)*sc,Math.min(s.y,s.y2)*sc,Math.abs(s.x2-s.x)*sc,Math.abs(s.y2-s.y)*sc);
-  else if(s.type==='circle'){const cx=(s.x+s.x2)/2,cy=(s.y+s.y2)/2,rx=Math.abs(s.x2-s.x)/2,ry=Math.abs(s.y2-s.y)/2;c.beginPath();c.ellipse(cx*sc,cy*sc,rx*sc,ry*sc,0,0,Math.PI*2);c.stroke()}
-  else if(s.type==='text'){c.fillStyle=s.color||'#111827';c.font=(s.size||28)*sc+'px system-ui,sans-serif';c.textBaseline='top';c.direction='rtl';c.textAlign='left';c.fillText(s.text,s.x*sc,s.y*sc)}
-  c.restore();
-}
-function render(){ctx.clearRect(0,0,state.w,state.h);if(bg)ctx.drawImage(bg,0,0,state.w,state.h);for(const s of strokes)drawStroke(s);if(current)drawStroke(current)}
-function setTool(t){tool=t;document.querySelectorAll('[data-tool]').forEach(b=>b.classList.toggle('active',b.dataset.tool===t));canvas.style.cursor=t==='eraser'?'crosshair':(t==='select'?'default':'crosshair')}
-document.querySelectorAll('[data-tool]').forEach(b=>b.addEventListener('click',()=>{setTool(b.dataset.tool);$('toolsModal').classList.remove('show')}));
-function addPoint(p){if(current?.points){const last=current.points[current.points.length-1];if(!last||Math.hypot(p.x-last.x,p.y-last.y)>0.5)current.points.push(p)}else if(current){current.x2=p.x;current.y2=p.y}}
-function finishDraw(){if(!drawing)return;drawing=false;if(current){strokes.push(current);current=null;commitPage();scheduleSave();render()}}
-canvas.addEventListener('pointerdown',e=>{
-  e.preventDefault();canvas.setPointerCapture?.(e.pointerId);if(!bg)return;const p=pos(e);
-  if(tool==='select'){selected=findHit(p);render();return}
-  if(tool==='eraser'){eraseAt(p);return}
-  if(tool==='text'){pendingText=p;$('textInput').value='';$('textModal').classList.add('show');setTimeout(()=>$('textInput').focus(),20);return}
-  drawing=true;start=p;const common={color:$('color').value,width:+$('size').value,opacity:+$('opacity').value/100};
-  if(tool==='pen'||tool==='highlight')current={type:tool,points:[p],...common};
-  else current={type:tool,x:p.x,y:p.y,x2:p.x,y2:p.y,...common};
-},{passive:false});
-canvas.addEventListener('pointermove',e=>{e.preventDefault();if(tool==='eraser'){if(e.buttons)eraseAt(pos(e));return}if(!drawing)return;for(const ev of (e.getCoalescedEvents?.()||[e]))addPoint(pos(ev));render()},{passive:false});
-canvas.addEventListener('pointerup',finishDraw);canvas.addEventListener('pointercancel',finishDraw);
-function distanceToSegment(p,a,b){const dx=b.x-a.x,dy=b.y-a.y;if(!dx&&!dy)return Math.hypot(p.x-a.x,p.y-a.y);const t=Math.max(0,Math.min(1,((p.x-a.x)*dx+(p.y-a.y)*dy)/(dx*dx+dy*dy)));return Math.hypot(p.x-(a.x+t*dx),p.y-(a.y+t*dy))}
-function strokeHit(s,p){
-  const r=Math.max(14,(s.width||4)*2.5);
-  if(s.points){for(let i=1;i<s.points.length;i++)if(distanceToSegment(p,s.points[i-1],s.points[i])<=r)return true;return s.points.length===1&&Math.hypot(p.x-s.points[0].x,p.y-s.points[0].y)<=r}
-  if(s.type==='text')return p.x>=s.x-r&&p.x<=s.x+(s.text.length*(s.size||28)*.65)+r&&p.y>=s.y-r&&p.y<=s.y+(s.size||28)*1.3+r;
-  return p.x>=Math.min(s.x,s.x2)-r&&p.x<=Math.max(s.x,s.x2)+r&&p.y>=Math.min(s.y,s.y2)-r&&p.y<=Math.max(s.y,s.y2)+r;
-}
-function findHit(p){for(let i=strokes.length-1;i>=0;i--)if(strokeHit(strokes[i],p))return strokes[i];return null}
-function eraseAt(p){let hit=false;for(let i=strokes.length-1;i>=0;i--){if(strokeHit(strokes[i],p)){strokes.splice(i,1);hit=true;break}}if(hit){undone=[];commitPage();scheduleSave();render()}}
-function undo(){if(strokes.length){undone.push(strokes.pop());commitPage();scheduleSave();render()}}
-function redo(){if(undone.length){strokes.push(undone.pop());commitPage();scheduleSave();render()}}
-$('undoBtn').onclick=undo;$('redoBtn').onclick=redo;$('mobileUndo').onclick=undo;
-$('zoomIn').onclick=()=>zoomTo(scale*1.15);$('zoomOut').onclick=()=>zoomTo(scale/1.15);$('zoomReset').onclick=fit;
-$('size').oninput=()=>{};$('opacity').oninput=()=>{};
-$('cancelText').onclick=()=>{$('textModal').classList.remove('show');pendingText=null};
-$('addText').onclick=()=>{const text=$('textInput').value.trim();if(text&&pendingText){strokes.push({type:'text',text,x:pendingText.x,y:pendingText.y,color:$('color').value,size:+$('fontSize').value,opacity:+$('opacity').value/100});undone=[];commitPage();scheduleSave();render()}pendingText=null;$('textModal').classList.remove('show')};
-document.addEventListener('keydown',e=>{
-  if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='z'){e.preventDefault();undo()}
-  else if((e.ctrlKey||e.metaKey)&&(e.key.toLowerCase()==='y'||(e.shiftKey&&e.key.toLowerCase()==='z'))){e.preventDefault();redo()}
-  else if(e.key==='Delete'||e.key==='Backspace'){if(selected){strokes=strokes.filter(x=>x!==selected);selected=null;commitPage();scheduleSave();render()}}
-  else if(!e.ctrlKey&&!e.metaKey&&!e.altKey&&!/input|textarea|select/i.test(document.activeElement?.tagName||'')){const m={p:'pen',h:'highlight',e:'eraser',t:'text',v:'select'};if(m[e.key.toLowerCase()])setTool(m[e.key.toLowerCase()])}
-});
-$('fileInput').addEventListener('change',e=>{const f=e.target.files?.[0];e.target.value='';if(f)loadFile(f)});
-function getPdfLib(){if(!pdfLibPromise)pdfLibPromise=import('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.min.mjs').then(m=>{m.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.worker.min.mjs';return m});return pdfLibPromise}
-function getPdfExport(){if(!pdfExportPromise)pdfExportPromise=import('https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/+esm');return pdfExportPromise}
-function blobDownload(blob,name){const u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),1500)}
-function showEditor(){ $('homeOverlay').classList.add('hidden');$('empty').style.display='none';}
-function showEmpty(){ $('homeOverlay').classList.add('hidden');$('empty').style.display='grid';}
-async function loadFile(file){
-  if(typeof hokshRememberRecent==='function')hokshRememberRecent(file.name);
-  showEmpty();pages={};strokes=[];undone=[];selected=null;pdf=null;pdfBytes=null;pdfPages=0;page=1;blankMode=false;blankCount=0;bgType=file.type;bgName=file.name;
-  $('pageBar').style.display='none';$('status').textContent='جاري الفتح…';
-  if(file.type==='application/pdf'||/\.pdf$/i.test(file.name)){
-    try{pdfBytes=await file.arrayBuffer();const lib=await getPdfLib();pdf=await lib.getDocument({data:pdfBytes.slice(0)}).promise;pdfPages=pdf.numPages;$('pageBar').style.display='flex';$('pageTotal').textContent='/'+pdfPages;await renderPdfPage();toast('تم فتح PDF');}
-    catch(err){console.error(err);$('status').textContent='تعذر فتح PDF';toast('تعذر فتح PDF')}
-  }else{
-    try{const url=URL.createObjectURL(file);const img=new Image();img.onload=()=>{bg=img;resizeCanvas(img.naturalWidth,img.naturalHeight);$('status').textContent='صورة '+img.naturalWidth+'×'+img.naturalHeight;URL.revokeObjectURL(url);toast('تم فتح الصورة بجودتها الأصلية')};img.onerror=()=>{URL.revokeObjectURL(url);toast('تعذر قراءة الصورة')};img.src=url}
-    catch(err){toast('تعذر فتح الملف')}
-  }
-}
-async function renderPdfPage(){
-  const pg=await pdf.getPage(page);const vp=pg.getViewport({scale:1.5,rotation:0});const c=document.createElement('canvas'),cc=c.getContext('2d');c.width=Math.round(vp.width);c.height=Math.round(vp.height);await pg.render({canvasContext:cc,viewport:vp}).promise;bg=c;resizeCanvas(c.width,c.height);loadPageState();$('pageNo').value=page;$('pageTotal').textContent='/'+pdfPages;$('status').textContent='صفحة '+page+' من '+pdfPages;fitLater()
-}
-function commitPage(){if(pdf||blankMode)pages[page]=JSON.parse(JSON.stringify(strokes))}
-function loadPageState(){strokes=pages[page]?JSON.parse(JSON.stringify(pages[page])):[];undone=[];selected=null}
-$('prevPage').onclick=async()=>{if(pdf&&page>1){commitPage();page--;await renderPdfPage()}else if(blankMode&&page>1){commitPage();page--;renderBlankPage()}}
-$('nextPage').onclick=async()=>{if(pdf&&page<pdfPages){commitPage();page++;await renderPdfPage()}else if(blankMode&&page<blankCount){commitPage();page++;renderBlankPage()}}
-$('pageNo').onchange=async()=>{let n=Math.max(1,Math.min(pdf?pdfPages:(blankMode?blankCount:1),parseInt($('pageNo').value)||1));if(n===page)return;commitPage();page=n;if(pdf)await renderPdfPage();else if(blankMode)renderBlankPage()}
-function drawBlank(c,t){const x=c.getContext('2d'),w=c.width,h=c.height;x.fillStyle='#fff';x.fillRect(0,0,w,h);x.strokeStyle='#d0dbe4';x.lineWidth=Math.max(2,w/900);if(t==='lined'){for(let y=100;y<h;y+=100){x.beginPath();x.moveTo(90,y);x.lineTo(w-90,y);x.stroke()}}else if(t==='grid'){for(let a=0;a<=w;a+=90){x.beginPath();x.moveTo(a,0);x.lineTo(a,h);x.stroke()}for(let a=0;a<=h;a+=90){x.beginPath();x.moveTo(0,a);x.lineTo(w,a);x.stroke()}}else if(t==='dots'){x.fillStyle='#aebeca';for(let y=80;y<h;y+=100)for(let a=80;a<w;a+=100){x.beginPath();x.arc(a,y,4,0,Math.PI*2);x.fill()}}else if(t==='frame'){x.strokeStyle='#60798c';x.lineWidth=6;x.strokeRect(60,60,w-120,h-120)}}
-function openPageModal(count=1){$('pageCount').value=count;$('pageModal').classList.add('show')}
-$('newPageBtn').onclick=()=>openPageModal(1);$('newPage').onclick=()=>openPageModal(1);$('homeNew').onclick=()=>{openPageModal(1);$('homeOverlay').classList.add('hidden')};$('homeRestore').onclick=restoreProject;$('restoreBtn').onclick=restoreProject;
-$('cancelPage').onclick=()=>$('pageModal').classList.remove('show');
-document.querySelectorAll('.template').forEach(b=>b.onclick=()=>{document.querySelectorAll('.template').forEach(x=>x.classList.remove('active'));b.classList.add('active');blankTemplate=b.dataset.template});
-function createBlank(){const map={a4:{w:2480,h:3508},a5:{w:1748,h:2480},square:{w:2000,h:2000},wide:{w:2480,h:1400}};blankSize=map[$('pageSize').value];blankCount=Math.max(1,Math.min(30,+$('pageCount').value||1));blankMode=true;pdf=null;pdfBytes=null;pdfPages=0;pages={};strokes=[];undone=[];page=1;bg=document.createElement('canvas');bg.width=blankSize.w;bg.height=blankSize.h;drawBlank(bg,blankTemplate);resizeCanvas(bg.width,bg.height);$('pageBar').style.display='flex';$('pageTotal').textContent='/'+blankCount;$('pageNo').value=1;$('status').textContent='صفحة '+page+' من '+blankCount;$('pageModal').classList.remove('show');$('homeOverlay').classList.add('hidden');$('empty').style.display='none';toast('تم إنشاء الصفحة')}
-$('createPages').onclick=createBlank;
-function renderBlankPage(){const c=document.createElement('canvas');c.width=blankSize.w;c.height=blankSize.h;drawBlank(c,blankTemplate);bg=c;resizeCanvas(c.width,c.height);loadPageState();$('pageNo').value=page;$('status').textContent='صفحة '+page+' من '+blankCount}
-async function exportImage(){if(!bg){toast('افتح ملفًا أولًا');return}const out=document.createElement('canvas');out.width=state.w;out.height=state.h;const c=out.getContext('2d');c.drawImage(bg,0,0,state.w,state.h);strokes.forEach(s=>drawStroke(s,c,1));out.toBlob(b=>blobDownload(b,(bgName||'HOKSH')+'.png'),'image/png')}
-async function exportPdf(){
-  try{
-    const {PDFDocument}=await getPdfExport();const out=pdf?await PDFDocument.load(pdfBytes):await PDFDocument.create();
-    if(blankMode){
-      const keepPages=[];for(let i=0;i<out.getPageCount();i++)keepPages.push(out.getPage(i)); // empty document has none
-      for(let i=0;i<blankCount;i++){const p=out.addPage([blankSize.w/3.125,blankSize.h/3.125]);const overlay=await overlayPngForPage(i+1,p.getWidth(),p.getHeight(),2);if(overlay){const im=await out.embedPng(overlay);p.drawImage(im,{x:0,y:0,width:p.getWidth(),height:p.getHeight()})}}
-    }else{
-      commitPage();
-      for(let i=1;i<=pdfPages;i++){const p=out.getPage(i);const overlay=await overlayPngForPage(i,p.getWidth(),p.getHeight(),2);if(overlay){const im=await out.embedPng(overlay);p.drawImage(im,{x:0,y:0,width:p.getWidth(),height:p.getHeight()})}}
-    }
-    const bytes=await out.save({useObjectStreams:true});blobDownload(new Blob([bytes],{type:'application/pdf'}),'HOKSH-edited-full.pdf');toast('تم تنزيل PDF كامل');
-  }catch(err){console.error(err);toast('تعذر تصدير PDF')}
-}
-async function overlayPngForPage(n,wPt,hPt,sc){
-  const arr=pages[n]||[];if(!arr.length)return null;const c=document.createElement('canvas');c.width=Math.max(1,Math.round(wPt*sc));c.height=Math.max(1,Math.round(hPt*sc));const cc=c.getContext('2d');cc.clearRect(0,0,c.width,c.height);const baseScale=pdf?1.5:3.125;arr.forEach(s=>drawStroke(s,cc,sc/baseScale));return await new Promise(res=>c.toBlob(b=>res(b),'image/png'))
-}
-$('exportBtn').onclick=()=>{if(pdf||blankMode)exportPdf();else exportImage()};
-$('saveBtn').onclick=saveProject;
-async function saveProject(){try{const payload={name:bgName,type:bgType,page,pdf:!!pdf,blankMode,blankCount,blankSize,blankTemplate,pages};let bytes=null;if(pdfBytes)bytes=pdfBytes;else if(bgType&&bgType!=='application/pdf'&&bg?.src?.startsWith('blob:')){toast('احفظ المشروع ثم أعد فتح الصورة عند الاستئناف')}localStorage.setItem('hoksh_project',JSON.stringify({meta:payload}));if(bytes){const idb=await openDb();await idbSet(idb,'project',{meta:payload,bytes});idb.close()}toast('تم الحفظ على الجهاز')}catch(err){toast('تعذر الحفظ')}}
-function openDb(){return new Promise((res,rej)=>{const r=indexedDB.open('hoksh-db',1);r.onupgradeneeded=()=>r.result.createObjectStore('files',{keyPath:'id'});r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})}
-function idbSet(db,store,v){return new Promise((res,rej)=>{const t=db.transaction(store,'readwrite');t.objectStore(store).put({id:'project',...v});t.oncomplete=res;t.onerror=()=>rej(t.error)})}
-function idbGet(db,store,id){return new Promise((res,rej)=>{const t=db.transaction(store);const q=t.objectStore(store).get(id);q.onsuccess=()=>res(q.result);q.onerror=()=>rej(q.error)})}
-async function restoreProject(){try{const db=await openDb(),v=await idbGet(db,'files','project');db.close();if(!v){toast('لا يوجد عمل محفوظ');return}if(v.meta.pdf&&v.bytes){const f=new File([v.bytes],v.meta.name||'project.pdf',{type:'application/pdf'});await loadFile(f);pages=v.meta.pages||{};setTimeout(async()=>{page=v.meta.page||1;if(pdf&&page>1)await renderPdfPage();else if(pdf)loadPageState()},250);toast('تم استئناف العمل')}else if(v.meta.blankMode){blankMode=true;blankCount=v.meta.blankCount;blankSize=v.meta.blankSize;blankTemplate=v.meta.blankTemplate;pages=v.meta.pages||{};page=v.meta.page||1;bg=document.createElement('canvas');bg.width=blankSize.w;bg.height=blankSize.h;drawBlank(bg,blankTemplate);$('homeOverlay').classList.add('hidden');$('empty').style.display='none';$('pageBar').style.display='flex';resizeCanvas(bg.width,bg.height);loadPageState()}else toast('افتح الصورة الأصلية مرة أخرى لاستعادة التعليقات')}catch(err){toast('تعذر الاستئناف')}}
-function scheduleSave(){clearTimeout(saveTimer);saveTimer=setTimeout(()=>{try{localStorage.setItem('hoksh_annotations',JSON.stringify({page,pages}))}catch(e){}},500)}
-$('mobileOpen').onclick=()=>$('fileInput').click();$('mobileUndo').onclick=undo;$('mobileTools').onclick=()=>$('toolsModal').classList.add('show');$('mobileView').onclick=()=>$('viewModal').classList.add('show');$('mobileMore').onclick=()=>$('moreModal').classList.add('show');
-$('closeTools').onclick=()=>$('toolsModal').classList.remove('show');
-$('moreBtn').onclick=()=>$('moreModal').classList.add('show');$('closeMore').onclick=()=>$('moreModal').classList.remove('show');
-$('viewBtn').onclick=()=>{ $('moreModal').classList.remove('show');$('viewModal').classList.add('show')};$('closeView').onclick=()=>$('viewModal').classList.remove('show');
-$('singleView').onclick=()=>{viewMode='single';$('viewModal').classList.remove('show');$('pageBar').style.display=(pdf||blankMode)?'flex':'none';$('empty').style.display='none';fitLater()};
-$('continuousView').onclick=async()=>{if(!pdf&&!blankMode){toast('افتح PDF أو أنشئ صفحات أولًا');return}viewMode='continuous';$('viewModal').classList.remove('show');toast('عرض الصفحات المتتالية متاح بالتنقل من شريط الصفحات')};
-$('fullBtn').onclick=async()=>{try{if(!document.fullscreenElement)await document.documentElement.requestFullscreen();else await document.exitFullscreen()}catch(e){}$('moreModal').classList.remove('show')};
-$('chatBtn').onclick=()=>{$('moreModal').classList.remove('show');$('chatModal').classList.add('show')};$('closeChat').onclick=()=>$('chatModal').classList.remove('show');$('openChatGPT').onclick=()=>window.open('https://chatgpt.com/','_blank','noopener');
-$('chatRun').onclick=()=>{const q=$('chatInput').value.trim();if(!q)return;let r='لم أفهم الأمر. جرّب: القلم، التظليل، المسح، النص، المستطيل، الدائرة، الصفحة 3.';if(/قلم|ارسم/.test(q)){setTool('pen');r='تم اختيار القلم.'}else if(/تظليل/.test(q)){setTool('highlight');r='تم اختيار التظليل.'}else if(/مسح|ممحاة/.test(q)){setTool('eraser');r='تم اختيار المسح.'}else if(/نص|اكتب/.test(q)){setTool('text');r='تم اختيار النص.'}else if(/مستطيل/.test(q)){setTool('rect');r='تم اختيار المستطيل.'}else if(/دائر/.test(q)){setTool('circle');r='تم اختيار الدائرة.'}else if(/الصفحة\s*(\d+)/.test(q)){const n=+(q.match(/الصفحة\s*(\d+)/)||[])[1]||1;if(pdf){page=Math.max(1,Math.min(pdfPages,n));renderPdfPage();r='تم الانتقال للصفحة '+page+'.'}else if(blankMode){page=Math.max(1,Math.min(blankCount,n));renderBlankPage();r='تم الانتقال للصفحة '+page+'.'}}toast(r);$('chatInput').value=''};
-$('developerBtn').onclick=()=>{$('moreModal').classList.remove('show');$('aboutModal').classList.add('show')};$('aboutHomeBtn').onclick=()=>{$('homeOverlay').classList.add('hidden');$('aboutModal').classList.add('show')};$('homeAbout').onclick=()=>{$('homeOverlay').classList.add('hidden');$('aboutModal').classList.add('show')};$('closeAbout').onclick=()=>$('aboutModal').classList.remove('show');
+function seed(){if(!localStorage.getItem('hoksh_seeded')){save('hoksh_groups',[
+{id:'g1',name:'مجموعة الفيزياء - الثانوية العامة',desc:'مراجعة ومذكرات الفيزياء',type:'public',members:24,owner:'محمد',chat:[{u:'النظام',t:'انضم محمد إلى المجموعة حديثاً، رحبوا به!'}]},
+{id:'g2',name:'لغة إنجليزية - 3 ثانوي',desc:'مذكرات ومناقشات اللغة الإنجليزية',type:'public',members:37,owner:'فريق اللغة',chat:[]},
+{id:'g3',name:'علوم طبية ومراجعات',desc:'مجموعة دراسية للتخصصات الطبية',type:'private',members:18,owner:'مشرف المجموعة',chat:[]}
+]);save('hoksh_docs',[]);save('hoksh_notifications',[]);localStorage.setItem('hoksh_seeded','1')}}
+seed();
 
-// الخطوة الأولى: جروبات العمل والمستندات الأخيرة
-(function(){
-  const groupList=$('groupList'),recentList=$('recentList');
-  function read(key){try{return JSON.parse(localStorage.getItem(key)||'[]')}catch(e){return[]}}
-  function write(key,v){try{localStorage.setItem(key,JSON.stringify(v))}catch(e){}}
-  function renderGroups(){const a=read('hoksh_groups');groupList.innerHTML=a.length?a.map((x,i)=>'<button class="groupItem" data-group-index="'+i+'">👥 '+x+'</button>').join(''):'<div class="recentEmpty">لم يتم إنشاء جروبات بعد</div>'}
-  function renderRecent(){const a=read('hoksh_recent');recentList.innerHTML=a.length?a.slice(0,8).map((x,i)=>'<button class="recentItem" data-recent-index="'+i+'">📄 '+x+'</button>').join(''):'<div class="recentEmpty">لا توجد مستندات مفتوحة مؤخرًا</div>'}
-  window.hokshRememberRecent=function(name){if(!name)return;const a=read('hoksh_recent').filter(x=>x!==name);a.unshift(name);write('hoksh_recent',a.slice(0,12));renderRecent()}
-  $('newGroupBtn').onclick=()=>{$('groupName').value='';$('groupModal').classList.add('show');setTimeout(()=>$('groupName').focus(),20)}
-  $('cancelGroup').onclick=()=>$('groupModal').classList.remove('show');
-  $('createGroup').onclick=()=>{const n=$('groupName').value.trim();if(!n)return toast('اكتب اسم الجروب');const a=read('hoksh_groups');if(!a.includes(n))a.push(n);write('hoksh_groups',a);renderGroups();$('groupModal').classList.remove('show');toast('تم إنشاء جروب العمل: '+n)}
-  $('groupName').addEventListener('keydown',e=>{if(e.key==='Enter')$('createGroup').click()});
-  renderGroups();renderRecent();
-})();
+function openDb(){return new Promise((res,rej)=>{const q=indexedDB.open(DB,1);q.onupgradeneeded=()=>q.result.createObjectStore(STORE,{keyPath:'id'});q.onsuccess=()=>res(q.result);q.onerror=()=>rej(q.error)})}
+function dbPut(v){return openDb().then(db=>new Promise((res,rej)=>{const tx=db.transaction(STORE,'readwrite');tx.objectStore(STORE).put(v);tx.oncomplete=()=>{db.close();res()};tx.onerror=()=>rej(tx.error)}))}
+function dbGet(id){return openDb().then(db=>new Promise((res,rej)=>{const q=db.transaction(STORE).objectStore(STORE).get(id);q.onsuccess=()=>{db.close();res(q.result)};q.onerror=()=>rej(q.error)}))}
+async function loadLocalFile(id){const v=await dbGet(id);return v?.bytes||null}
 
-document.addEventListener('click',e=>{if(e.target.classList.contains('modal'))e.target.classList.remove('show')});
-window.addEventListener('resize',fitLater);window.addEventListener('orientationchange',()=>setTimeout(fitLater,100));
-setTimeout(()=>$('homeOverlay').classList.remove('hidden'),300);setTimeout(()=>{$('homeOverlay').classList.add('hidden')},2600);
+function nav(page){document.querySelectorAll('.navBtn,.mobileNav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));document.querySelectorAll('.content>section').forEach(s=>s.classList.add('hidden'));const target=$(page+'Page');if(target)target.classList.remove('hidden');$('drawer').classList.remove('show');if(page==='home')renderHome();if(page==='groups')renderGroups();if(page==='saved')renderSaved();if(page==='profile')renderProfile();if(page==='settings')renderSettings()}
+document.querySelectorAll('[data-page]').forEach(b=>b.addEventListener('click',()=>nav(b.dataset.page)));
+
+function renderSide(){const gs=demoGroups();$('sideGroups').innerHTML=gs.map(g=>'<button class="groupMini" data-gid="'+g.id+'"><i class="groupDot"></i>'+escapeHtml(g.name)+'</button>').join('');$('sideGroups').querySelectorAll('[data-gid]').forEach(b=>b.onclick=()=>openGroup(b.dataset.gid))}
+function docCard(d){return '<div class="card docCard" data-doc="'+d.id+'"><div class="docThumb">PDF</div><h3>'+escapeHtml(d.title)+'</h3><div class="muted">'+escapeHtml(d.desc||'ملف PDF')+'</div><div class="docMeta"><span>'+escapeHtml(d.sizeMB||'0')+' MB</span><span class="stars">★★★★★</span></div><div class="docMeta"><span>بواسطة: '+escapeHtml(d.author||'مستخدم')+'</span><span>'+fmtDate(d.createdAt)+'</span></div></div>'}
+function groupCard(g){return '<div class="card groupCard" data-gid="'+g.id+'"><span class="chip">👥 '+g.members+' عضو</span><h3 style="margin-top:10px">'+escapeHtml(g.name)+'</h3><div class="muted">'+escapeHtml(g.desc)+'</div><div class="docMeta"><span>'+ (g.type==='private'?'🔒 خاصة':'🌐 عامة') +'</span><span>نشطة الآن</span></div></div>'}
+function bindCards(){document.querySelectorAll('[data-doc]').forEach(x=>x.onclick=()=>openDoc(x.dataset.doc));document.querySelectorAll('[data-gid]').forEach(x=>x.onclick=()=>openGroup(x.dataset.gid))}
+function renderHome(){const gs=demoGroups(),ds=demoDocs();$('activeGroups').innerHTML=gs.slice(0,3).map(groupCard).join('');$('popularDocs').innerHTML=ds.length?ds.slice().sort((a,b)=>(b.downloads||0)-(a.downloads||0)).slice(0,3).map(docCard).join(''):'<div class="card"><h3>لا توجد ملفات بعد</h3><div class="muted">ابدأ برفع أول ملف PDF.</div></div>';$('latestDocs').innerHTML=ds.length?ds.slice().sort((a,b)=>b.createdAt-a.createdAt).slice(0,3).map(docCard).join(''):'<div class="card"><h3>أحدث المذكرات المضافة</h3><div class="muted">ستظهر هنا الملفات التي تضيفها.</div></div>';$('recommendedDocs').innerHTML=ds.length?ds.slice(0,3).map(docCard).join(''):'<div class="card"><h3>كتب ومراجع موصى بها</h3><div class="muted">ستظهر هنا التوصيات والملفات المتاحة.</div></div>';bindCards()}
+function renderGroups(){$('allGroups').innerHTML=demoGroups().map(groupCard).join('');bindCards()}
+function renderSaved(){const ds=demoDocs().filter(d=>d.saved);$('savedDocs').innerHTML=ds.length?ds.map(docCard).join(''):'<div class="emptyState"><div><strong>💾</strong><h2>لا توجد ملفات محفوظة</h2><p>افتح ملفًا ثم اختر «حفظ للمطالعة بدون إنترنت».</p></div></div>';bindCards()}
+function renderProfile(){$('profileData').innerHTML='<div class="muted">الاسم: '+escapeHtml(currentUser?.name||'زائر')+'<br>البريد الإلكتروني: '+escapeHtml(currentUser?.email||'غير مسجل')+'<br>التخصص / المجال الدراسي: '+escapeHtml(currentUser?.field||'غير محدد')+'</div>'}
+function renderSettings(){$('themeSelect').value=localStorage.getItem('hoksh_theme')||'light';}
+function escapeHtml(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+
+function showAuth(mode='login'){const c=$('authContent');if(mode==='login')c.innerHTML='<h2>تسجيل الدخول</h2><p class="muted">ادخل إلى حسابك للوصول إلى مجموعاتك وملفاتك المحفوظة.</p><div class="field"><label>البريد الإلكتروني أو رقم الهاتف</label><input id="authEmail"></div><div class="field"><label>كلمة المرور</label><input id="authPass" type="password"></div><button class="authBtn" id="doLogin">دخول</button><button class="googleBtn" id="googleLogin">الدخول عبر حساب جوجل</button><div class="switch">ليس لديك حساب؟ <button id="goSignup">إنشاء حساب جديد</button></div>';else c.innerHTML='<h2>إنشاء حساب جديد</h2><p class="muted">أنشئ حسابك للانضمام إلى المجتمع.</p><div class="field"><label>الاسم الكامل</label><input id="suName"></div><div class="field"><label>البريد الإلكتروني</label><input id="suEmail"></div><div class="field"><label>رقم الهاتف</label><input id="suPhone"></div><div class="field"><label>التخصص / المجال الدراسي</label><input id="suField"></div><div class="field"><label>كلمة المرور</label><input id="suPass" type="password"></div><button class="authBtn" id="doSignup">إنشاء الحساب</button><div class="switch">لديك حساب؟ <button id="goLogin">تسجيل الدخول</button></div>';
+$('authModal').classList.add('show');
+$('doLogin')&&( $('doLogin').onclick=()=>{const email=$('authEmail').value.trim(),pass=$('authPass').value;if(!email||!pass)return toast('البريد الإلكتروني أو كلمة المرور غير صحيحة، يرجى التأكد وإعادة المحاولة.');currentUser={name:email.split('@')[0],email,field:'غير محدد'};save('hoksh_user',currentUser);$('authModal').classList.remove('show');toast('تم تسجيل الدخول')});
+$('doSignup')&&( $('doSignup').onclick=()=>{const u={name:$('suName').value.trim(),email:$('suEmail').value.trim(),phone:$('suPhone').value.trim(),field:$('suField').value.trim(),pass:$('suPass').value};if(!u.name||!u.email||!u.phone||!u.field||!u.pass)return toast('أكمل بيانات إنشاء الحساب');currentUser=u;save('hoksh_user',currentUser);$('authModal').classList.remove('show');toast('تم إنشاء الحساب')});
+$('goSignup')&&( $('goSignup').onclick=()=>showAuth('signup'));$('goLogin')&&( $('goLogin').onclick=()=>showAuth('login'));$('googleLogin')&&( $('googleLogin').onclick=()=>toast('الدخول عبر حساب جوجل يحتاج ربط خدمة Google OAuth بخادم آمن.'))}
+$('menuBtn').onclick=()=>{if(innerWidth<=900)$('drawer').classList.toggle('show');else $('drawer').classList.toggle('show')};
+$('mobileMenu').onclick=()=>$('drawer').classList.toggle('show');
+$('logoutSide').onclick=$('drawerLogout').onclick=()=>{localStorage.removeItem('hoksh_user');currentUser=null;showAuth('login')};
+
+function openGroup(id){const g=demoGroups().find(x=>x.id===id);if(!g)return;currentGroup=g;document.querySelectorAll('.content>section').forEach(s=>s.classList.add('hidden'));$('groupPage').classList.remove('hidden');$('groupTitle').textContent=g.name;renderGroup(g)}
+function renderGroup(g){$('groupDocs').innerHTML=demoDocs().filter(d=>(d.groups||[]).includes(g.id)).map(docCard).join('')||'<div class="muted">لا توجد ملفات مشتركة بعد.</div>';bindCards();$('chatList').innerHTML=(g.chat||[]).map(m=>'<div style="padding:7px 8px;border-bottom:1px solid #edf1f4;font-size:11px"><b>'+escapeHtml(m.u)+':</b> '+escapeHtml(m.t)+'</div>').join('');$('membersList').textContent=(g.members||1)+' عضو'}
+$('sendChat').onclick=()=>{if(!currentGroup)return;const t=$('chatInput').value.trim();if(!t)return;const gs=demoGroups(),g=gs.find(x=>x.id===currentGroup.id);g.chat=g.chat||[];g.chat.push({u:currentUser?.name||'مستخدم',t});save('hoksh_groups',gs);$('chatInput').value='';renderGroup(g)};
+
+function createGroup(){const name=$('newGroupName').value.trim(),desc=$('newGroupDesc').value.trim();if(!name)return toast('اكتب اسم المجموعة');const gs=demoGroups();const g={id:'g'+Date.now(),name,desc,type:groupType,members:1,owner:currentUser?.name||'مستخدم',chat:[]};gs.unshift(g);save('hoksh_groups',gs);$('groupModal').classList.remove('show');renderSide();renderGroups();toast('تم تأسيس المجموعة')}
+$('createGroupSide').onclick= $('createGroupMain').onclick=()=>{$('newGroupName').value='';$('newGroupDesc').value='';$('groupCode').value='';groupType='public';$('groupCodeField').classList.add('hidden');$('groupModal').classList.add('show')};
+$('cancelGroup').onclick=()=>$('groupModal').classList.remove('show');$('confirmGroup').onclick=createGroup;
+document.querySelectorAll('[data-group-type]').forEach(b=>b.onclick=()=>{groupType=b.dataset.groupType;document.querySelectorAll('[data-group-type]').forEach(x=>x.classList.toggle('selected',x===b));$('groupCodeField').classList.toggle('hidden',groupType!=='private')});
+
+$('uploadTop').onclick=$('mobileUpload').onclick=()=>{$('uploadModal').classList.add('show')};$('cancelUpload').onclick=()=>$('uploadModal').classList.remove('show');
+$('confirmUpload').onclick=async()=>{const file=$('uploadFile').files?.[0],title=$('uploadTitle').value.trim(),desc=$('uploadDesc').value.trim(),tags=$('uploadTags').value.trim();if(!file||file.type!=='application/pdf')return toast('فشل تحميل الملف، قد يكون تم حذفه من قبل المشرفين.');if(file.size>50*1024*1024)return toast('عذراً، الحد الأقصى لحجم ملف الـ PDF هو 50 ميجابايت فقط.');if(!title)return toast('أدخل عنوان الملف');toast('جاري رفع الملف... يرجى عدم إغلاق التطبيق.');const id='d'+Date.now();const buf=await file.arrayBuffer();await dbPut({id,bytes:buf,name:file.name});const ds=demoDocs();ds.unshift({id,title,desc,tags,category:$('uploadCategory').value,sizeMB:bytesMB(file.size),size:file.size,author:currentUser?.name||'مستخدم',createdAt:Date.now(),downloads:0,saved:false,groups:currentGroup?[currentGroup.id]:[]});save('hoksh_docs',ds);const ns=demoNotifs();ns.unshift({text:'تم رفع الملف بنجاح! هو الآن قيد المراجعة السريعة وسيظهر للجميع فوراً.',date:Date.now()});save('hoksh_notifications',ns);$('uploadModal').classList.remove('show');['uploadFile','uploadTitle','uploadDesc','uploadTags'].forEach(id=>$(id).value='');renderHome();toast('تم رفع الملف بنجاح!')};
+
+async function openDoc(id){const d=demoDocs().find(x=>x.id===id);if(!d)return;currentDoc=d;const info='اسم الملف: '+escapeHtml(d.title)+'<br>بواسطة: '+escapeHtml(d.author)+'<br>حجم الملف: '+escapeHtml(d.sizeMB)+' ميجابايت<br>عدد التقييمات: <span class="stars">★★★★★</span> (0)';$('docInfo').innerHTML=info+'<div class="actions"><button class="btn" id="saveOffline">💾 حفظ للمطالعة بدون إنترنت</button><button class="btn primary" id="openReader">فتح القارئ</button></div>';$('docInfoModal').classList.add('show');$('openReader').onclick=()=>{ $('docInfoModal').classList.remove('show');openReader(d)};$('saveOffline').onclick=async()=>{const ds=demoDocs();const x=ds.find(z=>z.id===d.id);x.saved=true;save('hoksh_docs',ds);toast('تم حفظ الملف للمطالعة بدون إنترنت')}}
+$('closeDocInfo').onclick=()=>$('docInfoModal').classList.remove('show');
+
+async function openReader(d){const bytes=await loadLocalFile(d.id);if(!bytes)return toast('فشل تحميل الملف، قد يكون تم حذفه من قبل المشرفين.');document.querySelectorAll('.content>section').forEach(s=>s.classList.add('hidden'));const sec=document.createElement('section');sec.id='readerPage';sec.innerHTML='<div class="toolbar"><button class="toolBtn" id="readerBack">‹ رجوع</button><button class="toolBtn" id="darkMode">◐ الوضع المظلم</button><button class="toolBtn" id="bookmark">🔖 إضافة علامة مرجعية لقراءة لاحقة</button><button class="toolBtn" id="offline">💾 حفظ للمطالعة بدون إنترنت</button><button class="toolBtn" id="addNote">📌 إضافة ملاحظة على هذه الصفحة</button><button class="toolBtn" id="security">🛡️ حماية المحتوى</button></div><div class="reader" id="readerArea"><div class="pdfSheet" id="pdfSheet"><canvas id="pdfCanvas"></canvas></div></div>';$('content').appendChild(sec);
+$('readerBack').onclick=()=>{sec.remove();nav('home')};$('darkMode').onclick=()=>{$('readerPage').classList.toggle('darkReader')};
+$('bookmark').onclick=()=>{toast('تمت إضافة علامة مرجعية لقراءة لاحقة')};$('offline').onclick=()=>{const ds=demoDocs();const x=ds.find(z=>z.id===d.id);if(x){x.saved=true;save('hoksh_docs',ds)}toast('تم حفظ الملف للمطالعة بدون إنترنت')};$('security').onclick=()=>toast('عذراً، لا يمكن التقاط شاشة أو تسجيل فيديو لهذا الملف لحماية حقوق المحتوى.');
+$('addNote').onclick=()=>$('noteModal').classList.add('show');
+currentPdf=await pdfjsLib.getDocument({data:bytes}).promise;currentPdfPage=1;await renderReaderPage();
+}
+async function renderReaderPage(){if(!currentPdf)return;const pg=await currentPdf.getPage(currentPdfPage),vp=pg.getViewport({scale:Math.min(1.5,Math.max(.75,innerWidth/1000))});const c=$('pdfCanvas');c.width=vp.width;c.height=vp.height;await pg.render({canvasContext:c.getContext('2d'),viewport:vp}).promise;$('status')?.remove()}
+$('saveNote').onclick=()=>{$('noteModal').classList.remove('show');toast('تم حفظ الملاحظة على هذه الصفحة')};$('cancelNote').onclick=()=>$('noteModal').classList.remove('show');
+
+$('notifBtn').onclick=()=>{const ns=demoNotifs();$('notificationList').innerHTML=ns.length?ns.slice(0,10).map(n=>'<div class="card" style="margin-bottom:8px"><div style="font-size:11px">'+escapeHtml(n.text)+'</div><div class="muted">'+fmtDate(n.date)+'</div></div>').join(''):'<div class="muted">لا توجد إشعارات جديدة.</div>';$('notificationModal').classList.add('show')};$('closeNotifs').onclick=()=>$('notificationModal').classList.remove('show');
+$('seeGroups').onclick=()=>nav('groups');
+$('groupInfoBtn').onclick=()=>currentGroup&&toast(currentGroup.desc||'مجموعة عمل');
+$('backHome').onclick=()=>nav('home');
+
+$('globalSearch').addEventListener('input',e=>{const q=e.target.value.trim().toLowerCase();if(!q){renderHome();return}const ds=demoDocs().filter(d=>(d.title+' '+d.tags+' '+d.category).toLowerCase().includes(q));const gs=demoGroups().filter(g=>g.name.toLowerCase().includes(q));$('activeGroups').innerHTML=gs.map(groupCard).join('');$('popularDocs').innerHTML=ds.map(docCard).join('')||'<div class="muted">لا توجد نتائج مطابقة.</div>';$('latestDocs').innerHTML='';$('recommendedDocs').innerHTML='';bindCards()});
+
+$('themeSelect').onchange=e=>{localStorage.setItem('hoksh_theme',e.target.value);document.body.classList.toggle('darkTheme',e.target.value==='dark')};
+
+let onboardStep=0;const onboardData=[{t:'مرحباً بك في مجتمع PDF المفتوح. كل المذكرات، الكتب، والمراجع التي تبحث عنها في مكان واحد.',p:'ابدأ باكتشاف المحتوى أو سجّل دخولك للانضمام إلى المجتمع.'},{t:'انضم إلى مجموعات تخصصك. شارك الملفات، ناقش زملاءك، وتعلّم بشكل جماعي وفعّال.',p:'بعدها يمكنك إنشاء مجموعتك ومشاركة الملفات وبدء المحادثات.'}];
+function renderOnboard(){$('onboardTitle').textContent=onboardData[onboardStep].t;$('onboardText').textContent=onboardData[onboardStep].p;document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active',i===onboardStep));$('onboardNext').textContent=onboardStep===1?'ابدأ الآن':'التالي'}
+$('onboardNext').onclick=()=>{if(onboardStep===0){onboardStep=1;renderOnboard()}else{$('onboarding').classList.add('hide');showAuth('login')}};
+$('onboardSkip').onclick=()=>{$('onboarding').classList.add('hide');showAuth('login')};renderOnboard();
+
+window.addEventListener('resize',()=>{if(currentPdf&&document.getElementById('readerPage'))renderReaderPage()});
+renderSide();renderHome();if(currentUser){$('onboarding').classList.add('hide')}
+
+if('serviceWorker' in navigator && location.protocol.startsWith('http'))navigator.serviceWorker.register('sw.js').catch(()=>{});
 </script>
-</body>
-</html>
+<style>
+.darkReader .toolbar{background:#111827;color:#fff;border-color:#273449}.darkReader .reader{background:#0b1220}.darkReader .pdfSheet{box-shadow:0 12px 40px #0008}
+body.darkTheme .content{background:#0b1220;color:#eef4f8}body.darkTheme .card{background:#111827;border-color:#29384e;color:#eef4f8}body.darkTheme .sectionHead h2,body.darkTheme .page h2{color:#fff}body.darkTheme .muted{color:#9cafc1}
+</style>
+</body></html>
