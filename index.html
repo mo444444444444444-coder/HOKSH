@@ -281,10 +281,75 @@ function render(){ctx.clearRect(0,0,state.w,state.h);if(bg)ctx.drawImage(bg,0,0,
 function commitPage(){if(pdfMode||blankMode)pages[page]=JSON.parse(JSON.stringify(strokes))}
 function loadPageState(){strokes=pages[page]?JSON.parse(JSON.stringify(pages[page])):[];undone=[];selected=null}
 function changed(){clearTimeout(saveTimer);saveTimer=setTimeout(saveLocalSilent,700)}
-function setTool(t){tool=t;document.querySelectorAll('.tool').forEach(b=>b.classList.toggle('active',b.dataset.tool===t));canvas.style.cursor='default'}
+function setTool(t){
+  tool=t;
+  document.querySelectorAll('.tool').forEach(b=>b.classList.toggle('active',b.dataset.tool===t));
+  document.querySelectorAll('[data-dock]').forEach(b=>b.classList.toggle('active',b.dataset.dock===t));
+  document.querySelectorAll('[data-toptool]').forEach(b=>b.classList.toggle('active',b.dataset.toptool===t));
+  canvas.style.cursor=t==='eraser'?'none':'default';
+}
 document.querySelectorAll('.tool').forEach(b=>b.onclick=()=>setTool(b.dataset.tool));
-canvas.addEventListener('pointerdown',e=>{if(!bg)return;canvas.setPointerCapture?.(e.pointerId);const p=pos(e);if(tool==='select'){selected=strokes.slice().reverse().find(s=>{if(s.type==='text')return p.x>=s.x&&p.x<=s.x+(s.text.length*s.size*.6)&&p.y>=s.y&&p.y<=s.y+s.size*1.2;if(['line','arrow'].includes(s.type))return Math.hypot(p.x-(s.x+s.x2)/2,p.y-(s.y+s.y2)/2)<18;return false})||null;render();return}if(tool==='eraser'){const radius=Math.max(22,+size.value*2.2);let changedErase=false;for(let i=strokes.length-1;i>=0;i--){const s=strokes[i];if(s.points){const chunks=[];let chunk=[];for(const q of s.points){if(Math.hypot(q.x-p.x,q.y-p.y)>radius)chunk.push(q);else{if(chunk.length>=2)chunks.push(chunk);chunk=[]}}if(chunk.length>=2)chunks.push(chunk);if(chunks.length!==1||chunks[0]?.length!==s.points.length){strokes.splice(i,1,...chunks.map(points=>({...s,points})));changedErase=true}}else if(s.type==='text'){if(p.x>=s.x-radius&&p.x<=s.x+(s.text.length*s.size*.6)+radius&&p.y>=s.y-radius&&p.y<=s.y+s.size*1.2+radius){strokes.splice(i,1);changedErase=true}}else if(s.x!==undefined&&p.x>=Math.min(s.x,s.x2)-radius&&p.x<=Math.max(s.x,s.x2)+radius&&p.y>=Math.min(s.y,s.y2)-radius&&p.y<=Math.max(s.y,s.y2)+radius){strokes.splice(i,1);changedErase=true}}if(changedErase){undone=[];commitPage();render();changed()}return}if(tool==='text'){pendingText=p;$('textModal').classList.add('show');$('textInput').focus();return}drawing=true;start=p;if(tool==='pen'||tool==='highlight')current={type:tool,points:[p],color:color.value,width:+size.value,opacity:+opacity.value/100};else if(['line','arrow','rect','circle'].includes(tool))current={type:tool,x:p.x,y:p.y,x2:p.x,y2:p.y,color:color.value,width:+size.value,opacity:+opacity.value/100}});
-canvas.addEventListener('pointermove',e=>{if(!drawing)return;const p=pos(e);if(current?.points)current.points.push(p);else if(current){current.x2=p.x;current.y2=p.y}render()});canvas.addEventListener('pointerup',()=>{if(!drawing)return;drawing=false;if(current){strokes.push(current);undone=[];current=null;commitPage();render();changed()}});
+
+let eraserPoint=null;
+function eraseAt(p){
+  const radius=Math.max(18,+size.value*2.8);
+  let changedErase=false;
+  for(let i=strokes.length-1;i>=0;i--){
+    const s=strokes[i];
+    if(s.points&&s.points.length){
+      const chunks=[]; let chunk=[];
+      for(const q of s.points){
+        if(Math.hypot(q.x-p.x,q.y-p.y)>radius) chunk.push(q);
+        else { if(chunk.length>=2) chunks.push(chunk); chunk=[]; }
+      }
+      if(chunk.length>=2) chunks.push(chunk);
+      if(chunks.length!==1 || chunks[0]?.length!==s.points.length){
+        strokes.splice(i,1,...chunks.map(points=>({...s,points})));
+        changedErase=true;
+      }
+    }else if(s.type==='text'){
+      if(p.x>=s.x-radius&&p.x<=s.x+(s.text.length*s.size*.6)+radius&&p.y>=s.y-radius&&p.y<=s.y+s.size*1.2+radius){
+        strokes.splice(i,1); changedErase=true;
+      }
+    }else if(s.x!==undefined&&s.x2!==undefined){
+      const minX=Math.min(s.x,s.x2)-radius,maxX=Math.max(s.x,s.x2)+radius;
+      const minY=Math.min(s.y,s.y2)-radius,maxY=Math.max(s.y,s.y2)+radius;
+      if(p.x>=minX&&p.x<=maxX&&p.y>=minY&&p.y<=maxY){strokes.splice(i,1);changedErase=true;}
+    }
+  }
+  if(changedErase){undone=[];commitPage();render();changed();}
+}
+canvas.addEventListener('pointerdown',e=>{
+  if(!bg)return;
+  canvas.setPointerCapture?.(e.pointerId);
+  const p=pos(e);
+  if(tool==='select'){
+    selected=strokes.slice().reverse().find(s=>{
+      if(s.type==='text')return p.x>=s.x&&p.x<=s.x+(s.text.length*s.size*.6)&&p.y>=s.y&&p.y<=s.y+s.size*1.2;
+      if(['line','arrow'].includes(s.type))return Math.hypot(p.x-(s.x+s.x2)/2,p.y-(s.y+s.y2)/2)<18;
+      return false;
+    })||null;
+    render(); return;
+  }
+  if(tool==='eraser'){eraseAt(p);return;}
+  if(tool==='text'){pendingText=p;$('textModal').classList.add('show');$('textInput').focus();return;}
+  drawing=true;start=p;
+  if(tool==='pen'||tool==='highlight')current={type:tool,points:[p],color:color.value,width:+size.value,opacity:+opacity.value/100};
+  else if(['line','arrow','rect','circle'].includes(tool))current={type:tool,x:p.x,y:p.y,x2:p.x,y2:p.y,color:color.value,width:+size.value,opacity:+opacity.value/100};
+});
+canvas.addEventListener('pointermove',e=>{
+  const p=pos(e);
+  if(tool==='eraser'){
+    showEraserCursor(e);
+    if(e.buttons) eraseAt(p);
+    return;
+  }
+  if(!drawing)return;
+  if(current?.points)current.points.push(p);else if(current){current.x2=p.x;current.y2=p.y}
+  render();
+});
+canvas.addEventListener('pointerup',()=>{if(!drawing)return;drawing=false;if(current){strokes.push(current);undone=[];current=null;commitPage();render();changed();}});
+
 function undo(){if(strokes.length){undone.push(strokes.pop());commitPage();render();changed()}}function redo(){if(undone.length){strokes.push(undone.pop());commitPage();render();changed()}}$('undo').onclick=undo;$('redo').onclick=redo;
 $('size').oninput=e=>$('sizeVal').textContent=e.target.value;$('opacity').oninput=e=>$('opVal').textContent=e.target.value+'%';$('fontSize').oninput=e=>$('fontVal').textContent=e.target.value;
 $('zoomIn').onclick=()=>{scale=Math.min(scale*1.15,4);fitZoom()};$('zoomOut').onclick=()=>{scale=Math.max(scale/1.15,.2);fitZoom()};$('zoomReset').onclick=()=>{scale=1;fit()};
@@ -453,6 +518,36 @@ document.getElementById('file')?.addEventListener('change',()=>{setTimeout(()=>s
 .toolDock.pos-right{left:auto;right:12px;transform:none}.toolDock.pos-left{left:12px;transform:none}.toolDock.pos-top{bottom:auto;top:72px;left:50%;transform:translateX(-50%)}
 @media(max-width:680px){.toolDock{max-width:calc(100vw - 12px);overflow:auto;bottom:8px}.toolDock button{min-width:42px}.hoksh-more{right:8px;top:62px}.teachingTopTools{top:62px;max-width:calc(100vw - 12px);overflow:auto}.teaching-mode .workspace{padding-top:62px}}
 </style>
+<style id="hoksh-eraser-about">
+#hokshEraserCursor{position:fixed;z-index:10020;width:34px;height:34px;border:2px solid #fff;border-radius:50%;background:#0b1725cc;box-shadow:0 0 0 2px #16b8a6,0 6px 20px #0008;pointer-events:none;display:none;transform:translate(-50%,-50%)}
+#hokshEraserCursor.show{display:block}
+.eraserToolOn .toolDock [data-dock="eraser"],.eraserToolOn .teachingTopTools [data-toptool="eraser"]{background:linear-gradient(135deg,#e85d75,#c63d62)!important;border-color:#ff9caf!important}
+.devDialog{width:min(680px,94vw);padding:0;overflow:hidden}.devHero{padding:28px;text-align:center;background:radial-gradient(circle at 50% 0,#1b5b68,#10253b 55%,#0b1525)}.devAvatar{width:118px;height:118px;margin:0 auto 14px;border-radius:34px;display:grid;place-items:center;background:linear-gradient(135deg,#2f7df6,#16b8a6);font-size:48px;font-weight:1000;box-shadow:0 18px 45px #0008}.devHero h2{margin:0;font-size:25px}.devHero p{margin:7px 0 0;color:#a9bfd0}.devBody{padding:22px}.devGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.devItem{padding:14px;border:1px solid #30465f;border-radius:14px;background:#0d1a2a}.devItem b{display:block;font-size:11px;color:#7edfd1;margin-bottom:5px}.devItem span{font-size:12px;color:#dce7f4}.devNote{margin-top:14px;padding:13px;border-radius:13px;background:#10263a;border:1px solid #2c526c;color:#a9bfd0;font-size:11px;line-height:1.8}@media(max-width:600px){.devGrid{grid-template-columns:1fr}.devAvatar{width:96px;height:96px}}
+</style>
+<div id="hokshEraserCursor"></div>
+<div class="modal" id="developerModal"><div class="dialog devDialog">
+  <div class="devHero"><div class="devAvatar">ح</div><h2>محمد شعبان محارب</h2><p>مطور ومصمم حوكش HOKSH</p></div>
+  <div class="devBody"><div class="devGrid">
+    <div class="devItem"><b>اسم المشروع</b><span>حوكش HOKSH</span></div>
+    <div class="devItem"><b>نوع التطبيق</b><span>محرر الصور وملفات PDF</span></div>
+    <div class="devItem"><b>اللغة</b><span>العربية</span></div>
+  </div><div class="devNote">هذا التطبيق تم تطويره لخدمة المدرسين والطلاب في الكتابة والرسم والتظليل والتعامل مع ملفات PDF، مع العمل على تطوير أدواته باستمرار.</div>
+  <div class="row" style="justify-content:flex-end;margin-bottom:0"><button class="btn" id="closeDeveloper">إغلاق</button></div></div>
+</div></div>
+<script id="hoksh-eraser-about-js">
+(function(){
+ const cur=document.getElementById('hokshEraserCursor');
+ window.showEraserCursor=function(e){if(!cur)return;cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';cur.classList.add('show')};
+ window.hideEraserCursor=function(){cur?.classList.remove('show')};
+ const sync=()=>document.body.classList.toggle('eraserToolOn',tool==='eraser');
+ const oldSet=window.setTool;
+ document.addEventListener('pointerover',e=>{if(e.target.closest('canvas')&&tool==='eraser')showEraserCursor(e)});
+ canvas.addEventListener('pointerleave',hideEraserCursor);
+ document.addEventListener('pointerdown',e=>{if(!e.target.closest('canvas'))hideEraserCursor()});
+ const mo=new MutationObserver(sync); mo.observe(document.body,{attributes:true,attributeFilter:['class']}); sync();
+ document.getElementById('closeDeveloper')?.addEventListener('click',()=>document.getElementById('developerModal')?.classList.remove('show'));
+})();
+</script>
 <section class="seoContent" aria-label="عن حوكش">
 <h1>حوكش HOKSH — محرر الصور وPDF الذكي</h1>
 <p>حوكش هو محرر عربي مجاني للصور وملفات PDF يساعد المدرسين والطلاب على الكتابة والرسم والتظليل وإضافة النصوص والأشكال والأسهم، مع إنشاء صفحات جديدة وتصدير ملف PDF بعد التعديل.</p>
@@ -473,7 +568,7 @@ document.getElementById('file')?.addEventListener('change',()=>{setTimeout(()=>s
 <p>صُمم حوكش ليجمع أدوات تحرير الصور وPDF والرسم التعليمي في مساحة واحدة باللغة العربية، مع التركيز على سهولة الاستخدام وسرعة الوصول إلى الأدوات.</p>
 </section><div class="hoksh-more"><button class="btn moreBtn" id="hokshMoreBtn">☰ المزيد</button><div class="moreMenu" id="hokshMoreMenu">
 <div class="moreTitle">أدوات وإضافات حوكش</div>
-<button data-more="panel">⚙️ الإعدادات واللوحة</button><button data-more="calc">🧮 الآلة الحاسبة</button><button data-more="symbols">🔣 الرموز والأشكال</button><button data-more="axes">📈 المحاور والرسم البياني</button><button data-more="view">▦ طريقة عرض الصفحات</button><button data-more="ai">✦ HOKSH AI</button>
+<button data-more="panel">⚙️ الإعدادات واللوحة</button><button data-more="calc">🧮 الآلة الحاسبة</button><button data-more="symbols">🔣 الرموز والأشكال</button><button data-more="axes">📈 المحاور والرسم البياني</button><button data-more="view">▦ طريقة عرض الصفحات</button><button data-more="developer">👨‍💻 معلومات المطور</button><button data-more="ai">✦ HOKSH AI</button>
 </div></div>
 <div class="toolDock" id="mainToolDock">
 <button data-dock="select" title="تحديد">↖</button><button data-dock="pen" title="قلم">✎</button><button data-dock="highlight" title="تظليل">▰</button><button data-dock="eraser" title="مسح جزئي مستمر">⌫</button><button data-dock="text" title="نص">T</button><span class="dockSep"></span><button data-dock="undo" title="تراجع">↶</button><button data-dock="redo" title="إعادة">↷</button><button data-dock="new" title="صفحة جديدة">＋</button><button class="dockMove" id="dockMove" title="تغيير مكان الشريط">⇄</button></div>
@@ -488,7 +583,7 @@ document.addEventListener('pointerdown',e=>{if(!e.target.closest('.hoksh-more'))
 document.querySelectorAll('[data-dock]').forEach(b=>b.onclick=()=>{const a=b.dataset.dock;if(['select','pen','highlight','eraser','text'].includes(a)){setTool(a);dock.querySelectorAll('[data-dock]').forEach(x=>x.classList.remove('active'));b.classList.add('active')}else if(a==='undo')undo();else if(a==='redo')redo();else if(a==='new')openPageCreator(1)});
 document.getElementById('dockMove').onclick=()=>{const m=dock.classList;const states=['','pos-right','pos-left','pos-top'];let cur='';for(const x of states){if(x&&m.contains(x))cur=x}const n=(states.indexOf(cur)+1)%states.length;states.forEach(x=>x&&m.remove(x));if(states[n])m.add(states[n]);localStorage.setItem('hoksh_dock_pos',states[n]||'')};
 const saved=localStorage.getItem('hoksh_dock_pos');if(saved)dock.classList.add(saved);
-document.querySelectorAll('[data-more]').forEach(b=>b.onclick=()=>{const a=b.dataset.more;more.classList.remove('show');if(a==='panel'){const r=document.querySelector('.right');if(r)r.classList.toggle('collapsed')}else if(a==='view')document.getElementById('viewModeBtn')?.click();else if(a==='ai')document.getElementById('aiBtn')?.click();else if(a==='calc')window.open('https://www.google.com/search?q=Casio+ClassWiz+online+calculator','_blank','noopener');else if(a==='symbols')toast('مكتبة الرموز والأشكال ستُضاف في التحديث التالي');else if(a==='axes')toast('أداة المحاور والرسم البياني ستُضاف في التحديث التالي')});
+document.querySelectorAll('[data-more]').forEach(b=>b.onclick=()=>{const a=b.dataset.more;more.classList.remove('show');if(a==='panel'){const r=document.querySelector('.right');if(r)r.classList.toggle('collapsed')}else if(a==='view')document.getElementById('viewModeBtn')?.click();else if(a==='ai')document.getElementById('aiBtn')?.click();else if(a==='developer')document.getElementById('developerModal')?.classList.add('show');else if(a==='calc')window.open('https://www.google.com/search?q=Casio+ClassWiz+online+calculator','_blank','noopener');else if(a==='symbols')toast('مكتبة الرموز والأشكال ستُضاف في التحديث التالي');else if(a==='axes')toast('أداة المحاور والرسم البياني ستُضاف في التحديث التالي')});
 document.querySelectorAll('[data-toptool]').forEach(b=>b.onclick=()=>setTool(b.dataset.toptool));
 document.getElementById('teachTopColor').onclick=()=>document.getElementById('teachColorPop')?.classList.toggle('show');
 document.getElementById('teachTopMore').onclick=()=>document.getElementById('hokshMoreBtn')?.click();
