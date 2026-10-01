@@ -319,6 +319,22 @@ html,body{touch-action:pan-x pan-y;-webkit-user-select:none;user-select:none}.st
 @media (min-width:681px){
   .stage{max-width:calc(100% - 6px)}
 }
+</style><style id="hoksh-stable-ux">
+/* Stable, clean editor surface: no SEO content below the working area. */
+.seoContent{display:none!important}
+body{overflow:hidden!important}
+.workspace{overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.stage{will-change:transform;contain:layout paint}
+canvas{touch-action:none!important}
+@media(max-width:680px){
+ .workspace{padding:6px 6px 76px!important;align-items:flex-start!important;justify-content:center!important}
+ .stage{margin-top:4px;box-shadow:0 8px 28px #0007}
+ .emptyBox{margin:12px!important;padding:20px!important}
+}
+/* Cleaner new-page choices */
+.pageTemplate{position:relative;min-height:128px!important;padding:12px!important;border-radius:16px!important}
+.pageTemplate .paperPreview{height:82px!important;min-height:82px!important;border-radius:9px!important}
+.pageTemplate b,.pageTemplate small{position:relative;z-index:2}
 </style></head>
 <body>
 <div class="hoksh-intro" id="hokshIntro">
@@ -1000,5 +1016,29 @@ document.getElementById('teachingModeBtn')?.addEventListener('click',()=>setTime
   });
   // Make the current app title/branding the only title used by app-generated dialogs.
   document.title='حوكش HOKSH — محرر الصور والـPDF الذكي';
+})();
+</script><script id="hoksh-stable-ux-js">
+(function(){
+  const cv=document.getElementById('canvas'), ws=document.getElementById('workspace');
+  // Prevent the first interaction from being swallowed by focus/scroll on touch and pen devices.
+  if(cv){
+    ['pointerdown','pointermove','pointerup','pointercancel'].forEach(type=>{
+      cv.addEventListener(type,e=>{ if(e.pointerType==='touch'||e.pointerType==='pen') e.stopPropagation(); },{capture:true});
+    });
+  }
+  // Tool buttons always activate immediately; do not require clicking the page first.
+  document.addEventListener('pointerdown',e=>{
+    const b=e.target.closest('.tool,[data-dock],[data-toptool],[data-float-tool],[data-mtool]');
+    if(!b)return;
+    const t=b.dataset.tool||b.dataset.dock||b.dataset.toptool||b.dataset.floatTool||b.dataset.mtool;
+    if(t && typeof setTool==='function'){ e.preventDefault(); e.stopPropagation(); setTool(t); }
+  },true);
+  // Re-fit only after the browser has laid out the workspace, avoiding jank after file open.
+  const refit=()=>{ if(typeof fit==='function') requestAnimationFrame(()=>requestAnimationFrame(fit)); };
+  window.addEventListener('resize',refit,{passive:true});
+  window.addEventListener('orientationchange',()=>setTimeout(refit,120),{passive:true});
+  // Native file picker should open once and reset cleanly.
+  const fi=document.getElementById('file');
+  if(fi)fi.addEventListener('change',()=>setTimeout(()=>fi.blur(),0),{capture:true});
 })();
 </script></body></html>
