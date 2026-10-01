@@ -247,8 +247,7 @@ html,body{touch-action:pan-x pan-y;-webkit-user-select:none;user-select:none}.st
 .floatingPalette{position:absolute;left:0;bottom:70px;width:300px;padding:12px;border:1px solid #36546b;border-radius:18px;background:rgba(8,20,33,.98);box-shadow:0 22px 65px #000b;backdrop-filter:blur(20px);display:none}
 .floatingPen.open .floatingPalette{display:block}
 .floatTitle{font-size:12px;font-weight:900;color:#eaf7ff;margin-bottom:9px}
-.floatTools{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}.floatTools button{height:55px;border:1px solid #2d485f;border-radius:12px;background:#12283a;color:#f0f8ff;font-size:20px;cursor:pointer}
-.floatTools button small{display:block;font-size:9px;color:#91a9bc;margin-top:2px}
+.floatTools{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}.floatTools button{height:55px;border:1px solid #2d485f;border-radius:12px;background:#12283a;color:#f0f8ff;font-size:20px;cursor:pointer}.floatTools button small{display:block;font-size:9px;color:#91a9bc;margin-top:2px}
 .floatTools button.active{background:linear-gradient(135deg,#0d9e91,#2567c6);border-color:#66ead8}
 .floatRow{display:flex;gap:10px;align-items:center;margin-top:10px}
 .floatRow label{flex:1;font-size:10px;color:#9db4c7}
@@ -293,6 +292,28 @@ html,body{touch-action:pan-x pan-y;-webkit-user-select:none;user-select:none}.st
   .top,.smartRail,.floatingPen,.hoksh-welcome,.hoksh-intro,.seoContent,.viewPop,.toast{display:none!important}
   .workspace{padding:0!important;overflow:visible!important;background:#fff!important}
   .stage{box-shadow:none!important;transform:none!important}
+}
+</style><style id="hoksh-cross-device-print-final">
+@media print{
+  html,body{width:100%!important;height:auto!important;overflow:visible!important;background:#fff!important}
+  .top,.sidebar,.right,.smartRail,.floatingPen,.hoksh-more,.teachDock,.teachingTopTools,.pagebar,.status,.hoksh-intro,.hoksh-welcome,.modal,.toast,.viewHint,.seoContent{display:none!important}
+  .app,.body,.workspace{display:block!important;width:100%!important;height:auto!important;min-height:0!important;overflow:visible!important;padding:0!important;background:#fff!important}
+  .stage{margin:0 auto!important;box-shadow:none!important;transform:none!important;page-break-inside:avoid!important}
+  .stage canvas{display:block!important}
+  .viewGallery{display:block!important;width:100%!important;margin:0!important;padding:0!important}
+  .viewCard{break-inside:avoid!important;page-break-inside:avoid!important;margin:0 auto 12mm!important}
+}
+@media (min-width:681px) and (max-width:1100px){
+  .top{min-height:58px;padding:7px 9px;gap:5px}
+  .top .sub{display:none}
+  .top .btn{padding:8px 9px}
+  .sidebar{width:64px;padding:6px}
+  .tool{height:48px}
+  .right{width:240px;padding:10px}
+  .workspace{padding:12px}
+}
+@media (min-width:681px){
+  .stage{max-width:calc(100% - 6px)}
 }
 </style></head>
 <body>
@@ -497,8 +518,7 @@ function goBlank(n){commitPage();page=Math.max(1,Math.min(blankCount,n));loadPag
 $('newPage').onclick=()=>openPageCreator(1);$('newPages').onclick=()=>openPageCreator(5);$('newPageSide').onclick=()=>openPageCreator(1);$('newPagesSide').onclick=()=>openPageCreator(5);$('cancelPage').onclick=()=>$('pageModal').classList.remove('show');$('createPages').onclick=createBlankPages;
 const oldPrev=$('prev').onclick,oldNext=$('next').onclick;$('prev').onclick=async()=>{if(blankMode){goBlank(page-1)}else if(pdf&&page>1){commitPage();page--;rotation=0;await renderPdfPage()}};$('next').onclick=async()=>{if(blankMode){goBlank(page+1)}else if(pdf&&page<pdf.numPages){commitPage();page++;rotation=0;await renderPdfPage()}};
 function saveLocalSilent(){try{commitPage();localStorage.setItem('hoksh_state',JSON.stringify({page,pages,pdfMode,blankMode,blankCount,blankSizes,blankTemplate,state,rotation}));}catch(e){}}function saveLocal(){saveLocalSilent();toast('تم الحفظ محليًا')}$('saveLocal').onclick=saveLocal;
-$('restoreLocal').onclick=()=>{try{const d=JSON.parse(localStorage.getItem('hoksh_state'));if(!d){toast('لا يوجد حفظ سابق');return}pages=d.pages||{};page=d.page||1;blankMode=!!d.blankMode;blankCount=d.blankCount||0;blankSizes=d.blankSizes||blankSizes;blankTemplate=d.blankTemplate||'plain';pdfMode=!!d.pdfMode;if(blankMode){workspace.classList.add('blank-view');bg=document.createElement('canvas');bg.width=blankSizes.w;bg.height=blankSizes.h;drawBlankBackground(bg,blankTemplate);$('empty').style.display='none';$('pagebar').style.display='flex';resizeCanvas(blankSizes.w,blankSizes.h);goBlank(page)}else toast('تمت استعادة بيانات الرسم — أعد فتح الـPDF إذا لزم')}catch(e){toast('تعذر الاستعادة')}};
-$('clearLocal').onclick=()=>{localStorage.removeItem('hoksh_state');toast('تم مسح الحفظ المحلي')};$('help').onclick=()=>$('helpModal').classList.add('show');$('closeHelp').onclick=()=>$('helpModal').classList.remove('show');
+$('restoreLocal').onclick=()=>{try{const d=JSON.parse(localStorage.getItem('hoksh_state'));if(!d){toast('لا يوجد حفظ سابق');return}pages=d.pages||{};page=d.page||1;blankMode=!!d.blankMode;blankCount=d.blankCount||0;blankSizes=d.blankSizes||blankSizes;blankTemplate=d.blankTemplate||'plain';pdfMode=!!d.pdfMode;if(blankMode){workspace.classList.add('blank-view');bg=document.createElement('canvas');bg.width=blankSizes.w;bg.height=blankSizes.h;drawBlankBackground(bg,blankTemplate);$('empty').style.display='none';$('pagebar').style.display='flex';resizeCanvas(blankSizes.w,blankSizes.h);goBlank(page)}else toast('تمت استعادة بيانات الرسم — أعد فتح الـPDF إذا لزم')}catch(e){toast('تعذر الاستعادة')}};$('clearLocal').onclick=()=>{localStorage.removeItem('hoksh_state');toast('تم مسح الحفظ المحلي')};$('help').onclick=()=>$('helpModal').classList.add('show');$('closeHelp').onclick=()=>$('helpModal').classList.remove('show');
 $('aiBtn').onclick=()=>{$('aiModal').classList.add('show');$('aiInput').focus()};$('closeAI').onclick=()=>$('aiModal').classList.remove('show');$('openChatGPT').onclick=()=>window.open('https://chatgpt.com/','_blank');
 function aiSay(a,b){$('aiLog').innerHTML+='<div><b>أنت:</b> '+a+'</div><div><b>حوكش:</b> '+b+'</div>';$('aiLog').scrollTop=$('aiLog').scrollHeight}
 function aiRun(){const q=$('aiInput').value.trim();if(!q)return;let reply='لم أفهم الأمر بعد. جرّب: ارسم مستطيل، أضف سهم، ظلل، اكتب ملاحظة، امسح المحدد، كبّر، صغّر، اذهب للصفحة 5.';if(/كبّر|تكبير|zoom in/i.test(q)){scale=Math.min(scale*1.2,4);fitZoom();reply='تم التكبير.'}else if(/صغّر|تصغير|zoom out/i.test(q)){scale=Math.max(scale/1.2,.2);fitZoom();reply='تم التصغير.'}else if(/الصفحة\s*(\d+)/i.test(q)){const n=+(q.match(/الصفحة\s*(\d+)/i)||[])[1];if(pdf){commitPage();page=Math.max(1,Math.min(pdf.numPages,n));renderPdfPage();reply='ذهبت إلى الصفحة '+page+'.'}else if(blankMode){goBlank(n);reply='ذهبت إلى الصفحة '+page+'.'}else reply='افتح PDF أو أنشئ صفحات أولًا.'}else if(/مستطيل/.test(q)){setTool('rect');reply='تم اختيار أداة المستطيل. ارسمه على الصفحة.'}else if(/دائر|circle/.test(q)){setTool('circle');reply='تم اختيار أداة الدائرة.'}else if(/سهم/.test(q)){setTool('arrow');reply='تم اختيار أداة السهم.'}else if(/خط/.test(q)){setTool('line');reply='تم اختيار أداة الخط.'}else if(/ظلّل|تظليل|هايلايتر/.test(q)){setTool('highlight');reply='تم اختيار أداة التظليل.'}else if(/قلم|ارسم/.test(q)){setTool('pen');reply='تم اختيار القلم.'}else if(/نص|ملاحظة|اكتب/.test(q)){setTool('text');reply='تم اختيار أداة النص.'}else if(/امسح|احذف/.test(q)&&selected){strokes=strokes.filter(s=>s!==selected);selected=null;commitPage();render();changed();reply='تم حذف العنصر المحدد.'}aiSay(q,reply);$('aiInput').value=''}$('aiSend').onclick=aiRun;$('aiInput').onkeydown=e=>{if(e.key==='Enter')aiRun()};
@@ -747,8 +767,7 @@ document.getElementById('teachingModeBtn')?.addEventListener('click',()=>setTime
   document.getElementById('smartPrev').onclick=()=>{click('prev');setTimeout(syncPages,60)};
   document.getElementById('smartNext').onclick=()=>{click('next');setTimeout(syncPages,60)};  document.getElementById('smartUndo').onclick=()=>click('undo');
   document.getElementById('smartRedo').onclick=()=>click('redo');
-  document.getElementById('smartNew').onclick=()=>document.getElementById('newPage')?.click();
-  let zoomStep=0;
+  document.getElementById('smartNew').onclick=()=>document.getElementById('newPage')?.click();  let zoomStep=0;
   const zooms=[.75,1,1.25,1.5,2];
   document.getElementById('smartZoom').onclick=()=>{
     zoomStep=(zoomStep+1)%zooms.length;
@@ -925,6 +944,26 @@ document.getElementById('teachingModeBtn')?.addEventListener('click',()=>setTime
   document.getElementById('workspace')?.addEventListener('dblclick',()=>{
     if(document.body.classList.contains('mobile-reading'))document.body.classList.remove('mobile-reading');
     else document.body.classList.add('mobile-reading');
+  });
+})();
+</script><script id="hoksh-cross-device-final-js">
+(function(){
+  // Keep printing branded as HOKSH. Browser print headers/footers are controlled by the browser;
+  // the app itself never writes an email address into the printed document.
+  const printButtons=['smartPrint'];
+  printButtons.forEach(id=>{
+    const b=document.getElementById(id);
+    if(!b)return;
+    b.onclick=()=>{
+      const old=document.title;
+      document.title='حوكش HOKSH — محمد شعبان محارب';
+      requestAnimationFrame(()=>window.print());
+      setTimeout(()=>{document.title=old},1200);
+    };
+  });
+  // Prevent optional UI enhancements from breaking the core editor if a browser lacks an API.
+  window.addEventListener('error',e=>{
+    if(e.message && /requestFullscreen|beforeinstallprompt|showOpenFilePicker/i.test(e.message)) e.preventDefault();
   });
 })();
 </script></body></html>
