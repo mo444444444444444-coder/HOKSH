@@ -224,7 +224,68 @@ html,body,#canvas,.stage,.workspace{touch-action:none;-webkit-user-select:none;u
   .teaching-mode .toolDock{display:none}
   .devDialog{max-height:88dvh}
 }
-</style><style id="hoksh-dev-photo-css">.photoAvatar{overflow:hidden;position:relative}.photoAvatar img{width:100%;height:100%;object-fit:cover;display:block}.photoAvatar span{display:none;place-items:center;width:100%;height:100%;background:linear-gradient(135deg,#2f7df6,#16b8a6);color:#fff;font-size:48px;font-weight:1000}</style><style id="hoksh-intro-photo-css">.photoIntro{overflow:hidden;position:relative}.photoIntro img{width:100%;height:100%;object-fit:cover;display:block}.photoIntro span{display:none;place-items:center;width:100%;height:100%;background:linear-gradient(135deg,#3f7cff,#22d3b6);color:#fff;font-size:42px;font-weight:1000}.photoIntro:after{content:"";position:absolute;inset:0;border:2px solid #ffffff33;border-radius:inherit;pointer-events:none}</style></head>
+</style><style id="hoksh-dev-photo-css">.photoAvatar{overflow:hidden;position:relative}.photoAvatar img{width:100%;height:100%;object-fit:cover;display:block}.photoAvatar span{display:none;place-items:center;width:100%;height:100%;background:linear-gradient(135deg,#2f7df6,#16b8a6);color:#fff;font-size:48px;font-weight:1000}</style><style id="hoksh-intro-photo-css">.photoIntro{overflow:hidden;position:relative}.photoIntro img{width:100%;height:100%;object-fit:cover;display:block}.photoIntro span{display:none;place-items:center;width:100%;height:100%;background:linear-gradient(135deg,#3f7cff,#22d3b6);color:#fff;font-size:42px;font-weight:1000}.photoIntro:after{content:"";position:absolute;inset:0;border:2px solid #ffffff33;border-radius:inherit;pointer-events:none}</style><style id="hoksh-smart-teacher-ui">
+/* HOKSH 4 — simple teacher-board UI: one rail + one floating pen */
+.top{height:58px!important;min-height:58px!important;background:rgba(8,20,33,.96)!important;border-bottom:1px solid #284257!important;box-shadow:0 5px 22px #0006!important}
+.top .sub,.top #leftToggle,.top #rightToggle,.top #zoomOut,.top #zoomIn,.top #zoomReset,.top #help,.top #installBtn{display:none!important}
+.top .spacer{flex:1}
+.top #viewModeBtn,.top #teachingModeBtn,.top #aiBtn,.top #export{display:inline-flex!important}
+.workspace{padding:12px 78px 18px 14px!important;overflow:auto!important;align-items:flex-start!important;justify-content:center!important}
+.status,.pagebar{display:none!important}
+.toolDock,.teachingTopTools,.hoksh-more{display:none!important}
+
+.smartRail{position:fixed;right:14px;top:50%;transform:translateY(-50%);z-index:60;display:flex;flex-direction:column;align-items:center;gap:5px;width:54px;padding:7px 5px;border:1px solid #35526a;border-radius:20px;background:rgba(8,20,32,.94);box-shadow:0 18px 55px #0009;backdrop-filter:blur(18px)}
+.smartRail button{width:44px;height:42px;border:1px solid #2c465b;border-radius:12px;background:#13283a;color:#edf8ff;font-size:17px;font-weight:800;cursor:pointer;transition:.15s}
+.smartRail button:hover{border-color:#2dd4bf;background:#17384c;transform:translateY(-1px)}
+.smartRail button:active{transform:scale(.96)}
+.smartSep{width:28px;height:1px;background:#35536a;margin:2px 0}
+.smartPage{display:flex;align-items:baseline;gap:2px;justify-content:center;color:#eaf5ff;line-height:1}
+.smartPage b{font-size:14px}.smartPage small{font-size:9px;color:#8da8bd}
+#smartZoom{font-size:10px}
+.floatingPen{position:fixed;left:22px;bottom:24px;z-index:70;touch-action:none}
+.floatingPenBtn{width:60px;height:60px;border-radius:50%;border:1px solid #67e8d4;background:linear-gradient(145deg,#16b8a6,#286fe4);color:#fff;font-size:25px;font-weight:900;box-shadow:0 14px 40px #000a,0 0 0 5px #16b8a620;cursor:pointer}
+.floatingPen.open .floatingPenBtn{transform:rotate(-20deg);box-shadow:0 16px 45px #000b,0 0 0 7px #16b8a630}
+.floatingPalette{position:absolute;left:0;bottom:70px;width:300px;padding:12px;border:1px solid #36546b;border-radius:18px;background:rgba(8,20,33,.98);box-shadow:0 22px 65px #000b;backdrop-filter:blur(20px);display:none}
+.floatingPen.open .floatingPalette{display:block}
+.floatTitle{font-size:12px;font-weight:900;color:#eaf7ff;margin-bottom:9px}
+.floatTools{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.floatTools button{height:55px;border:1px solid #2d485f;border-radius:12px;background:#12283a;color:#f0f8ff;font-size:20px;cursor:pointer}
+.floatTools button small{display:block;font-size:9px;color:#91a9bc;margin-top:2px}
+.floatTools button.active{background:linear-gradient(135deg,#0d9e91,#2567c6);border-color:#66ead8}
+.floatRow{display:flex;gap:10px;align-items:center;margin-top:10px}
+.floatRow label{flex:1;font-size:10px;color:#9db4c7}
+.floatRow input[type=color]{display:block;width:100%;height:28px;border:0;background:transparent}
+.floatRow input[type=range]{width:100%}
+.floatSwatches{display:flex;gap:7px;margin-top:9px}
+.floatSwatches button{width:25px;height:25px;border-radius:50%;border:2px solid #ffffff55;cursor:pointer}
+@media(max-width:680px){
+  .top{height:52px!important;min-height:52px!important;padding:4px 7px!important}
+  .top .brand{font-size:18px!important}
+  .top #viewModeBtn,.top #teachingModeBtn,.top #aiBtn,.top #export{width:40px!important;min-width:40px!important;height:40px!important;padding:7px!important;font-size:0!important}
+  .top #viewModeBtn:first-letter,.top #teachingModeBtn:first-letter,.top #aiBtn:first-letter,.top #export:first-letter{font-size:17px}
+  .workspace{padding:5px 66px 10px 5px!important}
+  .smartRail{right:6px;width:48px;padding:5px 4px;border-radius:17px}
+  .smartRail button{width:40px;height:38px;font-size:15px;border-radius:11px}
+  .smartPage b{font-size:12px}.smartPage small{font-size:8px}
+  .floatingPen{left:12px;bottom:14px}
+  .floatingPenBtn{width:56px;height:56px}
+  .floatingPalette{left:0;bottom:65px;width:min(292px,calc(100vw - 24px))}
+}
+@media(min-width:681px){.teaching-mode .smartRail{right:14px}.teaching-mode .workspace{padding-right:78px!important}}
+</style><style id="hoksh-gallery-fix">
+.viewGallery{width:min(1100px,calc(100% - 20px))!important;margin:12px auto 40px!important;padding:8px!important;gap:14px!important;overflow:visible!important}
+.viewGallery.continuous{grid-template-columns:minmax(0,1fr)!important}
+.viewGallery.side{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+.viewCard{width:100%;box-sizing:border-box}
+.viewCard canvas{width:100%!important;height:auto!important;max-width:100%!important}
+.viewHint{display:none!important}
+@media(max-width:680px){
+ .viewGallery{width:calc(100% - 12px)!important;margin:8px auto 28px!important;padding:3px!important;gap:10px!important}
+ .viewGallery.side{grid-template-columns:1fr!important}
+ .viewCard{padding:5px!important;border-radius:11px!important}
+ .viewNum{top:9px;right:9px;font-size:9px;padding:3px 6px}
+}
+</style></head>
 <body>
 <div class="hoksh-intro" id="hokshIntro">
   <div class="intro-glow g1"></div><div class="intro-glow g2"></div>
@@ -265,8 +326,8 @@ html,body,#canvas,.stage,.workspace{touch-action:none;-webkit-user-select:none;u
 <main class="workspace" id="workspace">
 <div class="stage" id="stage"><canvas id="canvas"></canvas></div>
 <div class="empty" id="empty"><div class="emptyBox"><strong>ابدأ في حوكش</strong><div>حرّر الصور وملفات PDF، اكتب وارسم وظلل وأضف النصوص والأشكال ثم صدّر ملفك كاملًا.</div><div class="mini">JPG · PNG · WEBP · PDF &nbsp; • &nbsp; حفظ محلي &nbsp; • &nbsp; يعمل على الهاتف والكمبيوتر</div><div class="emptyActions"><label class="btn primary" for="file">📂 اختيار ملف من الجهاز</label><button class="btn" id="newPage">📄 صفحة بيضاء</button><button class="btn" id="newPages">📚 عدة صفحات</button></div></div></div>
-<div class="pagebar" id="pagebar" style="display:none"><button class="btn" id="prev">‹</button><input class="pageInput" id="pageInput" value="1"><span id="pageTotal">/ 1</span><button class="btn" id="next">›</button><button class="btn" id="rotate">↻</button><button class="btn" id="full">⛶</button></div>
-<div class="status" id="status">جاهز • <span id="netStatus">متصل</span></div><div class="viewGallery" id="viewGallery"></div><div class="viewHint" id="viewHint">اضغط على أي صفحة للعودة إليها وتحريرها</div>
+<div class="pagebar" id="pagebar" style="display:none" aria-hidden="true"><button class="btn" id="prev">‹</button><input class="pageInput" id="pageInput" value="1"><span id="pageTotal">/ 1</span><button class="btn" id="next">›</button><button class="btn" id="rotate">↻</button><button class="btn" id="full">⛶</button></div>
+<div class="status" id="status" aria-hidden="true">جاهز • <span id="netStatus">متصل</span></div><div class="viewGallery" id="viewGallery"></div><div class="viewHint" id="viewHint">اضغط على أي صفحة للعودة إليها وتحريرها</div>
 </main>
 <aside class="right">
 <div class="section"><h3>الملف</h3><label class="drop" for="file">📂 اضغط هنا لاختيار ملف من الهاتف<br><small>JPG · PNG · WEBP · PDF</small></label><div class="row"><button class="btn" id="newPageSide" style="width:100%">📄 إنشاء صفحة بيضاء</button></div><div class="row"><button class="btn" id="newPagesSide" style="width:100%">📚 إنشاء عدة صفحات</button></div><div class="row"><button class="btn" id="downloadOriginal" style="width:100%">⬇ تنزيل PDF الأصلي كاملًا</button></div><div class="row"><button class="btn primary" id="exportPdf" style="width:100%">📄 تنزيل PDF كامل بعد التعديل</button></div></div>
@@ -527,7 +588,7 @@ document.addEventListener('pointerdown',e=>{if(!e.target.closest('#hokshViewPop'
 document.querySelectorAll('.viewChoice').forEach(b=>b.onclick=async()=>{pop.classList.remove('show');await setMode(b.dataset.view)});
 async function setMode(m){
  mode=m;document.querySelectorAll('.viewChoice').forEach(x=>x.classList.toggle('active',x.dataset.view===m));
- if(m==='single'){gallery.style.display='none';gallery.className='viewGallery';stage.style.display='block';empty.style.display=empty.dataset.originalHidden==='1'?'none':empty.style.display;pagebar.style.display=(pdf||blankMode)?'flex':'none';hint.classList.remove('show');fit();return}
+ if(m==='single'){gallery.style.display='none';gallery.className='viewGallery';stage.style.display='block';empty.style.display=empty.dataset.originalHidden==='1'?'none':empty.style.display;pagebar.style.display='none';hint.classList.remove('show');fit();return}
  if(!pdf&&!blankMode){toast('افتح PDF أو أنشئ صفحات أولًا');mode='single';return}
  commitPage();stage.style.display='none';empty.style.display='none';pagebar.style.display='none';gallery.className='viewGallery '+m;gallery.style.display='grid';hint.classList.add('show');setTimeout(()=>hint.classList.remove('show'),3000);await buildGallery();
 }
@@ -613,10 +674,39 @@ document.getElementById('file')?.addEventListener('change',()=>{setTimeout(()=>s
 <div class="moreTitle">أدوات وإضافات حوكش</div>
 <button data-more="panel">⚙️ الإعدادات واللوحة</button><button data-more="calc">🧮 الآلة الحاسبة</button><button data-more="symbols">🔣 الرموز والأشكال</button><button data-more="axes">📈 المحاور والرسم البياني</button><button data-more="view">▦ طريقة عرض الصفحات</button><button data-more="developer">👨‍💻 معلومات المطور</button><button data-more="ai">✦ HOKSH AI</button>
 </div></div>
-<div class="toolDock" id="mainToolDock">
-<button data-dock="select" title="تحديد">↖</button><button data-dock="pen" title="قلم">✎</button><button data-dock="highlight" title="تظليل">▰</button><button data-dock="eraser" title="مسح جزئي مستمر">⌫</button><button data-dock="text" title="نص">T</button><span class="dockSep"></span><button data-dock="undo" title="تراجع">↶</button><button data-dock="redo" title="إعادة">↷</button><button data-dock="new" title="صفحة جديدة">＋</button><button class="dockMove" id="dockMove" title="تغيير مكان الشريط">⇄</button></div>
-<div class="teachingTopTools" id="teachingTopTools">
-<button data-toptool="pen" title="قلم">✎</button><button data-toptool="highlight" title="تظليل">▰</button><button data-toptool="eraser" title="أستيكة">⌫</button><button data-toptool="text" title="نص">T</button><button data-toptool="line" title="خط">╱</button><button data-toptool="arrow" title="سهم">➜</button><button data-toptool="rect" title="مستطيل">□</button><button data-toptool="circle" title="دائرة">○</button><button id="teachTopColor" title="ألوان">●</button><button id="teachTopMore" title="المزيد">⋯</button>
+<div class="smartRail" id="smartRail" aria-label="شريط حوكش السريع">
+  <button id="smartOpen" title="فتح ملف">📂</button>
+  <button id="smartSave" title="حفظ العمل">💾</button>
+  <button id="smartPrint" title="طباعة">🖨</button>
+  <span class="smartSep"></span>
+  <button id="smartPrev" title="الصفحة السابقة">↑</button>
+  <div class="smartPage"><b id="smartPageNow">1</b><small id="smartPageTotal">/1</small></div>
+  <button id="smartNext" title="الصفحة التالية">↓</button>
+  <span class="smartSep"></span>
+  <button id="smartZoom" title="حجم الصفحة">100%</button>
+  <button id="smartUndo" title="تراجع">↶</button>
+  <button id="smartRedo" title="إعادة">↷</button>
+  <button id="smartNew" title="صفحة جديدة">＋</button>
+</div>
+<div class="floatingPen" id="floatingPen" title="أدوات القلم">
+  <button class="floatingPenBtn" id="floatingPenBtn" aria-label="فتح أدوات القلم">✎</button>
+  <div class="floatingPalette" id="floatingPalette">
+    <div class="floatTitle">أدوات القلم</div>
+    <div class="floatTools">
+      <button data-float-tool="pen">✎<small>قلم</small></button>
+      <button data-float-tool="highlight">▰<small>تظليل</small></button>
+      <button data-float-tool="eraser">⌫<small>مسح</small></button>
+      <button data-float-tool="text">T<small>نص</small></button>
+      <button data-float-tool="line">╱<small>خط</small></button>
+      <button data-float-tool="arrow">➜<small>سهم</small></button>
+      <button data-float-tool="rect">□<small>مربع</small></button>
+      <button data-float-tool="circle">○<small>دائرة</small></button>
+    </div>
+    <div class="floatRow"><label>اللون <input id="floatColor" type="color" value="#ff3158"></label><label>السُمك <input id="floatSize" type="range" min="1" max="40" value="5"></label></div>
+    <div class="floatSwatches" aria-label="ألوان سريعة">
+      <button data-color="#ff3158" style="background:#ff3158"></button><button data-color="#111827" style="background:#111827"></button><button data-color="#2563eb" style="background:#2563eb"></button><button data-color="#16a34a" style="background:#16a34a"></button><button data-color="#f59e0b" style="background:#f59e0b"></button><button data-color="#ffffff" style="background:#ffffff"></button>
+    </div>
+  </div>
 </div>
 <script id="hoksh-3-ui-js">
 (function(){
@@ -633,4 +723,65 @@ document.getElementById('teachTopMore').onclick=()=>document.getElementById('hok
 document.getElementById('teachingModeBtn')?.addEventListener('click',()=>setTimeout(()=>{document.getElementById('teachingTopTools').style.display=document.body.classList.contains('teaching-mode')?'flex':'none'},30));
 })();
 </script>
-</body></html>
+<script id="hoksh-smart-teacher-js">
+(function(){
+  const rail=document.getElementById('smartRail'), pen=document.getElementById('floatingPen'), penBtn=document.getElementById('floatingPenBtn'), palette=document.getElementById('floatingPalette');
+  if(!rail||!pen)return;
+  const click=id=>document.getElementById(id)?.click();
+  const syncPages=()=>{
+    const total=(typeof pdf!=='undefined'&&pdf)?pdf.numPages:(typeof blankCount!=='undefined'&&blankCount?blankCount:1);
+    document.getElementById('smartPageNow').textContent=String((typeof page!=='undefined'?page:1));
+    document.getElementById('smartPageTotal').textContent='/'+String(total);
+  };
+  document.getElementById('smartOpen').onclick=()=>click('file');
+  document.getElementById('smartSave').onclick=()=>{click('saveLocal');toast('تم حفظ العمل محليًا');};
+  document.getElementById('smartPrint').onclick=()=>window.print();
+  document.getElementById('smartPrev').onclick=()=>{click('prev');setTimeout(syncPages,60)};
+  document.getElementById('smartNext').onclick=()=>{click('next');setTimeout(syncPages,60)};
+  document.getElementById('smartUndo').onclick=()=>click('undo');
+  document.getElementById('smartRedo').onclick=()=>click('redo');
+  document.getElementById('smartNew').onclick=()=>document.getElementById('newPage')?.click();
+  let zoomStep=0;
+  const zooms=[.75,1,1.25,1.5,2];
+  document.getElementById('smartZoom').onclick=()=>{
+    zoomStep=(zoomStep+1)%zooms.length;
+    scale=zooms[zoomStep];fitZoom();
+    document.getElementById('smartZoom').textContent=Math.round(scale*100)+'%';
+  };
+  penBtn.onclick=(e)=>{e.stopPropagation();pen.classList.toggle('open')};
+  document.addEventListener('pointerdown',e=>{if(!e.target.closest('#floatingPen'))pen.classList.remove('open')});
+  document.querySelectorAll('[data-float-tool]').forEach(b=>b.onclick=()=>{
+    setTool(b.dataset.floatTool);
+    document.querySelectorAll('[data-float-tool]').forEach(x=>x.classList.toggle('active',x===b));
+  });
+  const fc=document.getElementById('floatColor'),fs=document.getElementById('floatSize');
+  fc?.addEventListener('input',()=>{color.value=fc.value});
+  fs?.addEventListener('input',()=>{size.value=fs.value;size.dispatchEvent(new Event('input'))});
+  document.querySelectorAll('[data-color]').forEach(b=>b.onclick=()=>{const v=b.dataset.color;color.value=v;if(fc)fc.value=v});
+  function syncTool(){
+    document.querySelectorAll('[data-float-tool]').forEach(x=>x.classList.toggle('active',x.dataset.floatTool===tool));
+    if(fc)fc.value=color.value;if(fs)fs.value=size.value;syncPages();
+  }
+  const oldSetTool=window.setTool;
+  if(oldSetTool)window.setTool= function(t){oldSetTool(t);syncTool()};
+  setTimeout(syncTool,100);
+  setInterval(syncPages,700);
+
+  // Drag the floating pen anywhere on screen; a tap still opens the palette.
+  let drag=false,moved=false,ox=0,oy=0,sx=0,sy=0;
+  pen.addEventListener('pointerdown',e=>{
+    if(e.target!==penBtn)return;
+    drag=true;moved=false;pen.setPointerCapture?.(e.pointerId);
+    const r=pen.getBoundingClientRect();ox=e.clientX-r.left;oy=e.clientY-r.top;sx=e.clientX;sy=e.clientY;
+  });
+  pen.addEventListener('pointermove',e=>{
+    if(!drag)return;
+    if(Math.hypot(e.clientX-sx,e.clientY-sy)>6)moved=true;
+    if(moved){
+      const x=Math.max(6,Math.min(innerWidth-66,e.clientX-ox)),y=Math.max(60,Math.min(innerHeight-66,e.clientY-oy));
+      pen.style.left=x+'px';pen.style.top=y+'px';pen.style.bottom='auto';
+    }
+  });
+  pen.addEventListener('pointerup',()=>{if(drag&&moved)pen.classList.remove('open');drag=false});
+})();
+</script></body></html>
