@@ -187,7 +187,7 @@ body.teaching-mode .workspace{align-items:flex-start!important;overflow:auto!imp
 .seoContent h2{font-size:24px;margin:34px 0 8px;color:#58ddc9}
 .seoContent p{color:#aebed1;margin:8px 0}.seoContent ul{color:#aebed1;padding-right:24px}.seoGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}.seoCard{padding:16px;border:1px solid #29445c;border-radius:16px;background:#0d1b2a}.seoCard strong{display:block;color:#fff;margin-bottom:5px}@media(max-width:700px){.seoGrid{grid-template-columns:1fr}}
 </style><style id="hoksh-mobile-pro">
-html,body,#canvas,.stage,.workspace{touch-action:none;-webkit-user-select:none;user-select:none}
+html,body{touch-action:pan-x pan-y;-webkit-user-select:none;user-select:none}.stage{touch-action:auto}.workspace{touch-action:pan-x pan-y;-webkit-overflow-scrolling:touch}#canvas{touch-action:none;-webkit-user-select:none;user-select:none}
 #canvas{touch-action:none;cursor:crosshair;-webkit-tap-highlight-color:transparent}
 @media(max-width:680px){
   .app{height:100dvh}
@@ -398,7 +398,7 @@ function setTool(t){
   document.querySelectorAll('.tool').forEach(b=>b.classList.toggle('active',b.dataset.tool===t));
   document.querySelectorAll('[data-dock]').forEach(b=>b.classList.toggle('active',b.dataset.dock===t));
   document.querySelectorAll('[data-toptool]').forEach(b=>b.classList.toggle('active',b.dataset.toptool===t));
-  canvas.style.cursor=t==='eraser'?'none':'default';
+  canvas.style.cursor=t==='eraser'?'none':'default'; canvas.style.touchAction=t==='select'?'auto':'none';
 }
 document.querySelectorAll('.tool').forEach(b=>b.onclick=()=>setTool(b.dataset.tool));
 
