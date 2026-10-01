@@ -197,8 +197,7 @@ html,body{touch-action:pan-x pan-y;-webkit-user-select:none;user-select:none}.st
   .spacer{min-width:4px}
   .top .btn{padding:8px 9px;border-radius:10px;font-size:11px}
   .top #teachingModeBtn{font-size:0;width:42px;padding:8px}
-  .top #teachingModeBtn:first-letter{font-size:17px}
-  .top #aiBtn{font-size:0;width:42px;padding:8px}.top #aiBtn:first-letter{font-size:17px}
+  .top #teachingModeBtn:first-letter{font-size:17px}  .top #aiBtn{font-size:0;width:42px;padding:8px}.top #aiBtn:first-letter{font-size:17px}
   .top #viewModeBtn{font-size:0;width:42px;padding:8px}.top #viewModeBtn:first-letter{font-size:17px}
   .top #export{font-size:0;width:42px;padding:8px}.top #export:first-letter{font-size:17px}
   .top label[for="file"]{font-size:0;width:42px;padding:8px;text-align:center}.top label[for="file"]::first-letter{font-size:17px}
@@ -397,8 +396,7 @@ function setTool(t){
   tool=t;
   document.querySelectorAll('.tool').forEach(b=>b.classList.toggle('active',b.dataset.tool===t));
   document.querySelectorAll('[data-dock]').forEach(b=>b.classList.toggle('active',b.dataset.dock===t));
-  document.querySelectorAll('[data-toptool]').forEach(b=>b.classList.toggle('active',b.dataset.toptool===t));
-  canvas.style.cursor=t==='eraser'?'none':'default'; canvas.style.touchAction=t==='select'?'auto':'none';
+  document.querySelectorAll('[data-toptool]').forEach(b=>b.classList.toggle('active',b.dataset.toptool===t));  canvas.style.cursor=t==='eraser'?'none':'default'; canvas.style.touchAction=t==='select'?'auto':'none';
 }
 document.querySelectorAll('.tool').forEach(b=>b.onclick=()=>setTool(b.dataset.tool));
 
@@ -597,8 +595,7 @@ document.body.appendChild(pop);
 let mode='single';
 function placePop(){const r=btn.getBoundingClientRect();pop.style.top=(r.bottom+8)+'px';pop.style.left=Math.max(8,Math.min(innerWidth-pop.offsetWidth-8,r.left-pop.offsetWidth+btn.offsetWidth))+'px';pop.classList.add('show')}
 btn.onclick=e=>{e.stopPropagation();pop.classList.contains('show')?pop.classList.remove('show'):placePop()};
-document.addEventListener('pointerdown',e=>{if(!e.target.closest('#hokshViewPop')&&!e.target.closest('#viewModeBtn'))pop.classList.remove('show')});
-document.querySelectorAll('.viewChoice').forEach(b=>b.onclick=async()=>{pop.classList.remove('show');await setMode(b.dataset.view)});
+document.addEventListener('pointerdown',e=>{if(!e.target.closest('#hokshViewPop')&&!e.target.closest('#viewModeBtn'))pop.classList.remove('show')});document.querySelectorAll('.viewChoice').forEach(b=>b.onclick=async()=>{pop.classList.remove('show');await setMode(b.dataset.view)});
 async function setMode(m){
  mode=m;document.querySelectorAll('.viewChoice').forEach(x=>x.classList.toggle('active',x.dataset.view===m));
  if(m==='single'){gallery.style.display='none';gallery.className='viewGallery';stage.style.display='block';empty.style.display=empty.dataset.originalHidden==='1'?'none':empty.style.display;pagebar.style.display='none';hint.classList.remove('show');fit();return}
@@ -796,5 +793,140 @@ document.getElementById('teachingModeBtn')?.addEventListener('click',()=>setTime
     }
   });
   pen.addEventListener('pointerup',()=>{if(drag&&moved)pen.classList.remove('open');drag=false});
+})();
+</script>
+<style id="hoksh-mobile-final">
+@media (max-width:680px){
+  html,body{width:100%;height:100%;overflow:hidden;background:#07111d!important}
+  body{font-size:14px}
+  .app{height:100dvh!important;min-height:100dvh!important}
+  .top{height:52px!important;min-height:52px!important;padding:4px 8px!important;gap:5px!important;background:rgba(7,17,29,.98)!important;border-bottom:1px solid #28445a!important;z-index:80}
+  .top .brand{font-size:19px!important;letter-spacing:-.4px}
+  .top .spacer{flex:1}
+  .top #viewModeBtn,.top #export{display:inline-flex!important;align-items:center;justify-content:center;width:39px!important;min-width:39px!important;height:39px!important;padding:7px!important;font-size:0!important}
+  .top #viewModeBtn::before{content:"▦";font-size:18px}
+  .top #export::before{content:"⇩";font-size:19px;font-weight:900}
+  .top #teachingModeBtn,.top #aiBtn,.top #installBtn,.top #help,.top #undo,.top #redo,.top #zoomOut,.top #zoomReset,.top #zoomIn,.top #leftToggle,.top #rightToggle,.top label[for="file"]{display:none!important}
+  .body{min-height:0!important;height:calc(100dvh - 52px)!important;display:block!important}
+  .sidebar,.right,.smartRail,.floatingPen,.status{display:none!important}
+  .workspace{width:100%!important;height:100%!important;min-height:0!important;padding:7px 5px 74px!important;overflow:auto!important;display:flex!important;align-items:flex-start!important;justify-content:center!important;background:#07111d!important;-webkit-overflow-scrolling:touch!important}
+  .stage{margin:0 auto 24px!important;flex:0 0 auto!important;box-shadow:0 10px 34px #000b!important;border-radius:2px!important}
+  .stage canvas{display:block!important}
+  .empty{position:absolute!important;inset:7px 5px 74px!important;padding:8px!important}
+  .emptyBox{width:min(94vw,420px)!important;max-width:none!important;padding:22px 15px!important;border-radius:20px!important}
+  .emptyBox strong{font-size:23px!important}
+  .emptyBox .mini{font-size:10px!important}
+  .emptyActions{display:grid!important;grid-template-columns:1fr 1fr!important}
+  .emptyActions .btn{min-width:0!important;width:100%!important}
+  .emptyActions label{grid-column:1/-1}
+  .pagebar{display:flex!important;position:fixed!important;left:50%!important;bottom:76px!important;transform:translateX(-50%)!important;z-index:76!important;padding:4px!important;border-radius:12px!important;background:#0a1828ee!important;border:1px solid #36556c!important;box-shadow:0 10px 30px #0008!important}
+  .pagebar button{min-width:34px!important;height:34px!important;padding:5px!important}
+  .pagebar .pageInput{width:45px!important;height:30px!important;padding:4px!important}
+  .hoksh-more{position:fixed!important;right:8px!important;top:auto!important;bottom:78px!important;z-index:90!important}
+  .moreBtn{width:38px!important;min-width:38px!important;height:38px!important;padding:6px!important;font-size:0!important;border-radius:11px!important}
+  .moreBtn::before{content:"⋮";font-size:23px;line-height:1}
+  .moreMenu{top:auto!important;bottom:45px!important;right:0!important;width:min(290px,calc(100vw - 16px))!important;max-height:65dvh!important;overflow:auto!important;border-radius:16px!important}
+  #mobileBar{position:fixed;left:6px;right:6px;bottom:calc(6px + env(safe-area-inset-bottom));height:58px;z-index:88;display:flex;align-items:center;justify-content:space-around;gap:4px;padding:5px 6px;background:rgba(7,18,30,.97);border:1px solid #2f4d64;border-radius:18px;box-shadow:0 14px 45px #000b;backdrop-filter:blur(18px)}
+  #mobileBar button{flex:1;min-width:0;height:46px;border:0;border-radius:13px;background:transparent;color:#dcecf7;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;font-size:18px}
+  #mobileBar button span{font-size:8px;color:#8fa9bb;line-height:1}
+  #mobileBar button.active{background:#12354a;color:#63e6d2}
+  #mobileToolSheet{position:fixed;left:8px;right:8px;bottom:72px;z-index:87;padding:12px;border:1px solid #36566e;border-radius:18px;background:#0a1929f7;box-shadow:0 20px 60px #000c;backdrop-filter:blur(18px);display:none}
+  #mobileToolSheet.show{display:block}
+  .mobileToolsGrid{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}
+  .mobileToolsGrid button{height:50px;border:1px solid #294960;border-radius:12px;background:#10263a;color:#eef8ff;font-size:18px}
+  .mobileToolsGrid button small{display:block;font-size:8px;color:#8fa9bb;margin-top:2px}
+  .mobileToolsGrid button.active{background:linear-gradient(135deg,#0d9f91,#2568c8);border-color:#5fe7d6}
+  .mobileToolControls{display:flex;gap:10px;align-items:center;margin-top:10px}
+  .mobileToolControls label{flex:1;font-size:9px;color:#9bb2c4}
+  .mobileToolControls input{width:100%}
+  #mobileColor{height:32px}
+  #mobileSize{accent-color:#22b8a6}
+  .mobileSheetTitle{font-size:11px;font-weight:900;color:#effaff;margin-bottom:8px}
+  .mobileFileTitle{display:none}
+  .viewGallery{width:calc(100% - 8px)!important;margin:6px auto 30px!important}
+  .viewGallery.continuous{grid-template-columns:1fr!important}
+  .viewGallery.side{grid-template-columns:1fr!important}
+  body.mobile-reading .top,body.mobile-reading #mobileBar,body.mobile-reading .hoksh-more{opacity:0;pointer-events:none}
+  body.mobile-reading .workspace{padding:0!important}
+  body.mobile-reading .empty{inset:0!important}
+  body.mobile-reading .stage{margin-bottom:0!important}
+}
+@media(min-width:681px){#mobileBar,#mobileToolSheet{display:none!important}}
+</style>
+<script id="hoksh-mobile-final-js">
+(function(){
+  if(window.innerWidth>680)return;
+  const bar=document.createElement('nav');bar.id='mobileBar';bar.setAttribute('aria-label','أدوات حوكش على الهاتف');
+  bar.innerHTML=
+    '<button id="mOpen" title="فتح ملف">📂<span>فتح</span></button>'+
+    '<button id="mUndo" title="تراجع">↶<span>تراجع</span></button>'+
+    '<button id="mTools" title="أدوات الكتابة">✎<span>أدوات</span></button>'+
+    '<button id="mView" title="طريقة العرض">▦<span>العرض</span></button>'+
+    '<button id="mMore" title="المزيد">⋮<span>المزيد</span></button>';
+  document.body.appendChild(bar);
+  const sheet=document.createElement('section');sheet.id='mobileToolSheet';
+  sheet.innerHTML=
+    '<div class="mobileSheetTitle">أدوات الكتابة والرسم</div>'+
+    '<div class="mobileToolsGrid">'+
+    '<button data-mtool="select">↖<small>تحديد</small></button>'+
+    '<button data-mtool="pen">✎<small>قلم</small></button>'+
+    '<button data-mtool="highlight">▰<small>تظليل</small></button>'+
+    '<button data-mtool="eraser">⌫<small>ممحاة</small></button>'+
+    '<button data-mtool="text">T<small>نص</small></button>'+
+    '<button data-mtool="line">╱<small>خط</small></button>'+
+    '<button data-mtool="arrow">➜<small>سهم</small></button>'+
+    '<button data-mtool="rect">□<small>مربع</small></button>'+
+    '<button data-mtool="circle">○<small>دائرة</small></button>'+
+    '<button id="mFull" title="ملء الشاشة">⛶<small>ملء الشاشة</small></button>'+
+    '</div>'+
+    '<div class="mobileToolControls"><label>اللون<input id="mobileColor" type="color" value="#ff3158"></label><label>السُمك<input id="mobileSize" type="range" min="1" max="40" value="5"></label></div>';
+  document.body.appendChild(sheet);
+  const click=id=>document.getElementById(id)?.click();
+  const closeTools=()=>sheet.classList.remove('show');
+  document.getElementById('mOpen').onclick=()=>click('file');
+  document.getElementById('mUndo').onclick=()=>click('undo');
+  document.getElementById('mView').onclick=()=>click('viewModeBtn');
+  document.getElementById('mMore').onclick=e=>{e.stopPropagation();document.getElementById('hokshMoreBtn')?.click()};
+  document.getElementById('mTools').onclick=e=>{e.stopPropagation();sheet.classList.toggle('show')};
+  document.addEventListener('pointerdown',e=>{if(sheet.classList.contains('show')&&!e.target.closest('#mobileToolSheet')&&!e.target.closest('#mTools'))closeTools()});
+  document.querySelectorAll('[data-mtool]').forEach(b=>b.onclick=()=>{
+    const t=b.dataset.mtool;
+    if(typeof setTool==='function')setTool(t);
+    document.querySelectorAll('[data-mtool]').forEach(x=>x.classList.toggle('active',x===b));
+    closeTools();
+  });
+  document.getElementById('mFull').onclick=()=>{
+    const el=document.documentElement;
+    if(!document.fullscreenElement)el.requestFullscreen?.().catch(()=>{});
+    else document.exitFullscreen?.();
+  };
+  const mc=document.getElementById('mobileColor'),ms=document.getElementById('mobileSize');
+  mc.addEventListener('input',()=>{const c=document.getElementById('color');if(c){c.value=mc.value;c.dispatchEvent(new Event('input',{bubbles:true}))}});
+  ms.addEventListener('input',()=>{const s=document.getElementById('size');if(s){s.value=ms.value;s.dispatchEvent(new Event('input',{bubbles:true}))}});
+  const sync=()=>{
+    const t=typeof tool!=='undefined'?tool:'select';
+    document.querySelectorAll('[data-mtool]').forEach(x=>x.classList.toggle('active',x.dataset.mtool===t));
+    const c=document.getElementById('color'),s=document.getElementById('size');
+    if(c)mc.value=c.value;if(s)ms.value=s.value;
+  };
+  setInterval(sync,500);sync();
+  const fitMobile=()=>{
+    if(window.innerWidth>680||!window.state||!window.workspace||!window.canvas)return;
+    if(!window.canvas.width)return;
+    const avail=Math.max(260,window.workspace.clientWidth-10);
+    const desired=Math.min(1.65,avail/window.state.w);
+    if(typeof window.scale==='number' && window.scale<=1.51 || window.scale===1){
+      window.scale=Math.max(.25,desired);
+      if(typeof window.fitZoom==='function')window.fitZoom();
+    }
+  };
+  const resize=()=>setTimeout(fitMobile,80);
+  window.addEventListener('resize',resize,{passive:true});
+  new MutationObserver(resize).observe(document.getElementById('canvas'),{attributes:true,attributeFilter:['width','height']});
+  setTimeout(fitMobile,350);setTimeout(fitMobile,1000);
+  document.getElementById('workspace')?.addEventListener('dblclick',()=>{
+    if(document.body.classList.contains('mobile-reading'))document.body.classList.remove('mobile-reading');
+    else document.body.classList.add('mobile-reading');
+  });
 })();
 </script></body></html>
