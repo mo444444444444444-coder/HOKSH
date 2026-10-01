@@ -14,7 +14,11 @@
 <meta property="og:title" content="حوكش HOKSH — محرر الصور وPDF الذكي">
 <meta property="og:description" content="محرر عربي للصور وPDF والكتابة والرسم والتظليل، بتجربة قريبة من تطبيقات التحرير الاحترافية.">
 <meta property="og:url" content="https://mo444444444444444-coder.github.io/HOKSH/">
-<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="icon" href="icon.svg" type="image/svg+xml" sizes="any">
+<link rel="apple-touch-icon" href="icon.svg">
+<meta property="og:image" content="https://mo444444444444444-coder.github.io/HOKSH/icon.svg">
+<meta property="og:image:alt" content="شعار حوكش HOKSH">
+<meta name="twitter:image" content="https://mo444444444444444-coder.github.io/HOKSH/icon.svg">
 <meta name="google-site-verification" content="TBBvlDQ4yXjJJUjb-2O3dZCrY0iXOPmm1ZLGTQqxtvM" />
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="حوكش HOKSH — محرر الصور والـPDF الذكي">
@@ -965,5 +969,36 @@ document.getElementById('teachingModeBtn')?.addEventListener('click',()=>setTime
   window.addEventListener('error',e=>{
     if(e.message && /requestFullscreen|beforeinstallprompt|showOpenFilePicker/i.test(e.message)) e.preventDefault();
   });
+})();
+</script>
+<script id="hoksh-final-reliability-js">
+(function(){
+  // One reliable activation path for every pen button.
+  function activatePen(e){
+    e.preventDefault(); e.stopPropagation();
+    if(typeof setTool==='function') setTool('pen');
+    document.querySelectorAll('.tool,[data-dock],[data-toptool],[data-float-tool],[data-mtool]').forEach(b=>{
+      const t=b.dataset.tool||b.dataset.dock||b.dataset.toptool||b.dataset.floatTool||b.dataset.mtool;
+      b.classList.toggle('active',t==='pen');
+    });
+    const c=document.getElementById('canvas');
+    if(c){c.style.cursor='crosshair';c.style.touchAction='none';}
+    if(typeof toast==='function') toast('القلم جاهز — ابدأ الكتابة على الصفحة');
+  }
+  document.addEventListener('click',e=>{
+    const b=e.target.closest('.tool[data-tool="pen"],[data-dock="pen"],[data-toptool="pen"],[data-float-tool="pen"],[data-mtool="pen"]');
+    if(b) activatePen(e);
+  },true);
+  // Desktop keyboard shortcuts.
+  document.addEventListener('keydown',e=>{
+    if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='z'){e.preventDefault(); if(typeof undo==='function')undo();}
+    else if((e.ctrlKey||e.metaKey)&&(e.key.toLowerCase()==='y'||(e.shiftKey&&e.key.toLowerCase()==='z'))){e.preventDefault(); if(typeof redo==='function')redo();}
+    else if(!e.ctrlKey&&!e.metaKey&&!e.altKey){
+      const map={p:'pen',h:'highlight',e:'eraser',t:'text',v:'select'}; const t=map[e.key.toLowerCase()];
+      if(t&&typeof setTool==='function'&&!/input|textarea|select/i.test(document.activeElement?.tagName||'')){setTool(t);}
+    }
+  });
+  // Make the current app title/branding the only title used by app-generated dialogs.
+  document.title='حوكش HOKSH — محرر الصور والـPDF الذكي';
 })();
 </script></body></html>
