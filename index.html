@@ -64,6 +64,36 @@ button{cursor:pointer}
 .homeActions{display:grid;grid-template-columns:repeat(4,1fr);gap:11px}.homeAction{min-height:128px;border:1px solid #2d4d63;border-radius:18px;background:#102a3c;color:#fff;padding:15px 10px}.homeAction.primary{background:linear-gradient(145deg,#117063,#245eb5);border-color:#42d9c6}.homeAction b{display:block;font-size:30px;margin-bottom:7px}.homeAction span{font-size:13px;font-weight:900}.homeAction small{display:block;color:#a6bac7;font-size:9px;margin-top:4px}.homeCredit{margin-top:18px;color:#7f9aa9;font-size:10px}
 @media(max-width:850px){.tools{display:none}.homeActions{grid-template-columns:repeat(2,1fr)}.topbar{padding:6px}.topActions .wide{display:none}.workspace{padding:10px 6px 80px}}
 @media(max-width:600px){.brand{font-size:18px}.brand span{font-size:10px}.topbar{height:52px;min-height:52px}.topActions{gap:4px}.btn{height:38px;padding:0 9px}.btn.icon{width:38px}.workspace{align-items:flex-start;padding-top:8px}.bottomInfo{display:none}.status{bottom:72px;right:8px}.pageBar{bottom:70px}.dock{position:fixed;left:6px;right:6px;bottom:7px;height:56px;display:flex;gap:4px;padding:5px;background:#081723f5;border:1px solid #2a4a60;border-radius:17px;z-index:90}.dock button{flex:1;border:0;border-radius:12px;background:transparent;color:#e9f4f8;font-size:18px}.dock button span{display:block;font-size:8px;color:#87a3b3}.dock button.active{background:#123b4d;color:#4de0cf}.empty{inset:0;padding:10px 8px 78px}.emptyCard{padding:21px 13px}.emptyGrid{gap:8px}.emptyBtn{min-height:86px}.templateGrid{grid-template-columns:repeat(2,1fr)}.controls{grid-template-columns:1fr}.homeBox{padding:22px 14px}.homeTitle{font-size:31px}.homeLogo{width:78px;height:78px}.homeActions{gap:8px}.homeAction{min-height:112px}.dialog{padding:15px}}
+<style id="hoksh-step1-welcome">
+:root{--welcome-dark:#101923;--welcome-dark2:#172532;--welcome-line:#2c3d4c;--welcome-accent:#17b9a5;--welcome-accent2:#3478ee;--welcome-light:#f6f8fb;--welcome-card:#ffffff;--welcome-ink:#14202a}
+.welcomeShell{position:fixed;inset:0;z-index:1000;display:grid;grid-template-columns:300px 1fr;background:var(--welcome-light);color:var(--welcome-ink);direction:rtl;overflow:hidden}
+.welcomeShell.hidden{opacity:0;visibility:hidden;pointer-events:none;transition:opacity .35s ease,visibility .35s ease}
+.welcomeSide{background:linear-gradient(180deg,var(--welcome-dark),#0c141c);color:#eef5f8;padding:18px 14px;display:flex;flex-direction:column;min-width:0}
+.welcomeSideTop{padding:4px 4px 18px;border-bottom:1px solid var(--welcome-line)}
+.welcomeMiniBrand{font-size:13px;color:#9bb0bd;font-weight:700;margin-bottom:3px}.welcomeSideTitle{font-size:22px;font-weight:950}.welcomeSideTitle span{color:#46dac8}
+.newGroupBtn{width:100%;height:44px;margin-top:14px;border:1px solid #2b4a5b;border-radius:11px;background:linear-gradient(135deg,#153748,#164c57);color:#effaff;font-weight:850}
+.newGroupBtn:hover{border-color:#43d9c5}
+.sideSection{margin-top:18px}.sideSection h3{margin:0 4px 8px;color:#93a8b5;font-size:11px;font-weight:800}.recentList,.groupList{display:flex;flex-direction:column;gap:4px;overflow:auto}
+.recentItem,.groupItem{width:100%;border:1px solid transparent;border-radius:9px;background:transparent;color:#dce8ed;text-align:right;padding:9px 10px;font-size:11px}.recentItem:hover,.groupItem:hover{background:#182936;border-color:#284353}
+.recentEmpty{padding:10px;color:#718795;font-size:10px;line-height:1.7}
+.welcomeMain{position:relative;background:linear-gradient(180deg,#fbfcfe,#f2f5f8);overflow:auto;padding:clamp(24px,5vw,64px)}
+.welcomeMainInner{max-width:980px;margin:0 auto}
+.welcomeTopLine{display:flex;justify-content:space-between;gap:12px;align-items:center;color:#6f7f8d;font-size:11px;margin-bottom:26px}
+.welcomeStatus{padding:7px 10px;border:1px solid #dce4ea;border-radius:999px;background:#fff}
+.welcomeHero{display:grid;grid-template-columns:1fr 340px;gap:30px;align-items:center}
+.welcomeHeroCopy h1{margin:0;font-size:clamp(26px,4vw,42px);line-height:1.25;font-weight:950;color:#14202a}.welcomeHeroCopy p{margin:11px 0 0;color:#6d7e8b;line-height:1.9;font-size:13px;max-width:650px}
+.welcomeUpload{margin-top:24px;width:min(100%,390px);min-height:62px;border-radius:14px;border:1px solid #3fd7c5;background:linear-gradient(135deg,#18b7a3,#3178ee);color:#fff;font-size:16px;font-weight:950;box-shadow:0 14px 30px #2d8f9140;display:flex;align-items:center;justify-content:center;gap:10px}
+.welcomeUpload:hover{transform:translateY(-1px)}
+.welcomeFeatures{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:32px}
+.welcomeFeature{padding:15px;border:1px solid #e1e7ec;border-radius:14px;background:#fff}.welcomeFeature b{display:block;font-size:12px;margin-bottom:4px}.welcomeFeature span{display:block;color:#758693;font-size:10px;line-height:1.7}
+.welcomePreview{min-height:270px;border:1px solid #dbe3e9;border-radius:22px;background:#fff;box-shadow:0 20px 50px #13202a12;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.welcomePreview:before{content:"";position:absolute;inset:28px;border:1px solid #e5ebef;border-radius:14px;background:linear-gradient(180deg,#ffffff,#f7f9fb)}
+.previewToolbar{position:absolute;left:24px;right:24px;top:42px;height:36px;border-radius:8px;background:#152530;display:flex;align-items:center;gap:6px;padding:5px}.previewToolbar i{width:26px;height:26px;border-radius:6px;background:#243c4b}.previewPage{position:absolute;top:94px;bottom:28px;width:62%;background:#fff;border:1px solid #dce4e9;box-shadow:0 8px 20px #192a3514;border-radius:5px;padding:26px 20px}.previewPage div{height:6px;background:#e5eaee;border-radius:4px;margin-bottom:11px}.previewPage div:nth-child(1){width:80%}.previewPage div:nth-child(2){width:62%}.previewPage div:nth-child(3){width:90%}.previewMark{position:absolute;width:110px;height:18px;background:#b9f2e9;opacity:.8;transform:rotate(-5deg);top:154px;right:48px;border-radius:4px}
+.welcomeFoot{margin-top:34px;color:#8a9aa6;font-size:10px}
+.groupDialog{width:min(430px,94vw)}.groupInput{width:100%;height:46px;border:1px solid #2c4c63;background:#071521;color:#fff;border-radius:10px;padding:0 12px}
+@media(max-width:900px){.welcomeShell{grid-template-columns:235px 1fr}.welcomeHero{grid-template-columns:1fr}.welcomePreview{display:none}}
+@media(max-width:680px){.welcomeShell{grid-template-columns:1fr}.welcomeSide{display:none}.welcomeMain{padding:22px 14px 90px}.welcomeTopLine{margin-bottom:22px}.welcomeFeatures{grid-template-columns:1fr}.welcomeUpload{width:100%;min-height:58px}.welcomeHeroCopy h1{font-size:29px}.welcomeFoot{margin-top:24px;text-align:center}}
+</style>
 </style>
 </head>
 <body>
@@ -209,20 +239,58 @@ button{cursor:pointer}
 
 <div class="toast" id="toast"></div>
 
-<div class="homeOverlay" id="homeOverlay">
-  <div class="homeBox">
-    <div class="homeLogo"><img src="icon.svg" alt="حوكش HOKSH"></div>
-    <div class="homeTitle">حوكش <span>HOKSH</span></div>
-    <div class="homeSub">محرر الصور وملفات PDF — بسيط، سريع، واضح</div>
-    <div class="homeActions">
-      <label class="homeAction primary" for="fileInput"><b>📂</b><span>فتح ملف</span><small>صورة أو PDF</small></label>
-      <button class="homeAction" id="homeNew"><b>＋</b><span>صفحة جديدة</span><small>ابدأ الكتابة فورًا</small></button>
-      <button class="homeAction" id="homeRestore"><b>↻</b><span>استئناف الأخير</span><small>العمل المحفوظ</small></button>
-      <button class="homeAction" id="homeAbout"><b>ⓘ</b><span>معلومات حوكش</span><small>المطور والبرنامج</small></button>
+<div class="welcomeShell" id="homeOverlay">
+  <aside class="welcomeSide">
+    <div class="welcomeSideTop">
+      <div class="welcomeMiniBrand">HOKSH</div>
+      <div class="welcomeSideTitle">مُحَرِّر الـPDF <span>التَّعَاوُنِي</span></div>
+      <button class="newGroupBtn" id="newGroupBtn">➕ إنشاء جروب عمل جديد</button>
     </div>
-    <div class="homeCredit">المطور محمد شعبان محارب</div>
-  </div>
+    <div class="sideSection">
+      <h3>مَجْمُوعَاتُ الْعَمَلِ</h3>
+      <div class="groupList" id="groupList"><div class="recentEmpty">لم يتم إنشاء جروبات بعد</div></div>
+    </div>
+    <div class="sideSection" style="margin-top:auto">
+      <h3>أَحْدَثُ الْمُسْتَنَدَاتِ</h3>
+      <div class="recentList" id="recentList"><div class="recentEmpty">لا توجد مستندات مفتوحة مؤخرًا</div></div>
+    </div>
+  </aside>
+  <main class="welcomeMain">
+    <div class="welcomeMainInner">
+      <div class="welcomeTopLine">
+        <span>حوكش HOKSH</span>
+        <span class="welcomeStatus">جاهز للعمل</span>
+      </div>
+      <section class="welcomeHero">
+        <div class="welcomeHeroCopy">
+          <h1>مَرْحَبًا بِكَ فِي مُحَرِّرِ الـ PDF التَّعَاوُنِيِّ الرَّئِيسِيِّ</h1>
+          <p>افتح مستندك وابدأ القراءة والتعديل والمراجعة داخل مساحة عمل واحدة، ثم انتقل لاحقًا إلى الجروبات والقنوات للتعاون.</p>
+          <label class="welcomeUpload" for="fileInput">📁 رَفْعُ مَلَفِّ PDF جَدِيدٍ</label>
+          <div class="welcomeFeatures">
+            <div class="welcomeFeature"><b>📄 عرض واضح</b><span>عرض المستند داخل مساحة عمل فاتحة ونظيفة.</span></div>
+            <div class="welcomeFeature"><b>✍️ تعديل سريع</b><span>الوصول إلى أدوات الكتابة والمراجعة من شريط واحد.</span></div>
+            <div class="welcomeFeature"><b>👥 تعاون</b><span>هيكل جروبات وقنوات جاهز للخطوات التالية.</span></div>
+          </div>
+        </div>
+        <div class="welcomePreview" aria-hidden="true">
+          <div class="previewToolbar"><i></i><i></i><i></i><i></i><i></i></div>
+          <div class="previewPage"><div></div><div></div><div></div></div>
+          <div class="previewMark"></div>
+        </div>
+      </section>
+      <div class="welcomeFoot">المطور محمد شعبان محارب</div>
+    </div>
+  </main>
 </div>
+
+<div class="modal" id="groupModal"><div class="dialog groupDialog">
+  <h3>إنشاء جروب عمل جديد</h3>
+  <p class="muted">اكتب اسم الجروب ليظهر في قائمة مجموعات العمل.</p>
+  <input id="groupName" class="groupInput" placeholder="مثال: فريق المراجعة">
+  <div class="row end" style="margin-top:12px"><button class="btn" id="cancelGroup">إلغاء</button><button class="btn primary" id="createGroup">إنشاء الجروب</button></div>
+</div></div>
+
+
 
 <script>
 const $=id=>document.getElementById(id);
@@ -298,6 +366,7 @@ function blobDownload(blob,name){const u=URL.createObjectURL(blob),a=document.cr
 function showEditor(){ $('homeOverlay').classList.add('hidden');$('empty').style.display='none';}
 function showEmpty(){ $('homeOverlay').classList.add('hidden');$('empty').style.display='grid';}
 async function loadFile(file){
+  if(typeof hokshRememberRecent==='function')hokshRememberRecent(file.name);
   showEmpty();pages={};strokes=[];undone=[];selected=null;pdf=null;pdfBytes=null;pdfPages=0;page=1;blankMode=false;blankCount=0;bgType=file.type;bgName=file.name;
   $('pageBar').style.display='none';$('status').textContent='جاري الفتح…';
   if(file.type==='application/pdf'||/\.pdf$/i.test(file.name)){
@@ -359,6 +428,22 @@ $('fullBtn').onclick=async()=>{try{if(!document.fullscreenElement)await document
 $('chatBtn').onclick=()=>{$('moreModal').classList.remove('show');$('chatModal').classList.add('show')};$('closeChat').onclick=()=>$('chatModal').classList.remove('show');$('openChatGPT').onclick=()=>window.open('https://chatgpt.com/','_blank','noopener');
 $('chatRun').onclick=()=>{const q=$('chatInput').value.trim();if(!q)return;let r='لم أفهم الأمر. جرّب: القلم، التظليل، المسح، النص، المستطيل، الدائرة، الصفحة 3.';if(/قلم|ارسم/.test(q)){setTool('pen');r='تم اختيار القلم.'}else if(/تظليل/.test(q)){setTool('highlight');r='تم اختيار التظليل.'}else if(/مسح|ممحاة/.test(q)){setTool('eraser');r='تم اختيار المسح.'}else if(/نص|اكتب/.test(q)){setTool('text');r='تم اختيار النص.'}else if(/مستطيل/.test(q)){setTool('rect');r='تم اختيار المستطيل.'}else if(/دائر/.test(q)){setTool('circle');r='تم اختيار الدائرة.'}else if(/الصفحة\s*(\d+)/.test(q)){const n=+(q.match(/الصفحة\s*(\d+)/)||[])[1]||1;if(pdf){page=Math.max(1,Math.min(pdfPages,n));renderPdfPage();r='تم الانتقال للصفحة '+page+'.'}else if(blankMode){page=Math.max(1,Math.min(blankCount,n));renderBlankPage();r='تم الانتقال للصفحة '+page+'.'}}toast(r);$('chatInput').value=''};
 $('developerBtn').onclick=()=>{$('moreModal').classList.remove('show');$('aboutModal').classList.add('show')};$('aboutHomeBtn').onclick=()=>{$('homeOverlay').classList.add('hidden');$('aboutModal').classList.add('show')};$('homeAbout').onclick=()=>{$('homeOverlay').classList.add('hidden');$('aboutModal').classList.add('show')};$('closeAbout').onclick=()=>$('aboutModal').classList.remove('show');
+
+// الخطوة الأولى: جروبات العمل والمستندات الأخيرة
+(function(){
+  const groupList=$('groupList'),recentList=$('recentList');
+  function read(key){try{return JSON.parse(localStorage.getItem(key)||'[]')}catch(e){return[]}}
+  function write(key,v){try{localStorage.setItem(key,JSON.stringify(v))}catch(e){}}
+  function renderGroups(){const a=read('hoksh_groups');groupList.innerHTML=a.length?a.map((x,i)=>'<button class="groupItem" data-group-index="'+i+'">👥 '+x+'</button>').join(''):'<div class="recentEmpty">لم يتم إنشاء جروبات بعد</div>'}
+  function renderRecent(){const a=read('hoksh_recent');recentList.innerHTML=a.length?a.slice(0,8).map((x,i)=>'<button class="recentItem" data-recent-index="'+i+'">📄 '+x+'</button>').join(''):'<div class="recentEmpty">لا توجد مستندات مفتوحة مؤخرًا</div>'}
+  window.hokshRememberRecent=function(name){if(!name)return;const a=read('hoksh_recent').filter(x=>x!==name);a.unshift(name);write('hoksh_recent',a.slice(0,12));renderRecent()}
+  $('newGroupBtn').onclick=()=>{$('groupName').value='';$('groupModal').classList.add('show');setTimeout(()=>$('groupName').focus(),20)}
+  $('cancelGroup').onclick=()=>$('groupModal').classList.remove('show');
+  $('createGroup').onclick=()=>{const n=$('groupName').value.trim();if(!n)return toast('اكتب اسم الجروب');const a=read('hoksh_groups');if(!a.includes(n))a.push(n);write('hoksh_groups',a);renderGroups();$('groupModal').classList.remove('show');toast('تم إنشاء جروب العمل: '+n)}
+  $('groupName').addEventListener('keydown',e=>{if(e.key==='Enter')$('createGroup').click()});
+  renderGroups();renderRecent();
+})();
+
 document.addEventListener('click',e=>{if(e.target.classList.contains('modal'))e.target.classList.remove('show')});
 window.addEventListener('resize',fitLater);window.addEventListener('orientationchange',()=>setTimeout(fitLater,100));
 setTimeout(()=>$('homeOverlay').classList.remove('hidden'),300);setTimeout(()=>{$('homeOverlay').classList.add('hidden')},2600);
