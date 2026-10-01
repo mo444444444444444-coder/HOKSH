@@ -1,5 +1,5 @@
-const CACHE='hoksh-v4-mobile-pro';
-const CORE=['./','./index.html','./manifest.webmanifest','./icon.svg'];
+const CACHE='hoksh-v5-teacher-ui';
+const CORE=['./','./index.html','./manifest.webmanifest','./icon.svg','./developer.jpg'];
 
 self.addEventListener('install',e=>{
   e.waitUntil(caches.open(CACHE).then(c=>c.addAll(CORE)).then(()=>self.skipWaiting()));
