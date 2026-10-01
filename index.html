@@ -186,16 +186,54 @@ body.teaching-mode .workspace{align-items:flex-start!important;overflow:auto!imp
 .seoContent h1{font-size:clamp(28px,4vw,44px);margin:0 0 12px;color:#fff}
 .seoContent h2{font-size:24px;margin:34px 0 8px;color:#58ddc9}
 .seoContent p{color:#aebed1;margin:8px 0}.seoContent ul{color:#aebed1;padding-right:24px}.seoGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}.seoCard{padding:16px;border:1px solid #29445c;border-radius:16px;background:#0d1b2a}.seoCard strong{display:block;color:#fff;margin-bottom:5px}@media(max-width:700px){.seoGrid{grid-template-columns:1fr}}
-</style></head>
+</style><style id="hoksh-mobile-pro">
+html,body,#canvas,.stage,.workspace{touch-action:none;-webkit-user-select:none;user-select:none}
+#canvas{touch-action:none;cursor:crosshair;-webkit-tap-highlight-color:transparent}
+@media(max-width:680px){
+  .app{height:100dvh}
+  .top{height:54px;min-height:54px;overflow:hidden;padding:5px 7px;gap:4px}
+  .top .sub,.top #leftToggle,.top #rightToggle,.top #zoomOut,.top #zoomIn,.top #zoomReset,.top #help,.top #installBtn{display:none!important}
+  .brand{font-size:19px;min-width:max-content}
+  .spacer{min-width:4px}
+  .top .btn{padding:8px 9px;border-radius:10px;font-size:11px}
+  .top #teachingModeBtn{font-size:0;width:42px;padding:8px}
+  .top #teachingModeBtn:first-letter{font-size:17px}
+  .top #aiBtn{font-size:0;width:42px;padding:8px}.top #aiBtn:first-letter{font-size:17px}
+  .top #viewModeBtn{font-size:0;width:42px;padding:8px}.top #viewModeBtn:first-letter{font-size:17px}
+  .top #export{font-size:0;width:42px;padding:8px}.top #export:first-letter{font-size:17px}
+  .top label[for="file"]{font-size:0;width:42px;padding:8px;text-align:center}.top label[for="file"]::first-letter{font-size:17px}
+  .workspace{padding:4px 4px 82px;overflow:auto;align-items:flex-start;justify-content:center}
+  .stage{margin-top:4px;box-shadow:0 12px 38px #000b}
+  .toolDock{bottom:calc(7px + env(safe-area-inset-bottom));padding:6px;gap:4px;border-radius:17px;max-width:calc(100vw - 10px);overflow-x:auto;overflow-y:hidden}
+  .toolDock button{width:42px;min-width:42px;height:44px;border-radius:12px;font-size:18px}
+  .toolDock .dockMove{display:none}
+  .dockSep{height:25px}
+  .hoksh-more{top:58px;right:7px}
+  .moreBtn{min-width:42px;width:42px;font-size:0;padding:9px}.moreBtn::first-letter{font-size:18px}
+  .moreMenu{width:min(270px,calc(100vw - 14px));right:0}
+  .pagebar{bottom:78px;max-width:calc(100vw - 16px);padding:5px;border-radius:13px}
+  .status{bottom:76px;right:7px;display:none}
+  .empty{padding:8px}
+  .emptyBox{max-width:calc(100vw - 24px);padding:20px 12px}
+  .emptyBox strong{font-size:22px}
+  .emptyActions{gap:6px}
+  .emptyActions .btn{min-width:0;flex:1;padding:10px 7px;font-size:11px}
+  .teachingTopTools{top:58px;max-width:calc(100vw - 10px);padding:5px}
+  .teachingTopTools button{width:40px;min-width:40px;height:40px}
+  .teaching-mode .workspace{padding:60px 3px 70px}
+  .teaching-mode .toolDock{display:none}
+  .devDialog{max-height:88dvh}
+}
+</style><style id="hoksh-dev-photo-css">.photoAvatar{overflow:hidden;position:relative}.photoAvatar img{width:100%;height:100%;object-fit:cover;display:block}.photoAvatar span{display:none;place-items:center;width:100%;height:100%;background:linear-gradient(135deg,#2f7df6,#16b8a6);color:#fff;font-size:48px;font-weight:1000}</style><style id="hoksh-intro-photo-css">.photoIntro{overflow:hidden;position:relative}.photoIntro img{width:100%;height:100%;object-fit:cover;display:block}.photoIntro span{display:none;place-items:center;width:100%;height:100%;background:linear-gradient(135deg,#3f7cff,#22d3b6);color:#fff;font-size:42px;font-weight:1000}.photoIntro:after{content:"";position:absolute;inset:0;border:2px solid #ffffff33;border-radius:inherit;pointer-events:none}</style></head>
 <body>
 <div class="hoksh-intro" id="hokshIntro">
   <div class="intro-glow g1"></div><div class="intro-glow g2"></div>
   <div class="intro-card">
-    <div class="intro-logo">ح</div>
+    <div class="intro-logo photoIntro"><img src="developer.jpg" alt="محمد شعبان محارب" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><span>ح</span></div>
     <div class="intro-brand">حوكش <span>HOKSH</span></div>
     <div class="intro-line"></div>
     <div class="intro-author">محمد شعبان محارب</div>
-    <div class="intro-message">أتمنى أن يساعدك حوكش على إنجاز أعمالك بسهولة<br>وتستفيد من كل أدواته بأفضل شكل.</div>
+    <div class="intro-message">مرحبًا بك في حوكش — مساحة كتابة وتحرير صُممت لتكون مريحة وسريعة<br>للمدرسين والطلاب على الهاتف والتابلت والكمبيوتر.</div>
     <div class="intro-loader"><i></i></div>
   </div>
 </div><div class="hoksh-welcome" id="hokshWelcome">
@@ -276,7 +314,7 @@ function resizeCanvas(w,h){state.w=w;state.h=h;canvas.width=w;canvas.height=h;st
 function fit(){const r=workspace.getBoundingClientRect(),pad=70;const f=Math.min((r.width-pad)/state.w,(r.height-pad)/state.h,1.5);if(scale===1)scale=f;stage.style.transform='scale('+scale+')';$('zoomReset').textContent=Math.round(scale*100)+'%'}
 function fitZoom(){stage.style.transform='scale('+scale+')';$('zoomReset').textContent=Math.round(scale*100)+'%'}
 function pos(e){const r=canvas.getBoundingClientRect();return{x:(e.clientX-r.left)/scale,y:(e.clientY-r.top)/scale}}
-function drawShape(s,c=ctx){c.save();c.globalAlpha=s.opacity??1;c.lineWidth=s.width||4;c.strokeStyle=s.color||'#ff3158';c.fillStyle=s.color||'#ff3158';c.lineCap='round';c.lineJoin='round';if(s.type==='pen'||s.type==='highlight'){c.globalAlpha=s.type==='highlight'?0.28:(s.opacity??1);c.beginPath();s.points.forEach((p,i)=>i?c.lineTo(p.x,p.y):c.moveTo(p.x,p.y));c.stroke()}else if(s.type==='line'||s.type==='arrow'){c.beginPath();c.moveTo(s.x,s.y);c.lineTo(s.x2,s.y2);c.stroke();if(s.type==='arrow'){const a=Math.atan2(s.y2-s.y,s.x2-s.x),L=18;c.beginPath();c.moveTo(s.x2,s.y2);c.lineTo(s.x2-L*Math.cos(a-.5),s.y2-L*Math.sin(a-.5));c.moveTo(s.x2,s.y2);c.lineTo(s.x2-L*Math.cos(a+.5),s.y2-L*Math.sin(a+.5));c.stroke()}}else if(s.type==='rect')c.strokeRect(Math.min(s.x,s.x2),Math.min(s.y,s.y2),Math.abs(s.x2-s.x),Math.abs(s.y2-s.y));else if(s.type==='circle'){const cx=(s.x+s.x2)/2,cy=(s.y+s.y2)/2,rx=Math.abs(s.x2-s.x)/2,ry=Math.abs(s.y2-s.y)/2;c.beginPath();c.ellipse(cx,cy,rx,ry,0,0,Math.PI*2);c.stroke()}else if(s.type==='text'){c.fillStyle=s.color;c.font=s.size+'px system-ui';c.textBaseline='top';c.fillText(s.text,s.x,s.y)}c.restore()}
+function drawShape(s,c=ctx){c.save();c.globalAlpha=s.opacity??1;c.lineWidth=s.width||4;c.strokeStyle=s.color||'#ff3158';c.fillStyle=s.color||'#ff3158';c.lineCap='round';c.lineJoin='round';if(s.type==='pen'||s.type==='highlight'){c.globalAlpha=s.type==='highlight'?0.28:(s.opacity??1);c.beginPath();const pts=s.points||[];if(pts.length===1){c.arc(pts[0].x,pts[0].y,Math.max(1,(s.width||4)/2),0,Math.PI*2);c.fill()}else if(pts.length===2){c.moveTo(pts[0].x,pts[0].y);c.lineTo(pts[1].x,pts[1].y)}else{c.moveTo(pts[0].x,pts[0].y);for(let i=1;i<pts.length-1;i++){const p=pts[i],n=pts[i+1];c.quadraticCurveTo(p.x,p.y,(p.x+n.x)/2,(p.y+n.y)/2)}const a=pts[pts.length-2],b=pts[pts.length-1];c.quadraticCurveTo(a.x,a.y,b.x,b.y)}c.stroke()}else if(s.type==='line'||s.type==='arrow'){c.beginPath();c.moveTo(s.x,s.y);c.lineTo(s.x2,s.y2);c.stroke();if(s.type==='arrow'){const a=Math.atan2(s.y2-s.y,s.x2-s.x),L=18;c.beginPath();c.moveTo(s.x2,s.y2);c.lineTo(s.x2-L*Math.cos(a-.5),s.y2-L*Math.sin(a-.5));c.moveTo(s.x2,s.y2);c.lineTo(s.x2-L*Math.cos(a+.5),s.y2-L*Math.sin(a+.5));c.stroke()}}else if(s.type==='rect')c.strokeRect(Math.min(s.x,s.x2),Math.min(s.y,s.y2),Math.abs(s.x2-s.x),Math.abs(s.y2-s.y));else if(s.type==='circle'){const cx=(s.x+s.x2)/2,cy=(s.y+s.y2)/2,rx=Math.abs(s.x2-s.x)/2,ry=Math.abs(s.y2-s.y)/2;c.beginPath();c.ellipse(cx,cy,rx,ry,0,0,Math.PI*2);c.stroke()}else if(s.type==='text'){c.fillStyle=s.color;c.font=s.size+'px system-ui';c.textBaseline='top';c.fillText(s.text,s.x,s.y)}c.restore()}
 function render(){ctx.clearRect(0,0,state.w,state.h);if(bg)ctx.drawImage(bg,0,0,state.w,state.h);strokes.forEach(s=>drawShape(s));if(current)drawShape(current);fit()}
 function commitPage(){if(pdfMode||blankMode)pages[page]=JSON.parse(JSON.stringify(strokes))}
 function loadPageState(){strokes=pages[page]?JSON.parse(JSON.stringify(pages[page])):[];undone=[];selected=null}
@@ -338,17 +376,22 @@ canvas.addEventListener('pointerdown',e=>{
   else if(['line','arrow','rect','circle'].includes(tool))current={type:tool,x:p.x,y:p.y,x2:p.x,y2:p.y,color:color.value,width:+size.value,opacity:+opacity.value/100};
 });
 canvas.addEventListener('pointermove',e=>{
-  const p=pos(e);
+  e.preventDefault();
+  const events=e.getCoalescedEvents?e.getCoalescedEvents():[e];
   if(tool==='eraser'){
     showEraserCursor(e);
-    if(e.buttons) eraseAt(p);
+    if(e.buttons) events.forEach(ev=>eraseAt(pos(ev)));
     return;
   }
   if(!drawing)return;
-  if(current?.points)current.points.push(p);else if(current){current.x2=p.x;current.y2=p.y}
+  if(current?.points){
+    events.forEach(ev=>{const p=pos(ev);const last=current.points[current.points.length-1];if(!last||Math.hypot(p.x-last.x,p.y-last.y)>0.45)current.points.push(p)});
+  }else if(current){const p=pos(events[events.length-1]);current.x2=p.x;current.y2=p.y}
   render();
 });
-canvas.addEventListener('pointerup',()=>{if(!drawing)return;drawing=false;if(current){strokes.push(current);undone=[];current=null;commitPage();render();changed();}});
+function finishPointer(e){if(!drawing)return;drawing=false;if(current){strokes.push(current);undone=[];current=null;commitPage();render();changed();}}
+canvas.addEventListener('pointerup',finishPointer);
+canvas.addEventListener('pointercancel',finishPointer);
 
 function undo(){if(strokes.length){undone.push(strokes.pop());commitPage();render();changed()}}function redo(){if(undone.length){strokes.push(undone.pop());commitPage();render();changed()}}$('undo').onclick=undo;$('redo').onclick=redo;
 $('size').oninput=e=>$('sizeVal').textContent=e.target.value;$('opacity').oninput=e=>$('opVal').textContent=e.target.value+'%';$('fontSize').oninput=e=>$('fontVal').textContent=e.target.value;
@@ -526,7 +569,7 @@ document.getElementById('file')?.addEventListener('change',()=>{setTimeout(()=>s
 </style>
 <div id="hokshEraserCursor"></div>
 <div class="modal" id="developerModal"><div class="dialog devDialog">
-  <div class="devHero"><div class="devAvatar">ح</div><h2>محمد شعبان محارب</h2><p>مطور ومصمم حوكش HOKSH</p></div>
+  <div class="devHero"><div class="devAvatar photoAvatar"><img src="developer.jpg" alt="محمد شعبان محارب" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><span>ح</span></div><h2>محمد شعبان محارب</h2><p>مطور ومصمم حوكش HOKSH</p></div>
   <div class="devBody"><div class="devGrid">
     <div class="devItem"><b>اسم المشروع</b><span>حوكش HOKSH</span></div>
     <div class="devItem"><b>نوع التطبيق</b><span>محرر الصور وملفات PDF</span></div>
