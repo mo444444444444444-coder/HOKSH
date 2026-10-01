@@ -1,4 +1,4 @@
-const CACHE='hoksh-v3';
+const CACHE='hoksh-v4-mobile-pro';
 const CORE=['./','./index.html','./manifest.webmanifest','./icon.svg'];
 
 self.addEventListener('install',e=>{
