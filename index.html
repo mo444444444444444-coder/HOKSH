@@ -381,8 +381,8 @@ resizeCanvas(1200,800);$('leftToggle').onclick=()=>document.querySelector('.side
 (function(){
   const intro=document.getElementById('hokshIntro'),welcome=document.getElementById('hokshWelcome');
   welcome?.classList.remove('hidden');
-  setTimeout(()=>intro?.classList.add('hide'),1700);
-  setTimeout(()=>{if(intro)intro.remove()},2250);
+  setTimeout(()=>intro?.classList.add('hide'),3200);
+  setTimeout(()=>{if(intro)intro.remove()},3750);
 })();
 </script>
 <script id="hoksh-teaching-pro-js">(function(){
@@ -433,4 +433,43 @@ async function buildGallery(){
 window.hokshSetViewMode=setMode;
 document.getElementById('file')?.addEventListener('change',()=>{setTimeout(()=>setMode('single'),50)});
 })();
-</script></body></html>
+</script>
+<style id="hoksh-3-ui">
+:root{--p:#101c2c;--p2:#16263a;--line:#30465f;--a:#16b8a6;--a2:#2f7df6;--gold:#f2b84b;--muted:#9fb0c6}
+.top{background:linear-gradient(180deg,#102235,#0c1726);border-bottom-color:#29435b}
+.brand span{color:#43d8c5}.primary{background:linear-gradient(135deg,#14b8a6,#287df2)!important;border-color:#4ee7d3!important}
+.sidebar{display:none!important}.right{display:none!important}
+.workspace{padding:18px;background:radial-gradient(circle at 50% 40%,#12283a,#07111d 65%,#040910)}
+.tool.active{background:linear-gradient(135deg,#0d8f88,#245fc2);border-color:#4ee7d3}
+.hoksh-more{position:fixed;right:14px;top:72px;z-index:42}.moreBtn{min-width:92px;font-weight:800;background:#13263a;border-color:#3b5975}.moreMenu{display:none;position:absolute;right:0;top:44px;width:235px;padding:8px;background:#0d1b2b;border:1px solid #36516c;border-radius:16px;box-shadow:0 20px 55px #0009;backdrop-filter:blur(18px)}.moreMenu.show{display:block}.moreMenu button{width:100%;padding:11px;border:0;border-radius:10px;background:transparent;color:#eaf3ff;text-align:right;cursor:pointer}.moreMenu button:hover{background:#17334a}.moreTitle{font-size:10px;color:#7f9ab5;padding:5px 9px}
+.toolDock{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:38;display:flex;gap:6px;align-items:center;padding:7px 9px;border:1px solid #38546d;border-radius:18px;background:#0b1725ef;box-shadow:0 16px 50px #0009;backdrop-filter:blur(18px)}.toolDock button{width:44px;height:44px;border:1px solid #304a63;border-radius:12px;background:#14283b;color:#eef7ff;cursor:pointer;font-size:19px}.toolDock button:hover{border-color:#2dd4bf;background:#18364a}.toolDock button.active{background:linear-gradient(135deg,#0d9e91,#2467ca);border-color:#5cead7}.dockSep{width:1px;height:28px;background:#35506a}.dockMove{font-size:10px!important;width:42px!important}
+.teaching-mode .toolDock{display:none}.teachingTopTools{display:none;position:fixed;top:70px;left:50%;transform:translateX(-50%);z-index:43;gap:5px;padding:6px;border:1px solid #36536e;border-radius:15px;background:#0b1827ef;box-shadow:0 12px 40px #0008;backdrop-filter:blur(15px)}.teachingTopTools button{width:42px;height:42px;border:1px solid #35516a;border-radius:11px;background:#142a3e;color:#fff;cursor:pointer}.teachingTopTools button.active{background:#0e9f92;border-color:#58e5d4}
+.teaching-mode .workspace{padding-top:70px}.teaching-mode .pagebar{display:none!important}.teaching-mode .status{bottom:82px}
+.toolDock.pos-right{left:auto;right:12px;transform:none}.toolDock.pos-left{left:12px;transform:none}.toolDock.pos-top{bottom:auto;top:72px;left:50%;transform:translateX(-50%)}
+@media(max-width:680px){.toolDock{max-width:calc(100vw - 12px);overflow:auto;bottom:8px}.toolDock button{min-width:42px}.hoksh-more{right:8px;top:62px}.teachingTopTools{top:62px;max-width:calc(100vw - 12px);overflow:auto}.teaching-mode .workspace{padding-top:62px}}
+</style>
+<div class="hoksh-more"><button class="btn moreBtn" id="hokshMoreBtn">☰ المزيد</button><div class="moreMenu" id="hokshMoreMenu">
+<div class="moreTitle">أدوات وإضافات حوكش</div>
+<button data-more="panel">⚙️ الإعدادات واللوحة</button><button data-more="calc">🧮 الآلة الحاسبة</button><button data-more="symbols">🔣 الرموز والأشكال</button><button data-more="axes">📈 المحاور والرسم البياني</button><button data-more="view">▦ طريقة عرض الصفحات</button><button data-more="ai">✦ HOKSH AI</button>
+</div></div>
+<div class="toolDock" id="mainToolDock">
+<button data-dock="select" title="تحديد">↖</button><button data-dock="pen" title="قلم">✎</button><button data-dock="highlight" title="تظليل">▰</button><button data-dock="eraser" title="مسح جزئي مستمر">⌫</button><button data-dock="text" title="نص">T</button><span class="dockSep"></span><button data-dock="undo" title="تراجع">↶</button><button data-dock="redo" title="إعادة">↷</button><button data-dock="new" title="صفحة جديدة">＋</button><button class="dockMove" id="dockMove" title="تغيير مكان الشريط">⇄</button></div>
+<div class="teachingTopTools" id="teachingTopTools">
+<button data-toptool="pen" title="قلم">✎</button><button data-toptool="highlight" title="تظليل">▰</button><button data-toptool="eraser" title="أستيكة">⌫</button><button data-toptool="text" title="نص">T</button><button data-toptool="line" title="خط">╱</button><button data-toptool="arrow" title="سهم">➜</button><button data-toptool="rect" title="مستطيل">□</button><button data-toptool="circle" title="دائرة">○</button><button id="teachTopColor" title="ألوان">●</button><button id="teachTopMore" title="المزيد">⋯</button>
+</div>
+<script id="hoksh-3-ui-js">
+(function(){
+const dock=document.getElementById('mainToolDock'),more=document.getElementById('hokshMoreMenu'),mb=document.getElementById('hokshMoreBtn');
+mb.onclick=e=>{e.stopPropagation();more.classList.toggle('show')};
+document.addEventListener('pointerdown',e=>{if(!e.target.closest('.hoksh-more'))more.classList.remove('show')});
+document.querySelectorAll('[data-dock]').forEach(b=>b.onclick=()=>{const a=b.dataset.dock;if(['select','pen','highlight','eraser','text'].includes(a)){setTool(a);dock.querySelectorAll('[data-dock]').forEach(x=>x.classList.remove('active'));b.classList.add('active')}else if(a==='undo')undo();else if(a==='redo')redo();else if(a==='new')openPageCreator(1)});
+document.getElementById('dockMove').onclick=()=>{const m=dock.classList;const states=['','pos-right','pos-left','pos-top'];let cur='';for(const x of states){if(x&&m.contains(x))cur=x}const n=(states.indexOf(cur)+1)%states.length;states.forEach(x=>x&&m.remove(x));if(states[n])m.add(states[n]);localStorage.setItem('hoksh_dock_pos',states[n]||'')};
+const saved=localStorage.getItem('hoksh_dock_pos');if(saved)dock.classList.add(saved);
+document.querySelectorAll('[data-more]').forEach(b=>b.onclick=()=>{const a=b.dataset.more;more.classList.remove('show');if(a==='panel'){const r=document.querySelector('.right');if(r)r.classList.toggle('collapsed')}else if(a==='view')document.getElementById('viewModeBtn')?.click();else if(a==='ai')document.getElementById('aiBtn')?.click();else if(a==='calc')window.open('https://www.google.com/search?q=Casio+ClassWiz+online+calculator','_blank','noopener');else if(a==='symbols')toast('مكتبة الرموز والأشكال ستُضاف في التحديث التالي');else if(a==='axes')toast('أداة المحاور والرسم البياني ستُضاف في التحديث التالي')});
+document.querySelectorAll('[data-toptool]').forEach(b=>b.onclick=()=>setTool(b.dataset.toptool));
+document.getElementById('teachTopColor').onclick=()=>document.getElementById('teachColorPop')?.classList.toggle('show');
+document.getElementById('teachTopMore').onclick=()=>document.getElementById('hokshMoreBtn')?.click();
+document.getElementById('teachingModeBtn')?.addEventListener('click',()=>setTimeout(()=>{document.getElementById('teachingTopTools').style.display=document.body.classList.contains('teaching-mode')?'flex':'none'},30));
+})();
+</script>
+</body></html>
