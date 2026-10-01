@@ -285,6 +285,17 @@ html,body,#canvas,.stage,.workspace{touch-action:none;-webkit-user-select:none;u
  .viewCard{padding:5px!important;border-radius:11px!important}
  .viewNum{top:9px;right:9px;font-size:9px;padding:3px 6px}
 }
+</style><style id="hoksh-intro-finish">
+.intro-chips{display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin:14px auto 0}
+.intro-chips span{padding:6px 10px;border-radius:999px;border:1px solid #ffffff20;background:#ffffff09;color:#dcecf6;font-size:10px;font-weight:800}
+.intro-quote{margin-top:12px;color:#69d8ff;font-size:12px;font-weight:800}
+@media(max-width:600px){.intro-chips span{font-size:9px;padding:5px 8px}.intro-quote{font-size:11px}}
+@media print{
+  body{background:#fff!important}
+  .top,.smartRail,.floatingPen,.hoksh-welcome,.hoksh-intro,.seoContent,.viewPop,.toast{display:none!important}
+  .workspace{padding:0!important;overflow:visible!important;background:#fff!important}
+  .stage{box-shadow:none!important;transform:none!important}
+}
 </style></head>
 <body>
 <div class="hoksh-intro" id="hokshIntro">
@@ -294,7 +305,9 @@ html,body,#canvas,.stage,.workspace{touch-action:none;-webkit-user-select:none;u
     <div class="intro-brand">حوكش <span>HOKSH</span></div>
     <div class="intro-line"></div>
     <div class="intro-author">محمد شعبان محارب</div>
-    <div class="intro-message">مرحبًا بك في حوكش — مساحة كتابة وتحرير صُممت لتكون مريحة وسريعة<br>للمدرسين والطلاب على الهاتف والتابلت والكمبيوتر.</div>
+    <div class="intro-message">مساحة كتابة وتحرير احترافية للمدرسين والطلاب<br>على الهاتف والتابلت والكمبيوتر.</div>
+    <div class="intro-chips"><span>PDF</span><span>✎ كتابة</span><span>▰ تظليل</span><span>🎓 تدريس</span></div>
+    <div class="intro-quote">اكتب براحتك… والباقي على حوكش</div>
     <div class="intro-loader"><i></i></div>
   </div>
 </div><div class="hoksh-welcome" id="hokshWelcome">
