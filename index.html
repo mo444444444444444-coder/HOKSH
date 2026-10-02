@@ -159,6 +159,7 @@ function drawOverlay(c,p){const x=c.getContext('2d');x.clearRect(0,0,p.w,p.h);fo
  else if(s.type==='note'){x.fillStyle='#ffd34d';x.beginPath();x.arc(s.x,s.y,13,0,Math.PI*2);x.fill();x.fillStyle='#594300';x.font='bold 14px Arial';x.fillText('!',s.x-3,s.y+5)}
  else if(s.type==='signature'&&s.data){const im=new Image();im.onload=()=>x.drawImage(im,s.x,s.y,s.w,s.h);im.src=s.data}
  x.restore()}
+}
 function point(e,c){const r=c.getBoundingClientRect();return{x:(e.clientX-r.left)*c.width/r.width,y:(e.clientY-r.top)*c.height/r.height}}
 function bindCanvas(c,pi){
   let last=null;
