@@ -188,7 +188,8 @@ function bindCanvas(c,pi){
     }else if(tool==='signature'){openSignature()}
   });
   c.addEventListener('pointermove',e=>{
-    if(window.hokshPinching||tool==='eraser')return;
+    if(window.hokshPinching)return;
+    if(tool==='eraser'){if(e.buttons)eraseAt(point(e,c),pi,c);return}
     if(!drawing)return;e.preventDefault();
     const pts=e.getCoalescedEvents?e.getCoalescedEvents():[e];
     for(const ev of pts){const q=point(ev,c);if(drawing.points)drawing.points.push(q);else{drawing.x2=q.x;drawing.y2=q.y}}
