@@ -184,6 +184,7 @@ function setDock(pos){const d=$('toolDock');d.style.cssText='';if(pos==='top'){d
 function openSignature(){if(signatureData){const p=pages[activePage];p.strokes.push({type:'signature',data:signatureData,x:100,y:100,w:220,h:90,color:'#111'});renderPages();saveState()}else{$('signatureModal').classList.add('show');initSig()}}
 function initSig(){const c=$('sigCanvas'),x=c.getContext('2d');c.width=c.clientWidth*2;c.height=360;x.scale(2,2);x.lineWidth=3;x.lineCap='round';let on=false,last;const pos=e=>{const r=c.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top}};c.onpointerdown=e=>{on=true;last=pos(e);c.setPointerCapture(e.pointerId)};c.onpointermove=e=>{if(!on)return;const q=pos(e);x.beginPath();x.moveTo(last.x,last.y);x.lineTo(q.x,q.y);x.stroke();last=q};c.onpointerup=()=>on=false}
 async function pdfToPages(bytes){
+  if(!getDocument)await pdfReadyPromise;
   if(!getDocument)throw new Error('PDF engine unavailable');
   const doc=await getDocument({data:bytes}).promise;const out=[];
   for(let i=1;i<=doc.numPages;i++){const pg=await doc.getPage(i),vp=pg.getViewport({scale:1.35}),c=document.createElement('canvas');c.width=vp.width;c.height=vp.height;await pg.render({canvasContext:c.getContext('2d'),viewport:vp}).promise;out.push({w:vp.width,h:vp.height,image:c.toDataURL('image/jpeg',.92),strokes:[]})}
