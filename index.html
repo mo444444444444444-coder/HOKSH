@@ -149,6 +149,16 @@ function renderPages(){
   });
   $('pageTotal').textContent='من '+pages.length;$('pageNum').value=activePage+1;$('pageSlider').max=pages.length;$('pageSlider').value=activePage+1;
 }
+function applyZoomLayout(z){
+  document.querySelectorAll('.pageWrap').forEach((wrap,i)=>{
+    const p=pages[i]; if(!p)return;
+    const w=(p.w*z)+'px',h=(p.h*z)+'px';
+    wrap.style.width=w;wrap.style.height=h;
+    const cs=wrap.querySelectorAll('canvas');
+    cs.forEach(c=>{c.style.width=w;c.style.height=h});
+  });
+  $('zoomReset').textContent=Math.round(z*100)+'%';
+}
 function drawPageBase(c,p){const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,p.w,p.h);if(p.image){const im=new Image();im.onload=()=>x.drawImage(im,0,0,p.w,p.h);im.src=p.image}}
 function drawOverlay(c,p){const x=c.getContext('2d');x.clearRect(0,0,p.w,p.h);for(const s of p.strokes||[]){x.save();x.globalAlpha=s.opacity??1;x.strokeStyle=s.color||'#111';x.fillStyle=s.color||'#111';x.lineWidth=s.width||3;x.lineCap='round';x.lineJoin='round';
  if(s.type==='pen'||s.type==='highlighter'){x.globalAlpha=s.type==='highlighter'?(s.opacity??.3):1;const pts=s.points||[];if(pts.length===1){x.beginPath();x.arc(pts[0].x,pts[0].y,(s.width||3)/2,0,Math.PI*2);x.fill()}else if(pts.length){x.beginPath();x.moveTo(pts[0].x,pts[0].y);for(let i=1;i<pts.length-1;i++){const a=pts[i],b=pts[i+1];x.quadraticCurveTo(a.x,a.y,(a.x+b.x)/2,(a.y+b.y)/2)}const a=pts[pts.length-2],b=pts[pts.length-1];if(pts.length>1)x.quadraticCurveTo(a.x,a.y,b.x,b.y);x.stroke()}}
@@ -164,21 +174,38 @@ function point(e,c){const r=c.getBoundingClientRect();return{x:(e.clientX-r.left
 function bindCanvas(c,pi){
   let last=null;
   c.addEventListener('pointerdown',e=>{
-    if(tool==='select')return;
-    if(e.pointerType==='touch'&&e.isPrimary===false)return;
+    if(tool==='select'||tool==='eraser'){}
+    else if(e.pointerType==='touch' && e.isPrimary===false)return;
+    if(window.hokshPinching)return;
+    if(tool==='eraser'){
+      e.preventDefault();activePage=pi;eraseAt(point(e,c),pi,c);return;
+    }
     e.preventDefault();c.setPointerCapture?.(e.pointerId);activePage=pi;last=point(e,c);pushHistory();
     if(tool==='pen'||tool==='highlighter'){drawing={type:tool,points:[last],color,width,opacity:tool==='highlighter'?opacity:1}}
     else if(['line','arrow','rect','circle'].includes(tool))drawing={type:tool,x:last.x,y:last.y,x2:last.x,y2:last.y,color,width,opacity:1}
-    else if(tool==='text'){$('textValue').value='';$('textModal').classList.add('show');drawing={type:'text',x:last.x,y:last.y}}
-    else if(tool==='note'){$('noteValue').value='';$('noteModal').classList.add('show');drawing={type:'note',x:last.x,y:last.y}}
-    else if(tool==='signature'){openSignature()}
+    else if(tool==='text'){$('textValue').value='';$('textModal').classList.add('show');drawing={type:'text',x:last.x,y:last.y}
+    }else if(tool==='note'){$('noteValue').value='';$('noteModal').classList.add('show');drawing={type:'note',x:last.x,y:last.y}
+    }else if(tool==='signature'){openSignature()}
   });
   c.addEventListener('pointermove',e=>{
-    if(!drawing)return;e.preventDefault();const pts=e.getCoalescedEvents?e.getCoalescedEvents():[e];
+    if(window.hokshPinching||tool==='eraser')return;
+    if(!drawing)return;e.preventDefault();
+    const pts=e.getCoalescedEvents?e.getCoalescedEvents():[e];
     for(const ev of pts){const q=point(ev,c);if(drawing.points)drawing.points.push(q);else{drawing.x2=q.x;drawing.y2=q.y}}
     const p=pages[pi];p.strokes=p.strokes.filter(s=>s!==drawing);p.strokes.push(drawing);drawOverlay(c,p)
   });
-  const end=e=>{if(!drawing)return;c.releasePointerCapture?.(e.pointerId);drawing=null;renderPages();saveState()};c.addEventListener('pointerup',end);c.addEventListener('pointercancel',end);
+  const end=e=>{if(!drawing)return;c.releasePointerCapture?.(e.pointerId);drawing=null;renderPages();saveState()};
+  c.addEventListener('pointerup',end);c.addEventListener('pointercancel',end);
+}
+function eraseAt(q,pi,c){
+  const p=pages[pi],radius=Math.max(10,width*3);
+  const hit=p.strokes.findIndex(s=>{
+    if(s.type==='pen'||s.type==='highlighter')return (s.points||[]).some(pt=>Math.hypot(pt.x-q.x,pt.y-q.y)<=radius);
+    const minX=Math.min(s.x??Infinity,s.x2??Infinity)-radius,maxX=Math.max(s.x??-Infinity,s.x2??-Infinity)+radius;
+    const minY=Math.min(s.y??Infinity,s.y2??Infinity)-radius,maxY=Math.max(s.y??-Infinity,s.y2??-Infinity)+radius;
+    return q.x>=minX&&q.x<=maxX&&q.y>=minY&&q.y<=maxY;
+  });
+  if(hit>=0){pushHistory();p.strokes.splice(hit,1);drawOverlay(c,p);saveState()}
 }
 function setTool(t){tool=t;document.body.classList.toggle('navMode',t==='select');document.querySelectorAll('[data-tool]').forEach(b=>b.classList.toggle('active',b.dataset.tool===t));document.querySelectorAll('.toolGrid button').forEach(b=>b.classList.toggle('active',b.dataset.tool===t));$('penDock')?.classList.toggle('active',t!=='select')}
 function setDock(pos){const d=$('toolDock');d.style.cssText='';if(pos==='top'){d.style.top='68px';d.style.bottom='auto'}else if(pos==='left'){d.style.left='10px';d.style.bottom='50%';d.style.transform='translateY(50%)';d.style.flexDirection='column'}else if(pos==='right'){d.style.left='auto';d.style.right='10px';d.style.bottom='50%';d.style.transform='translateY(50%)';d.style.flexDirection='column'}else{d.style.bottom='13px';d.style.left='50%';d.style.transform='translateX(-50%)'}}
@@ -229,23 +256,24 @@ $('renameFile').onclick=()=>{$('renameValue').value=docName;$('renameModal').cla
 $('exportBtn').onclick=openExport;$('saveOriginal').onclick=()=>{saveState();toast('تم حفظ التغييرات محلياً')};$('saveAs').onclick=saveAs;$('flattenPdf').onclick=downloadPdf;$('exportImages').onclick=exportImages;$('shareFile').onclick=share;
 $('scrollMode').onclick=()=>{pageMode=pageMode==='vertical'?'horizontal':'vertical';$('scrollMode').textContent=pageMode==='vertical'?'↕️ تمرير رأسي':'↔️ تمرير أفقي';renderPages();saveState()};
 $('liquidMode').onclick=()=>{document.body.classList.toggle('liquid');toast(document.body.classList.contains('liquid')?'تم تفعيل القراءة الذكية — تكبير عرض النص قدر الإمكان':'تم إيقاف القراءة الذكية')};
-let pinchStartDistance=0,pinchStartZoom=zoom,pinchActive=false,pinchFrame=0,pinchVisualZoom=zoom;
+let pinchStartDistance=0,pinchStartZoom=zoom,pinchActive=false,pinchFrame=0;
+window.hokshPinching=false;
 function touchDistance(a,b){return Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY)}
-function applyPinchVisual(){
+function applyPinch(){
   pinchFrame=0;
   if(!pinchActive)return;
-  const root=$('pages');
-  root.style.transformOrigin='center top';
-  root.style.transform='scale('+pinchVisualZoom+')';
+  applyZoomLayout(pinchVisualZoom);
 }
+let pinchVisualZoom=zoom;
 $('canvasArea').addEventListener('touchstart',e=>{
-  if(e.touches.length===2){
+  if(e.touches.length===2 && tool==='select'){
+    window.hokshPinching=true;
     pinchActive=true;
     pinchStartDistance=touchDistance(e.touches[0],e.touches[1]);
     pinchStartZoom=zoom;
     pinchVisualZoom=zoom;
     if(pinchFrame)cancelAnimationFrame(pinchFrame);
-    $('pages').style.transition='none';
+    if(drawing){drawing=null}
   }
 },{passive:true});
 $('canvasArea').addEventListener('touchmove',e=>{
@@ -253,22 +281,24 @@ $('canvasArea').addEventListener('touchmove',e=>{
   const d=touchDistance(e.touches[0],e.touches[1]);
   if(pinchStartDistance>0){
     pinchVisualZoom=Math.max(.35,Math.min(2.5,pinchStartZoom*(d/pinchStartDistance)));
-    if(!pinchFrame)pinchFrame=requestAnimationFrame(applyPinchVisual);
+    if(!pinchFrame)pinchFrame=requestAnimationFrame(applyPinch);
   }
   e.preventDefault();
 },{passive:false});
 function finishPinch(){
   if(!pinchActive)return;
   pinchActive=false;
+  window.hokshPinching=false;
   if(pinchFrame)cancelAnimationFrame(pinchFrame);
   pinchFrame=0;
   zoom=pinchVisualZoom;
-  $('pages').style.transform='';
-  renderPages();
+  applyZoomLayout(zoom);
 }
 $('canvasArea').addEventListener('touchend',e=>{if(e.touches.length<2)finishPinch()},{passive:true});
 $('canvasArea').addEventListener('touchcancel',finishPinch,{passive:true});
-$('zoomIn').onclick=()=>{zoom=Math.min(2.5,zoom+.1);renderPages()};$('zoomOut').onclick=()=>{zoom=Math.max(.35,zoom-.1);renderPages()};$('zoomReset').onclick=()=>{zoom=1;renderPages()};
+$('zoomIn').onclick=()=>{zoom=Math.min(2.5,zoom+.1);applyZoomLayout(zoom)};
+$('zoomOut').onclick=()=>{zoom=Math.max(.35,zoom-.1);applyZoomLayout(zoom)};
+$('zoomReset').onclick=()=>{zoom=1;applyZoomLayout(zoom)};
 $('pageNum').onchange=e=>{activePage=Math.max(0,Math.min(pages.length-1,+e.target.value-1));document.querySelector('[data-page="'+activePage+'"]')?.scrollIntoView({behavior:'smooth',block:'center'});renderPages()};$('pageSlider').oninput=e=>{activePage=+e.target.value-1;document.querySelectorAll('.pageWrap')[activePage]?.scrollIntoView({behavior:'smooth',block:'center'});$('pageNum').value=activePage+1};
 $('menuBtn').onclick=()=>$('drawer').classList.toggle('show');$('searchBtn').onclick=()=>{$('searchInput').focus()};$('searchInput').oninput=renderRecents;
 $('clearRecents').onclick=()=>{localStorage.removeItem(recentKey);renderRecents()};$('devInfo').onclick=()=>{$('drawer').classList.remove('show');$('devModal').classList.add('show')};$('settingsBtn').onclick=()=>{$('drawer').classList.remove('show');$('settingsModal').classList.add('show')};$('upgradeBtn').onclick=()=>toast('الترقية ستكون متاحة لاحقاً');$('supportBtn').onclick=()=>toast('الدعم الفني: استخدم صفحة المشروع للتواصل');$('themeBtn').onclick=()=>{setDark();$('drawer').classList.remove('show')};
