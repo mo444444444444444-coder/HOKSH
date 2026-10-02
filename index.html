@@ -117,7 +117,9 @@ setTimeout(()=>{const i=document.getElementById('intro');if(i){i.classList.add('
 </script>
 <script type="module">
 let getDocument=null;
-try{({getDocument}=await import('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.min.mjs'))}catch(e){console.warn('PDF engine unavailable; HOKSH UI will still load.',e);}
+const pdfReadyPromise=import('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.min.mjs')
+  .then(m=>{getDocument=m.getDocument;return getDocument})
+  .catch(e=>{console.warn('PDF engine unavailable; HOKSH UI will still load.',e);return null});
 const $=id=>document.getElementById(id);
 const toast=t=>{const x=$('toast');x.textContent=t;x.classList.add('show');clearTimeout(window._tt);window._tt=setTimeout(()=>x.classList.remove('show'),2200)};
 let pdf=null, pdfBytes=null, docName='مستند جديد', pages=[], pageMode='vertical', zoom=1, tool='pen', color='#e51d48', width=3, opacity=.3, activePage=0, drawing=null, history=[], future=[], whiteboardSize='a4', textStyle={bold:true,italic:false}, signatureData=localStorage.getItem('hoksh_signature')||null;
