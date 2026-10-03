@@ -41,6 +41,21 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 .hidden{display:none!important}
 @media(max-width:800px){.brand{min-width:auto}.brand small{display:none}.brand b{font-size:16px}.search{max-width:none}.topBtns .hideM{display:none}.recentGrid{grid-template-columns:1fr 1fr}.quick{grid-template-columns:1fr}.workActions .hideM{display:none}.toolDock{bottom:9px}.bottomBar{gap:4px}.bottomBar button{padding:0 7px}.range{width:80px}}
 @media(max-width:560px){.top{height:52px;min-height:52px;padding:5px 7px}.brand img{width:30px;height:30px}.brand b{font-size:15px}.topSearch{display:none}.home{padding:14px 10px 76px}.hero{padding:22px 18px}.hero h1{font-size:24px}.recentGrid{grid-template-columns:1fr}.workTop{height:51px;min-height:51px}.fileName button{font-size:12px;max-width:38vw}.pages{padding:14px 8px 110px}.toolDock{width:calc(100% - 10px);left:5px;transform:none;border-radius:14px}.toolDock button{width:40px;height:40px}.bottomBar{overflow:auto;justify-content:flex-start;padding:0 6px}.bottomBar .range{width:70px}.optionGrid,.featureList{grid-template-columns:1fr}.introCard img{width:88px;height:88px}.introCard .hoksh{font-size:29px}}
+
+/* HOKSH mobile PDF focus mode */
+#focusFab{display:none;position:fixed;right:14px;bottom:18px;z-index:120;width:52px;height:52px;border:1px solid #ffffff33;border-radius:50%;background:linear-gradient(135deg,#0ca99a,#376fe0);color:#fff;font-size:22px;box-shadow:0 12px 34px #0008;backdrop-filter:blur(14px)}
+#focusFab:active{transform:scale(.94)}
+@media (max-width:700px){
+  body.focusPdf .workTop,body.focusPdf .toolDock,body.focusPdf .bottomBar{display:none}
+  body.focusPdf .workspace{background:#111;}
+  body.focusPdf .canvasArea{background:#111;overflow:auto;overscroll-behavior:contain;scroll-behavior:auto}
+  body.focusPdf .pages{padding:10px 8px 90px;gap:12px;min-width:100%;}
+  body.focusPdf .pageLabel{display:none}
+  body.focusPdf #focusFab{display:block}
+  body.focusPdf .penPop{left:auto;right:12px;bottom:82px;width:min(320px,calc(100vw - 24px));}
+  body.focusPdf .pageWrap{box-shadow:0 8px 28px #0008}
+}
+@media (min-width:701px){#focusFab{display:none!important}}
 </style>
 </head>
 <body>
@@ -79,6 +94,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
       <div class="swatches"><button data-color="#e51d48" style="background:#e51d48"></button><button data-color="#111827" style="background:#111827"></button><button data-color="#2563eb" style="background:#2563eb"></button><button data-color="#16a34a" style="background:#16a34a"></button><button data-color="#f59e0b" style="background:#f59e0b"></button></div>
     </div>
   </div>
+  <button id="focusFab" title="أدوات PDF">✏️</button>
   <div class="toolDock" id="toolDock">
     <button id="penDock" class="active" title="أدوات القلم">✏️</button><button data-tool="select" title="تحديد">🏹</button><button data-tool="pen" title="قلم">✏️</button><button data-tool="highlighter" title="تمييز">🖍️</button><button data-tool="eraser" title="ممحاة">🧽</button><button data-tool="text" title="نص">T</button><button data-tool="line" title="خط">╱</button><button data-tool="arrow" title="سهم">➜</button><button data-tool="rect" title="مربع">□</button><button data-tool="circle" title="دائرة">○</button><button data-tool="note" title="ملاحظة">💬</button><button data-tool="signature" title="توقيع">✒️</button><span class="dockSep"></span><button id="addPageDock" title="صفحة جديدة">＋</button>
   </div>
@@ -284,46 +300,48 @@ $('renameFile').onclick=()=>{$('renameValue').value=docName;$('renameModal').cla
 $('exportBtn').onclick=openExport;$('saveOriginal').onclick=()=>{saveState();toast('تم حفظ التغييرات محلياً')};$('saveAs').onclick=saveAs;$('flattenPdf').onclick=downloadPdf;$('exportImages').onclick=exportImages;$('shareFile').onclick=share;
 $('scrollMode').onclick=()=>{pageMode=pageMode==='vertical'?'horizontal':'vertical';$('scrollMode').textContent=pageMode==='vertical'?'↕️ تمرير رأسي':'↔️ تمرير أفقي';renderPages();saveState()};
 $('liquidMode').onclick=()=>{document.body.classList.toggle('liquid');toast(document.body.classList.contains('liquid')?'تم تفعيل القراءة الذكية — تكبير عرض النص قدر الإمكان':'تم إيقاف القراءة الذكية')};
-let pinchStartDistance=0,pinchStartZoom=zoom,pinchActive=false,pinchFrame=0;
+let pinchStartDistance=0,pinchStartZoom=zoom,pinchStartScrollLeft=0,pinchStartScrollTop=0,pinchStartMidX=0,pinchStartMidY=0,pinchActive=false,pinchFrame=0,pinchVisualZoom=zoom;
 window.hokshPinching=false;
 function touchDistance(a,b){return Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY)}
+function touchMid(a,b){return{x:(a.clientX+b.clientX)/2,y:(a.clientY+b.clientY)/2}}
 function applyPinch(){
   pinchFrame=0;
   if(!pinchActive)return;
   applyZoomLayout(pinchVisualZoom);
+  const area=$('canvasArea');
+  const r=area.getBoundingClientRect();
+  const mx=pinchStartMidX-r.left,my=pinchStartMidY-r.top;
+  const ratio=pinchVisualZoom/pinchStartZoom;
+  area.scrollLeft=pinchStartScrollLeft+(pinchStartScrollLeft+mx)*ratio-(pinchStartScrollLeft+mx);
+  area.scrollTop=pinchStartScrollTop+(pinchStartScrollTop+my)*ratio-(pinchStartScrollTop+my);
 }
-let pinchVisualZoom=zoom;
 $('canvasArea').addEventListener('touchstart',e=>{
-  if(e.touches.length===2 && tool==='select'){
-    window.hokshPinching=true;
-    pinchActive=true;
-    pinchStartDistance=touchDistance(e.touches[0],e.touches[1]);
-    pinchStartZoom=zoom;
-    pinchVisualZoom=zoom;
-    if(pinchFrame)cancelAnimationFrame(pinchFrame);
-    if(drawing){drawing=null}
-  }
+  if(e.touches.length!==2||tool!=='select')return;
+  const a=e.touches[0],b=e.touches[1],m=touchMid(a,b),area=$('canvasArea');
+  window.hokshPinching=true;pinchActive=true;
+  pinchStartDistance=touchDistance(a,b);pinchStartZoom=zoom;pinchVisualZoom=zoom;
+  pinchStartScrollLeft=area.scrollLeft;pinchStartScrollTop=area.scrollTop;
+  pinchStartMidX=m.x;pinchStartMidY=m.y;
+  if(drawing)drawing=null;
 },{passive:true});
 $('canvasArea').addEventListener('touchmove',e=>{
   if(e.touches.length!==2||!pinchActive)return;
   const d=touchDistance(e.touches[0],e.touches[1]);
   if(pinchStartDistance>0){
-    pinchVisualZoom=Math.max(.35,Math.min(2.5,pinchStartZoom*(d/pinchStartDistance)));
+    pinchVisualZoom=Math.max(.35,Math.min(3,pinchStartZoom*(d/pinchStartDistance)));
     if(!pinchFrame)pinchFrame=requestAnimationFrame(applyPinch);
   }
   e.preventDefault();
 },{passive:false});
 function finishPinch(){
   if(!pinchActive)return;
-  pinchActive=false;
-  window.hokshPinching=false;
+  pinchActive=false;window.hokshPinching=false;
   if(pinchFrame)cancelAnimationFrame(pinchFrame);
-  pinchFrame=0;
-  zoom=pinchVisualZoom;
-  applyZoomLayout(zoom);
+  pinchFrame=0;zoom=pinchVisualZoom;applyZoomLayout(zoom);
 }
 $('canvasArea').addEventListener('touchend',e=>{if(e.touches.length<2)finishPinch()},{passive:true});
 $('canvasArea').addEventListener('touchcancel',finishPinch,{passive:true});
+$('focusFab').onclick=()=>{document.body.classList.toggle('focusPdf');if(document.body.classList.contains('focusPdf')){setTool('select');toast('📄 وضع التركيز: اسحب بإصبع، وكبّر بإصبعين')}$('penPop').classList.toggle('show',false)};
 $('zoomIn').onclick=()=>{zoom=Math.min(2.5,zoom+.1);applyZoomLayout(zoom)};
 $('zoomOut').onclick=()=>{zoom=Math.max(.35,zoom-.1);applyZoomLayout(zoom)};
 $('zoomReset').onclick=()=>{zoom=1;applyZoomLayout(zoom)};
