@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=yes,maximum-scale=5">
 <meta name="theme-color" content="#0b1220">
 <meta name="description" content="حوكش HOKSH — محرر PDF وسبورة رقمية احترافية للكتابة والتظليل والتوقيع والتصدير.">
 <meta name="author" content="محمد شعبان محارب">
@@ -16,10 +16,13 @@
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js"></script>
 <style>
-:root{--bg:#07111d;--panel:#0d1b2a;--panel2:#13263a;--line:#29435b;--text:#f5fbff;--muted:#93aabd;--accent:#22c7b7;--blue:#4b82f5;--danger:#ef667b;--paper:#fff;--ink:#14202b;--soft:#eef4f7}
-*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;font-family:system-ui,-apple-system,"Segoe UI",Tahoma,Arial,sans-serif;background:var(--bg);color:var(--text)}button,input,select,textarea{font:inherit}button{cursor:pointer}
+:root{--bg:#f4f7fb;--panel:#ffffff;--panel2:#eef3f8;--line:#d8e0ea;--text:#152238;--muted:#64748b;--accent:#2563eb;--blue:#4f46e5;--danger:#dc3545;--paper:#fff;--ink:#14202b;--soft:#eef4f7;--shadow:0 10px 35px #17233b18}
+body.lightMode{--bg:#0b1220;--panel:#111b2d;--panel2:#17243a;--line:#2a3952;--text:#f5f8ff;--muted:#aab7ca;--accent:#60a5fa;--blue:#818cf8;--danger:#fb7185;--soft:#1b2940}
+body.lightMode .home,body.lightMode .workspace{background:var(--bg)}
+
+*{box-sizing:border-box}html,body{margin:0;width:100%;min-width:0;height:100%;overflow:hidden;font-family:system-ui,-apple-system,"Segoe UI",Tahoma,Arial,sans-serif;background:var(--bg);color:var(--text)}button,input,select,textarea{font:inherit}button{cursor:pointer}
 button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid #46d9ca;outline-offset:2px}
-.app{height:100dvh;display:flex;flex-direction:column}.top{height:58px;min-height:58px;display:flex;align-items:center;gap:9px;padding:7px 12px;background:#081421f5;border-bottom:1px solid var(--line);z-index:50;backdrop-filter:blur(16px)}
+.app{height:100dvh;height:100vh;min-height:100%;display:flex;flex-direction:column}.top{height:58px;min-height:58px;display:flex;align-items:center;gap:9px;padding:7px 12px;background:#081421f5;border-bottom:1px solid var(--line);z-index:50;backdrop-filter:blur(16px)}
 .brand{display:flex;align-items:center;gap:9px;min-width:190px}.brand img{width:34px;height:34px;border-radius:10px}.brand b{font-size:19px}.brand small{display:block;color:var(--accent);font-size:9px;margin-top:1px}
 .search{flex:1;max-width:520px;position:relative;margin:auto}.search input{width:100%;height:39px;border:1px solid #2a455c;border-radius:12px;background:#0c1a29;color:#fff;padding:0 40px 0 12px}.search span{position:absolute;right:13px;top:8px;color:#8ba4b7;font-size:18px}
 .topBtns{display:flex;gap:6px}.iconBtn,.btn{height:39px;border:1px solid #2d485e;border-radius:10px;background:#12253a;color:#eef8ff;padding:0 11px}.iconBtn{width:40px;padding:0}.btn.primary{background:linear-gradient(135deg,#12ad9e,#386fe1);border-color:#42d6c7}.btn.danger{border-color:#7b3240;color:#ffdfe4}
@@ -58,7 +61,17 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 @media (min-width:701px){#focusFab{display:none!important}}
 
 .homeSupport{max-width:1150px;margin:14px auto 18px;padding:14px 16px;border:1px solid #b9e6df;background:linear-gradient(135deg,#f5fffd,#edf8ff);border-radius:17px;display:flex;align-items:center;justify-content:space-between;gap:12px;box-shadow:0 10px 28px #17304710;color:#173238}.homeSupport b{display:block;font-size:13px}.homeSupport small{display:block;color:#60797d;margin-top:4px;font-size:10px}.homeSupport .btn{background:#16a34a;border-color:#16a34a;color:#fff}@media(max-width:560px){.homeSupport{align-items:stretch;flex-direction:column}.homeSupport .btn{width:100%}}
-</style>
+<style>
+/* HOKSH responsive shell + floating PDF pen */
+#pdfPenFab{position:fixed;right:18px;bottom:84px;z-index:80;width:54px;height:54px;border:0;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--blue));color:#fff;font-size:24px;box-shadow:0 10px 28px #0003;display:none;place-items:center}
+#pdfPenFab.show{display:grid}
+#pdfPenPanel{position:fixed;right:16px;bottom:146px;z-index:81;width:min(330px,calc(100vw - 28px));padding:12px;border-radius:18px;background:var(--panel);border:1px solid var(--line);box-shadow:var(--shadow);display:none}
+#pdfPenPanel.show{display:block}
+.penRow{display:flex;gap:7px;align-items:center;flex-wrap:wrap}.penSwatch{width:30px;height:30px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px var(--line)}
+.penTool{padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:var(--panel2);color:var(--text)}
+#themeToggle{min-width:42px}
+@media(max-width:700px){#pdfPenFab{right:12px;bottom:76px}.app{min-height:100dvh}.home,.workspace{width:100%;max-width:100vw}.dialog{max-width:calc(100vw - 20px)}}
+</style></style>
 </head>
 <body>
 <div class="app">
@@ -248,7 +261,7 @@ async function pdfToPages(bytes,onPage){
   const out=[];
   for(let i=1;i<=doc.numPages;i++){
     const pg=await doc.getPage(i);
-    const mobile=innerWidth<701;
+    const mobile=window.matchMedia("(max-width:700px)").matches;
     const scale=mobile?0.82:1.05;
     const vp=pg.getViewport({scale});
     const c=document.createElement('canvas');c.width=Math.ceil(vp.width);c.height=Math.ceil(vp.height);
@@ -376,4 +389,19 @@ setTool('select');
 renderRecents();setDock(localStorage.getItem('dockPosition')||'bottom');
 if(localStorage.getItem('hoksh_dark')==='0')document.body.classList.add('lightMode');
 </script>
-</body></html>
+<button id="pdfPenFab" aria-label="أدوات القلم">✎</button>
+<div id="pdfPenPanel">
+  <div class="penRow"><button class="penTool" data-pen-tool="pen">قلم</button><button class="penTool" data-pen-tool="highlighter">تحديد</button><button class="penTool" data-pen-tool="eraser">ممحاة</button><button class="penTool" id="themeToggle">☾/☀</button></div>
+  <div class="penRow" style="margin-top:9px"><span>اللون</span><button class="penSwatch" data-color="#111827" style="background:#111827"></button><button class="penSwatch" data-color="#dc2626" style="background:#dc2626"></button><button class="penSwatch" data-color="#2563eb" style="background:#2563eb"></button><button class="penSwatch" data-color="#16a34a" style="background:#16a34a"></button><button class="penSwatch" data-color="#f59e0b" style="background:#f59e0b"></button></div>
+  <div class="penRow" style="margin-top:9px"><label>السُمك <input id="penWidthMobile" type="range" min="1" max="24" value="3"></label></div>
+</div><script>
+(()=>{const fab=document.getElementById('pdfPenFab'),panel=document.getElementById('pdfPenPanel');if(!fab)return;
+fab.addEventListener('click',()=>panel.classList.toggle('show'));
+document.querySelectorAll('[data-pen-tool]').forEach(b=>b.onclick=()=>{tool=b.dataset.penTool;toast('تم اختيار '+(tool==='pen'?'القلم':tool==='highlighter'?'التحديد':'الممحاة'))});
+document.querySelectorAll('[data-color]').forEach(b=>b.onclick=()=>{color=b.dataset.color;tool='pen';toast('تم تغيير لون القلم')});
+document.getElementById('penWidthMobile').oninput=e=>width=+e.target.value;
+document.getElementById('themeToggle').onclick=()=>{setDark();};
+window.addEventListener('resize',()=>{if(typeof applyZoomLayout==='function'&&pages?.length)applyZoomLayout(zoom)});
+window.addEventListener('error',e=>{if(e.message)console.warn('HOKSH runtime:',e.message)});
+})();
+</script></body></html>
