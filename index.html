@@ -248,7 +248,7 @@ async function openPdfBytes(bytes,name,size){
     pdfBytes=bytes;docName=name.replace(/\.pdf$/i,'')||'مستند PDF';
     pages=[];activePage=0;history=[];future=[];
     zoom=Math.min(1,innerWidth<700?0.62:.8);
-    $('home').style.display='none';$('workspace').classList.add('active');$('renameFile').textContent=docName;
+    $('home').style.display='none';$('workspace').classList.add('active');document.body.classList.toggle('focusPdf',innerWidth<701);$('renameFile').textContent=docName;
     $('pageTotal').textContent='جارٍ تحميل الملف...';$('pageNum').value=1;$('pageSlider').max=1;
     toast('📄 جارٍ فتح الملف...');
     const loaded=await pdfToPages(bytes,(page,idx,total)=>{
@@ -264,7 +264,7 @@ async function openPdfBytes(bytes,name,size){
   }catch(e){console.error(e);toast('تعذر فتح ملف PDF')}
 }
 function newWhiteboard(size){pdfBytes=null;docName='سبورة جديدة';resetPages();pages=[blankPage(size)];if(size==='infinite')pages[0].h=1700;saveState();addRecent('سبورة','محلي');$('home').style.display='none';$('workspace').classList.add('active');$('renameFile').textContent=docName;renderPages()}
-function leave(){saveState();addRecent(pdfBytes?'PDF':'سبورة','محلي');$('workspace').classList.remove('active');$('home').style.display='block';renderRecents()}
+function leave(){saveState();addRecent(pdfBytes?'PDF':'سبورة','محلي');document.body.classList.remove('focusPdf');$('penPop').classList.remove('show');$('workspace').classList.remove('active');$('home').style.display='block';renderRecents()}
 function renderRecents(){
  const q=$('searchInput').value.trim().toLowerCase(),r=recents().filter(x=>!q||x.name.toLowerCase().includes(q));$('recentGrid').innerHTML=r.length?r.map((x,i)=>'<div class="fileCard"><div class="fileIcon">'+(x.kind==='PDF'?'PDF':'✎')+'</div><button class="more" data-ri="'+i+'">⋮</button><h3>'+esc(x.name)+'</h3><div class="muted">آخر تعديل: '+new Date(x.date).toLocaleString('ar-EG')+'</div><div class="meta"><span>'+esc(x.size)+'</span><button class="btn" data-openrecent="'+i+'">فتح</button></div></div>').join(''):'<div class="fileCard"><h3>لا توجد ملفات أخيرة</h3><div class="muted">افتح PDF أو أنشئ سبورة لتظهر هنا.</div></div>';
  [...document.querySelectorAll('[data-ri]')].forEach(b=>b.onclick=()=>{const i=+b.dataset.ri;const r=recents()[i];if(confirm('حذف هذا الملف من قائمة الأخيرة؟')){let a=recents();a.splice(i,1);localStorage.setItem(recentKey,JSON.stringify(a));renderRecents()}});
@@ -341,7 +341,7 @@ function finishPinch(){
 }
 $('canvasArea').addEventListener('touchend',e=>{if(e.touches.length<2)finishPinch()},{passive:true});
 $('canvasArea').addEventListener('touchcancel',finishPinch,{passive:true});
-$('focusFab').onclick=()=>{document.body.classList.toggle('focusPdf');if(document.body.classList.contains('focusPdf')){setTool('select');toast('📄 وضع التركيز: اسحب بإصبع، وكبّر بإصبعين')}$('penPop').classList.toggle('show',false)};
+$('focusFab').onclick=()=>{if(!document.body.classList.contains('focusPdf')){document.body.classList.add('focusPdf');setTool('select');toast('📄 وضع التركيز: اسحب بإصبع، وكبّر بإصبعين')}else{$('penPop').classList.toggle('show')}};
 $('zoomIn').onclick=()=>{zoom=Math.min(2.5,zoom+.1);applyZoomLayout(zoom)};
 $('zoomOut').onclick=()=>{zoom=Math.max(.35,zoom-.1);applyZoomLayout(zoom)};
 $('zoomReset').onclick=()=>{zoom=1;applyZoomLayout(zoom)};
