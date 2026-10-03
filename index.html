@@ -277,7 +277,7 @@ async function openPdfBytes(bytes,name,size){
     pdfBytes=bytes;docName=name.replace(/\.pdf$/i,'')||'مستند PDF';
     pages=[];activePage=0;history=[];future=[];
     zoom=innerWidth<700?.46:.8;
-    $('home').style.display='none';$('workspace').classList.add('active');document.body.classList.toggle('focusPdf',innerWidth<701);$('renameFile').textContent=docName;
+    $('home').style.display='none';$('workspace').classList.add('active');document.body.classList.toggle('focusPdf',innerWidth<701);document.getElementById('pdfPenFab')?.classList.add('show');$('renameFile').textContent=docName;
     $('pageTotal').textContent='جارٍ تحميل الملف...';$('pageNum').value=1;$('pageSlider').max=1;
     toast('📄 جارٍ فتح الملف...');
     const loaded=await pdfToPages(bytes,(page,idx,total)=>{
@@ -293,8 +293,8 @@ async function openPdfBytes(bytes,name,size){
     toast('✅ تم فتح الملف');
   }catch(e){console.error(e);toast('تعذر فتح ملف PDF')}
 }
-function newWhiteboard(size){pdfBytes=null;docName='سبورة جديدة';resetPages();pages=[blankPage(size)];if(size==='infinite')pages[0].h=1700;saveState();addRecent('سبورة','محلي');$('home').style.display='none';$('workspace').classList.add('active');$('renameFile').textContent=docName;renderPages()}
-function leave(){saveState();addRecent(pdfBytes?'PDF':'سبورة','محلي');document.body.classList.remove('focusPdf');$('penPop').classList.remove('show');$('workspace').classList.remove('active');$('home').style.display='block';renderRecents()}
+function newWhiteboard(size){pdfBytes=null;docName='سبورة جديدة';resetPages();pages=[blankPage(size)];if(size==='infinite')pages[0].h=1700;saveState();addRecent('سبورة','محلي');$('home').style.display='none';$('workspace').classList.add('active');document.getElementById('pdfPenFab')?.classList.add('show');$('renameFile').textContent=docName;renderPages()}
+function leave(){saveState();addRecent(pdfBytes?'PDF':'سبورة','محلي');document.body.classList.remove('focusPdf');document.getElementById('pdfPenFab')?.classList.remove('show');document.getElementById('pdfPenPanel')?.classList.remove('show');$('penPop').classList.remove('show');$('workspace').classList.remove('active');$('home').style.display='block';renderRecents()}
 function renderRecents(){
  const q=$('searchInput').value.trim().toLowerCase(),r=recents().filter(x=>!q||x.name.toLowerCase().includes(q));$('recentGrid').innerHTML=r.length?r.map((x,i)=>'<div class="fileCard"><div class="fileIcon">'+(x.kind==='PDF'?'PDF':'✎')+'</div><button class="more" data-ri="'+i+'">⋮</button><h3>'+esc(x.name)+'</h3><div class="muted">آخر تعديل: '+new Date(x.date).toLocaleString('ar-EG')+'</div><div class="meta"><span>'+esc(x.size)+'</span><button class="btn" data-openrecent="'+i+'">فتح</button></div></div>').join(''):'<div class="fileCard"><h3>لا توجد ملفات أخيرة</h3><div class="muted">افتح PDF أو أنشئ سبورة لتظهر هنا.</div></div>';
  [...document.querySelectorAll('[data-ri]')].forEach(b=>b.onclick=()=>{const i=+b.dataset.ri;const r=recents()[i];if(confirm('حذف هذا الملف من قائمة الأخيرة؟')){let a=recents();a.splice(i,1);localStorage.setItem(recentKey,JSON.stringify(a));renderRecents()}});
