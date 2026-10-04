@@ -61,7 +61,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 @media (min-width:701px){#focusFab{display:none!important}}
 
 .homeSupport{max-width:1150px;margin:14px auto 18px;padding:14px 16px;border:1px solid #b9e6df;background:linear-gradient(135deg,#f5fffd,#edf8ff);border-radius:17px;display:flex;align-items:center;justify-content:space-between;gap:12px;box-shadow:0 10px 28px #17304710;color:#173238}.homeSupport b{display:block;font-size:13px}.homeSupport small{display:block;color:#60797d;margin-top:4px;font-size:10px}.homeSupport .btn{background:#16a34a;border-color:#16a34a;color:#fff}@media(max-width:560px){.homeSupport{align-items:stretch;flex-direction:column}.homeSupport .btn{width:100%}}
-<style>
+
 /* HOKSH responsive shell + floating PDF pen */
 #pdfPenFab{position:fixed;right:18px;bottom:84px;z-index:80;width:54px;height:54px;border:0;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--blue));color:#fff;font-size:24px;box-shadow:0 10px 28px #0003;display:none;place-items:center}
 #pdfPenFab.show{display:grid}
@@ -84,6 +84,169 @@ body.focusPdf #pdfPenFab{display:grid!important}
 @media(max-width:700px){body.focusPdf .workTop .back{width:42px;height:42px;font-size:25px}}
 
 </style></style>
+
+<style id="hoksh-v3-ui">
+/* ===== HOKSH V3 — radically redesigned, responsive, lightweight ===== */
+:root{
+  --bg:#071014;--panel:#0d1a20;--panel2:#12242b;--line:#27404a;
+  --text:#f4fbfa;--muted:#93aeb3;--accent:#20d6b5;--blue:#5b7cff;
+  --danger:#ff667d;--paper:#fff;--ink:#172229;--soft:#eaf5f3;
+  --shadow:0 18px 55px #0007;
+}
+body.lightMode{
+  --bg:#f2f7f7;--panel:#fff;--panel2:#edf5f4;--line:#d3e1e0;
+  --text:#14252a;--muted:#60777c;--accent:#079f8c;--blue:#4967df;
+  --danger:#d9465f;--soft:#eef7f5;
+}
+html,body{background:var(--bg);color:var(--text)}
+.app{background:var(--bg)}
+.top{
+  height:68px;min-height:68px;padding:10px 18px;
+  background:color-mix(in srgb,var(--panel) 92%,transparent);
+  border-bottom:1px solid var(--line);box-shadow:0 8px 30px #0002;
+}
+.brand{min-width:210px;gap:11px}.brand img{width:42px;height:42px;border-radius:13px}
+.brand b{font-size:20px;letter-spacing:.2px}.brand small{font-size:10px;color:var(--accent)}
+.search{max-width:650px}.search input{
+  height:44px;border-radius:15px;background:var(--panel2);border:1px solid var(--line);
+  color:var(--text);padding-inline:44px 14px;
+}
+.search span{right:auto;left:14px;color:var(--muted)}
+.iconBtn,.btn{
+  height:44px;border-radius:13px;border:1px solid var(--line);
+  background:var(--panel2);color:var(--text);transition:transform .15s,background .15s,border-color .15s;
+}
+.iconBtn:hover,.btn:hover{transform:translateY(-1px);border-color:#3fbfaf}
+.btn.primary{background:linear-gradient(135deg,var(--accent),var(--blue));border:0;color:#fff}
+
+.home{
+  padding:30px 22px 80px;
+  background:
+   radial-gradient(circle at 85% 5%,#20d6b512,transparent 28%),
+   radial-gradient(circle at 10% 30%,#5b7cff0c,transparent 28%),
+   var(--bg);
+}
+.hero{
+  max-width:1180px;padding:38px;border-radius:30px;margin-bottom:18px;
+  background:linear-gradient(135deg,#0b242b,#102f38 55%,#1b355c);
+  border:1px solid #ffffff14;box-shadow:var(--shadow);position:relative;overflow:hidden;
+}
+.hero:after{content:"";position:absolute;width:240px;height:240px;border-radius:50%;right:-80px;top:-110px;background:#20d6b522;filter:blur(10px)}
+.hero h1{font-size:36px;position:relative;z-index:1}.hero p{font-size:14px;max-width:800px}
+.quick{max-width:1180px;grid-template-columns:1fr 1fr;gap:18px}
+.quickCard{
+  background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:20px;
+  box-shadow:0 10px 35px #0002
+}
+.quickCard button{
+  min-height:105px;border-radius:18px;font-size:19px;
+  background:linear-gradient(135deg,#0aa891,#3e63e4)!important
+}
+.quickCard:nth-child(2) button{background:linear-gradient(135deg,#193e50,#655be5)!important}
+.recents{max-width:1180px}.fileCard{background:var(--panel);border-color:var(--line);color:var(--text)}
+.fileCard .more{background:var(--panel2);color:var(--text)}.muted,.meta{color:var(--muted)}
+.homeSupport{max-width:1180px;background:var(--panel);border-color:#20d6b544;color:var(--text)}
+
+.workspace{background:#050b0e}
+.workTop{
+  height:58px;min-height:58px;background:#08151bf5;border-color:#ffffff12;
+  box-shadow:0 8px 25px #0005
+}
+.workTop .back{border-radius:13px;background:#12252d;color:#fff;font-size:27px}
+.fileName button{font-size:15px}
+.canvasArea{
+  background:
+   radial-gradient(circle at 50% 0,#15333a 0,transparent 38%),
+   #080e12;
+  scroll-behavior:auto;
+}
+.pages{padding:22px 18px 115px;gap:22px}
+.pageWrap{box-shadow:0 18px 50px #000a;border-radius:2px;overflow:hidden}
+.toolDock{
+  bottom:16px;border-radius:22px;padding:8px;background:#071318ed;
+  border:1px solid #3b5962;box-shadow:0 18px 55px #000b;
+}
+.toolDock button{width:46px;height:46px;border-radius:14px;background:#10252c;border-color:#2b4b54}
+.toolDock button.active{background:linear-gradient(135deg,var(--accent),var(--blue));border-color:#74f2df}
+.bottomBar{height:53px;min-height:53px;background:#071318;border-color:#24414a}
+.bottomBar button{background:#10252c;border-color:#2b4b54}
+
+.drawer{top:68px;background:var(--panel);border-color:var(--line)}
+.dialog{background:var(--panel);color:var(--text);border:1px solid var(--line)}
+.field input,.field select,.field textarea{background:var(--panel2);color:var(--text);border-color:var(--line)}
+.option{background:var(--panel);color:var(--text);border-color:var(--line)}
+.notice{background:var(--panel2);color:var(--text)}
+
+body.focusPdf .workspace{
+  background:#05090b;
+}
+body.focusPdf .workTop{
+  height:58px;min-height:58px;background:#061116ee;
+  border-bottom:1px solid #ffffff14;
+}
+body.focusPdf .workTop .back{
+  display:grid;place-items:center;width:44px;height:44px;
+  background:#10242b;border:1px solid #36535b;color:#fff;
+}
+body.focusPdf .canvasArea{height:calc(100dvh - 58px);background:#05090b}
+body.focusPdf .pages{padding:18px 14px 110px;gap:18px}
+body.focusPdf .pageWrap{box-shadow:0 18px 55px #000b}
+
+#pdfPenFab{
+  display:none;position:fixed;right:22px;bottom:86px;z-index:180;
+  width:62px;height:62px;border:1px solid #ffffff35;border-radius:22px;
+  background:linear-gradient(145deg,#20d6b5,#4967df);
+  color:#fff;font-size:28px;box-shadow:0 16px 45px #000b;
+  place-items:center;cursor:pointer;transition:transform .16s,box-shadow .16s
+}
+#pdfPenFab.show{display:grid}
+#pdfPenFab:active{transform:scale(.93)}
+#pdfPenFab:after{content:"";position:absolute;inset:-5px;border-radius:26px;border:1px solid #20d6b522;pointer-events:none}
+
+#pdfPenPanel{
+  position:fixed;right:20px;bottom:158px;z-index:181;width:min(350px,calc(100vw - 30px));
+  padding:14px;border-radius:22px;background:#09171ced;color:#fff;
+  border:1px solid #3b5962;box-shadow:0 20px 60px #000b;backdrop-filter:blur(20px)
+}
+#pdfPenPanel:not(.show){display:none}
+#pdfPenPanel .penTool{background:#10262d;color:#fff;border-color:#2c4c55;border-radius:12px}
+#pdfPenPanel .penTool:hover{border-color:#20d6b5}
+.penSwatch{border-color:#fff8}
+#themeToggle{background:#17343b!important}
+
+body.lightMode .top,body.lightMode .workTop{background:#ffffffed}
+body.lightMode .hero{background:linear-gradient(135deg,#173c42,#1f5360,#344a91)}
+body.lightMode .canvasArea{background:#dce6e5}
+body.lightMode .toolDock,body.lightMode #pdfPenPanel{background:#ffffffef;color:#14252a}
+body.lightMode .toolDock button,body.lightMode #pdfPenPanel .penTool{background:#eef5f4;color:#14252a;border-color:#cbdcda}
+body.lightMode .bottomBar{background:#fff;color:#14252a}
+body.lightMode .bottomBar button{background:#eef5f4;color:#14252a}
+
+.toast{top:76px;background:#0a2026;border-color:#3b6d75;padding:11px 16px;border-radius:13px;font-size:12px;box-shadow:0 12px 35px #0007}
+
+@media(max-width:900px){
+  .top{padding:8px 10px}.brand{min-width:auto}.brand small{display:none}
+  .search{max-width:none}.quick{grid-template-columns:1fr}
+  .home{padding:18px 12px 80px}.hero{padding:28px 22px}.hero h1{font-size:29px}
+}
+@media(max-width:700px){
+  .top{height:54px;min-height:54px}.brand img{width:34px;height:34px}.brand b{font-size:16px}
+  .top .search{display:none}.topBtns{margin-inline-start:auto}
+  .workTop{height:54px;min-height:54px;padding:5px 8px}
+  body.focusPdf .workTop{height:54px;min-height:54px}
+  body.focusPdf .canvasArea{height:calc(100dvh - 54px)}
+  body.focusPdf .pages{padding:10px 7px 100px;gap:12px}
+  #pdfPenFab{right:13px;bottom:72px;width:56px;height:56px;border-radius:19px}
+  #pdfPenPanel{right:10px;bottom:138px;width:calc(100vw - 20px)}
+  .pages{padding:12px 7px 110px}
+  .pageWrap{max-width:none}
+}
+@media(max-width:420px){
+  .hero h1{font-size:24px}.hero p{font-size:12px}
+  .quickCard{padding:14px}.quickCard button{min-height:82px;font-size:16px}
+  #pdfPenFab{width:52px;height:52px;font-size:23px}
+}
+</style>
 </head>
 <body>
 <div class="app">
@@ -305,7 +468,7 @@ async function openPdfBytes(bytes,name,size){
     toast('✅ تم فتح الملف');
   }catch(e){console.error(e);toast('تعذر فتح ملف PDF')}
 }
-function newWhiteboard(size){document.body.classList.remove('focusPdf');pdfBytes=null;docName='سبورة جديدة';resetPages();pages=[blankPage(size)];if(size==='infinite')pages[0].h=1700;saveState();addRecent('سبورة','محلي');$('home').style.display='none';$('workspace').classList.add('active');document.getElementById('pdfPenFab')?.classList.add('show');$('renameFile').textContent=docName;renderPages()}
+function newWhiteboard(size){document.body.classList.remove('focusPdf');pdfBytes=null;docName='سبورة جديدة';resetPages();pages=[blankPage(size)];if(size==='infinite')pages[0].h=1700;saveState();addRecent('سبورة','محلي');$('home').style.display='none';$('workspace').classList.add('active');document.getElementById('pdfPenFab')?.classList.remove('show');document.getElementById('pdfPenPanel')?.classList.remove('show');$('renameFile').textContent=docName;renderPages()}
 function leave(){saveState();addRecent(pdfBytes?'PDF':'سبورة','محلي');document.body.classList.remove('focusPdf');document.getElementById('pdfPenFab')?.classList.remove('show');document.getElementById('pdfPenPanel')?.classList.remove('show');$('penPop').classList.remove('show');$('workspace').classList.remove('active');$('home').style.display='block';renderRecents()}
 function renderRecents(){
  const q=$('searchInput').value.trim().toLowerCase(),r=recents().filter(x=>!q||x.name.toLowerCase().includes(q));$('recentGrid').innerHTML=r.length?r.map((x,i)=>'<div class="fileCard"><div class="fileIcon">'+(x.kind==='PDF'?'PDF':'✎')+'</div><button class="more" data-ri="'+i+'">⋮</button><h3>'+esc(x.name)+'</h3><div class="muted">آخر تعديل: '+new Date(x.date).toLocaleString('ar-EG')+'</div><div class="meta"><span>'+esc(x.size)+'</span><button class="btn" data-openrecent="'+i+'">فتح</button></div></div>').join(''):'<div class="fileCard"><h3>لا توجد ملفات أخيرة</h3><div class="muted">افتح PDF أو أنشئ سبورة لتظهر هنا.</div></div>';
@@ -326,7 +489,7 @@ async function saveAs(){const d=await makePdf();const blob=d.output('blob');if(w
 function addPage(){pushHistory();pages.splice(activePage+1,0,blankPage('a4'));activePage++;renderPages()}
 function renderThumbs(){const g=$('thumbGrid');g.innerHTML=pages.map((p,i)=>'<div class="thumbItem '+(i===activePage?'active':'')+'" data-ti="'+i+'"><canvas></canvas><button data-del="'+i+'">×</button></div>').join('')+'<button class="addPage" id="thumbAdd2">＋ إضافة صفحة بيضاء</button>';pages.forEach((p,i)=>{const c=g.querySelectorAll('canvas')[i];c.width=p.w;c.height=p.h;drawPageBase(c,p);drawOverlayScaled(c,p,c.width/p.w)});g.querySelectorAll('[data-ti]').forEach(x=>x.onclick=e=>{if(e.target.closest('[data-del]'))return;activePage=+x.dataset.ti;$('thumbPanel').classList.remove('show');renderPages()});g.querySelectorAll('[data-del]').forEach(x=>x.onclick=e=>{e.stopPropagation();if(pages.length===1)return toast('يجب أن تبقى صفحة واحدة على الأقل');pushHistory();pages.splice(+x.dataset.del,1);activePage=Math.min(activePage,pages.length-1);renderPages();renderThumbs()});$('thumbAdd2').onclick=addPage}
 function openExport(){saveState();$('exportModal').classList.add('show')}
-function setDark(){document.body.classList.toggle('lightMode');localStorage.setItem('hoksh_dark',document.body.classList.contains('lightMode')?'0':'1')}
+function setDark(){document.body.classList.toggle('lightMode');localStorage.setItem('hoksh_dark',document.body.classList.contains('lightMode')?'1':'0')}
 
 $('openPdf').onclick=()=>$('fileInput').click();$('fileInput').onchange=async e=>{const f=e.target.files?.[0];if(f)await openPdfBytes(await f.arrayBuffer(),f.name,f.size);e.target.value=''};
 $('newWhiteboard').onclick=()=>$('whiteboardModal').classList.add('show');document.querySelectorAll('[data-size]').forEach(b=>b.onclick=()=>{whiteboardSize=b.dataset.size;document.querySelectorAll('[data-size]').forEach(x=>x.classList.toggle('selected',x===b))});$('createWhiteboard').onclick=()=>{$('whiteboardModal').classList.remove('show');newWhiteboard(whiteboardSize)};
@@ -399,9 +562,9 @@ window.addEventListener('resize',()=>{if($('workspace').classList.contains('acti
 if(loadState()){$('renameFile').textContent=docName;renderPages()}
 setTool('select');
 renderRecents();setDock(localStorage.getItem('dockPosition')||'bottom');
-if(localStorage.getItem('hoksh_dark')==='0')document.body.classList.add('lightMode');
+if(localStorage.getItem('hoksh_dark')==='1')document.body.classList.add('lightMode');
 </script>
-<button id="pdfPenFab" aria-label="أدوات القلم">✎</button>
+<button id="pdfPenFab" aria-label="فتح أدوات الكتابة" title="أدوات الكتابة">✎</button>
 <div id="pdfPenPanel">
   <div class="penRow"><button class="penTool" data-pen-tool="pen">قلم</button><button class="penTool" data-pen-tool="highlighter">تحديد</button><button class="penTool" data-pen-tool="eraser">ممحاة</button><button class="penTool" id="themeToggle">☾/☀</button></div>
   <div class="penRow" style="margin-top:9px"><span>اللون</span><button class="penSwatch" data-color="#111827" style="background:#111827"></button><button class="penSwatch" data-color="#dc2626" style="background:#dc2626"></button><button class="penSwatch" data-color="#2563eb" style="background:#2563eb"></button><button class="penSwatch" data-color="#16a34a" style="background:#16a34a"></button><button class="penSwatch" data-color="#f59e0b" style="background:#f59e0b"></button></div>
