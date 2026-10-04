@@ -215,8 +215,7 @@ function bindCanvas(c,pi){
   let last=null,eraseDirty=false;
   c.addEventListener('pointerdown',e=>{
     if(tool==='select')return;
-    if(tool==='eraser'){
-    else if(e.pointerType==='touch' && e.isPrimary===false)return;
+    if(e.pointerType==='touch' && e.isPrimary===false)return;
     if(window.hokshPinching)return;
     if(tool==='eraser'){
       e.preventDefault();activePage=pi;eraseDirty=eraseAt(point(e,c),pi,c)||eraseDirty;return;
