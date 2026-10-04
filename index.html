@@ -87,6 +87,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
     <div class="quickCard"><button id="openPdf">📂 فتح ملف PDF</button><small>اختيار ملف من الهاتف أو الجهاز أو أي خدمة سحابية يدعمها مستعرض الملفات.</small></div>
     <div class="quickCard"><button id="newWhiteboard">📄 إنشاء صفحة بيضاء</button><small>أنشئ A4 أو صفحة ممتدة بلا حدود للكتابة الحرة.</small></div>
   </div>
+  <div class="homeSupport" id="homeSupport"><div><b>🟢 الدعم الفني على واتساب</b><small>01146808655 — تواصل مباشرة مع المطور</small></div><button class="btn primary" id="homeSupportBtn">فتح واتساب</button></div>
   <div class="recents"><div class="head"><h2>الملفات الأخيرة</h2><button class="btn" id="clearRecents">مسح القائمة</button></div><div class="recentGrid" id="recentGrid"></div></div>
 </section>
 
@@ -149,7 +150,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 <script>
 setTimeout(()=>{const i=document.getElementById('intro');if(i){i.classList.add('hide');setTimeout(()=>i.remove(),650)}},3200);
 </script>
-<script type="module">
+<script>
 const getDocument=()=>window.pdfjsLib?.getDocument;
 const $=id=>document.getElementById(id);
 const toast=t=>{const x=$('toast');x.textContent=t;x.classList.add('show');clearTimeout(window._tt);window._tt=setTimeout(()=>x.classList.remove('show'),2200)};
