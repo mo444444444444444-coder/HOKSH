@@ -71,6 +71,18 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 .penTool{padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:var(--panel2);color:var(--text)}
 #themeToggle{min-width:42px}
 @media(max-width:700px){#pdfPenFab{right:12px;bottom:76px}.app{min-height:100dvh}.home,.workspace{width:100%;max-width:100vw}.dialog{max-width:calc(100vw - 20px)}}
+/* HOKSH clean document focus: keep only exit + filename, tools float */
+body.focusPdf .top{display:none}
+body.focusPdf .workspace{position:fixed;inset:0;z-index:60;width:100vw;height:100dvh;background:#111}
+body.focusPdf .workTop{display:flex!important;height:52px;min-height:52px;padding:5px 10px;background:#07141bf2;border-bottom:1px solid #ffffff18;backdrop-filter:blur(14px)}
+body.focusPdf .workTop .workActions{display:none!important}
+body.focusPdf .workTop .fileName{justify-content:center}
+body.focusPdf .canvasArea{height:calc(100dvh - 52px);background:#111;overscroll-behavior:contain}
+body.focusPdf .toolDock,body.focusPdf .bottomBar{display:none!important}
+body.focusPdf .pages{padding:12px 10px 90px;gap:14px}
+body.focusPdf #pdfPenFab{display:grid!important}
+@media(max-width:700px){body.focusPdf .workTop .back{width:42px;height:42px;font-size:25px}}
+
 </style></style>
 </head>
 <body>
@@ -277,7 +289,7 @@ async function openPdfBytes(bytes,name,size){
     pdfBytes=bytes;docName=name.replace(/\.pdf$/i,'')||'مستند PDF';
     pages=[];activePage=0;history=[];future=[];
     zoom=innerWidth<700?.46:.8;
-    $('home').style.display='none';$('workspace').classList.add('active');document.body.classList.toggle('focusPdf',innerWidth<701);document.getElementById('pdfPenFab')?.classList.add('show');$('renameFile').textContent=docName;
+    $('home').style.display='none';$('workspace').classList.add('active');document.body.classList.add('focusPdf');document.getElementById('pdfPenFab')?.classList.add('show');$('renameFile').textContent=docName;
     $('pageTotal').textContent='جارٍ تحميل الملف...';$('pageNum').value=1;$('pageSlider').max=1;
     toast('📄 جارٍ فتح الملف...');
     const loaded=await pdfToPages(bytes,(page,idx,total)=>{
@@ -293,7 +305,7 @@ async function openPdfBytes(bytes,name,size){
     toast('✅ تم فتح الملف');
   }catch(e){console.error(e);toast('تعذر فتح ملف PDF')}
 }
-function newWhiteboard(size){pdfBytes=null;docName='سبورة جديدة';resetPages();pages=[blankPage(size)];if(size==='infinite')pages[0].h=1700;saveState();addRecent('سبورة','محلي');$('home').style.display='none';$('workspace').classList.add('active');document.getElementById('pdfPenFab')?.classList.add('show');$('renameFile').textContent=docName;renderPages()}
+function newWhiteboard(size){document.body.classList.remove('focusPdf');pdfBytes=null;docName='سبورة جديدة';resetPages();pages=[blankPage(size)];if(size==='infinite')pages[0].h=1700;saveState();addRecent('سبورة','محلي');$('home').style.display='none';$('workspace').classList.add('active');document.getElementById('pdfPenFab')?.classList.add('show');$('renameFile').textContent=docName;renderPages()}
 function leave(){saveState();addRecent(pdfBytes?'PDF':'سبورة','محلي');document.body.classList.remove('focusPdf');document.getElementById('pdfPenFab')?.classList.remove('show');document.getElementById('pdfPenPanel')?.classList.remove('show');$('penPop').classList.remove('show');$('workspace').classList.remove('active');$('home').style.display='block';renderRecents()}
 function renderRecents(){
  const q=$('searchInput').value.trim().toLowerCase(),r=recents().filter(x=>!q||x.name.toLowerCase().includes(q));$('recentGrid').innerHTML=r.length?r.map((x,i)=>'<div class="fileCard"><div class="fileIcon">'+(x.kind==='PDF'?'PDF':'✎')+'</div><button class="more" data-ri="'+i+'">⋮</button><h3>'+esc(x.name)+'</h3><div class="muted">آخر تعديل: '+new Date(x.date).toLocaleString('ar-EG')+'</div><div class="meta"><span>'+esc(x.size)+'</span><button class="btn" data-openrecent="'+i+'">فتح</button></div></div>').join(''):'<div class="fileCard"><h3>لا توجد ملفات أخيرة</h3><div class="muted">افتح PDF أو أنشئ سبورة لتظهر هنا.</div></div>';
