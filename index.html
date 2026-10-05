@@ -285,6 +285,36 @@ body.focusPdf .pages,body.focusPdf .pageWrap{
   body.focusPdf .canvasArea{touch-action:pan-x pan-y!important}
   body.focusPdf .pages{padding:8px 7px 100px!important;gap:10px!important}
 }
+</style>
+<style id="hoksh-exact-spec">
+/* Exact requested PDF workspace specification */
+:root{--spec-charcoal:#1E1E1E;--spec-blue:#0052CC;--spec-white:#fff}
+body.focusPdf .workspace{background:var(--spec-charcoal)}
+body.focusPdf .workTop{background:#1E1E1E;border-bottom:1px solid #3a3a3a}
+body.focusPdf .workTop .workActions{display:flex!important;align-items:center;gap:7px}
+body.focusPdf .workTop .workActions .iconBtn,body.focusPdf .workTop .workActions .btn{border-radius:12px}
+body.focusPdf .workTop .exportTop{background:var(--spec-blue);color:#fff;min-width:132px}
+body.focusPdf .workTop .fileName button{color:#fff}
+body.focusPdf .canvasArea{background:#1E1E1E}
+body.focusPdf .pages{background:#1E1E1E}
+body.focusPdf #pdfPenFab{right:20px;bottom:90px}
+body.focusPdf #pdfPenPanel{border-radius:12px;background:#1E1E1E;border-color:#444}
+.drawer{display:flex;flex-direction:column;gap:10px}
+.drawer .sideNav{display:grid;gap:8px}
+.drawer .sideNav .btn,.drawer .sideExtras .btn{border-radius:12px}
+.drawer .sideNav .active{background:var(--spec-blue);border-color:var(--spec-blue);color:#fff}
+.drawer .sideExtras{display:grid;gap:8px;margin-top:4px}
+.drawer .logoutBtn{margin-top:auto;background:#1E1E1E}
+@media(max-width:700px){
+  body.focusPdf .workTop .workActions{gap:4px}
+  body.focusPdf .workTop .workActions .hideM{display:none}
+  body.focusPdf .workTop .exportTop{min-width:0;padding:0 9px;font-size:10px}
+  body.focusPdf .workTop .iconBtn{width:38px;height:38px}
+}
+@media(max-width:470px){
+  body.focusPdf .workTop .workActions #thumbs{display:none}
+  body.focusPdf .workTop .exportTop{font-size:9px;padding:0 7px}
+}
 </style></head>
 <body>
 <div class="app">
@@ -306,9 +336,14 @@ body.focusPdf .pages,body.focusPdf .pageWrap{
 
 <section class="workspace" id="workspace">
   <div class="workTop">
-    <button class="iconBtn back" id="backHome" title="حفظ تلقائي والعودة">‹</button>
+    <button class="iconBtn back" id="backHome" title="إغلاق الملف والعودة للرئيسية">‹</button>
     <div class="fileName"><button id="renameFile" title="إعادة تسمية">مستند جديد</button></div>
-    <div class="workActions"><button class="iconBtn hideM" id="undo" title="تراجع">↶</button><button class="iconBtn hideM" id="redo" title="إعادة">↷</button><button class="iconBtn" id="thumbs" title="عرض الصفحات">🎴</button><button class="iconBtn" id="exportBtn" title="حفظ وتصدير">⇩</button></div>
+    <div class="workActions">
+      <button class="iconBtn hideM" id="undo" title="تراجع">↶</button><button class="iconBtn hideM" id="redo" title="إعادة">↷</button>
+      <button class="iconBtn" id="zoomOutTop" title="تصغير">−</button><button class="iconBtn" id="zoomResetTop" title="نسبة التكبير">100%</button><button class="iconBtn" id="zoomInTop" title="تكبير">＋</button>
+      <button class="iconBtn" id="pdfSearchBtn" title="البحث داخل PDF">⌕</button><button class="iconBtn" id="thumbs" title="عرض الصفحات">🎴</button>
+      <button class="btn primary exportTop" id="exportBtn" title="حفظ وتصدير التعديلات">حفظ وتصدير</button>
+    </div>
   </div>
   <div class="canvasArea" id="canvasArea"><div class="pages vertical" id="pages"></div>
     <div class="popover penPop" id="penPop">
@@ -336,14 +371,21 @@ body.focusPdf .pages,body.focusPdf .pageWrap{
 </main>
 </div>
 
-<div class="drawer" id="drawer">
-  <h3>قائمة حوكش</h3>
-  <button class="btn" id="devInfo">👤 معلومات المطور</button>
-  <button class="btn" id="settingsBtn">⚙️ الإعدادات</button>
-  <button class="btn" id="upgradeBtn">⭐ الترقية للنسخة المدفوعة</button>
-  <button class="btn" id="supportBtn">🛟 الدعم الفني</button>
-  <button class="btn" id="themeBtn">◐ وضع الرؤية الليلي/النهاري</button>
-</div>
+<aside class="drawer" id="drawer">
+  <h3>حوكش HOKSH</h3>
+  <nav class="sideNav">
+    <button class="btn active" id="sideHome">⌂ الرئيسية</button>
+    <button class="btn" id="sideFiles">▣ ملفاتي</button>
+    <button class="btn" id="settingsBtn">⚙️ الإعدادات</button>
+  </nav>
+  <div class="sideExtras">
+    <button class="btn" id="devInfo">👤 معلومات المطور</button>
+    <button class="btn" id="upgradeBtn">⭐ الترقية للنسخة المدفوعة</button>
+    <button class="btn" id="supportBtn">🛟 الدعم الفني</button>
+    <button class="btn" id="themeBtn">◐ وضع الرؤية الليلي/النهاري</button>
+  </div>
+  <button class="btn danger logoutBtn" id="logoutBtn">⎋ تسجيل الخروج</button>
+</aside>
 
 <div class="modal" id="whiteboardModal"><div class="dialog"><h2>إنشاء صفحة بيضاء</h2><div class="optionGrid"><button class="option selected" data-size="a4">📄 A4<br><span class="muted">صفحة ثابتة للطباعة والمذكرات</span></button><button class="option" data-size="infinite">♾️ صفحة ممتدة<br><span class="muted">مساحة كتابة طويلة بلا حدود</span></button></div><div class="actions"><button class="btn" data-close="whiteboardModal">إلغاء</button><button class="btn primary" id="createWhiteboard">إنشاء</button></div></div></div>
 <div class="modal" id="textModal"><div class="dialog"><h2>إضافة نص</h2><div class="field"><label>النص</label><textarea id="textValue" placeholder="اكتب هنا..."></textarea></div><div class="optionGrid"><div class="field"><label>حجم الخط</label><input id="fontSize" type="number" min="8" max="120" value="24"></div><div class="field"><label>الخط</label><select id="fontFamily"><option>Arial</option><option>Tahoma</option><option>Georgia</option><option>Courier New</option></select></div></div><div class="optionGrid"><button class="option selected" id="boldToggle">B — عريض</button><button class="option" id="italicToggle">I — مائل</button></div><div class="actions"><button class="btn" data-close="textModal">إلغاء</button><button class="btn primary" id="addText">إضافة</button></div></div></div>
@@ -431,7 +473,7 @@ function bindCanvas(c,pi){
     if(e.pointerType==='touch' && e.isPrimary===false)return;
     if(window.hokshPinching)return;
     if(tool==='eraser'){
-      e.preventDefault();activePage=pi;eraseDirty=eraseAt(point(e,c),pi,c)||eraseDirty;return;
+      e.preventDefault();activePage=pi;if(!eraseDirty)pushHistory();eraseDirty=eraseAt(point(e,c),pi,c)||eraseDirty;return;
     }
     e.preventDefault();c.setPointerCapture?.(e.pointerId);activePage=pi;last=point(e,c);pushHistory();
     if(tool==='pen'||tool==='highlighter'){drawing={type:tool,points:[last],color,width,opacity:tool==='highlighter'?opacity:1}}
@@ -454,17 +496,35 @@ function bindCanvas(c,pi){
   c.addEventListener('pointerup',end);c.addEventListener('pointercancel',end);
 }
 function eraseAt(q,pi,c){
-  const p=pages[pi],radius=Math.max(10,width*3);
-  const hit=p.strokes.findIndex(s=>{
-    if(s.type==='pen'||s.type==='highlighter')return (s.points||[]).some(pt=>Math.hypot(pt.x-q.x,pt.y-q.y)<=radius);
-    const minX=Math.min(s.x??Infinity,s.x2??Infinity)-radius,maxX=Math.max(s.x??-Infinity,s.x2??-Infinity)+radius;
-    const minY=Math.min(s.y??Infinity,s.y2??Infinity)-radius,maxY=Math.max(s.y??-Infinity,s.y2??-Infinity)+radius;
-    return q.x>=minX&&q.x<=maxX&&q.y>=minY&&q.y<=maxY;
-  });
-  if(hit>=0){pushHistory();p.strokes.splice(hit,1);drawOverlay(c,p);return true}
-  return false;
+  const p=pages[pi],radius=Math.max(8,width*2.6);
+  let changed=false,next=[];
+  for(const s of p.strokes||[]){
+    if((s.type==='pen'||s.type==='highlighter') && (s.points||[]).length){
+      let seg=[];
+      const flush=()=>{if(seg.length){next.push({...s,points:seg});seg=[]}};
+      for(const pt of s.points){
+        if(Math.hypot(pt.x-q.x,pt.y-q.y)<=radius){changed=true;flush()}else seg.push(pt)
+      }
+      flush();
+      if(!changed || next[next.length-1]!==undefined){}
+      if(!changed) next.push(s);
+    }else{
+      const minX=Math.min(s.x??Infinity,s.x2??Infinity)-radius,maxX=Math.max(s.x??-Infinity,s.x2??-Infinity)+radius;
+      const minY=Math.min(s.y??Infinity,s.y2??Infinity)-radius,maxY=Math.max(s.y??-Infinity,s.y2??-Infinity)+radius;
+      if(q.x>=minX&&q.x<=maxX&&q.y>=minY&&q.y<=maxY){changed=true}else next.push(s);
+    }
+  }
+  if(changed){p.strokes=next;drawOverlay(c,p)}
+  return changed;
 }
-function setTool(t){tool=t;document.body.classList.toggle('navMode',t==='select');document.querySelectorAll('[data-tool]').forEach(b=>b.classList.toggle('active',b.dataset.tool===t));document.querySelectorAll('.toolGrid button').forEach(b=>b.classList.toggle('active',b.dataset.tool===t));$('penDock')?.classList.toggle('active',t!=='select')}
+function setTool(t){
+  tool=t;
+  if(t==='highlighter'){color='#facc15';opacity=.3;$('color')&&($('color').value='#facc15');$('opacity')&&($('opacity').value=30)}
+  document.body.classList.toggle('navMode',t==='select');
+  document.querySelectorAll('[data-tool]').forEach(b=>b.classList.toggle('active',b.dataset.tool===t));
+  document.querySelectorAll('.toolGrid button').forEach(b=>b.classList.toggle('active',b.dataset.tool===t));
+  $('penDock')?.classList.toggle('active',t!=='select');
+}
 function setDock(pos){const d=$('toolDock');d.style.cssText='';if(pos==='top'){d.style.top='68px';d.style.bottom='auto'}else if(pos==='left'){d.style.left='10px';d.style.bottom='50%';d.style.transform='translateY(50%)';d.style.flexDirection='column'}else if(pos==='right'){d.style.left='auto';d.style.right='10px';d.style.bottom='50%';d.style.transform='translateY(50%)';d.style.flexDirection='column'}else{d.style.bottom='13px';d.style.left='50%';d.style.transform='translateX(-50%)'}}
 function openSignature(){if(signatureData){const p=pages[activePage];p.strokes.push({type:'signature',data:signatureData,x:100,y:100,w:220,h:90,color:'#111'});renderPages();saveState()}else{$('signatureModal').classList.add('show');initSig()}}
 function initSig(){const c=$('sigCanvas'),x=c.getContext('2d');c.width=c.clientWidth*2;c.height=360;x.scale(2,2);x.lineWidth=3;x.lineCap='round';let on=false,last;const pos=e=>{const r=c.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top}};c.onpointerdown=e=>{on=true;last=pos(e);c.setPointerCapture(e.pointerId)};c.onpointermove=e=>{if(!on)return;const q=pos(e);x.beginPath();x.moveTo(last.x,last.y);x.lineTo(q.x,q.y);x.stroke();last=q};c.onpointerup=()=>on=false}
@@ -531,7 +591,12 @@ function setDark(){document.body.classList.toggle('lightMode');localStorage.setI
 
 $('openPdf').onclick=()=>$('fileInput').click();$('fileInput').onchange=async e=>{const f=e.target.files?.[0];if(f)await openPdfBytes(await f.arrayBuffer(),f.name,f.size);e.target.value=''};
 $('newWhiteboard').onclick=()=>$('whiteboardModal').classList.add('show');document.querySelectorAll('[data-size]').forEach(b=>b.onclick=()=>{whiteboardSize=b.dataset.size;document.querySelectorAll('[data-size]').forEach(x=>x.classList.toggle('selected',x===b))});$('createWhiteboard').onclick=()=>{$('whiteboardModal').classList.remove('show');newWhiteboard(whiteboardSize)};
-$('backHome').onclick=leave;$('undo').onclick=undo;$('redo').onclick=redo;$('thumbs').onclick=()=>{$('thumbPanel').classList.add('show');renderThumbs()};$('thumbClose').onclick=()=>$('thumbPanel').classList.remove('show');$('thumbAdd').onclick=addPage;$('addPageDock').onclick=addPage;
+$('backHome').onclick=leave;$('undo').onclick=undo;$('redo').onclick=redo;
+$('zoomInTop').onclick=()=>{zoom=Math.min(2.5,zoom+.1);applyZoomLayout(zoom)};
+$('zoomOutTop').onclick=()=>{zoom=Math.max(.35,zoom-.1);applyZoomLayout(zoom)};
+$('zoomResetTop').onclick=()=>{zoom=1;applyZoomLayout(zoom)};
+$('pdfSearchBtn').onclick=searchPdfText;
+$('thumbs').onclick=()=>{$('thumbPanel').classList.add('show');renderThumbs()};$('thumbClose').onclick=()=>$('thumbPanel').classList.remove('show');$('thumbAdd').onclick=addPage;$('addPageDock').onclick=addPage;
 $('penDock').onclick=()=>{if(tool==='select'){setTool('pen');toast('✏️ وضع القلم: تشغيل')}else{setTool('select');$('penPop').classList.remove('show');toast('✋ وضع التنقل: تشغيل')}};document.querySelectorAll('[data-tool]').forEach(b=>b.onclick=()=>{setTool(b.dataset.tool);$('penPop').classList.remove('show')});$('moreTools').onclick=()=>$('moreModal').classList.add('show');
 $('color').oninput=e=>{color=e.target.value};$('size').oninput=e=>{width=+e.target.value};$('opacity').oninput=e=>{opacity=+e.target.value/100};document.querySelectorAll('[data-color]').forEach(b=>b.onclick=()=>{color=b.dataset.color;$('color').value=color});
 $('textStyle')?.addEventListener('click',()=>{});
@@ -589,11 +654,42 @@ $('zoomIn').onclick=()=>{zoom=Math.min(2.5,zoom+.1);applyZoomLayout(zoom)};
 $('zoomOut').onclick=()=>{zoom=Math.max(.35,zoom-.1);applyZoomLayout(zoom)};
 $('zoomReset').onclick=()=>{zoom=1;applyZoomLayout(zoom)};
 $('pageNum').onchange=e=>{activePage=Math.max(0,Math.min(pages.length-1,+e.target.value-1));document.querySelector('[data-page="'+activePage+'"]')?.scrollIntoView({behavior:'smooth',block:'center'});renderPages()};$('pageSlider').oninput=e=>{activePage=+e.target.value-1;document.querySelectorAll('.pageWrap')[activePage]?.scrollIntoView({behavior:'smooth',block:'center'});$('pageNum').value=activePage+1};
-$('menuBtn').onclick=()=>$('drawer').classList.toggle('show');$('searchBtn').onclick=()=>{$('searchInput').focus()};$('searchInput').oninput=renderRecents;
+$('menuBtn').onclick=()=>$('drawer').classList.toggle('show');$('searchBtn').onclick=()=>{$('searchInput').focus()};
+$('sideHome').onclick=()=>{$('drawer').classList.remove('show');$('home').scrollTo({top:0,behavior:'auto'})};
+$('sideFiles').onclick=()=>{$('drawer').classList.remove('show');$('recentGrid')?.scrollIntoView({behavior:'auto',block:'start'})};
+$('logoutBtn').onclick=logout;$('searchInput').oninput=renderRecents;
 $('clearRecents').onclick=()=>{localStorage.removeItem(recentKey);renderRecents()};$('devInfo').onclick=()=>{$('drawer').classList.remove('show');$('devModal').classList.add('show')};$('settingsBtn').onclick=()=>{$('drawer').classList.remove('show');$('settingsModal').classList.add('show')};const openSupport=()=>{const u='https://wa.me/201146808655?text='+encodeURIComponent('مرحباً، أحتاج إلى الدعم الفني في تطبيق حوكش HOKSH');window.location.href=u};$('upgradeBtn').onclick=()=>toast('الترقية ستكون متاحة لاحقاً');$('supportBtn').onclick=()=>{openSupport()};$('homeSupportBtn').onclick=()=>{openSupport()};$('themeBtn').onclick=()=>{setDark();$('drawer').classList.remove('show')};
 document.querySelectorAll('[data-close]').forEach(b=>b.onclick=()=>$(b.dataset.close).classList.remove('show'));
 $('dockPosition').onchange=e=>{localStorage.setItem('dockPosition',e.target.value);setDock(e.target.value)};$('autoSaveSelect').onchange=e=>localStorage.setItem('autoSave',e.target.value);
 
+async function searchPdfText(){
+  if(!pdfBytes){toast('البحث داخل النص متاح لملفات PDF المفتوحة فقط');return}
+  const q=prompt('اكتب الكلمة أو العبارة التي تريد البحث عنها داخل PDF:','');
+  if(!q?.trim())return;
+  try{
+    const doc=await window.pdfjsLib.getDocument({data:pdfBytes.slice(0)}).promise;
+    for(let i=1;i<=doc.numPages;i++){
+      const pg=await doc.getPage(i),tc=await pg.getTextContent();
+      const text=tc.items.map(x=>x.str||'').join(' ');
+      if(text.toLocaleLowerCase().includes(q.trim().toLocaleLowerCase())){
+        activePage=i-1;$('pageNum').value=i;
+        renderPages();
+        requestAnimationFrame(()=>document.querySelector('[data-page="'+(i-1)+'"]')?.scrollIntoView({behavior:'auto',block:'center'}));
+        toast('تم العثور على: '+q+' — الصفحة '+i);
+        return;
+      }
+    }
+    toast('لم يتم العثور على: '+q);
+  }catch(e){console.error(e);toast('تعذر البحث داخل النص')}
+}
+function logout(){
+  if(!confirm('تسجيل الخروج؟ سيتم تنظيف بيانات حوكش المحلية والعودة لشاشة الدخول.'))return;
+  try{localStorage.clear();sessionStorage.clear()}catch(e){}
+  pdf=null;pdfBytes=null;pages=[];history=[];future=[];drawing=null;
+  document.body.classList.remove('focusPdf','lightMode','navMode');
+  $('drawer')?.classList.remove('show');$('workspace')?.classList.remove('active');$('home').style.display='block';
+  location.reload();
+}
 setInterval(()=>{if($('workspace').classList.contains('active'))saveState()},30000);
 window.addEventListener('beforeunload',saveState);
 window.addEventListener('resize',()=>{if($('workspace').classList.contains('active')&&!drawing&&!window.hokshPinching)renderPages()});
