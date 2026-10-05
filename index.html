@@ -315,6 +315,76 @@ body.focusPdf #pdfPenPanel{border-radius:12px;background:#1E1E1E;border-color:#4
   body.focusPdf .workTop .workActions #thumbs{display:none}
   body.focusPdf .workTop .exportTop{font-size:9px;padding:0 7px}
 }
+</style><style id="hoksh-final-pdf-spec">
+/* FINAL PDF APP IDENTITY — applies only after a document is opened */
+body.focusPdf{
+  --bg:#1E1E1E!important;--panel:#1E1E1E!important;--panel2:#292929!important;
+  --line:#3b3b3b!important;--text:#fff!important;--muted:#b9b9b9!important;
+  --accent:#0052CC!important;--blue:#0052CC!important;
+}
+body.focusPdf .workspace{background:#1E1E1E!important;color:#fff!important}
+body.focusPdf .workTop{
+  display:flex!important;height:60px!important;min-height:60px!important;
+  background:#1E1E1E!important;border-bottom:1px solid #3c3c3c!important;
+  padding:7px 10px!important;gap:8px!important;
+}
+body.focusPdf .workTop .workActions{
+  display:flex!important;align-items:center!important;gap:6px!important;
+}
+body.focusPdf .workTop .iconBtn,
+body.focusPdf .workTop .btn{
+  border-radius:12px!important;background:#292929!important;
+  border:1px solid #444!important;color:#fff!important;
+}
+body.focusPdf .workTop .iconBtn:hover,
+body.focusPdf .workTop .btn:hover{
+  background:#333!important;border-color:#0052CC!important;transform:translateY(-1px);
+}
+body.focusPdf .workTop .exportTop{
+  background:#0052CC!important;border-color:#0052CC!important;
+  color:#fff!important;font-weight:800!important;min-width:145px!important;
+}
+body.focusPdf .workTop .back{
+  background:#292929!important;border-color:#444!important;
+}
+body.focusPdf .canvasArea{
+  background:#1E1E1E!important;height:calc(100dvh - 60px)!important;
+}
+body.focusPdf .pages{background:#1E1E1E!important}
+body.focusPdf .pageWrap{
+  box-shadow:0 18px 55px #000b!important;border-radius:2px!important;
+}
+body.focusPdf #pdfPenFab{
+  display:grid!important;right:22px!important;bottom:88px!important;
+  width:62px!important;height:62px!important;border-radius:50%!important;
+  background:#0052CC!important;border:2px solid #3e8cff!important;
+  box-shadow:0 10px 35px #000!important;
+}
+body.focusPdf #pdfPenPanel{
+  background:#1E1E1E!important;border:1px solid #444!important;
+  border-radius:12px!important;color:#fff!important;
+}
+body.focusPdf #pdfPenPanel .penTool{
+  background:#292929!important;color:#fff!important;border-color:#444!important;
+  border-radius:12px!important;
+}
+body.focusPdf #pdfPenPanel .penTool:hover{border-color:#0052CC!important;background:#333!important}
+body.focusPdf .toolDock{background:#1E1E1E!important;border-color:#444!important}
+body.focusPdf .bottomBar{background:#1E1E1E!important;border-color:#444!important}
+body.focusPdf .bottomBar button{
+  background:#292929!important;border-color:#444!important;color:#fff!important;border-radius:12px!important;
+}
+@media(max-width:700px){
+  body.focusPdf .workTop{height:56px!important;min-height:56px!important}
+  body.focusPdf .canvasArea{height:calc(100dvh - 56px)!important}
+  body.focusPdf .workTop .workActions .hideM{display:none!important}
+  body.focusPdf .workTop .iconBtn{width:38px!important;height:38px!important}
+  body.focusPdf .workTop .exportTop{min-width:0!important;padding:0 10px!important;font-size:10px!important}
+}
+@media(max-width:470px){
+  body.focusPdf .workTop .workActions #thumbs{display:none!important}
+  body.focusPdf .workTop .exportTop{font-size:9px!important;padding:0 7px!important}
+}
 </style></head>
 <body>
 <div class="app">
