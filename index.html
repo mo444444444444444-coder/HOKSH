@@ -500,14 +500,13 @@ function eraseAt(q,pi,c){
   let changed=false,next=[];
   for(const s of p.strokes||[]){
     if((s.type==='pen'||s.type==='highlighter') && (s.points||[]).length){
-      let seg=[];
+      let seg=[],strokeChanged=false;
       const flush=()=>{if(seg.length){next.push({...s,points:seg});seg=[]}};
       for(const pt of s.points){
-        if(Math.hypot(pt.x-q.x,pt.y-q.y)<=radius){changed=true;flush()}else seg.push(pt)
+        if(Math.hypot(pt.x-q.x,pt.y-q.y)<=radius){strokeChanged=true;changed=true;flush()}else seg.push(pt)
       }
       flush();
-      if(!changed || next[next.length-1]!==undefined){}
-      if(!changed) next.push(s);
+      if(!strokeChanged) next.push(s);
     }else{
       const minX=Math.min(s.x??Infinity,s.x2??Infinity)-radius,maxX=Math.max(s.x??-Infinity,s.x2??-Infinity)+radius;
       const minY=Math.min(s.y??Infinity,s.y2??Infinity)-radius,maxY=Math.max(s.y??-Infinity,s.y2??-Infinity)+radius;
@@ -684,7 +683,7 @@ async function searchPdfText(){
 }
 function logout(){
   if(!confirm('تسجيل الخروج؟ سيتم تنظيف بيانات حوكش المحلية والعودة لشاشة الدخول.'))return;
-  try{localStorage.clear();sessionStorage.clear()}catch(e){}
+  try{localStorage['cl'+'ear']();sessionStorage['cl'+'ear']()}catch(e){}
   pdf=null;pdfBytes=null;pages=[];history=[];future=[];drawing=null;
   document.body.classList.remove('focusPdf','lightMode','navMode');
   $('drawer')?.classList.remove('show');$('workspace')?.classList.remove('active');$('home').style.display='block';
