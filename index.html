@@ -985,4 +985,90 @@ document.getElementById('themeToggle').onclick=()=>{setDark();};
 window.addEventListener('resize',()=>{if(typeof applyZoomLayout==='function'&&pages?.length)applyZoomLayout(zoom)});
 window.addEventListener('error',e=>{if(e.message)console.warn('HOKSH runtime:',e.message)});
 })();
-</script></body></html>
+</script>
+<style id="hoksh-smart-ink-v1">
+#hokshSmartBar{position:fixed;z-index:9998;top:94px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:6px;padding:8px;background:#151a22;border:1px solid #3a4658;border-radius:18px;box-shadow:0 14px 45px #0008;color:#fff;font:600 13px Tahoma,Arial,sans-serif;max-width:calc(100vw - 18px);touch-action:none}
+#hokshSmartBar button{border:1px solid #394456;background:#222a36;color:#f7f9fc;border-radius:11px;min-width:38px;height:38px;padding:0 10px;font:inherit;cursor:pointer}
+#hokshSmartBar button:hover,#hokshSmartBar button.active{background:#0052cc;border-color:#4b91ff}
+#hokshSmartBar .smart-sep{width:1px;height:25px;background:#3b4554;margin:0 2px}
+#hokshSmartBar .smart-grip{cursor:move;color:#8db8ff;font-size:18px;padding:0 4px;user-select:none}
+#hokshSmartBar .smart-label{font-weight:900;color:#dce8ff;white-space:nowrap;padding:0 5px}
+#hokshSmartBar .smart-collapse{min-width:32px;padding:0 8px}
+#hokshSmartBar.is-collapsed{padding:6px}
+#hokshSmartBar.is-collapsed .smart-extra{display:none}
+#hokshScreenShade{position:fixed;inset:0;z-index:9996;display:none;pointer-events:none}
+#hokshScreenShade.on{display:block}
+#hokshScreenShade .shade-top,#hokshScreenShade .shade-bottom{position:absolute;left:0;right:0;background:#080b12;pointer-events:auto}
+#hokshScreenShade .shade-top{top:0;height:30%}
+#hokshScreenShade .shade-bottom{bottom:0;height:30%}
+#hokshScreenShade .shade-handle{position:absolute;left:0;right:0;top:30%;height:12px;background:#0052cc;border-top:2px solid #8db8ff;border-bottom:2px solid #8db8ff;cursor:ns-resize;pointer-events:auto;box-shadow:0 0 20px #0052cc88}
+#hokshSpotlight{position:fixed;inset:0;z-index:9995;display:none;pointer-events:none;background:radial-gradient(circle 130px at 50% 50%,transparent 0 125px,#000b 140px)}
+#hokshSpotlight.on{display:block}
+#hokshSpotlight .spot-ring{position:absolute;width:260px;height:260px;left:calc(50% - 130px);top:calc(50% - 130px);border:2px solid #70aaff;border-radius:50%;box-shadow:0 0 0 2px #0052cc44; }
+@media(max-width:650px){#hokshSmartBar{top:auto;bottom:82px;left:8px;right:8px;transform:none;justify-content:flex-start;overflow-x:auto;border-radius:15px}#hokshSmartBar button{flex:0 0 auto}#hokshSmartBar .smart-label{display:none}}
+</style>
+<div id="hokshSmartBar" aria-label="شريط أدوات حوكش الذكي">
+  <span class="smart-grip" id="hokshSmartGrip" title="اسحب لتحريك الشريط">⠿</span>
+  <span class="smart-label">HOKSH INK</span>
+  <button type="button" data-smart-tool="pen" title="قلم">✎ قلم</button>
+  <button type="button" data-smart-tool="highlighter" title="قلم تحديد شفاف">🖍 تحديد</button>
+  <button type="button" data-smart-tool="eraser" title="ممحاة">⌫ ممحاة</button>
+  <span class="smart-sep smart-extra"></span>
+  <button type="button" id="hokshSmartUndo" class="smart-extra" title="تراجع">↶</button>
+  <button type="button" id="hokshSmartRedo" class="smart-extra" title="إعادة">↷</button>
+  <span class="smart-sep smart-extra"></span>
+  <button type="button" id="hokshShadeToggle" class="smart-extra" title="ستارة إظهار المحتوى">▤ ستارة</button>
+  <button type="button" id="hokshSpotToggle" class="smart-extra" title="تسليط الضوء على جزء من الشاشة">◉ تركيز</button>
+  <button type="button" id="hokshSmartCollapse" class="smart-collapse" title="تصغير الشريط">−</button>
+</div>
+<div id="hokshScreenShade" aria-label="ستارة الشاشة">
+  <div class="shade-top"></div><div class="shade-bottom"></div><div class="shade-handle" title="اسحب لكشف المحتوى"></div>
+</div>
+<div id="hokshSpotlight" aria-label="أداة التركيز"><div class="spot-ring"></div></div>
+<script id="hoksh-smart-ink-script">
+(()=> {
+ const bar=document.getElementById('hokshSmartBar'),grip=document.getElementById('hokshSmartGrip');
+ const shade=document.getElementById('hokshScreenShade'),spot=document.getElementById('hokshSpotlight');
+ const handle=shade.querySelector('.shade-handle'),topShade=shade.querySelector('.shade-top'),bottomShade=shade.querySelector('.shade-bottom');
+ let collapsed=false,dragBar=false,dragShade=false,shadePct=30,barOffset={x:0,y:0},start={x:0,y:0};
+ const setShade=pct=>{shadePct=Math.max(8,Math.min(85,pct));topShade.style.height=shadePct+'%';bottomShade.style.height=(100-shadePct)+'%';handle.style.top='calc('+shadePct+'% - 6px)'};
+ const moveSpot=(x,y)=>{spot.style.background='radial-gradient(circle 130px at '+x+'px '+y+'px,transparent 0 125px,#000b 140px)';const ring=spot.querySelector('.spot-ring');ring.style.left=(x-130)+'px';ring.style.top=(y-130)+'px'};
+ document.querySelectorAll('[data-smart-tool]').forEach(btn=>btn.addEventListener('click',()=>{
+   const target=document.querySelector('[data-tool="'+btn.dataset.smartTool+'"]');
+   if(target)target.click();
+   document.querySelectorAll('[data-smart-tool]').forEach(b=>b.classList.toggle('active',b===btn));
+   const fab=document.getElementById('pdfPenFab'); if(fab&&document.body.classList.contains('focusPdf')){const panel=document.getElementById('pdfPenPanel');if(panel)panel.classList.add('show')}
+ }));
+ document.getElementById('hokshSmartUndo').addEventListener('click',()=>document.getElementById('undo')?.click());
+ document.getElementById('hokshSmartRedo').addEventListener('click',()=>document.getElementById('redo')?.click());
+ document.getElementById('hokshShadeToggle').addEventListener('click',()=>{
+   shade.classList.toggle('on');spot.classList.remove('on');
+   document.getElementById('hokshShadeToggle').classList.toggle('active',shade.classList.contains('on'));
+   document.getElementById('hokshSpotToggle').classList.remove('active');
+ });
+ document.getElementById('hokshSpotToggle').addEventListener('click',()=>{
+   spot.classList.toggle('on');shade.classList.remove('on');
+   document.getElementById('hokshSpotToggle').classList.toggle('active',spot.classList.contains('on'));
+   document.getElementById('hokshShadeToggle').classList.remove('active');
+   if(spot.classList.contains('on'))moveSpot(innerWidth/2,innerHeight/2);
+ });
+ spot.addEventListener('pointermove',e=>{if(spot.classList.contains('on'))moveSpot(e.clientX,e.clientY)});
+ handle.addEventListener('pointerdown',e=>{dragShade=true;start.y=e.clientY;handle.setPointerCapture?.(e.pointerId);e.preventDefault()});
+ document.addEventListener('pointermove',e=>{
+   if(dragShade){setShade((e.clientY/innerHeight)*100);e.preventDefault()}
+   if(dragBar){bar.style.left=(e.clientX-barOffset.x)+'px';bar.style.top=(e.clientY-barOffset.y)+'px';bar.style.right='auto';bar.style.bottom='auto';bar.style.transform='none'}
+ });
+ document.addEventListener('pointerup',()=>{dragShade=false;dragBar=false});
+ grip.addEventListener('pointerdown',e=>{dragBar=true;const r=bar.getBoundingClientRect();barOffset={x:e.clientX-r.left,y:e.clientY-r.top};grip.setPointerCapture?.(e.pointerId);e.preventDefault()});
+ document.getElementById('hokshSmartCollapse').addEventListener('click',()=>{
+   collapsed=!collapsed;bar.classList.toggle('is-collapsed',collapsed);
+   document.getElementById('hokshSmartCollapse').textContent=collapsed?'+':'−';
+ });
+ // Hide the presentation overlay toolbar on intro only; show it for the app and workspace.
+ const sync=()=>{bar.style.display=document.getElementById('intro')?.classList.contains('show')?'none':'flex'};
+ sync();setTimeout(sync,3500);setTimeout(sync,5000);
+ document.getElementById('intro')?.addEventListener('transitionend',sync);
+})();
+</script>
+
+</body></html>
