@@ -588,23 +588,57 @@ body:not(.focusPdf) .home button:focus-visible,body:not(.focusPdf) .top button:f
 }
 </style>
 
+
+<style id="hoksh-home-simple-v1">
+/* Simple HOKSH home: two clear actions, recent files, More keeps all utilities */
+.homeSimple{padding:clamp(18px,4vw,42px) clamp(12px,3vw,28px) 70px!important;background:var(--bg)!important;overflow:auto}
+.simpleWelcome{max-width:780px;margin:0 auto 24px;display:flex;align-items:center;gap:15px;padding:8px 2px}
+.simpleMark{width:58px;height:58px;flex:0 0 58px;border-radius:18px;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),var(--blue));color:#fff;font-weight:950;font-size:22px;box-shadow:0 10px 25px #0002}
+.simpleWelcome h1{font-size:clamp(21px,3vw,29px);margin:0;color:var(--text);font-weight:900}
+.simpleWelcome p{margin:5px 0 0;color:var(--muted);font-size:13px}
+.simpleActions{max-width:780px;margin:0 auto 30px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.simpleAction{min-width:0;min-height:94px;display:flex;align-items:center;gap:13px;padding:17px;text-align:right;border:1px solid var(--line);border-radius:17px;background:var(--panel);color:var(--text);box-shadow:0 8px 24px #0000000a;transition:transform .15s,border-color .15s}
+.simpleAction:hover{transform:translateY(-2px);border-color:var(--accent)}
+.simpleAction.primaryAction{background:var(--panel);border-color:color-mix(in srgb,var(--accent) 55%,var(--line))}
+.simpleActionIcon{width:46px;height:46px;flex:0 0 46px;border-radius:13px;display:grid;place-items:center;background:var(--panel2);color:var(--accent);font-size:25px;font-weight:800}
+.primaryAction .simpleActionIcon{background:linear-gradient(135deg,var(--accent),var(--blue));color:#fff}
+.simpleAction b{display:block;font-size:15px;font-weight:900}
+.simpleAction small{display:block;margin-top:5px;color:var(--muted);font-size:11px;line-height:1.6}
+.simpleArrow{margin-right:auto;font-size:26px;color:var(--muted)}
+.homeSimple .recents{max-width:780px;margin:0 auto}
+.homeSimple .head h2{font-size:16px}
+.homeSimple .fileCard{background:var(--panel);border-color:var(--line);color:var(--text)}
+.homeSimple .fileCard .meta{color:var(--muted)}
+.homeSimple .homeSupport{display:none!important}
+.moreMenuBtn{width:auto!important;min-width:40px;padding:0 11px!important;white-space:nowrap}
+.moreMenuBtn span{font-size:12px;font-weight:800}
+@media(max-width:560px){
+ .simpleWelcome{margin-bottom:17px;gap:12px}.simpleMark{width:48px;height:48px;flex-basis:48px;border-radius:15px;font-size:19px}
+ .simpleActions{grid-template-columns:1fr;gap:9px;margin-bottom:25px}
+ .simpleAction{min-height:78px;padding:13px;border-radius:14px}
+ .simpleActionIcon{width:42px;height:42px;flex-basis:42px}
+ .homeSimple .recentGrid{grid-template-columns:1fr}
+ .moreMenuBtn{padding:0 9px!important}.moreMenuBtn span{font-size:11px}
+}
+</style>
+
 </head>
 <body>
 <div class="app">
 <header class="top">
   <div class="brand"><img src="icon.svg" alt="حوكش"><div><b>حوكش HOKSH</b><small>محرر PDF والسبورة الرقمية</small></div></div>
   <div class="search"><span>⌕</span><input id="searchInput" placeholder="ابحث في الملفات الأخيرة..."></div>
-  <div class="topBtns"><button class="iconBtn" id="searchBtn" title="بحث">🔍</button><button class="iconBtn" id="menuBtn" title="القائمة">☰</button></div>
+  <div class="topBtns"><button class="iconBtn" id="searchBtn" title="بحث">🔍</button><button class="iconBtn moreMenuBtn" id="menuBtn" title="المزيد: الإعدادات، معلومات المطور، الدعم">☰ <span>المزيد</span></button></div>
 </header>
 <main class="main">
-<section class="home" id="home">
-  <div class="hero"><h1>مرحباً بك في حوكش</h1><p>مساحة كتابة وتحرير احترافية للمدرسين والطلاب — افتح PDF، اكتب وارسم واظلل ووقّع، ثم احفظ أو صدّر وشارك عملك.</p></div>
-  <div class="quick">
-    <div class="quickCard"><button id="openPdf">📂 فتح ملف PDF</button><small>اختيار ملف من الهاتف أو الجهاز أو أي خدمة سحابية يدعمها مستعرض الملفات.</small></div>
-    <div class="quickCard"><button id="newWhiteboard">📄 إنشاء صفحة بيضاء</button><small>أنشئ A4 أو صفحة ممتدة بلا حدود للكتابة الحرة.</small></div>
+<section class="home homeSimple" id="home">
+  <div class="simpleWelcome"><div class="simpleMark">خـش</div><div><h1>أهلاً بيك في حوكش</h1><p>تبدأ منين النهارده؟</p></div></div>
+  <div class="simpleActions">
+    <button class="simpleAction primaryAction" id="openPdf"><span class="simpleActionIcon">＋</span><span><b>إضافة ملف</b><small>افتح ملف PDF من جهازك</small></span><span class="simpleArrow">‹</span></button>
+    <button class="simpleAction" id="newWhiteboard"><span class="simpleActionIcon">▤</span><span><b>سبورة جديدة</b><small>ابدأ صفحة للكتابة والرسم</small></span><span class="simpleArrow">‹</span></button>
   </div>
+  <div class="recents"><div class="head"><h2>ملفاتي الأخيرة</h2><button class="btn" id="clearRecents">مسح</button></div><div class="recentGrid" id="recentGrid"></div></div>
   <div class="homeSupport" id="homeSupport"><div><b>🟢 الدعم الفني على واتساب</b><small>01146808655 — تواصل مباشرة مع المطور</small></div><button class="btn primary" id="homeSupportBtn">فتح واتساب</button></div>
-  <div class="recents"><div class="head"><h2>الملفات الأخيرة</h2><button class="btn" id="clearRecents">مسح القائمة</button></div><div class="recentGrid" id="recentGrid"></div></div>
 </section>
 
 <section class="workspace" id="workspace">
