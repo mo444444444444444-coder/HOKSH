@@ -200,7 +200,7 @@ html,body{background:#eff5ff;color:#102d62}
 .drawer .btn.active,.drawer .btn.primary{background:#0876f3;color:#fff}
 @media(max-width:800px){.main{grid-template-columns:66px minmax(0,1fr)}.appSidebar{padding:14px 7px;align-items:center}.appSideBrand{justify-content:center;padding:0 0 15px;font-size:0}.appSideBrand img{width:38px;height:38px}.appSideBtn{justify-content:center;padding:12px 4px;font-size:0}.appSideBtn .sideLabel{display:none}.appSideBtn .sideIcon{font-size:19px}.appSideFoot{font-size:0;padding:8px 0}.homeSimple .recents{padding:12px}.workActions .hideM{display:none}.pages{padding:10px 12px 100px}.toolDock{right:6px!important;top:65px!important;gap:3px;padding:5px!important}.toolDock button{min-height:32px;min-width:32px}}
 @media(max-width:560px){.top{height:58px;min-height:58px;padding:6px 8px}.brand{min-width:0;flex:1}.brand b{font-size:15px}.brand small{font-size:8px}.search{display:none}.topBtns{gap:4px}.main{grid-template-columns:48px minmax(0,1fr)}.appSidebar{padding:12px 4px}.appSideBrand img{width:32px;height:32px}.appSideBtn{padding:11px 2px}.homeSimple{padding:12px!important}.simpleWelcome{min-height:94px;padding:14px;gap:10px}.simpleMark{width:44px;height:44px;flex-basis:44px;border-radius:13px;font-size:17px}.simpleWelcome h1{font-size:19px}.simpleWelcome p{font-size:11px}.simpleWelcome:after{display:none}.simpleActions{grid-template-columns:1fr;gap:9px}.simpleAction{min-height:78px;padding:12px}.simpleActionIcon{width:40px;height:40px;flex-basis:40px}.homeSimple .recents{padding:10px}.recentGrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.homeSimple .fileCard{padding:10px;min-height:102px}.workTop{gap:4px;padding:5px}.workTop .btn{font-size:10px;padding:0 7px}.fileName button{font-size:11px;max-width:20vw}.bottomBar{gap:4px;padding:5px;flex-wrap:wrap}.bottomBar button{font-size:10px;padding:4px 6px}.pageJump input{width:36px}.toolDock{right:4px!important;top:58px!important}.toolDock button{min-width:29px;min-height:29px;font-size:13px}}
-</style></style>
+</style>
 
 <style id="hoksh-v3-ui">
 /* ===== HOKSH V3 — radically redesigned, responsive, lightweight ===== */
@@ -739,6 +739,133 @@ body:not(.focusPdf) .home button:focus-visible,body:not(.focusPdf) .top button:f
 }
 </style>
 
+
+<style id="hoksh-reference-design-2026">
+/* HOKSH reference design refresh: electric blue, emerald, white surfaces */
+:root{--bg:#f3f7ff;--panel:#fff;--panel2:#f3f7ff;--line:#dce7f8;--text:#112d5d;--muted:#7183a3;--accent:#0877f5;--blue:#4f72ff;--soft:#eaf3ff;--shadow:0 12px 34px #1f559b12}
+html,body{font-family:"Tajawal","Cairo",Tahoma,Arial,sans-serif;background:#f3f7ff;color:#112d5d}
+body:not(.focusPdf){background:#f3f7ff!important;color:#112d5d!important}
+body:not(.focusPdf) .top{background:#ffffffef!important;border-bottom:1px solid #dce7f8!important;box-shadow:0 4px 20px #21518b0c!important}
+body:not(.focusPdf) .brand b{color:#102d62!important}
+body:not(.focusPdf) .brand small{color:#0877f5!important}
+body:not(.focusPdf) .top .btn,body:not(.focusPdf) .top .iconBtn{background:#f4f8ff!important;border:1px solid #dce7f8!important;color:#234b82!important}
+body:not(.focusPdf) .main{background:#f3f7ff!important}
+body:not(.focusPdf) .appSidebar{background:linear-gradient(180deg,#fff,#f7faff)!important;border-color:#dce7f8!important;box-shadow:4px 0 20px #235b9b07!important}
+.appSideBrand{color:#102d62!important;border-color:#e7eefb!important}
+.appSideBtn{color:#4e6488!important}
+.appSideBtn:hover,.appSideBtn.active{background:linear-gradient(100deg,#e7f1ff,#dceaff)!important;border-color:#d3e5ff!important;color:#0877f5!important}
+.appSideFoot{color:#7183a3!important;border-color:#e5edfb!important}
+body:not(.focusPdf) #home.homeSimple{max-width:none!important;margin:0!important;padding:clamp(16px,2.3vw,32px)!important;background:linear-gradient(145deg,#f8fbff,#edf4ff 65%,#f2fffb)!important;color:#112d5d!important}
+#home .simpleWelcome{max-width:none!important;min-height:190px!important;display:flex!important;align-items:center!important;justify-content:space-between!important;gap:22px!important;position:relative!important;overflow:hidden!important;margin:0 0 20px!important;padding:clamp(22px,3vw,38px)!important;border:1px solid #dfebff!important;border-radius:25px!important;background:linear-gradient(110deg,#e2edff 0%,#f7fbff 58%,#ddfff3 100%)!important;box-shadow:0 12px 30px #255d9a0c!important}
+#home .simpleWelcome:after{display:none!important}
+.welcomeCopy{position:relative;z-index:2}
+.welcomeEyebrow{display:inline-block;margin-bottom:10px;color:#0877f5;font-size:11px;font-weight:900;letter-spacing:.5px}
+#home .simpleWelcome h1{font-size:clamp(26px,3vw,38px)!important;font-weight:950!important;color:#102d62!important;margin:0 0 8px!important}
+#home .simpleWelcome p{font-size:14px!important;color:#526c94!important;line-height:1.8!important}
+.welcomeIllustration{height:145px;width:min(42%,400px);min-width:220px;position:relative;flex:none}
+.welcomeSun{position:absolute;right:23%;top:2px;width:84px;height:84px;border-radius:50%;background:linear-gradient(135deg,#ffdc7c,#ffbd5c);opacity:.9}
+.welcomeLaptop{position:absolute;right:15%;bottom:10px;width:190px;height:105px;border:7px solid #8ab8ef;border-bottom-width:12px;border-radius:12px 12px 5px 5px;background:linear-gradient(135deg,#fff,#e7f2ff);box-shadow:0 15px 25px #3876bd20;display:grid;place-items:center;color:#0877f5;font-size:17px;font-weight:1000}
+.welcomeLaptop:after{content:"";position:absolute;bottom:-21px;left:-18px;right:-18px;height:11px;border-radius:2px 2px 9px 9px;background:#739bd0}
+.welcomeLaptop i{position:absolute;inset:7px;border:1px solid #d9e9ff;border-radius:3px}
+.welcomeBook{position:absolute;left:7%;bottom:5px;font-size:43px;color:#28b985;transform:rotate(-8deg)}
+.welcomePlant{position:absolute;right:2%;bottom:5px;font-size:50px;color:#20a878;transform:rotate(12deg)}
+body:not(.focusPdf) .simpleActions{max-width:none!important;gap:16px!important;margin:0 0 23px!important}
+body:not(.focusPdf) .simpleAction{min-height:116px!important;padding:21px!important;border-radius:19px!important;box-shadow:0 10px 28px #1c559710!important}
+body:not(.focusPdf) .simpleAction.primaryAction{background:linear-gradient(120deg,#176bff,#087df5)!important;border:0!important;color:#fff!important}
+body:not(.focusPdf) .simpleAction:nth-child(2){background:linear-gradient(120deg,#24b77b,#13a889)!important;border:0!important;color:#fff!important}
+body:not(.focusPdf) .simpleAction b,body:not(.focusPdf) .simpleAction small,body:not(.focusPdf) .simpleAction .simpleArrow{color:#fff!important}
+body:not(.focusPdf) .simpleActionIcon,body:not(.focusPdf) .simpleAction:nth-child(2) .simpleActionIcon{background:#ffffff!important;color:#0877f5!important}
+body:not(.focusPdf) .simpleAction:nth-child(2) .simpleActionIcon{color:#15996e!important}
+body:not(.focusPdf) .simpleAction b{font-size:17px!important}
+body:not(.focusPdf) .simpleAction small{font-size:12px!important;line-height:1.8!important;opacity:.93}
+body:not(.focusPdf) .homeSimple .recents{max-width:none!important;margin:0!important;padding:20px!important;background:#ffffffd9!important;border:1px solid #e0eafb!important;border-radius:20px!important;box-shadow:0 10px 30px #255a9a08!important}
+body:not(.focusPdf) .homeSimple .head h2{font-size:20px!important;color:#102d62!important;font-weight:950!important}
+.recentHeadActions{display:flex;gap:8px;align-items:center}
+body:not(.focusPdf) .recentHeadActions .btn{background:#f4f8ff!important;border:1px solid #dce7f8!important;color:#234b82!important}
+body:not(.focusPdf) .recentHeadActions .recentViewAll{color:#0877f5!important}
+body:not(.focusPdf) .homeSimple .fileCard{background:#fff!important;border:1px solid #e1eafb!important;color:#173866!important;box-shadow:0 6px 18px #275b9b0a!important}
+body:not(.focusPdf) .homeSimple .fileIcon{background:#fff0f0!important;color:#e84150!important}
+body:not(.focusPdf) .homeSimple .fileCard .more{background:#f2f6ff!important;color:#315581!important}
+body:not(.focusPdf) .homeSimple .fileCard .meta{color:#7185a5!important}
+body:not(.focusPdf) .drawer{background:#fff!important;color:#14366c!important;border-color:#dce8fa!important}
+body:not(.focusPdf) .drawer .btn{background:#f5f8ff!important;border-color:#dce8fa!important;color:#234b82!important}
+body:not(.focusPdf) .drawer .btn.active,body:not(.focusPdf) .drawer .btn.primary{background:#0877f5!important;color:#fff!important}
+body:not(.focusPdf) .drawer .logoutBtn{background:#fff!important;color:#b42335!important;border-color:#f2c9ce!important}
+/* Welcome screen closely follows the three-part reference composition */
+.intro{padding:clamp(10px,2vw,26px)!important;background:radial-gradient(ellipse at 10% 5%,#fff0c2 0,transparent 25%),linear-gradient(135deg,#eaf5ff,#d9eaff 53%,#effff8)!important;color:#102d62!important}
+.introCard{width:min(1500px,100%)!important;min-height:min(850px,calc(100dvh - 24px))!important;grid-template-columns:minmax(300px,.92fr) minmax(0,1.08fr)!important;grid-template-rows:auto 1fr auto!important;gap:clamp(14px,2.4vw,34px)!important;padding:clamp(18px,3vw,44px)!important;border:1px solid #ffffffd9!important;border-radius:32px!important;background:linear-gradient(120deg,#ffffffc9,#ffffff76)!important;box-shadow:0 30px 100px #235c7b20,inset 0 1px 0 #fff!important}
+.introBrand{grid-column:2;grid-row:1;display:flex;align-items:center;gap:10px;justify-self:start;color:#102d62;font-weight:1000}
+.introLogo{width:43px;height:43px;border-radius:14px;display:grid;place-items:center;color:#fff;font-size:24px;background:linear-gradient(135deg,#0877f5,#25bfc7);box-shadow:0 9px 22px #0876f62c}
+.introBrand b{display:block;font-size:21px;letter-spacing:.8px}.introBrand small{display:block;font-size:12px;color:#0877f5}
+.introHandwriting{grid-column:2;grid-row:1;justify-self:end;align-self:center;color:#0877f5;font-size:clamp(13px,1.5vw,18px);font-weight:900;line-height:1.5;text-align:center;transform:rotate(-4deg)}
+.introHandwriting span{display:inline-grid;place-items:center;width:22px;height:22px;border:2px solid #0877f5;border-radius:50%;font-size:14px}
+.introPortrait{grid-column:1!important;grid-row:1/3!important;min-height:0!important;align-self:stretch!important;padding:6px!important;border-radius:26px!important;background:linear-gradient(145deg,#22bed2,#4b7bff 60%,#ffcf56)!important;box-shadow:0 25px 65px #236eaa25!important;opacity:0;animation:photoDrop .9s cubic-bezier(.18,.85,.25,1.15) .1s forwards;overflow:hidden}
+.introPortrait:after{background:linear-gradient(180deg,#ffffff08 42%,#08264a99 100%)!important}
+.introCard .introPortrait img{width:100%!important;height:100%!important;min-height:0!important;object-fit:cover!important;object-position:center 28%!important;border:2px solid #fff!important;border-radius:inherit!important}
+.introContent{grid-column:2;grid-row:2;align-self:center;position:relative;z-index:2}
+.introEyebrow{display:block!important;margin:0 0 13px!important;color:#118ba8!important;font-size:12px!important;font-weight:950!important;letter-spacing:.5px!important}
+.introCard .hoksh{display:block!important;grid-column:auto!important;grid-row:auto!important;align-self:auto!important;margin:0!important;color:#102d62!important;font-size:clamp(34px,4.5vw,61px)!important;font-weight:1000!important;line-height:1.35!important;letter-spacing:-1px!important}
+.introCard .hoksh span{display:inline!important;color:#0877f5!important}
+.introDescription{max-width:600px;margin:12px 0 4px!important;color:#405d7a;font-size:clamp(13px,1.3vw,17px);line-height:2}
+.introWrite{display:block!important;position:static!important;width:min(260px,70%)!important;height:20px!important;margin:2px 0 10px!important}
+.introStart{position:static!important;display:inline-flex!important;grid-column:auto!important;grid-row:auto!important;align-self:auto!important;justify-self:auto!important;margin:9px 0 18px!important;min-width:190px!important;padding:15px 27px!important;border-radius:999px!important;background:linear-gradient(110deg,#0877ed,#087df8 55%,#17b6c1)!important;box-shadow:0 15px 32px #137be63a!important}
+.introFeatureRow{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:10px;color:#315575;font-size:11px;font-weight:800}
+.introFeatureRow span{display:flex;align-items:center;gap:8px}.introFeatureRow b{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:9px;background:#e7f2ff;color:#0877f5;font-size:15px}
+.introFooter{grid-column:1/3;grid-row:3;display:flex;align-items:center;justify-content:space-between;gap:15px;padding-top:14px;border-top:1px solid #d7e6f8}
+.introDeveloper{display:flex;align-items:center;gap:10px;min-width:0}
+.introDeveloper img{width:43px;height:43px;object-fit:cover;object-position:center 25%;border-radius:50%;border:2px solid #fff;box-shadow:0 3px 12px #1a548a20}
+.introDeveloper b,.introDeveloper small,.introVersion b,.introVersion span{display:block}
+.introDeveloper b{font-size:11px;color:#23466a}.introDeveloper small{font-size:10px;color:#66809b;margin-top:4px}
+.introVersion{text-align:left;color:#66809b;font-size:10px;line-height:1.7}.introVersion b{color:#0877f5;font-size:12px}
+.introCard .dev,.introCard .line,.introTagline,.introFoot{display:none!important}
+@media(max-width:760px){
+ .intro{padding:8px!important;overflow:auto!important;align-items:center!important}
+ .introCard{min-height:calc(100dvh - 16px)!important;grid-template-columns:minmax(0,1fr)!important;grid-template-rows:auto auto auto auto!important;gap:12px!important;padding:16px!important;border-radius:23px!important;align-content:center!important}
+ .introBrand{grid-column:1;grid-row:1;justify-self:start}.introHandwriting{grid-column:1;grid-row:1;justify-self:end;font-size:11px}
+ .introLogo{width:36px;height:36px}.introBrand b{font-size:17px}
+ .introPortrait{grid-column:1!important;grid-row:2!important;width:min(72vw,250px)!important;height:min(32dvh,230px)!important;margin:0 auto!important;border-radius:21px!important}
+ .introContent{grid-column:1;grid-row:3;text-align:center}
+ .introCard .hoksh{font-size:clamp(29px,8vw,42px)!important}
+ .introDescription{font-size:12px;line-height:1.8;margin:7px auto 3px!important}
+ .introWrite{margin:0 auto 7px!important}
+ .introStart{margin:5px 0 8px!important;min-width:160px!important;padding:12px 22px!important}
+ .introFeatureRow{grid-template-columns:repeat(2,minmax(0,1fr));font-size:10px;gap:7px;text-align:right}
+ .introFooter{grid-column:1;grid-row:4;gap:8px;padding-top:10px}
+ .introDeveloper img{width:34px;height:34px}.introDeveloper b{font-size:9px}.introDeveloper small{font-size:9px}.introVersion{font-size:9px}
+}
+@media(max-width:390px){.introHandwriting{font-size:9px}.introFeatureRow{font-size:9px}.introCard{padding:12px!important}.introPortrait{height:min(28dvh,190px)!important}}
+/* PDF editing area: white toolbar, blue export action, right floating tools */
+body:not(.focusPdf) .workspace,body.focusPdf .workspace{background:#edf4ff!important;color:#112d5d!important}
+.workTop,body.focusPdf .workTop{background:#fff!important;border-bottom:1px solid #dce8fa!important;color:#12366e!important;box-shadow:0 3px 14px #285b9908!important}
+.workTop .fileName button,body.focusPdf .workTop .fileName button{color:#12316a!important}
+.workTop .iconBtn,body.focusPdf .workTop .iconBtn,body.focusPdf .workTop .btn{background:#f4f8ff!important;border:1px solid #dce8fa!important;color:#234b82!important}
+.workTop .exportTop,body.focusPdf .workTop .exportTop{background:#0877f5!important;border-color:#0877f5!important;color:#fff!important;min-width:145px}
+.canvasArea,body.focusPdf .canvasArea{background:#edf4ff!important}
+.pages,body.focusPdf .pages{background:transparent!important}
+.pageWrap,body.focusPdf .pageWrap{box-shadow:0 8px 28px #234b7d20!important;border:1px solid #dce7f8!important}
+.toolDock,body.focusPdf .toolDock{position:absolute!important;right:12px!important;left:auto!important;top:84px!important;bottom:auto!important;transform:none!important;display:flex!important;flex-direction:column!important;gap:5px!important;padding:8px!important;border:1px solid #d9e7fb!important;border-radius:17px!important;background:#ffffffed!important;box-shadow:0 10px 30px #235b9a20!important;max-width:58px!important;max-height:calc(100% - 110px);overflow:auto!important;z-index:45!important}
+.toolDock button,body.focusPdf .toolDock button{width:39px!important;height:39px!important;min-width:39px!important;min-height:39px!important;background:#f3f7ff!important;border:1px solid #dce8fa!important;color:#24528d!important;border-radius:10px!important}
+.toolDock button.active,body.focusPdf .toolDock button.active{background:#0877f5!important;color:#fff!important;border-color:#0877f5!important}
+.dockSep{width:28px!important;height:1px!important;background:#dce8fa!important}
+.bottomBar,body.focusPdf .bottomBar{background:#fff!important;border-top:1px solid #dce8fa!important;color:#214b83!important}
+.bottomBar button{background:#f3f7ff!important;border:1px solid #dce8fa!important;color:#1c4c8d!important}
+#pdfPenFab{background:linear-gradient(135deg,#0876f5,#20b7c3)!important}
+@media(max-width:700px){
+ #home .simpleWelcome{min-height:120px!important;padding:15px!important}
+ .welcomeIllustration{min-width:110px;width:38%;height:95px;transform:scale(.8);transform-origin:center right}
+ .welcomeLaptop{width:120px;height:70px;right:5%;font-size:12px;border-width:5px}
+ .welcomeSun{width:52px;height:52px;right:18%}.welcomePlant{font-size:34px}.welcomeBook{font-size:28px}
+ body:not(.focusPdf) .simpleActions{grid-template-columns:1fr!important;gap:10px!important}
+ body:not(.focusPdf) .simpleAction{min-height:88px!important;padding:14px!important}
+ body:not(.focusPdf) .homeSimple .recents{padding:12px!important}
+ .recentHeadActions{gap:5px}.recentHeadActions .btn{font-size:10px;padding:0 8px}
+ .toolDock,body.focusPdf .toolDock{right:4px!important;top:64px!important;padding:4px!important;max-width:43px!important;gap:3px!important}
+ .toolDock button,body.focusPdf .toolDock button{width:32px!important;height:32px!important;min-width:32px!important;min-height:32px!important;font-size:13px!important}
+ .pages,body.focusPdf .pages{padding:10px 47px 100px 8px!important}
+ .workTop .workActions .hideM{display:none!important}
+}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -757,12 +884,12 @@ body:not(.focusPdf) .home button:focus-visible,body:not(.focusPdf) .top button:f
   <div class="appSideFoot">المطور<br><b>محمد شعبان محارب</b></div>
 </aside>
 <section class="home homeSimple" id="home">
-  <div class="simpleWelcome"><div class="simpleMark">خـش</div><div><h1>أهلاً بيك في حوكش</h1><p>تبدأ منين النهارده؟</p></div></div>
+  <div class="simpleWelcome"><div class="welcomeCopy"><span class="welcomeEyebrow">HOKSH • مساحة إنجازك الرقمية</span><h1>أهلاً بك مجدداً</h1><p>اختر ما تريد القيام به اليوم</p></div><div class="welcomeIllustration" aria-hidden="true"><span class="welcomeSun"></span><span class="welcomePlant">♧</span><span class="welcomeLaptop"><i></i><b>HOKSH</b></span><span class="welcomeBook">▤</span></div></div>
   <div class="simpleActions">
-    <button class="simpleAction primaryAction" id="openPdf"><span class="simpleActionIcon">＋</span><span><b>إضافة ملف</b><small>افتح ملف PDF من جهازك</small></span><span class="simpleArrow">‹</span></button>
-    <button class="simpleAction" id="newWhiteboard"><span class="simpleActionIcon">▤</span><span><b>سبورة جديدة</b><small>ابدأ صفحة للكتابة والرسم</small></span><span class="simpleArrow">‹</span></button>
+    <button class="simpleAction primaryAction" id="openPdf"><span class="simpleActionIcon">＋</span><span><b>إضافة ملف PDF</b><small>افتح ملفاً من جهازك للقراءة والكتابة والتعديل</small></span><span class="simpleArrow">‹</span></button>
+    <button class="simpleAction" id="newWhiteboard"><span class="simpleActionIcon">▤</span><span><b>إنشاء سبورة جديدة</b><small>ابدأ الكتابة والرسم على صفحة فارغة</small></span><span class="simpleArrow">‹</span></button>
   </div>
-  <div class="recents"><div class="head"><h2>ملفاتي الأخيرة</h2><button class="btn" id="clearRecents">مسح</button></div><div class="recentGrid" id="recentGrid"></div></div>
+  <div class="recents"><div class="head"><h2>الملفات الأخيرة</h2><div class="recentHeadActions"><button class="btn recentViewAll" id="viewAllRecents" type="button">عرض الكل</button><button class="btn" id="clearRecents">مسح</button></div></div><div class="recentGrid" id="recentGrid"></div></div>
   <div class="homeSupport" id="homeSupport"><div><b>🟢 الدعم الفني على واتساب</b><small>01146808655 — تواصل مباشرة مع المطور</small></div><button class="btn primary" id="homeSupportBtn">فتح واتساب</button></div>
 </section>
 
@@ -830,14 +957,34 @@ body:not(.focusPdf) .home button:focus-visible,body:not(.focusPdf) .top button:f
 <div class="modal" id="moreModal"><div class="dialog"><h2>المزيد من أدوات حوكش</h2><div class="featureList"><div class="feature">📐 <b>أشكال ذكية</b> خطوط وأسهم ودوائر ومربعات</div><div class="feature">📏 <b>مسطرة</b> أدوات مساعدة للرسم</div><div class="feature">🔢 <b>رموز</b> رموز رياضية سريعة</div><div class="feature">🧮 <b>آلة حاسبة</b> اختصار أدوات الحساب</div></div><div class="actions"><button class="btn" data-close="moreModal">إغلاق</button></div></div></div>
 <div class="thumbPanel" id="thumbPanel"><div class="thumbBox"><div class="head"><h3 style="margin:0">كل الصفحات</h3><div><button class="btn" id="thumbAdd">＋ صفحة بيضاء</button><button class="btn" id="thumbClose">إغلاق</button></div></div><div class="thumbGrid" id="thumbGrid"></div></div></div>
 <div class="toast" id="toast"></div>
-<div class="intro" id="intro" role="dialog" aria-label="مرحباً بك في حوكش"><div class="introCard"><div class="introEyebrow">مساحة إبداعك تبدأ من هنا</div><div class="introPortrait"><img src="developer.jpg" alt="صورة المطور محمد شعبان محارب"></div><div class="hoksh">حوكش <span>HOKSH</span></div><svg class="introWrite" viewBox="0 0 290 20" aria-hidden="true"><path d="M8 14 C55 3 75 19 120 9 S195 3 232 10 S267 14 282 5"/></svg><div class="dev">المطور محمد شعبان محارب</div><div class="line"></div><div class="introTagline">اكتب، اشرح، علّم، وأنجز… في مساحة واحدة</div><button class="introStart" id="introStart" type="button">ابدأ الآن <span aria-hidden="true">←</span></button><div class="introFoot">PDF • سبورة رقمية • أدوات كتابة ذكية</div></div></div>
+<div class="intro" id="intro" role="dialog" aria-label="مرحباً بك في حوكش">
+  <div class="introCard">
+    <div class="introBrand"><span class="introLogo">✎</span><span><b>HOKSH</b><small>حوكش</small></span></div>
+    <div class="introHandwriting">معاً نكتب<br>مستقبلاً أفضل <span>☺</span></div>
+    <div class="introPortrait"><img src="developer.jpg" alt="محمد شعبان محارب — مطور حوكش"></div>
+    <div class="introContent">
+      <div class="introEyebrow">مساحتك الذكية للكتابة والتعلّم</div>
+      <h1 class="hoksh">مرحباً بك في <span>حوكش</span></h1>
+      <p class="introDescription">أداة ذكية لإدارة وعرض وتحرير ملفات PDF والكتابة على السبورة الرقمية بكل سهولة واحترافية.</p>
+      <svg class="introWrite" viewBox="0 0 290 20" aria-hidden="true"><path d="M8 14 C55 3 75 19 120 9 S195 3 232 10 S267 14 282 5"/></svg>
+      <button class="introStart" id="introStart" type="button">ابدأ الآن <span aria-hidden="true">➜</span></button>
+      <div class="introFeatureRow">
+        <span><b>▤</b> إدارة ملفات PDF</span><span><b>✎</b> الكتابة والتعديل</span>
+        <span><b>▱</b> سبورة تفاعلية</span><span><b>✓</b> أمان وخصوصية</span>
+      </div>
+    </div>
+    <div class="introFooter">
+      <div class="introDeveloper"><img src="developer.jpg" alt=""><span><b>Mohamed Shaban Moharib</b><small>Full Stack Web Developer</small></span></div>
+      <div class="introVersion"><b>HOKSH v5.0</b><span>أكبر من مجرد أداة.. إنه حوكش 💙</span></div>
+    </div>
+  </div>
+</div>
 <input id="fileInput" type="file" accept=".pdf,application/pdf" hidden>
 <input id="imageInput" type="file" accept="image/*" hidden>
 
 <script>
 (()=>{const i=document.getElementById('intro');if(!i)return;const close=()=>{if(i.classList.contains('hide'))return;i.classList.add('hide');setTimeout(()=>i.remove(),800)};document.getElementById('introStart')?.addEventListener('click',close);setTimeout(close,6500)})();
 </script>
-<script>
 <script>
 (()=>{const home=document.getElementById('home'),workspace=document.getElementById('workspace');const goHome=()=>{home?.classList.remove('hidden');if(workspace)workspace.classList.remove('active');document.getElementById('visualHomeBtn')?.classList.add('active');document.getElementById('visualFilesBtn')?.classList.remove('active')};document.getElementById('visualHomeBtn')?.addEventListener('click',goHome);document.getElementById('visualFilesBtn')?.addEventListener('click',()=>{document.getElementById('recentGrid')?.scrollIntoView({behavior:'smooth',block:'start'});document.getElementById('visualFilesBtn')?.classList.add('active');document.getElementById('visualHomeBtn')?.classList.remove('active')});document.getElementById('visualSettingsBtn')?.addEventListener('click',()=>document.getElementById('menuBtn')?.click());document.getElementById('backHome')?.addEventListener('click',()=>{document.getElementById('visualHomeBtn')?.classList.add('active');document.getElementById('visualFilesBtn')?.classList.remove('active')});})();
 </script>
@@ -1233,4 +1380,8 @@ window.addEventListener('error',e=>{if(e.message)console.warn('HOKSH runtime:',e
 })();
 </script>
 
+
+<script>
+(()=>{const b=document.getElementById('viewAllRecents');b?.addEventListener('click',()=>{document.getElementById('recentGrid')?.scrollIntoView({behavior:'smooth',block:'start'});const t=document.getElementById('toast');if(t){t.textContent='تعرض الآن كل الملفات الأخيرة المحفوظة على هذا الجهاز';t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200)}})})();
+</script>
 </body></html>
