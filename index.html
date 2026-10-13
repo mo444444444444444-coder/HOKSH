@@ -1380,4 +1380,8 @@ window.addEventListener('error',e=>{if(e.message)console.warn('HOKSH runtime:',e
 })();
 </script>
 
+
+<script>
+(()=>{const b=document.getElementById('viewAllRecents');b?.addEventListener('click',()=>{document.getElementById('recentGrid')?.scrollIntoView({behavior:'smooth',block:'start'});const t=document.getElementById('toast');if(t){t.textContent='تعرض الآن كل الملفات الأخيرة المحفوظة على هذا الجهاز';t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200)}})})();
+</script>
 </body></html>
