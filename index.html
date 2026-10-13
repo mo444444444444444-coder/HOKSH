@@ -1183,10 +1183,56 @@ const $=id=>document.getElementById(id);
 const toast=t=>{const x=$('toast');x.textContent=t;x.classList.add('show');clearTimeout(window._tt);window._tt=setTimeout(()=>x.classList.remove('show'),2200)};
 let pdf=null, pdfBytes=null, docName='مستند جديد', pages=[], pageMode='vertical', zoom=1, tool='pen', color='#e51d48', width=3, opacity=.3, activePage=0, drawing=null, history=[], future=[], whiteboardSize='a4', textStyle={bold:true,italic:false}, signatureData=localStorage.getItem('hoksh_signature')||null;
 const stateKey='hoksh_work_v3', recentKey='hoksh_recents_v3';
-
-let saveTimer=0;
-function saveState(){clearTimeout(saveTimer);saveTimer=setTimeout(()=>{try{localStorage.setItem(stateKey,JSON.stringify({docName,pages:pages.map(p=>({w:p.w,h:p.h,strokes:p.strokes})),activePage,zoom,pageMode}))}catch(e){}},120)}
-function loadState(){try{const s=JSON.parse(localStorage.getItem(stateKey)||'null');if(s&&s.pages?.length){docName=s.docName||docName;pages=s.pages;activePage=s.activePage||0;zoom=s.zoom||1;pageMode=s.pageMode||'vertical';return true}}catch(e){}return false}
+const stateDbName='hoksh_state_db_v1';
+let stateDbPromise=null;
+function openStateDB(){
+  if(!('indexedDB' in window))return Promise.reject(new Error('IndexedDB unavailable'));
+  if(stateDbPromise)return stateDbPromise;
+  stateDbPromise=new Promise((resolve,reject)=>{
+    const req=indexedDB.open(stateDbName,1);
+    req.onupgradeneeded=()=>{const db=req.result;if(!db.objectStoreNames.contains('documents'))db.createObjectStore('documents')};
+    req.onsuccess=()=>resolve(req.result);
+    req.onerror=()=>reject(req.error||new Error('Could not open local database'));
+  });
+  return stateDbPromise;
+}
+function idbRequest(req){return new Promise((resolve,reject)=>{req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error||new Error('Local database request failed'))})}
+let saveTimer=0,saveRevision=0;
+function saveState(){
+  clearTimeout(saveTimer);
+  const revision=++saveRevision;
+  saveTimer=setTimeout(async()=>{
+    const snapshot={docName,pages:pages.map(p=>({w:p.w,h:p.h,image:p.image||null,strokes:p.strokes||[],infinite:!!p.infinite})),activePage,zoom,pageMode,savedAt:Date.now()};
+    try{
+      const db=await openStateDB();
+      await new Promise((resolve,reject)=>{
+        const tx=db.transaction('documents','readwrite');
+        tx.objectStore('documents').put(snapshot,'current');
+        tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error||new Error('Save transaction failed'));tx.onabort=()=>reject(tx.error||new Error('Save transaction aborted'));
+      });
+      if(revision===saveRevision){try{localStorage.setItem(stateKey,JSON.stringify({docName,activePage,zoom,pageMode,storage:'indexeddb',savedAt:snapshot.savedAt}))}catch(e){}}
+    }catch(e){
+      try{
+        // Compatibility fallback for whiteboards and older states when IndexedDB is unavailable.
+        localStorage.setItem(stateKey,JSON.stringify({docName,pages:pages.map(p=>({w:p.w,h:p.h,strokes:p.strokes||[],infinite:!!p.infinite})),activePage,zoom,pageMode}));
+      }catch(storageError){
+        if(typeof toast==='function')toast('تعذر حفظ العمل على هذا الجهاز؛ صدّر نسخة احتياطية من الملف.');
+      }
+    }
+  },180);
+}
+async function loadState(){
+  try{
+    const db=await openStateDB();
+    const s=await idbRequest(db.transaction('documents','readonly').objectStore('documents').get('current'));
+    if(s&&s.pages?.length){docName=s.docName||docName;pages=s.pages;activePage=s.activePage||0;zoom=s.zoom||1;pageMode=s.pageMode||'vertical';return true}
+  }catch(e){}
+  try{
+    const s=JSON.parse(localStorage.getItem(stateKey)||'null');
+    if(s&&s.pages?.length){docName=s.docName||docName;pages=s.pages;activePage=s.activePage||0;zoom=s.zoom||1;pageMode=s.pageMode||'vertical';return true}
+  }catch(e){}
+  return false;
+}
 function recents(){try{return JSON.parse(localStorage.getItem(recentKey)||'[]')}catch(e){return []}}
 function saveRecents(){localStorage.setItem(recentKey,JSON.stringify(recents().slice(0,12)))}
 function addRecent(kind,size){let r=recents().filter(x=>x.name!==docName);r.unshift({name:docName,date:new Date().toISOString(),size:size||'محلي',kind});localStorage.setItem(recentKey,JSON.stringify(r.slice(0,12)))}
@@ -1477,7 +1523,7 @@ function logout(){
 setInterval(()=>{if($('workspace').classList.contains('active'))saveState()},30000);
 window.addEventListener('beforeunload',saveState);
 window.addEventListener('resize',()=>{if($('workspace').classList.contains('active')&&!drawing&&!window.hokshPinching)renderPages()});
-if(loadState()){$('renameFile').textContent=docName;renderPages()}
+loadState().then(restored=>{if(restored){$('renameFile').textContent=docName;renderPages()}}).catch(()=>{});
 setTool('select');
 renderRecents();setDock(localStorage.getItem('dockPosition')||'bottom');
 if(localStorage.getItem('hoksh_dark')==='1')document.body.classList.add('lightMode');
