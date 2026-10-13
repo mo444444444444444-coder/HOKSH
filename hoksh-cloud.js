@@ -9,7 +9,7 @@
   if(!client){
     // Still show a clear status/action without pretending the cloud backend is connected.
   }
-  let signedUser=null, profile=null, cloudFileId=null, panel=null, currentTab='files';
+  let signedUser=null, profile=null, cloudFileId=null, cloudOwnerId=null, panel=null, currentTab='files';
   const safe=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const fmt=n=>{n=Number(n||0);return n<1024?n+' B':n<1048576?(n/1024).toFixed(1)+' KB':(n/1048576).toFixed(2)+' MB'};
   const msg=t=>{if(typeof window.toast==='function')window.toast(t);else alert(t)};
@@ -60,9 +60,9 @@
     return renderFiles(root);
   }
   async function renderFiles(root){
-    root.innerHTML='<div class="hc-note">الملفات المحفوظة هنا مرتبطة بحسابك. الملفات التي لم ترفعها بعد تظل على هذا الجهاز فقط.</div><div class="hc-actions"><button class="hc-btn good" id="hcSaveCurrent">☁️ حفظ المستند الحالي سحابياً</button><button class="hc-btn" id="hcReloadFiles">تحديث القائمة</button></div><div id="hcFileList" class="hc-empty">جارٍ تحميل الملفات…</div>';
+    root.innerHTML='<div class="hc-note">الملفات المحفوظة هنا مرتبطة بحسابك. الملفات التي لم ترفعها بعد تظل على هذا الجهاز فقط.</div><div class="hc-actions"><button class="hc-btn good" id="hcSaveCurrent">☁️ حفظ المستند الحالي سحابياً</button><button class="hc-btn" id="hcReloadFiles">تحديث القائمة</button><button class="hc-btn" id="hcSupport">✉ إرسال طلب دعم</button></div><div id="hcFileList" class="hc-empty">جارٍ تحميل الملفات…</div>';
     byId('hcSaveCurrent').onclick=()=>saveCurrent();
-    byId('hcReloadFiles').onclick=()=>renderFiles(root);
+    byId('hcReloadFiles').onclick=()=>renderFiles(root);\n    byId('hcSupport').onclick=submitSupport;
     const {data,error}=await client.from('user_files').select('id,user_id,file_name,storage_path,mime_type,file_size,last_page,last_opened_at,created_at').order('last_opened_at',{ascending:false}).limit(isAdmin()?100:50);
     if(error){byId('hcFileList').innerHTML='<div class="hc-empty">تعذر تحميل القائمة: '+safe(error.message)+'<br>تأكد من تشغيل ملف supabase-schema.sql وإنشاء bucket خاص باسم hoksh-files.</div>';return}
     if(!data?.length){byId('hcFileList').innerHTML='<div class="hc-empty">لا توجد ملفات سحابية حتى الآن. افتح ملفاً ثم اضغط «حفظ المستند الحالي سحابياً».</div>';return}
@@ -91,7 +91,7 @@
       if(upErr)throw upErr;
       const {data:row,error:dbErr}=await client.from('user_files').upsert({...(cloudFileId?{id:cloudFileId}:{}),user_id:signedUser.id,file_name:name,storage_path:path,mime_type:mime,file_size:blob.size,last_page:(typeof activePage==='number'?activePage+1:1),last_opened_at:new Date().toISOString(),updated_at:new Date().toISOString()},{onConflict:'id'}).select().single();
       if(dbErr)throw dbErr;
-      cloudFileId=row.id;
+      cloudFileId=row.id;cloudOwnerId=signedUser.id;
       await client.from('user_annotations').delete().eq('file_id',row.id);
       if(mime==='application/pdf'){
         const rows=(pages||[]).map((p,i)=>({user_id:signedUser.id,file_id:row.id,page_number:i+1,annotation_data:{strokes:p.strokes||[],w:p.w,h:p.h}}));
@@ -130,7 +130,7 @@
     try{
       const {error}=await client.storage.from('hoksh-files').remove([f.storage_path]);if(error)throw error;
       const {error:dbError}=await client.from('user_files').delete().eq('id',f.id);if(dbError)throw dbError;
-      if(cloudFileId===f.id)cloudFileId=null;
+      if(cloudFileId===f.id){cloudFileId=null;cloudOwnerId=null;}
       msg('تم حذف الملف السحابي.');renderPanel();
     }catch(e){msg('تعذر حذف الملف: '+(e?.message||''))}
   }
@@ -139,7 +139,14 @@
     const {data,error}=await client.from('profiles').select('id,display_name,role,is_suspended,created_at').order('created_at',{ascending:false}).limit(200);
     if(error){byId('hcUsers').textContent='تعذر جلب الحسابات: '+error.message;return}
     byId('hcUsers').className='hc-tablewrap';
-    byId('hcUsers').innerHTML='<table class="hc-table"><thead><tr><th>الاسم</th><th>معرّف الحساب</th><th>الدور</th><th>الحالة</th><th>إجراء</th></tr></thead><tbody>'+data.map(u=>'<tr><td>'+safe(u.display_name||'بدون اسم')+'</td><td style="direction:ltr;text-align:left">'+safe(u.id.slice(0,8))+'…</td><td>'+safe(u.role)+'</td><td>'+(u.is_suspended?'موقوف':'نشط')+'</td><td>'+(u.role==='owner'?'المالك الرئيسي':(u.id===signedUser.id?'حسابك':('<button class="hc-btn '+(u.is_suspended?'good':'warn')+'" data-suspend="'+u.id+'" data-value="'+(!u.is_suspended)+'">'+(u.is_suspended?'إعادة تفعيل':'تعليق')+'</button> '+(profile.role==='owner'?'<select data-role="'+u.id+'" aria-label="دور المستخدم"><option value="user" '+(u.role==='user'?'selected':'')+'>مستخدم</option><option value="admin" '+(u.role==='admin'?'selected':'')+'>مدير</option></select>':'') ))+'</td></tr>').join('')+'</tbody></table>';
+    byId('hcUsers').innerHTML='<table class="hc-table"><thead><tr><th>الاسم</th><th>معرّف الحساب</th><th>الدور</th><th>الحالة</th><th>إجراء</th></tr></thead><tbody>'+data.map(u=>{ 
+      let actions='المالك الرئيسي';
+      if(u.role!=='owner' && u.id!==signedUser.id){
+        actions='<button class="hc-btn '+(u.is_suspended?'good':'warn')+'" data-suspend="'+u.id+'" data-value="'+(!u.is_suspended)+'">'+(u.is_suspended?'إعادة تفعيل':'تعليق')+'</button>';
+        if(profile.role==='owner') actions+=' <select data-role="'+u.id+'" aria-label="دور المستخدم"><option value="user" '+(u.role==='user'?'selected':'')+'>مستخدم</option><option value="admin" '+(u.role==='admin'?'selected':'')+'>مدير</option></select>';
+      } else if(u.id===signedUser.id) actions='حسابك';
+      return '<tr><td>'+safe(u.display_name||'بدون اسم')+'</td><td style="direction:ltr;text-align:left">'+safe(u.id.slice(0,8))+'…</td><td>'+safe(u.role)+'</td><td>'+(u.is_suspended?'موقوف':'نشط')+'</td><td>'+actions+'</td></tr>';
+    }).join('')+'</tbody></table>';
     byId('hcUsers').querySelectorAll('[data-suspend]').forEach(btn=>btn.onclick=async()=>{const {error}=await client.rpc('hoksh_admin_set_suspended',{target_user_id:btn.dataset.suspend,suspended:btn.dataset.value==='true'});if(error)msg('تعذر تغيير حالة الحساب: '+error.message);else{msg('تم تحديث حالة الحساب.');renderPanel()}});
     byId('hcUsers').querySelectorAll('[data-role]').forEach(sel=>sel.onchange=async()=>{if(!confirm('تأكيد تغيير دور هذا الحساب؟')){renderPanel();return}const {error}=await client.rpc('hoksh_admin_set_role',{target_user_id:sel.dataset.role,new_role:sel.value});if(error)msg('تعذر تغيير الدور: '+error.message);else{msg('تم تحديث الدور.');renderPanel()}});
   }
@@ -165,7 +172,7 @@
     msg(error?'تعذر إرسال طلب الدعم: '+error.message:'تم إرسال طلب الدعم.');
   }
   async function refreshUser(user){
-    signedUser=user||null;profile=null;cloudFileId=null;
+    signedUser=user||null;profile=null;cloudFileId=null;cloudOwnerId=null;
     const adminBtn=byId('hokshAdminBtn');if(adminBtn)adminBtn.style.display='none';
     const cloudBtn=byId('hokshCloudBtn');if(cloudBtn)cloudBtn.style.display=user?'inline-block':'none';
     if(user&&client){
