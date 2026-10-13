@@ -943,6 +943,32 @@ body.focusPdf #pdfPenPanel.show { display:block!important; }
 #focusFab { display:none!important; }
 </style>
 
+
+<style id="hoksh-final-single-toolbar-and-no-personal-photo">
+/* The extra floating SmartBar duplicated the actual editor controls: remove it completely. */
+#hokshSmartBar { display:none!important; visibility:hidden!important; pointer-events:none!important; }
+/* No personal photograph anywhere in the app; use the built-in expressive HOKSH illustration. */
+img[src="developer.jpg"], .devPhoto:not(.devPhotoSymbol) { display:none!important; }
+.devPhotoSymbol { display:grid!important; place-items:center; width:110px;height:110px;border-radius:24px;background:linear-gradient(135deg,#0877f5,#20b7c1);color:white;font-size:54px; }
+.introPortrait.hoksh-hero-art { overflow:hidden; background:#092f54!important; padding:0!important; }
+.introPortrait.hoksh-hero-art:after { display:none!important; }
+/* Strictly show the real editor's controls only while a file/board is open. */
+body:not(.focusPdf) .toolDock,
+body:not(.focusPdf) .bottomBar,
+body:not(.focusPdf) .workTop,
+body:not(.focusPdf) #focusFab,
+body:not(.focusPdf) #pdfPenFab,
+body:not(.focusPdf) #pdfPenPanel,
+body:not(.focusPdf) .penPop { display:none!important; }
+body.focusPdf #focusFab { display:none!important; }
+body.focusPdf .toolDock { display:flex!important; }
+body.focusPdf .bottomBar { display:flex!important; }
+body.focusPdf .workTop { display:flex!important; }
+body.focusPdf #pdfPenFab.show { display:grid!important; }
+body.focusPdf #pdfPenPanel:not(.show) { display:none!important; }
+body.focusPdf #pdfPenPanel.show { display:block!important; }
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -1028,7 +1054,7 @@ body.focusPdf #pdfPenPanel.show { display:block!important; }
 <div class="modal" id="noteModal"><div class="dialog"><h2>ملاحظة لاصقة</h2><div class="field"><label>الملاحظة</label><textarea id="noteValue" placeholder="اكتب ملحوظتك..."></textarea></div><div class="actions"><button class="btn" data-close="noteModal">إلغاء</button><button class="btn primary" id="addNote">حفظ الملاحظة</button></div></div></div>
 <div class="modal" id="signatureModal"><div class="dialog"><h2>التوقيع والأختام</h2><p class="muted">ارسم توقيعك مرة واحدة ثم احفظه لإدراجه لاحقاً.</p><canvas id="sigCanvas" style="width:100%;height:180px;border:1px solid #ccd9e0;border-radius:12px;background:#fff;touch-action:none"></canvas><div class="actions"><button class="btn" id="clearSig">مسح</button><button class="btn" data-close="signatureModal">إلغاء</button><button class="btn primary" id="saveSig">إدراج التوقيع</button></div></div></div>
 <div class="modal" id="exportModal"><div class="dialog"><h2>الحفظ، التصدير والمشاركة</h2><p class="muted">يتم تجهيز نسخة مرئية من صفحات المستند مع الكتابة والتعليقات لخيارات التصدير.</p><div class="optionGrid"><button class="option" id="saveOriginal">💾 حفظ التغييرات<br><span class="muted">تحديث نسخة العمل المحلية</span></button><button class="option" id="saveAs">📁 حفظ باسم<br><span class="muted">اختيار اسم ومجلد عبر النظام</span></button><button class="option" id="flattenPdf">📕 Flattened PDF<br><span class="muted">دمج التعليقات داخل الصفحات</span></button><button class="option" id="exportImages">🖼️ تصدير كصور<br><span class="muted">JPG / PNG عالية الجودة</span></button></div><div class="actions"><button class="btn primary" id="shareFile">🔗 Quick Share</button><button class="btn" data-close="exportModal">إغلاق</button></div></div></div>
-<div class="modal" id="devModal"><div class="dialog devDialog"><img class="devPhoto" src="developer.jpg" alt="محمد شعبان محارب"><div class="devName">محمد شعبان محارب</div><div class="devSub">المطور والمصمم — حوكش HOKSH</div><div class="featureList"><div class="feature"><b>اسم التطبيق</b>حوكش HOKSH</div><div class="feature"><b>الهدف</b>الكتابة والتظليل والتعامل الاحترافي مع PDF</div><div class="feature"><b>الأجهزة</b>هاتف • تابلت • كمبيوتر</div><div class="feature"><b>التطوير</b>مستمر مع التركيز على تجربة المدرسين والطلاب</div></div><div class="actions"><button class="btn" data-close="devModal">إغلاق</button></div></div></div>
+<div class="modal" id="devModal"><div class="dialog devDialog"><div class="devPhoto devPhotoSymbol" aria-hidden="true">✎</div><div class="devName">محمد شعبان محارب</div><div class="devSub">المطور والمصمم — حوكش HOKSH</div><div class="featureList"><div class="feature"><b>اسم التطبيق</b>حوكش HOKSH</div><div class="feature"><b>الهدف</b>الكتابة والتظليل والتعامل الاحترافي مع PDF</div><div class="feature"><b>الأجهزة</b>هاتف • تابلت • كمبيوتر</div><div class="feature"><b>التطوير</b>مستمر مع التركيز على تجربة المدرسين والطلاب</div></div><div class="actions"><button class="btn" data-close="devModal">إغلاق</button></div></div></div>
 <div class="modal" id="settingsModal"><div class="dialog"><h2>الإعدادات</h2><div class="field"><label>موضع شريط الأدوات</label><select id="dockPosition"><option value="bottom">أسفل</option><option value="top">أعلى</option><option value="left">يسار</option><option value="right">يمين</option></select></div><div class="field"><label>الحفظ التلقائي</label><select id="autoSaveSelect"><option value="30">كل 30 ثانية</option><option value="60">كل دقيقة</option></select></div><div class="notice">الكتابة بالقلم تستخدم Pointer Events وتتعامل مع القلم واللمس، مع محاولة عزل لمس الكف أثناء الكتابة على الأجهزة التي ترسل نوع القلم.</div><div class="actions"><button class="btn" data-close="settingsModal">إغلاق</button></div></div></div>
 <div class="modal" id="renameModal"><div class="dialog"><h2>إعادة تسمية الملف</h2><div class="field"><label>اسم الملف</label><input id="renameValue"></div><div class="actions"><button class="btn" data-close="renameModal">إلغاء</button><button class="btn primary" id="doRename">حفظ</button></div></div></div>
 <div class="modal" id="moreModal"><div class="dialog"><h2>المزيد من أدوات حوكش</h2><div class="featureList"><div class="feature">📐 <b>أشكال ذكية</b> خطوط وأسهم ودوائر ومربعات</div><div class="feature">📏 <b>مسطرة</b> أدوات مساعدة للرسم</div><div class="feature">🔢 <b>رموز</b> رموز رياضية سريعة</div><div class="feature">🧮 <b>آلة حاسبة</b> اختصار أدوات الحساب</div></div><div class="actions"><button class="btn" data-close="moreModal">إغلاق</button></div></div></div>
@@ -1038,7 +1064,23 @@ body.focusPdf #pdfPenPanel.show { display:block!important; }
   <div class="introCard">
     <div class="introBrand"><span class="introLogo">✎</span><span><b>HOKSH</b><small>حوكش</small></span></div>
     <div class="introHandwriting">معاً نكتب<br>مستقبلاً أفضل <span>☺</span></div>
-    <div class="introPortrait"><img src="developer.jpg" alt="محمد شعبان محارب — مطور حوكش"></div>
+    <div class="introPortrait hoksh-hero-art" role="img" aria-label="رسم تعبيري لمطور يرتدي هودي أسود مع صفحات رقمية">
+<svg viewBox="0 0 560 680" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="width:100%;height:100%;display:block;border-radius:inherit">
+<defs><linearGradient id="hokshBg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#092f54"/><stop offset=".55" stop-color="#0877f5"/><stop offset="1" stop-color="#21c4bb"/></linearGradient><linearGradient id="hood" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#252b35"/><stop offset="1" stop-color="#05070b"/></linearGradient><linearGradient id="paper" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff"/><stop offset="1" stop-color="#dcecff"/></linearGradient></defs>
+<rect width="560" height="680" rx="28" fill="url(#hokshBg)"/>
+<circle cx="285" cy="275" r="190" fill="#fff" opacity=".08"/><circle cx="285" cy="275" r="150" fill="none" stroke="#fff" stroke-opacity=".18" stroke-width="2"/>
+<g transform="translate(50 100) rotate(-9 90 120)"><rect width="142" height="184" rx="14" fill="url(#paper)"/><path d="M24 42h92M24 62h76M24 82h90M24 102h56" stroke="#3c7fcd" stroke-width="7" stroke-linecap="round"/><rect x="24" y="126" width="92" height="34" rx="7" fill="#d3e8ff"/><text x="70" y="148" font-size="15" text-anchor="middle" font-family="Arial" font-weight="bold" fill="#1261b5">PDF</text></g>
+<g transform="translate(370 155) rotate(9 60 70)"><rect width="112" height="145" rx="14" fill="#fff" opacity=".95"/><path d="M20 30h70M20 48h60M20 66h70" stroke="#16a6a0" stroke-width="6" stroke-linecap="round"/><path d="M22 102l18 16 36-40" fill="none" stroke="#0877f5" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/></g>
+<ellipse cx="282" cy="590" rx="165" ry="28" fill="#00152b" opacity=".28"/>
+<path d="M150 620c10-118 45-188 130-188s120 70 130 188" fill="url(#hood)" stroke="#414b5a" stroke-width="4"/>
+<path d="M205 475c-22-22-28-53-19-85 13-49 49-76 94-76s81 27 94 76c9 32 3 63-19 85l-29-35h-92z" fill="#05070b" stroke="#384352" stroke-width="5"/>
+<path d="M226 393c0-39 22-65 54-65s54 26 54 65v40c0 39-24 62-54 62s-54-23-54-62z" fill="#b87553"/>
+<path d="M221 385c3-49 28-74 59-74 36 0 59 27 59 73l-17-22-16-7-15 8-22-7-20 14-10 22z" fill="#10141c"/>
+<path d="M246 410h12m30 0h12" stroke="#35241e" stroke-width="5" stroke-linecap="round"/><path d="M265 443q15 11 30 0" fill="none" stroke="#713e32" stroke-width="4" stroke-linecap="round"/>
+<path d="M232 485l48 42 48-42" fill="#121720" stroke="#384352" stroke-width="4"/><path d="M280 528v70" stroke="#2c3746" stroke-width="3"/>
+<g transform="translate(220 550)"><rect width="120" height="42" rx="21" fill="#0877f5" stroke="#9feaff" stroke-width="2"/><text x="60" y="27" font-size="17" font-family="Arial" text-anchor="middle" font-weight="bold" fill="#fff">HOKSH</text></g>
+<g fill="#fff"><circle cx="80" cy="360" r="5" opacity=".8"/><circle cx="465" cy="370" r="7" opacity=".7"/><circle cx="420" cy="90" r="4" opacity=".7"/></g>
+</svg></div>
     <div class="introContent">
       <div class="introEyebrow">مساحتك الذكية للكتابة والتعلّم</div>
       <h1 class="hoksh">مرحباً بك في <span>حوكش</span></h1>
@@ -1051,7 +1093,7 @@ body.focusPdf #pdfPenPanel.show { display:block!important; }
       </div>
     </div>
     <div class="introFooter">
-      <div class="introDeveloper"><img src="developer.jpg" alt=""><span><b>Mohamed Shaban Moharib</b><small>Full Stack Web Developer</small></span></div>
+      <div class="introDeveloper"><span class="developerMark" aria-hidden="true">✦</span><span><b>محمد شعبان محارب</b><small>مطور حوكش HOKSH</small></span></div>
       <div class="introVersion"><b>HOKSH v5.0</b><span>أكبر من مجرد أداة.. إنه حوكش 💙</span></div>
     </div>
   </div>
