@@ -146,6 +146,60 @@ body, .app{background:#eff6ff;color:#102a58}
 .bottomBar button{background:#f3f7ff!important;border-color:#dce8fa!important;color:#1c4c8d!important}
 #pdfPenFab{background:linear-gradient(135deg,#0876f5,#20b7c3)!important}
 @media(max-width:560px){.simpleWelcome{border-radius:17px}.simpleActions{gap:10px}.homeSimple .recents{padding:12px}}
+
+/* Reference-matched HOKSH shell: bright dashboard + sidebar + PDF editor */
+:root{--bg:#eff5ff;--panel:#fff;--panel2:#edf5ff;--line:#dce8fa;--text:#102d62;--muted:#7185a8;--accent:#086cf2;--blue:#4f72ff;--ink:#102d62}
+html,body{background:#eff5ff;color:#102d62}
+.app{background:#eff5ff}
+.top{height:66px;min-height:66px;padding:8px 18px;background:#ffffffed;border-bottom:1px solid #dfebff;box-shadow:0 4px 20px #21518b0b;color:#102d62}
+.brand{min-width:210px}.brand b{color:#102d62}.brand small{color:#287df1}
+.search input{background:#f6f9ff;border-color:#dce8fa;color:#102d62}.search span{color:#4774b6}
+.iconBtn,.btn{background:#f5f8ff;border-color:#dce8fa;color:#234b82}.btn.primary{background:linear-gradient(110deg,#176bff,#087ff5);border-color:#2b7dff;color:#fff}
+.main{display:grid;grid-template-columns:174px minmax(0,1fr);grid-template-rows:minmax(0,1fr);overflow:hidden;background:#f1f6ff}
+.appSidebar{grid-column:1;grid-row:1;min-height:0;display:flex;flex-direction:column;gap:9px;padding:20px 12px;background:linear-gradient(180deg,#fff,#f6faff);border-right:1px solid #dce8fa;box-shadow:4px 0 18px #235b9b07;z-index:40}
+.appSideBrand{display:flex;align-items:center;gap:8px;padding:0 6px 20px;margin-bottom:4px;border-bottom:1px solid #e8effb;color:#102d62;font-weight:950;font-size:16px}
+.appSideBrand img{width:36px;height:36px;object-fit:contain}
+.appSideBtn{display:flex;align-items:center;gap:10px;width:100%;padding:12px 11px;border:1px solid transparent;border-radius:13px;background:transparent;color:#47638b;font:700 13px Tahoma,Arial,sans-serif;text-align:right;cursor:pointer}
+.appSideBtn:hover,.appSideBtn.active{background:linear-gradient(100deg,#e5f0ff,#d9ebff);border-color:#d8e8ff;color:#086cf2}
+.appSideSpacer{flex:1}
+.appSideFoot{font-size:10px;color:#7890ad;line-height:1.8;padding:12px 7px;border-top:1px solid #e6eefb}
+#home.homeSimple{grid-column:2;grid-row:1;min-width:0;width:100%;height:100%;padding:clamp(16px,2.2vw,30px)!important;background:linear-gradient(145deg,#f7fbff,#edf4ff 62%,#f3fffc)!important;overflow:auto}
+.simpleWelcome{max-width:none;margin:0 0 17px;padding:clamp(18px,2.4vw,30px);min-height:122px;border:1px solid #e0ebff;border-radius:20px;background:linear-gradient(105deg,#dfeaff,#f5faff 65%,#dcfff4);box-shadow:0 8px 24px #255d9a0b;position:relative;overflow:hidden}
+.simpleWelcome:after{content:"✦  ◌  ✧";position:absolute;right:28px;bottom:10px;color:#8db9ff;font-size:34px;letter-spacing:12px;opacity:.55;pointer-events:none}
+.simpleMark{background:linear-gradient(135deg,#1675f7,#28bfd1);box-shadow:0 9px 23px #0876f62c}
+.simpleWelcome h1{color:#102d62;font-size:clamp(22px,2.5vw,31px)}
+.simpleWelcome p{color:#506b94}
+.simpleActions{max-width:none;margin:0 0 18px;gap:14px}
+.simpleAction{min-height:108px;padding:18px;border:1px solid #e0eaff;border-radius:17px;background:#fff;box-shadow:0 8px 24px #1c55970b;color:#173866}
+.simpleAction.primaryAction{background:linear-gradient(110deg,#4b6fff,#0878f7);border:0;color:#fff}
+.simpleAction.primaryAction b,.simpleAction.primaryAction small,.simpleAction.primaryAction .simpleArrow{color:#fff}
+.simpleActionIcon{background:#eff6ff;color:#086cf2}
+.primaryAction .simpleActionIcon{background:#fff;color:#0874ef}
+.simpleAction:nth-child(2){background:linear-gradient(110deg,#24b67c,#16a989);border:0;color:#fff}
+.simpleAction:nth-child(2) b,.simpleAction:nth-child(2) small,.simpleAction:nth-child(2) .simpleArrow{color:#fff}
+.simpleAction:nth-child(2) .simpleActionIcon{background:#fff;color:#15a77f}
+.homeSimple .recents{max-width:none;margin:0;padding:17px;border:1px solid #e1eaf9;border-radius:18px;background:#ffffffc9;box-shadow:0 9px 26px #255a9a08}
+.homeSimple .head h2{color:#102d62}.homeSimple .fileCard{border:1px solid #e3ecfb;border-radius:14px;box-shadow:0 5px 17px #275b9b0a;background:#fff;color:#173866}.homeSimple .fileIcon{background:#fff0f0;color:#ef4444}.homeSimple .fileCard .meta{color:#7489a9}
+.workspace{position:relative!important;inset:auto!important;grid-column:2;grid-row:1;min-width:0;width:100%;height:100%;min-height:0;display:none;flex-direction:column;background:#f0f6ff}
+.workspace.active{display:flex}
+.workTop{height:56px;min-height:56px;padding:7px 12px;background:#fff;border-bottom:1px solid #dce8fa;color:#12366e;box-shadow:0 3px 14px #285b9908}
+.fileName button{color:#12316a}
+.workActions{gap:6px}.workTop .iconBtn{background:#f5f8ff;border-color:#dce8fa;color:#234b82}.workTop .btn.primary{background:linear-gradient(110deg,#086ff2,#287bff);color:#fff}
+.canvasArea{background:#edf4ff;flex:1;min-height:0;overflow:auto}
+.pages{padding:14px 24px 100px;gap:20px}
+.pageWrap,.pdfPage{box-shadow:0 5px 24px #234b7d17;border:1px solid #e1e9f6}
+.toolDock{position:absolute!important;right:12px!important;left:auto!important;top:88px!important;bottom:auto!important;display:flex;flex-direction:column;gap:5px;padding:8px!important;border:1px solid #d9e7fb!important;border-radius:17px!important;background:#ffffffed!important;box-shadow:0 10px 30px #235b9a20!important;backdrop-filter:blur(14px);z-index:45}
+.toolDock button{color:#24528d!important;border-radius:9px!important}
+.toolDock button.active{background:#0876f3!important;color:#fff!important}
+.bottomBar{background:#ffffffed!important;border-top:1px solid #dce8fa!important;color:#214b83!important;min-height:48px}
+.bottomBar button{background:#f3f7ff!important;border:1px solid #dce8fa!important;color:#1c4c8d!important;border-radius:9px}
+.bottomBar input{accent-color:#0876f3}
+#focusFab{background:linear-gradient(135deg,#0876f5,#20b7c3)!important;box-shadow:0 9px 24px #0876f544!important}
+.drawer{background:#fff;color:#14366c;border-color:#dce8fa;box-shadow:0 18px 50px #163c6b22}
+.drawer .btn{color:#234b82;background:#f5f8ff;border-color:#dce8fa}
+.drawer .btn.active,.drawer .btn.primary{background:#0876f3;color:#fff}
+@media(max-width:800px){.main{grid-template-columns:66px minmax(0,1fr)}.appSidebar{padding:14px 7px;align-items:center}.appSideBrand{justify-content:center;padding:0 0 15px;font-size:0}.appSideBrand img{width:38px;height:38px}.appSideBtn{justify-content:center;padding:12px 4px;font-size:0}.appSideBtn .sideLabel{display:none}.appSideBtn .sideIcon{font-size:19px}.appSideFoot{font-size:0;padding:8px 0}.homeSimple .recents{padding:12px}.workActions .hideM{display:none}.pages{padding:10px 12px 100px}.toolDock{right:6px!important;top:65px!important;gap:3px;padding:5px!important}.toolDock button{min-height:32px;min-width:32px}}
+@media(max-width:560px){.top{height:58px;min-height:58px;padding:6px 8px}.brand{min-width:0;flex:1}.brand b{font-size:15px}.brand small{font-size:8px}.search{display:none}.topBtns{gap:4px}.main{grid-template-columns:48px minmax(0,1fr)}.appSidebar{padding:12px 4px}.appSideBrand img{width:32px;height:32px}.appSideBtn{padding:11px 2px}.homeSimple{padding:12px!important}.simpleWelcome{min-height:94px;padding:14px;gap:10px}.simpleMark{width:44px;height:44px;flex-basis:44px;border-radius:13px;font-size:17px}.simpleWelcome h1{font-size:19px}.simpleWelcome p{font-size:11px}.simpleWelcome:after{display:none}.simpleActions{grid-template-columns:1fr;gap:9px}.simpleAction{min-height:78px;padding:12px}.simpleActionIcon{width:40px;height:40px;flex-basis:40px}.homeSimple .recents{padding:10px}.recentGrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.homeSimple .fileCard{padding:10px;min-height:102px}.workTop{gap:4px;padding:5px}.workTop .btn{font-size:10px;padding:0 7px}.fileName button{font-size:11px;max-width:20vw}.bottomBar{gap:4px;padding:5px;flex-wrap:wrap}.bottomBar button{font-size:10px;padding:4px 6px}.pageJump input{width:36px}.toolDock{right:4px!important;top:58px!important}.toolDock button{min-width:29px;min-height:29px;font-size:13px}}
 </style></style>
 
 <style id="hoksh-v3-ui">
@@ -694,6 +748,14 @@ body:not(.focusPdf) .home button:focus-visible,body:not(.focusPdf) .top button:f
   <div class="topBtns"><button class="iconBtn" id="searchBtn" title="بحث">🔍</button><button class="iconBtn moreMenuBtn" id="menuBtn" title="المزيد: الإعدادات، معلومات المطور، الدعم">☰ <span>المزيد</span></button></div>
 </header>
 <main class="main">
+<aside class="appSidebar" aria-label="القائمة الرئيسية">
+  <div class="appSideBrand"><img src="icon.svg" alt=""><span>HOKSH<br>حوكش</span></div>
+  <button class="appSideBtn active" id="visualHomeBtn" type="button"><span class="sideIcon">⌂</span><span class="sideLabel">الرئيسية</span></button>
+  <button class="appSideBtn" id="visualFilesBtn" type="button"><span class="sideIcon">▱</span><span class="sideLabel">ملفاتي</span></button>
+  <button class="appSideBtn" id="visualSettingsBtn" type="button"><span class="sideIcon">⚙</span><span class="sideLabel">الإعدادات</span></button>
+  <div class="appSideSpacer"></div>
+  <div class="appSideFoot">المطور<br><b>محمد شعبان محارب</b></div>
+</aside>
 <section class="home homeSimple" id="home">
   <div class="simpleWelcome"><div class="simpleMark">خـش</div><div><h1>أهلاً بيك في حوكش</h1><p>تبدأ منين النهارده؟</p></div></div>
   <div class="simpleActions">
@@ -776,6 +838,9 @@ body:not(.focusPdf) .home button:focus-visible,body:not(.focusPdf) .top button:f
 (()=>{const i=document.getElementById('intro');if(!i)return;const close=()=>{if(i.classList.contains('hide'))return;i.classList.add('hide');setTimeout(()=>i.remove(),800)};document.getElementById('introStart')?.addEventListener('click',close);setTimeout(close,6500)})();
 </script>
 <script>
+<script>
+(()=>{const home=document.getElementById('home'),workspace=document.getElementById('workspace');const goHome=()=>{home?.classList.remove('hidden');if(workspace)workspace.classList.remove('active');document.getElementById('visualHomeBtn')?.classList.add('active');document.getElementById('visualFilesBtn')?.classList.remove('active')};document.getElementById('visualHomeBtn')?.addEventListener('click',goHome);document.getElementById('visualFilesBtn')?.addEventListener('click',()=>{document.getElementById('recentGrid')?.scrollIntoView({behavior:'smooth',block:'start'});document.getElementById('visualFilesBtn')?.classList.add('active');document.getElementById('visualHomeBtn')?.classList.remove('active')});document.getElementById('visualSettingsBtn')?.addEventListener('click',()=>document.getElementById('menuBtn')?.click());document.getElementById('backHome')?.addEventListener('click',()=>{document.getElementById('visualHomeBtn')?.classList.add('active');document.getElementById('visualFilesBtn')?.classList.remove('active')});})();
+</script>
 const getDocument=()=>window.pdfjsLib?.getDocument;
 const $=id=>document.getElementById(id);
 const toast=t=>{const x=$('toast');x.textContent=t;x.classList.add('show');clearTimeout(window._tt);window._tt=setTimeout(()=>x.classList.remove('show'),2200)};
