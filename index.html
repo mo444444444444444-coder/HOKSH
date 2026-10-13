@@ -1384,4 +1384,89 @@ window.addEventListener('error',e=>{if(e.message)console.warn('HOKSH runtime:',e
 <script>
 (()=>{const b=document.getElementById('viewAllRecents');b?.addEventListener('click',()=>{document.getElementById('recentGrid')?.scrollIntoView({behavior:'smooth',block:'start'});const t=document.getElementById('toast');if(t){t.textContent='تعرض الآن كل الملفات الأخيرة المحفوظة على هذا الجهاز';t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200)}})})();
 </script>
+
+<style id="hoksh-responsive-final">
+/* HOKSH responsive stability layer */
+:root{--hoksh-blue:#2563eb;--hoksh-mint:#10b981;--hoksh-surface:#fff}
+html{scroll-behavior:auto}
+body{overscroll-behavior:none}
+.app{height:100dvh;min-height:0}
+.top{position:relative;flex-shrink:0;min-width:0}
+.main{display:flex;min-width:0;min-height:0}
+.home,.workspace{min-width:0;min-height:0}
+.home{flex:1}
+.appSidebar{flex:0 0 auto}
+.workspace{flex:1;min-width:0}
+.workTop{flex-shrink:0;min-width:0}
+.workActions{display:flex;align-items:center;gap:5px;min-width:0;flex-wrap:wrap}
+.canvasArea{min-width:0;min-height:0;overscroll-behavior:contain}
+.pages{touch-action:pan-x pan-y}
+button,.iconBtn,.btn,.simpleAction{touch-action:manipulation}
+img,canvas,svg{max-width:100%}
+.simpleWelcome,.simpleActions,.recents,.homeSupport{width:100%;max-width:1150px;margin-left:auto;margin-right:auto}
+.simpleWelcome{overflow:hidden}
+.recentGrid{min-width:0}
+.recentGrid>*{min-width:0}
+input,select,textarea{max-width:100%}
+#focusFab{z-index:70}
+.toolDock,.bottomBar,.top,.workTop{isolation:isolate}
+@media(max-width:900px){
+ .top{height:auto;min-height:54px;padding:7px 9px;gap:7px;flex-wrap:wrap}
+ .brand{min-width:0;flex:0 0 auto}.brand b{font-size:16px}.brand small{font-size:9px}
+ .search{order:3;flex:1 0 100%;max-width:none;margin:0}
+ .topBtns{margin-inline-start:auto}
+ .main{min-height:0}
+ .appSidebar{display:none!important}
+ .home{padding:15px 12px 88px}
+ .simpleWelcome{padding:20px!important;border-radius:20px!important}
+ .simpleWelcome h1{font-size:clamp(22px,5vw,30px)!important}
+ .welcomeIllustration{transform:scale(.86);transform-origin:center}
+ .simpleActions{grid-template-columns:1fr!important;gap:10px}
+ .homeSupport{flex-wrap:wrap;gap:10px}
+ .workTop{height:auto;min-height:48px;padding:6px;gap:5px;flex-wrap:wrap}
+ .fileName{min-width:0;flex:1}
+ .workActions{flex:1 0 100%;justify-content:flex-start}
+ .exportTop{flex:1}
+ .canvasArea{min-height:0}
+ .bottomBar{flex-wrap:wrap;justify-content:center;gap:6px;padding:7px}
+ .bottomBar .range{flex:1;min-width:80px}
+ .toolDock{max-width:calc(100vw - 16px);overflow-x:auto;overscroll-behavior-x:contain}
+}
+@media(max-width:560px){
+ .top{gap:6px}
+ .brand img{width:30px;height:30px}.brand b{font-size:14px}.brand small{font-size:8px}
+ .topBtns .iconBtn{width:37px;height:36px}
+ .moreMenuBtn span{display:none}
+ .home{padding:10px 9px 100px}
+ .simpleWelcome{padding:16px!important}
+ .welcomeIllustration{display:none!important}
+ .simpleAction{padding:14px 12px!important;gap:10px}
+ .simpleAction small{line-height:1.6}
+ .recents .head{gap:8px;flex-wrap:wrap}
+ .recentGrid{grid-template-columns:1fr!important}
+ .workTop .hideM{display:none}
+ .workActions .iconBtn{width:34px;height:35px;padding:0}
+ .exportTop{font-size:12px;padding:0 8px;min-width:100px}
+ .fileName button{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+ .bottomBar button{font-size:11px;padding:5px 7px}
+ .pageJump input{width:42px}
+ .penPop{max-width:calc(100vw - 18px)}
+ .toolGrid{grid-template-columns:repeat(4,minmax(42px,1fr))!important}
+ .drawer{max-width:calc(100vw - 20px)}
+ .dialog{width:calc(100vw - 24px)!important;max-width:480px;margin:12px}
+}
+@media(orientation:landscape) and (max-height:520px){
+ .top{min-height:42px;height:auto;padding:4px 8px}
+ .brand img{width:27px;height:27px}
+ .search input{height:32px}
+ .home{padding-top:10px}
+ .simpleWelcome{padding:14px!important;margin-bottom:10px}
+ .simpleWelcome h1{font-size:22px!important}
+ .bottomBar{padding:4px}
+}
+@media(prefers-reduced-motion:reduce){
+ *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
+</style>
+
 </body></html>
