@@ -918,6 +918,31 @@ body:not(:has(.workspace.active)) #focusFab {
 .workspace.active #pdfPenPanel.show { display:block!important; }
 </style>
 
+
+<style id="hoksh-tools-only-while-document-open">
+/* Hard gate: hide every editor control unless the document workspace is explicitly open. */
+body:not(.focusPdf) #toolDock,
+body:not(.focusPdf) .toolDock,
+body:not(.focusPdf) .bottomBar,
+body:not(.focusPdf) .workTop,
+body:not(.focusPdf) .penPop,
+body:not(.focusPdf) #pdfPenFab,
+body:not(.focusPdf) #pdfPenPanel,
+body:not(.focusPdf) #focusFab {
+  display:none!important;
+}
+/* When a file/whiteboard is open, expose one dock and one floating pen only. */
+body.focusPdf #toolDock,
+body.focusPdf .toolDock { display:flex!important; }
+body.focusPdf .bottomBar { display:flex!important; }
+body.focusPdf .workTop { display:flex!important; }
+body.focusPdf #pdfPenFab.show { display:grid!important; }
+body.focusPdf #pdfPenPanel:not(.show) { display:none!important; }
+body.focusPdf #pdfPenPanel.show { display:block!important; }
+/* Remove the legacy duplicate floating pen button; the dedicated PDF pen remains. */
+#focusFab { display:none!important; }
+</style>
+
 </head>
 <body>
 <div class="app">
