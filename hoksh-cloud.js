@@ -172,6 +172,22 @@
     const {error}=await client.from('support_tickets').insert({user_id:signedUser.id,subject:subject.trim(),message:messageText.trim()});
     msg(error?'تعذر إرسال طلب الدعم: '+error.message:'تم إرسال طلب الدعم.');
   }
+  async function refreshAnnouncement(){
+    if(!client||!signedUser)return;
+    try{
+      const {data,error}=await client.from('app_settings').select('value').eq('key','announcement').maybeSingle();
+      if(error)return;
+      const text=String(data?.value?.text||'').trim();
+      let banner=byId('hokshAnnouncementBanner');
+      if(!text){banner?.remove();return}
+      if(!banner){
+        banner=document.createElement('div');banner.id='hokshAnnouncementBanner';
+        banner.style.cssText='max-width:1150px;margin:10px auto;padding:12px 15px;border:1px solid #bfdbfe;border-radius:12px;background:#eff6ff;color:#1e40af;line-height:1.7;font-size:13px';
+        const home=byId('home');if(home)home.insertBefore(banner,home.firstChild);
+      }
+      banner.textContent='📢 '+text;
+    }catch(e){console.warn('HOKSH announcement unavailable',e)}
+  }
   async function refreshUser(user){
     signedUser=user||null;profile=null;cloudFileId=null;cloudOwnerId=null;
     const adminBtn=byId('hokshAdminBtn');if(adminBtn)adminBtn.style.display='none';
@@ -180,7 +196,7 @@
       try{const {data,error}=await client.from('profiles').select('id,display_name,role,is_suspended').eq('id',user.id).maybeSingle();if(!error)profile=data}
       catch(e){console.warn('HOKSH profile fetch',e)}
     }
-    if(adminBtn&&isAdmin())adminBtn.style.display='inline-block';
+    if(adminBtn&&isAdmin())adminBtn.style.display='inline-block';\n    refreshAnnouncement();
     if(profile?.is_suspended){
       msg('هذا الحساب موقوف من إدارة حوكش. تواصل مع الدعم.');
       try{await client.auth.signOut()}catch(e){}
