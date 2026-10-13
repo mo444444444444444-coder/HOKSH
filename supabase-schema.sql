@@ -13,6 +13,11 @@ create table if not exists public.profiles (
 alter table public.profiles add column if not exists role text not null default 'user';
 alter table public.profiles add column if not exists is_suspended boolean not null default false;
 alter table public.profiles add column if not exists updated_at timestamptz not null default now();
+do $ begin
+  if not exists (select 1 from pg_constraint where conname='profiles_role_check' and conrelid='public.profiles'::regclass) then
+    alter table public.profiles add constraint profiles_role_check check (role in ('user','admin','owner'));
+  end if;
+end $;
 
 create table if not exists public.user_files (
   id uuid primary key default gen_random_uuid(),
@@ -98,7 +103,9 @@ create policy "annotation owner or admin access" on public.user_annotations for 
 using ((user_id=auth.uid() and not exists(select 1 from public.profiles p where p.id=auth.uid() and p.is_suspended)) or public.hoksh_is_admin())
 with check ((user_id=auth.uid() and not exists(select 1 from public.profiles p where p.id=auth.uid() and p.is_suspended)) or public.hoksh_is_admin());
 drop policy if exists "ticket owner read create" on public.support_tickets;
+drop policy if exists "ticket owner read create" on public.support_tickets;
 create policy "ticket owner read create" on public.support_tickets for select to authenticated using (user_id=auth.uid() or public.hoksh_is_admin());
+drop policy if exists "ticket owner create" on public.support_tickets;
 create policy "ticket owner create" on public.support_tickets for insert to authenticated with check (user_id=auth.uid() and not public.hoksh_is_admin());
 drop policy if exists "ticket admin update" on public.support_tickets;
 create policy "ticket admin update" on public.support_tickets for update to authenticated using (public.hoksh_is_admin()) with check (public.hoksh_is_admin());
@@ -108,6 +115,16 @@ drop policy if exists "settings admin write" on public.app_settings;
 create policy "settings admin write" on public.app_settings for all to authenticated using (public.hoksh_is_admin()) with check (public.hoksh_is_admin());
 drop policy if exists "audit admin read" on public.admin_audit_log;
 create policy "audit admin read" on public.admin_audit_log for select to authenticated using (public.hoksh_is_admin());
+
+create or replace function public.hoksh_admin_list_users()
+returns table(id uuid,email text,display_name text,role text,is_suspended boolean,created_at timestamptz)
+language plpgsql security definer set search_path=public
+as $
+begin
+  if not public.hoksh_is_admin() then raise exception 'Admin permission required'; end if;
+  return query select u.id,u.email,coalesce(p.display_name,''),p.role,p.is_suspended,u.created_at
+    from auth.users u join public.profiles p on p.id=u.id order by u.created_at desc limit 500;
+end; $;
 
 create or replace function public.hoksh_admin_set_role(target_user_id uuid, new_role text)
 returns void language plpgsql security definer set search_path=public
@@ -142,6 +159,7 @@ end; $$;
 
 grant execute on function public.hoksh_is_admin() to authenticated;
 grant execute on function public.hoksh_is_owner() to authenticated;
+grant execute on function public.hoksh_admin_list_users() to authenticated;
 grant execute on function public.hoksh_admin_set_role(uuid,text) to authenticated;
 grant execute on function public.hoksh_admin_set_suspended(uuid,boolean) to authenticated;
 grant execute on function public.hoksh_admin_update_ticket(uuid,text,text) to authenticated;
@@ -151,7 +169,8 @@ create index if not exists hoksh_annotations_file_idx on public.user_annotations
 create index if not exists hoksh_support_status_idx on public.support_tickets(status,created_at desc);
 create index if not exists hoksh_audit_recent_idx on public.admin_audit_log(created_at desc);
 
--- Create a PRIVATE bucket named hoksh-files in Storage dashboard, then run:
+-- Create/ensure a PRIVATE bucket for PDFs and whiteboards.
+insert into storage.buckets(id,name,public) values('hoksh-files','hoksh-files',false) on conflict(id) do update set public=false;
 drop policy if exists "hoksh objects owner or admin read" on storage.objects;
 create policy "hoksh objects owner or admin read" on storage.objects for select to authenticated
 using (bucket_id='hoksh-files' and ((storage.foldername(name))[1]=auth.uid()::text or public.hoksh_is_admin()));
