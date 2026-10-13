@@ -1184,7 +1184,7 @@ const toast=t=>{const x=$('toast');x.textContent=t;x.classList.add('show');clear
 let pdf=null, pdfBytes=null, docName='مستند جديد', pages=[], pageMode='vertical', zoom=1, tool='pen', color='#e51d48', width=3, opacity=.3, activePage=0, drawing=null, history=[], future=[], whiteboardSize='a4', textStyle={bold:true,italic:false}, signatureData=localStorage.getItem('hoksh_signature')||null;
 const stateKey='hoksh_work_v3', recentKey='hoksh_recents_v3';
 const stateDbName='hoksh_state_db_v1';
-let stateDbPromise=null;
+let stateDbPromise=null,lastSavedImages=[];
 function openStateDB(){
   if(!('indexedDB' in window))return Promise.reject(new Error('IndexedDB unavailable'));
   if(stateDbPromise)return stateDbPromise;
@@ -1202,22 +1202,34 @@ function saveState(){
   clearTimeout(saveTimer);
   const revision=++saveRevision;
   saveTimer=setTimeout(async()=>{
-    const snapshot={docName,pages:pages.map(p=>({w:p.w,h:p.h,image:p.image||null,strokes:p.strokes||[],infinite:!!p.infinite})),activePage,zoom,pageMode,savedAt:Date.now()};
+    const currentPages=pages.map(p=>({w:p.w,h:p.h,strokes:p.strokes||[],infinite:!!p.infinite,imageKey:p.image?'image-'+pages.indexOf(p):null}));
+    const snapshot={docName,pages:currentPages,activePage,zoom,pageMode,savedAt:Date.now()};
     try{
       const db=await openStateDB();
       await new Promise((resolve,reject)=>{
-        const tx=db.transaction('documents','readwrite');
-        tx.objectStore('documents').put(snapshot,'current');
+        const tx=db.transaction('documents','readwrite'),store=tx.objectStore('documents'),get=store.get('current');
+        get.onsuccess=()=>{
+          const previous=get.result;
+          currentPages.forEach((p,i)=>{
+            const image=pages[i]?.image||null,key='image-'+i;
+            if(image&&lastSavedImages[i]!==image)store.put(image,key);
+            if(!image&&previous?.pages?.[i]?.imageKey)store.delete(previous.pages[i].imageKey);
+          });
+          for(let i=currentPages.length;i<(previous?.pages?.length||0);i++)if(previous.pages[i]?.imageKey)store.delete(previous.pages[i].imageKey);
+          store.put(snapshot,'current');
+        };
+        get.onerror=()=>reject(get.error||new Error('Could not read previous state'));
         tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error||new Error('Save transaction failed'));tx.onabort=()=>reject(tx.error||new Error('Save transaction aborted'));
       });
-      if(revision===saveRevision){try{localStorage.setItem(stateKey,JSON.stringify({docName,activePage,zoom,pageMode,storage:'indexeddb',savedAt:snapshot.savedAt}))}catch(e){}}
+      if(revision===saveRevision){
+        lastSavedImages=pages.map(p=>p.image||null);
+        try{localStorage.setItem(stateKey,JSON.stringify({docName,activePage,zoom,pageMode,storage:'indexeddb',savedAt:snapshot.savedAt}))}catch(e){}
+      }
     }catch(e){
       try{
-        // Compatibility fallback for whiteboards and older states when IndexedDB is unavailable.
         localStorage.setItem(stateKey,JSON.stringify({docName,pages:pages.map(p=>({w:p.w,h:p.h,strokes:p.strokes||[],infinite:!!p.infinite})),activePage,zoom,pageMode}));
-      }catch(storageError){
-        if(typeof toast==='function')toast('تعذر حفظ العمل على هذا الجهاز؛ صدّر نسخة احتياطية من الملف.');
-      }
+        if(pages.some(p=>p.image)&&typeof toast==='function')toast('تعذر حفظ خلفيات PDF محليًا؛ صدّر نسخة PDF قبل إغلاق الصفحة.');
+      }catch(storageError){if(typeof toast==='function')toast('تعذر حفظ العمل على هذا الجهاز؛ صدّر نسخة احتياطية من الملف.')}
     }
   },180);
 }
@@ -1225,11 +1237,21 @@ async function loadState(){
   try{
     const db=await openStateDB();
     const s=await idbRequest(db.transaction('documents','readonly').objectStore('documents').get('current'));
-    if(s&&s.pages?.length){docName=s.docName||docName;pages=s.pages;activePage=s.activePage||0;zoom=s.zoom||1;pageMode=s.pageMode||'vertical';return true}
+    if(s&&s.pages?.length){
+      let images=[];
+      if(s.pages.some(p=>p.imageKey)){
+        const tx=db.transaction('documents','readonly'),store=tx.objectStore('documents');
+        images=await Promise.all(s.pages.map(p=>p.imageKey?idbRequest(store.get(p.imageKey)):Promise.resolve(null)));
+      }
+      docName=s.docName||docName;
+      pages=s.pages.map((p,i)=>({...p,image:images[i]||null}));
+      lastSavedImages=pages.map(p=>p.image||null);
+      activePage=s.activePage||0;zoom=s.zoom||1;pageMode=s.pageMode||'vertical';return true;
+    }
   }catch(e){}
   try{
     const s=JSON.parse(localStorage.getItem(stateKey)||'null');
-    if(s&&s.pages?.length){docName=s.docName||docName;pages=s.pages;activePage=s.activePage||0;zoom=s.zoom||1;pageMode=s.pageMode||'vertical';return true}
+    if(s&&s.pages?.length){docName=s.docName||docName;pages=s.pages;lastSavedImages=pages.map(p=>p.image||null);activePage=s.activePage||0;zoom=s.zoom||1;pageMode=s.pageMode||'vertical';return true}
   }catch(e){}
   return false;
 }
