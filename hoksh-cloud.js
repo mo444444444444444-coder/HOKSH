@@ -196,7 +196,8 @@
       try{const {data,error}=await client.from('profiles').select('id,display_name,role,is_suspended').eq('id',user.id).maybeSingle();if(!error)profile=data}
       catch(e){console.warn('HOKSH profile fetch',e)}
     }
-    if(adminBtn&&isAdmin())adminBtn.style.display='inline-block';\n    refreshAnnouncement();
+    if(adminBtn&&isAdmin())adminBtn.style.display='inline-block';
+    refreshAnnouncement();
     if(profile?.is_suspended){
       msg('هذا الحساب موقوف من إدارة حوكش. تواصل مع الدعم.');
       try{await client.auth.signOut()}catch(e){}
