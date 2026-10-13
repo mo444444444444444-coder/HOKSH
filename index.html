@@ -1202,7 +1202,7 @@ function saveState(){
   clearTimeout(saveTimer);
   const revision=++saveRevision;
   saveTimer=setTimeout(async()=>{
-    const currentPages=pages.map(p=>({w:p.w,h:p.h,strokes:p.strokes||[],infinite:!!p.infinite,imageKey:p.image?'image-'+pages.indexOf(p):null}));
+    const currentPages=pages.map((p,i)=>({w:p.w,h:p.h,strokes:p.strokes||[],infinite:!!p.infinite,imageKey:p.image?'image-'+i:null}));
     const snapshot={docName,pages:currentPages,activePage,zoom,pageMode,savedAt:Date.now()};
     try{
       const db=await openStateDB();
