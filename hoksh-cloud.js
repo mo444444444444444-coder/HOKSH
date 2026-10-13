@@ -137,7 +137,7 @@
   }
   async function renderUsers(root){
     root.innerHTML='<div class="hc-note">صلاحيات المدير محمية بقاعدة البيانات. تغيير الأدوار متاح للمالك الرئيسي فقط؛ المدير يستطيع تعليق الحسابات وإعادتها.</div><div id="hcUsers" class="hc-empty">جارٍ تحميل الحسابات…</div>';
-    const {data,error}=await client.from('profiles').select('id,display_name,role,is_suspended,created_at').order('created_at',{ascending:false}).limit(200);
+    const {data,error}=await client.rpc('hoksh_admin_list_users');
     if(error){byId('hcUsers').textContent='تعذر جلب الحسابات: '+error.message;return}
     byId('hcUsers').className='hc-tablewrap';
     byId('hcUsers').innerHTML='<table class="hc-table"><thead><tr><th>الاسم</th><th>معرّف الحساب</th><th>الدور</th><th>الحالة</th><th>إجراء</th></tr></thead><tbody>'+data.map(u=>{ 
@@ -146,7 +146,7 @@
         actions='<button class="hc-btn '+(u.is_suspended?'good':'warn')+'" data-suspend="'+u.id+'" data-value="'+(!u.is_suspended)+'">'+(u.is_suspended?'إعادة تفعيل':'تعليق')+'</button>';
         if(profile.role==='owner') actions+=' <select data-role="'+u.id+'" aria-label="دور المستخدم"><option value="user" '+(u.role==='user'?'selected':'')+'>مستخدم</option><option value="admin" '+(u.role==='admin'?'selected':'')+'>مدير</option></select>';
       } else if(u.id===signedUser.id) actions='حسابك';
-      return '<tr><td>'+safe(u.display_name||'بدون اسم')+'</td><td style="direction:ltr;text-align:left">'+safe(u.id.slice(0,8))+'…</td><td>'+safe(u.role)+'</td><td>'+(u.is_suspended?'موقوف':'نشط')+'</td><td>'+actions+'</td></tr>';
+      return '<tr><td>'+safe(u.display_name||'بدون اسم')+'<br><small>'+safe(u.email||'')+'</small></td><td style="direction:ltr;text-align:left">'+safe(u.id.slice(0,8))+'…</td><td>'+safe(u.role)+'</td><td>'+(u.is_suspended?'موقوف':'نشط')+'</td><td>'+actions+'</td></tr>';
     }).join('')+'</tbody></table>';
     byId('hcUsers').querySelectorAll('[data-suspend]').forEach(btn=>btn.onclick=async()=>{const {error}=await client.rpc('hoksh_admin_set_suspended',{target_user_id:btn.dataset.suspend,suspended:btn.dataset.value==='true'});if(error)msg('تعذر تغيير حالة الحساب: '+error.message);else{msg('تم تحديث حالة الحساب.');renderPanel()}});
     byId('hcUsers').querySelectorAll('[data-role]').forEach(sel=>sel.onchange=async()=>{if(!confirm('تأكيد تغيير دور هذا الحساب؟')){renderPanel();return}const {error}=await client.rpc('hoksh_admin_set_role',{target_user_id:sel.dataset.role,new_role:sel.value});if(error)msg('تعذر تغيير الدور: '+error.message);else{msg('تم تحديث الدور.');renderPanel()}});
