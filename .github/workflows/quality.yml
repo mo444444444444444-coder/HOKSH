@@ -23,3 +23,15 @@ jobs:
           print('HTML basic checks passed; extracted',len(scripts),'inline script(s)')
           PY
           node --check /tmp/hoksh-inline.js
+          node --check hoksh-platform.js
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+          html=Path('index.html').read_text(encoding='utf-8')
+          manifest=json.loads(Path('manifest.webmanifest').read_text(encoding='utf-8'))
+          assert 'src="hoksh-platform.js"' in html
+          assert "navigator.serviceWorker.register('./sw.js')" in Path('hoksh-platform.js').read_text(encoding='utf-8')
+          assert './hoksh-platform.js' in Path('sw.js').read_text(encoding='utf-8')
+          assert manifest['start_url'] == '/HOKSH/'
+          print('Platform assets and PWA registration checks passed')
+          PY
