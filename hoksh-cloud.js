@@ -82,10 +82,11 @@
         const data={format:'hoksh-whiteboard-v1',docName:name,pages:pages.map(p=>({w:p.w,h:p.h,strokes:p.strokes||[],image:p.image||null,infinite:!!p.infinite})),activePage,zoom,pageMode,updatedAt:new Date().toISOString()};
         blob=new Blob([JSON.stringify(data)],{type:mime});
       }
-      if(cloudFileId){
-        const {data:old}=await client.from('user_files').select('id,storage_path').eq('id',cloudFileId).maybeSingle();
+      if(cloudFileId && cloudOwnerId===signedUser.id){
+        const {data:old}=await client.from('user_files').select('id,user_id,storage_path').eq('id',cloudFileId).maybeSingle();
         if(old&&old.user_id===signedUser.id)path=old.storage_path;
-      }
+      } else { cloudFileId=null; }
+      if(!path)path=signedUser.id+'/'+now+'-'+name.replace(/[^\\p{L}\\p{N}._-]+/gu,'_').slice(0,90);
       if(!path)path=signedUser.id+'/'+now+'-'+name.replace(/[^\p{L}\p{N}._-]+/gu,'_').slice(0,90);
       const {error:upErr}=await client.storage.from('hoksh-files').upload(path,blob,{upsert:true,contentType:mime});
       if(upErr)throw upErr;
@@ -105,7 +106,7 @@
     if(!f||!client)return;
     try{
       const {data:obj,error}=await client.storage.from('hoksh-files').download(f.storage_path);if(error)throw error;
-      cloudFileId=f.id;
+      cloudFileId=f.id;cloudOwnerId=f.user_id;
       if(f.mime_type==='application/pdf'){
         const buf=await obj.arrayBuffer();
         await openPdfBytes(new Uint8Array(buf),f.file_name,f.file_size);
