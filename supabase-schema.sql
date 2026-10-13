@@ -103,7 +103,6 @@ create policy "annotation owner or admin access" on public.user_annotations for 
 using ((user_id=auth.uid() and not exists(select 1 from public.profiles p where p.id=auth.uid() and p.is_suspended)) or public.hoksh_is_admin())
 with check ((user_id=auth.uid() and not exists(select 1 from public.profiles p where p.id=auth.uid() and p.is_suspended)) or public.hoksh_is_admin());
 drop policy if exists "ticket owner read create" on public.support_tickets;
-drop policy if exists "ticket owner read create" on public.support_tickets;
 create policy "ticket owner read create" on public.support_tickets for select to authenticated using (user_id=auth.uid() or public.hoksh_is_admin());
 drop policy if exists "ticket owner create" on public.support_tickets;
 create policy "ticket owner create" on public.support_tickets for insert to authenticated with check (user_id=auth.uid() and not public.hoksh_is_admin());
@@ -159,10 +158,10 @@ end; $$;
 
 grant execute on function public.hoksh_is_admin() to authenticated;
 grant execute on function public.hoksh_is_owner() to authenticated;
-grant execute on function public.hoksh_admin_list_users() to authenticated;
-grant execute on function public.hoksh_admin_set_role(uuid,text) to authenticated;
-grant execute on function public.hoksh_admin_set_suspended(uuid,boolean) to authenticated;
-grant execute on function public.hoksh_admin_update_ticket(uuid,text,text) to authenticated;
+revoke all on function public.hoksh_admin_list_users() from public, anon;\ngrant execute on function public.hoksh_admin_list_users() to authenticated;
+revoke all on function public.hoksh_admin_set_role(uuid,text) from public, anon;\ngrant execute on function public.hoksh_admin_set_role(uuid,text) to authenticated;
+revoke all on function public.hoksh_admin_set_suspended(uuid,boolean) from public, anon;\ngrant execute on function public.hoksh_admin_set_suspended(uuid,boolean) to authenticated;
+revoke all on function public.hoksh_admin_update_ticket(uuid,text,text) from public, anon;\ngrant execute on function public.hoksh_admin_update_ticket(uuid,text,text) to authenticated;
 
 create index if not exists hoksh_user_files_owner_recent_idx on public.user_files(user_id,last_opened_at desc);
 create index if not exists hoksh_annotations_file_idx on public.user_annotations(file_id,page_number);
@@ -173,17 +172,17 @@ create index if not exists hoksh_audit_recent_idx on public.admin_audit_log(crea
 insert into storage.buckets(id,name,public) values('hoksh-files','hoksh-files',false) on conflict(id) do update set public=false;
 drop policy if exists "hoksh objects owner or admin read" on storage.objects;
 create policy "hoksh objects owner or admin read" on storage.objects for select to authenticated
-using (bucket_id='hoksh-files' and ((storage.foldername(name))[1]=auth.uid()::text or public.hoksh_is_admin()));
+using (bucket_id='hoksh-files' and (((storage.foldername(name))[1]=auth.uid()::text and not exists(select 1 from public.profiles p where p.id=auth.uid() and p.is_suspended)) or public.hoksh_is_admin()));
 drop policy if exists "hoksh objects owner upload" on storage.objects;
 create policy "hoksh objects owner upload" on storage.objects for insert to authenticated
 with check (bucket_id='hoksh-files' and (storage.foldername(name))[1]=auth.uid()::text and not exists(select 1 from public.profiles p where p.id=auth.uid() and p.is_suspended));
 drop policy if exists "hoksh objects owner or admin update" on storage.objects;
 create policy "hoksh objects owner or admin update" on storage.objects for update to authenticated
-using (bucket_id='hoksh-files' and ((storage.foldername(name))[1]=auth.uid()::text or public.hoksh_is_admin()))
-with check (bucket_id='hoksh-files' and ((storage.foldername(name))[1]=auth.uid()::text or public.hoksh_is_admin()));
+using (bucket_id='hoksh-files' and (((storage.foldername(name))[1]=auth.uid()::text and not exists(select 1 from public.profiles p where p.id=auth.uid() and p.is_suspended)) or public.hoksh_is_admin()))
+with check (bucket_id='hoksh-files' and (((storage.foldername(name))[1]=auth.uid()::text and not exists(select 1 from public.profiles p where p.id=auth.uid() and p.is_suspended)) or public.hoksh_is_admin()));
 drop policy if exists "hoksh objects owner or admin delete" on storage.objects;
 create policy "hoksh objects owner or admin delete" on storage.objects for delete to authenticated
-using (bucket_id='hoksh-files' and ((storage.foldername(name))[1]=auth.uid()::text or public.hoksh_is_admin()));
+using (bucket_id='hoksh-files' and (((storage.foldername(name))[1]=auth.uid()::text and not exists(select 1 from public.profiles p where p.id=auth.uid() and p.is_suspended)) or public.hoksh_is_admin()));
 
 -- After creating your first account and confirming its email, run a one-time owner bootstrap
 -- in SQL Editor, replacing the email with the exact email you registered:
