@@ -1084,7 +1084,7 @@ body.focusPdf #pdfPenPanel.show { display:block!important; }
 <div class="thumbPanel" id="thumbPanel"><div class="thumbBox"><div class="head"><h3 style="margin:0">كل الصفحات</h3><div><button class="btn" id="thumbAdd">＋ صفحة بيضاء</button><button class="btn" id="thumbClose">إغلاق</button></div></div><div class="thumbGrid" id="thumbGrid"></div></div></div>
 <div class="toast" id="toast"></div>
 
-<div class="accountShade" id="accountShade" role="dialog" aria-modal="true" aria-labelledby="accountTitle">
+<div class="accountShade open" id="accountShade" role="dialog" aria-modal="true" aria-labelledby="accountTitle">
   <section class="accountCard">
     <button class="accountClose" id="accountClose" type="button" aria-label="إغلاق">✕</button>
     <div class="accountBrand"><img src="icon.svg" alt="شعار حوكش"><span><b>حوكش HOKSH</b><small>مساحتك الخاصة للقراءة والكتابة</small></span></div>
@@ -1763,7 +1763,7 @@ body{overflow:hidden}
   function message(text,kind){status.textContent=text;status.className='accountStatus show '+(kind||'info');}
   function clearMessage(){status.textContent='';status.className='accountStatus';}
   function open(){shade.classList.add('open');clearMessage();refresh();}
-  function close(){shade.classList.remove('open');}
+  function close(){if(!currentUser){shade.classList.add('open');return;}shade.classList.remove('open');}
   function setMode(next){
     mode=next;
     $id('accountLoginTab').classList.toggle('active',mode==='login');
@@ -1782,8 +1782,11 @@ body{overflow:hidden}
     $id('accountEmailLabel').textContent=user?.email||'';
     $id('accountAvatar').textContent=(user?.email||'م').slice(0,1).toUpperCase();
     $id('accountStateLabel').textContent='تم تسجيل الدخول';
-    $id('accountTitle').textContent=user?'حسابك':'حسابك في حوكش';
-    if(user) message('أنت مسجل الدخول. سيُحفظ المحتوى سحابياً بعد إعداد قاعدة البيانات وسياسات الخصوصية.','ok');
+    $id('accountTitle').textContent=user?'حسابك':'سجّل الدخول إلى حوكش';
+    $id('accountClose').style.display=user?'block':'none';
+    $id('accountGuest').style.display=user?'none':'none';
+    if(user){shade.classList.remove('open');message('أهلاً بك. تم تسجيل الدخول بنجاح.','ok');}
+    else {shade.classList.add('open');}
   }
   async function refresh(){
     if(!client){showUser(null);return;}
@@ -1800,9 +1803,11 @@ body{overflow:hidden}
   $id('accountLoginTab').addEventListener('click',()=>setMode('login'));
   $id('accountSignupTab').addEventListener('click',()=>setMode('signup'));
   $id('accountClose').addEventListener('click',close);
-  $id('accountGuest').addEventListener('click',close);
-  shade.addEventListener('click',e=>{if(e.target===shade)close();});
-  document.addEventListener('keydown',e=>{if(e.key==='Escape')close();});
+  $id('accountGuest').style.display='none';
+  $id('accountClose').style.display='none';
+  $id('accountGuest').addEventListener('click',e=>{e.preventDefault();open();});
+  shade.addEventListener('click',e=>{if(e.target===shade && !currentUser){e.preventDefault();shade.classList.add('open');}});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape' && !currentUser){e.preventDefault();shade.classList.add('open');}});
   document.querySelectorAll('#menuBtn,#visualSettingsBtn,#sideFiles,#visualFilesBtn').forEach(el=>el&&el.addEventListener('dblclick',open));
   const profileBtn=$id('accountOpenBtn'); if(profileBtn) profileBtn.addEventListener('click',open);
   const sideProfile=$id('accountSideBtn'); if(sideProfile) sideProfile.addEventListener('click',open);
@@ -1835,7 +1840,7 @@ body{overflow:hidden}
   });
   $id('accountSignOut').addEventListener('click',async()=>{
     if(client){const {error}=await client.auth.signOut();if(error){message(error.message,'error');return;}}
-    showUser(null);setMode('login');message('تم تسجيل الخروج.','ok');
+    showUser(null);setMode('login');shade.classList.add('open');message('تم تسجيل الخروج. سجّل الدخول مرة أخرى للمتابعة.','ok');
   });
   if(client){client.auth.onAuthStateChange((_event,session)=>showUser(session?.user||null));}
   window.HOKSHAccount={open,close,refresh,getUser:()=>currentUser,getClient:()=>client};
