@@ -893,6 +893,31 @@ body:has(#intro:not(.hide)) #pdfPenPanel { display:none!important; }
 }
 </style>
 
+
+<style id="hoksh-single-editor-toolbar">
+/* One editor toolbar only: never show PDF tools on the intro or home screen. */
+body:not(:has(.workspace.active)) .toolDock,
+body:not(:has(.workspace.active)) .bottomBar,
+body:not(:has(.workspace.active)) .workTop,
+body:not(:has(.workspace.active)) .penPop,
+body:not(:has(.workspace.active)) #pdfPenFab,
+body:not(:has(.workspace.active)) #pdfPenPanel,
+body:not(:has(.workspace.active)) #focusFab {
+  display:none!important;
+}
+/* The old focusFab duplicated the floating pen. Keep just the dedicated PDF pen. */
+#focusFab { display:none!important; }
+.workspace:not(.active) .toolDock,
+.workspace:not(.active) .bottomBar,
+.workspace:not(.active) .workTop,
+.workspace:not(.active) .penPop { display:none!important; }
+.workspace.active .toolDock { display:flex!important; }
+.workspace.active .bottomBar { display:flex!important; }
+.workspace.active .workTop { display:flex!important; }
+.workspace.active #pdfPenFab.show { display:grid!important; }
+.workspace.active #pdfPenPanel.show { display:block!important; }
+</style>
+
 </head>
 <body>
 <div class="app">
