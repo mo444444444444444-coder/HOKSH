@@ -988,6 +988,7 @@ body:not(.focusPdf) .workspace,body.focusPdf .workspace{background:#edf4ff!impor
 <script>
 (()=>{const home=document.getElementById('home'),workspace=document.getElementById('workspace');const goHome=()=>{home?.classList.remove('hidden');if(workspace)workspace.classList.remove('active');document.getElementById('visualHomeBtn')?.classList.add('active');document.getElementById('visualFilesBtn')?.classList.remove('active')};document.getElementById('visualHomeBtn')?.addEventListener('click',goHome);document.getElementById('visualFilesBtn')?.addEventListener('click',()=>{document.getElementById('recentGrid')?.scrollIntoView({behavior:'smooth',block:'start'});document.getElementById('visualFilesBtn')?.classList.add('active');document.getElementById('visualHomeBtn')?.classList.remove('active')});document.getElementById('visualSettingsBtn')?.addEventListener('click',()=>document.getElementById('menuBtn')?.click());document.getElementById('backHome')?.addEventListener('click',()=>{document.getElementById('visualHomeBtn')?.classList.add('active');document.getElementById('visualFilesBtn')?.classList.remove('active')});})();
 </script>
+<script>
 const getDocument=()=>window.pdfjsLib?.getDocument;
 const $=id=>document.getElementById(id);
 const toast=t=>{const x=$('toast');x.textContent=t;x.classList.add('show');clearTimeout(window._tt);window._tt=setTimeout(()=>x.classList.remove('show'),2200)};
