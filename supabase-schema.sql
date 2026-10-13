@@ -91,6 +91,18 @@ alter table public.support_tickets enable row level security;
 alter table public.app_settings enable row level security;
 alter table public.admin_audit_log enable row level security;
 
+-- Remove policies from the earlier prototype schema. In particular, old profile UPDATE
+-- policy must be removed so a user cannot edit their own role after role column is added.
+drop policy if exists "profile owner can read" on public.profiles;
+drop policy if exists "profile owner can insert" on public.profiles;
+drop policy if exists "profile owner can update" on public.profiles;
+drop policy if exists "owner manages own files" on public.user_files;
+drop policy if exists "owner manages own annotations" on public.user_annotations;
+drop policy if exists "users read own HOKSH objects" on storage.objects;
+drop policy if exists "users upload own HOKSH objects" on storage.objects;
+drop policy if exists "users update own HOKSH objects" on storage.objects;
+drop policy if exists "users delete own HOKSH objects" on storage.objects;
+
 drop policy if exists "profiles own or admin read" on public.profiles;
 create policy "profiles own or admin read" on public.profiles for select to authenticated using (id=auth.uid() or public.hoksh_is_admin());
 -- No direct client-side INSERT/UPDATE policy on profiles: users must not be able to grant themselves roles.
