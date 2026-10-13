@@ -62,7 +62,8 @@
   async function renderFiles(root){
     root.innerHTML='<div class="hc-note">الملفات المحفوظة هنا مرتبطة بحسابك. الملفات التي لم ترفعها بعد تظل على هذا الجهاز فقط.</div><div class="hc-actions"><button class="hc-btn good" id="hcSaveCurrent">☁️ حفظ المستند الحالي سحابياً</button><button class="hc-btn" id="hcReloadFiles">تحديث القائمة</button><button class="hc-btn" id="hcSupport">✉ إرسال طلب دعم</button></div><div id="hcFileList" class="hc-empty">جارٍ تحميل الملفات…</div>';
     byId('hcSaveCurrent').onclick=()=>saveCurrent();
-    byId('hcReloadFiles').onclick=()=>renderFiles(root);\n    byId('hcSupport').onclick=submitSupport;
+    byId('hcReloadFiles').onclick=()=>renderFiles(root);
+    byId('hcSupport').onclick=submitSupport;
     const {data,error}=await client.from('user_files').select('id,user_id,file_name,storage_path,mime_type,file_size,last_page,last_opened_at,created_at').order('last_opened_at',{ascending:false}).limit(isAdmin()?100:50);
     if(error){byId('hcFileList').innerHTML='<div class="hc-empty">تعذر تحميل القائمة: '+safe(error.message)+'<br>تأكد من تشغيل ملف supabase-schema.sql وإنشاء bucket خاص باسم hoksh-files.</div>';return}
     if(!data?.length){byId('hcFileList').innerHTML='<div class="hc-empty">لا توجد ملفات سحابية حتى الآن. افتح ملفاً ثم اضغط «حفظ المستند الحالي سحابياً».</div>';return}
@@ -86,7 +87,6 @@
         const {data:old}=await client.from('user_files').select('id,user_id,storage_path').eq('id',cloudFileId).maybeSingle();
         if(old&&old.user_id===signedUser.id)path=old.storage_path;
       } else { cloudFileId=null; }
-      if(!path)path=signedUser.id+'/'+now+'-'+name.replace(/[^\\p{L}\\p{N}._-]+/gu,'_').slice(0,90);
       if(!path)path=signedUser.id+'/'+now+'-'+name.replace(/[^\p{L}\p{N}._-]+/gu,'_').slice(0,90);
       const {error:upErr}=await client.storage.from('hoksh-files').upload(path,blob,{upsert:true,contentType:mime});
       if(upErr)throw upErr;
