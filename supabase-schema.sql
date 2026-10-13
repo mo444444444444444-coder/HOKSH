@@ -158,10 +158,14 @@ end; $$;
 
 grant execute on function public.hoksh_is_admin() to authenticated;
 grant execute on function public.hoksh_is_owner() to authenticated;
-revoke all on function public.hoksh_admin_list_users() from public, anon;\ngrant execute on function public.hoksh_admin_list_users() to authenticated;
-revoke all on function public.hoksh_admin_set_role(uuid,text) from public, anon;\ngrant execute on function public.hoksh_admin_set_role(uuid,text) to authenticated;
-revoke all on function public.hoksh_admin_set_suspended(uuid,boolean) from public, anon;\ngrant execute on function public.hoksh_admin_set_suspended(uuid,boolean) to authenticated;
-revoke all on function public.hoksh_admin_update_ticket(uuid,text,text) from public, anon;\ngrant execute on function public.hoksh_admin_update_ticket(uuid,text,text) to authenticated;
+revoke all on function public.hoksh_admin_list_users() from public, anon;
+grant execute on function public.hoksh_admin_list_users() to authenticated;
+revoke all on function public.hoksh_admin_set_role(uuid,text) from public, anon;
+grant execute on function public.hoksh_admin_set_role(uuid,text) to authenticated;
+revoke all on function public.hoksh_admin_set_suspended(uuid,boolean) from public, anon;
+grant execute on function public.hoksh_admin_set_suspended(uuid,boolean) to authenticated;
+revoke all on function public.hoksh_admin_update_ticket(uuid,text,text) from public, anon;
+grant execute on function public.hoksh_admin_update_ticket(uuid,text,text) to authenticated;
 
 create index if not exists hoksh_user_files_owner_recent_idx on public.user_files(user_id,last_opened_at desc);
 create index if not exists hoksh_annotations_file_idx on public.user_annotations(file_id,page_number);
