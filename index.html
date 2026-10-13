@@ -866,6 +866,33 @@ body:not(.focusPdf) .workspace,body.focusPdf .workspace{background:#edf4ff!impor
 }
 </style>
 
+
+<style id="hoksh-intro-toolbar-fix">
+/* Keep editor-only controls out of the welcome/home screens. */
+.workspace:not(.active) .toolDock,
+.workspace:not(.active) .bottomBar,
+.workspace:not(.active) .workTop,
+.workspace:not(.active) .penPop,
+body:has(#intro:not(.hide)) .toolDock,
+body:has(#intro:not(.hide)) .bottomBar,
+body:has(#intro:not(.hide)) .workTop,
+body:has(#intro:not(.hide)) .penPop,
+body:has(#intro:not(.hide)) #focusFab,
+body:has(#intro:not(.hide)) #pdfPenFab,
+body:has(#intro:not(.hide)) #pdfPenPanel { display:none!important; }
+/* Let the portrait fill its frame on every screen; prevent the old tiny-image rule. */
+.introPortrait img,
+#intro .introPortrait img {
+  width:100%!important;height:100%!important;min-height:0!important;
+  display:block!important;object-fit:cover!important;object-position:center 25%!important;
+  image-rendering:auto!important;
+}
+@media(max-width:560px) {
+  #intro .introPortrait {width:min(65vw,250px)!important;height:min(38dvh,280px)!important;min-height:0!important}
+  #intro .introPortrait img {width:100%!important;height:100%!important}
+}
+</style>
+
 </head>
 <body>
 <div class="app">
