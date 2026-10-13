@@ -972,13 +972,33 @@ body.focusPdf #pdfPenPanel:not(.show) { display:none!important; }
 body.focusPdf #pdfPenPanel.show { display:block!important; }
 </style>
 
+
+<style id="hoksh-account-ui">
+.accountBtn{height:42px;min-width:42px;padding:0 12px;border:1px solid #dbeafe;border-radius:13px;background:#eff6ff;color:#1d4ed8;font-weight:850}
+.accountShade{position:fixed;inset:0;z-index:1500;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(6,18,35,.68);backdrop-filter:blur(10px);overflow:auto}
+.accountShade.open{display:flex}
+.accountCard{width:min(480px,100%);border:1px solid #dce8f7;border-radius:26px;background:#fff;color:#142b50;padding:clamp(20px,4vw,34px);box-shadow:0 28px 90px #00132f55;position:relative}
+.accountBrand{display:flex;align-items:center;gap:12px;margin-bottom:20px}.accountBrand img{width:48px;height:48px;border-radius:15px}.accountBrand b{display:block;font-size:22px;color:#1d4ed8}.accountBrand small{display:block;color:#64748b;margin-top:3px}
+.accountClose{position:absolute;left:16px;top:16px;width:36px;height:36px;border:1px solid #dbe6f5;border-radius:11px;background:#f6f9ff;color:#31527b}
+.accountCard h2{font-size:25px;margin:0 0 7px}.accountIntro{font-size:12px;line-height:1.9;color:#657994;margin:0 0 18px}
+.accountTabs{display:grid;grid-template-columns:1fr 1fr;gap:7px;background:#eff5ff;border-radius:13px;padding:5px;margin:16px 0}
+.accountTab{border:0;border-radius:10px;background:transparent;color:#506888;padding:11px;font-weight:800}.accountTab.active{background:#fff;color:#1d4ed8;box-shadow:0 3px 12px #244a8010}
+.accountField{margin:12px 0}.accountField label{display:block;font-size:12px;font-weight:800;margin-bottom:6px;color:#344e72}.accountField input{width:100%;height:46px;border:1px solid #d5e1f0;border-radius:12px;padding:0 13px;background:#fbfdff;color:#152d50;outline:none}.accountField input:focus{border-color:#3982ee;box-shadow:0 0 0 3px #3982ee1b}
+.accountSubmit{width:100%;height:48px;border:0;border-radius:13px;background:linear-gradient(120deg,#2563eb,#10b981);color:#fff;font-weight:900;margin-top:9px;box-shadow:0 10px 22px #2563eb24}
+.accountSecondary{width:100%;height:43px;border:1px solid #d8e4f4;border-radius:12px;background:#fff;color:#33557f;font-weight:800;margin-top:9px}
+.accountStatus{display:none;margin-top:13px;padding:11px 12px;border-radius:12px;font-size:12px;line-height:1.8}.accountStatus.show{display:block}.accountStatus.info{display:block;background:#eff6ff;color:#264e7e}.accountStatus.error{background:#fff0f0;color:#a12b3c}.accountStatus.ok{background:#eafaf3;color:#087b50}
+.accountPrivacy{display:flex;gap:8px;align-items:flex-start;background:#f3f8ff;border:1px solid #e0eaf8;border-radius:13px;padding:11px;margin-top:16px;font-size:11px;line-height:1.8;color:#526b8d}
+.accountUser{display:none;align-items:center;gap:9px;background:#f1f7ff;border:1px solid #dce9fb;border-radius:14px;padding:11px;margin:14px 0}.accountUser.show{display:flex}.accountAvatar{width:38px;height:38px;border-radius:12px;background:#dbeafe;color:#1d4ed8;display:grid;place-items:center;font-weight:950}.accountUserText{flex:1;min-width:0}.accountUserText b{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.accountUserText small{color:#64748b}
+.accountLoggedActions{display:none}.accountLoggedActions.show{display:block}
+@media(max-width:560px){.accountShade{padding:10px;align-items:center}.accountCard{border-radius:21px;padding:22px 18px}.accountCard h2{font-size:22px}.accountBtn{height:38px;padding:0 9px;font-size:12px}}
+</style>
 </head>
 <body>
 <div class="app">
 <header class="top">
   <div class="brand"><img src="icon.svg" alt="حوكش"><div><b>حوكش HOKSH</b><small>محرر PDF والسبورة الرقمية</small></div></div>
   <div class="search"><span>⌕</span><input id="searchInput" placeholder="ابحث في الملفات الأخيرة..."></div>
-  <div class="topBtns"><button class="iconBtn" id="searchBtn" title="بحث">🔍</button><button class="iconBtn moreMenuBtn" id="menuBtn" title="المزيد: الإعدادات، معلومات المطور، الدعم">☰ <span>المزيد</span></button></div>
+  <div class="topBtns"><button class="accountBtn" id="accountOpenBtn" type="button" title="تسجيل الدخول وإدارة حسابك">👤 حسابي</button><button class="iconBtn" id="searchBtn" title="بحث">🔍</button><button class="iconBtn moreMenuBtn" id="menuBtn" title="المزيد: الإعدادات، معلومات المطور، الدعم">☰ <span>المزيد</span></button></div>
 </header>
 <main class="main">
 <aside class="appSidebar" aria-label="القائمة الرئيسية">
@@ -1040,7 +1060,7 @@ body.focusPdf #pdfPenPanel.show { display:block!important; }
   <h3>حوكش HOKSH</h3>
   <nav class="sideNav">
     <button class="btn active" id="sideHome">⌂ الرئيسية</button>
-    <button class="btn" id="sideFiles">▣ ملفاتي</button>
+    <button class="btn" id="sideFiles">▣ ملفاتي</button><button class="btn" id="accountSideBtn" type="button">👤 حسابي وتسجيل الدخول</button>
     <button class="btn" id="settingsBtn">⚙️ الإعدادات</button>
   </nav>
   <div class="sideExtras">
@@ -1063,6 +1083,30 @@ body.focusPdf #pdfPenPanel.show { display:block!important; }
 <div class="modal" id="moreModal"><div class="dialog"><h2>المزيد من أدوات حوكش</h2><div class="featureList"><div class="feature">📐 <b>أشكال ذكية</b> خطوط وأسهم ودوائر ومربعات</div><div class="feature">📏 <b>مسطرة</b> أدوات مساعدة للرسم</div><div class="feature">🔢 <b>رموز</b> رموز رياضية سريعة</div><div class="feature">🧮 <b>آلة حاسبة</b> اختصار أدوات الحساب</div></div><div class="actions"><button class="btn" data-close="moreModal">إغلاق</button></div></div></div>
 <div class="thumbPanel" id="thumbPanel"><div class="thumbBox"><div class="head"><h3 style="margin:0">كل الصفحات</h3><div><button class="btn" id="thumbAdd">＋ صفحة بيضاء</button><button class="btn" id="thumbClose">إغلاق</button></div></div><div class="thumbGrid" id="thumbGrid"></div></div></div>
 <div class="toast" id="toast"></div>
+
+<div class="accountShade" id="accountShade" role="dialog" aria-modal="true" aria-labelledby="accountTitle">
+  <section class="accountCard">
+    <button class="accountClose" id="accountClose" type="button" aria-label="إغلاق">✕</button>
+    <div class="accountBrand"><img src="icon.svg" alt="شعار حوكش"><span><b>حوكش HOKSH</b><small>مساحتك الخاصة للقراءة والكتابة</small></span></div>
+    <h2 id="accountTitle">حسابك في حوكش</h2>
+    <p class="accountIntro">أنشئ حسابك لحفظ ملفاتك وملاحظاتك وربطها بك. عند تفعيل قاعدة البيانات السحابية، ستتمكن من استعادتها على أجهزتك الأخرى.</p>
+    <div class="accountUser" id="accountUser"><div class="accountAvatar" id="accountAvatar">م</div><div class="accountUserText"><b id="accountEmailLabel">—</b><small id="accountStateLabel">حساب حوكش</small></div></div>
+    <div class="accountLoggedActions" id="accountLoggedActions"><button class="accountSubmit" id="accountSignOut" type="button">تسجيل الخروج</button></div>
+    <div id="accountForms">
+      <div class="accountTabs"><button class="accountTab active" id="accountLoginTab" type="button">تسجيل الدخول</button><button class="accountTab" id="accountSignupTab" type="button">إنشاء حساب</button></div>
+      <form id="accountForm">
+        <div class="accountField" id="accountNameField" hidden><label for="accountName">الاسم الذي سيظهر في حسابك</label><input id="accountName" name="name" autocomplete="name" placeholder="اكتب اسمك"></div>
+        <div class="accountField"><label for="accountEmail">البريد الإلكتروني</label><input id="accountEmail" name="email" type="email" autocomplete="email" required placeholder="name@example.com"></div>
+        <div class="accountField"><label for="accountPassword">كلمة المرور</label><input id="accountPassword" name="password" type="password" autocomplete="current-password" minlength="8" required placeholder="٨ أحرف على الأقل"></div>
+        <button class="accountSubmit" id="accountSubmit" type="submit">تسجيل الدخول</button>
+      </form>
+      <button class="accountSecondary" id="accountReset" type="button">نسيت كلمة المرور؟</button>
+    </div>
+    <div class="accountStatus" id="accountStatus" role="status" aria-live="polite"></div>
+    <div class="accountPrivacy"><span>🔐</span><span><b>خصوصية بياناتك:</b> يجب تفعيل قاعدة بيانات محمية بسياسات تمنع كل حساب من رؤية ملفات الحسابات الأخرى. لا تكتب كلمة مرورك في أي مكان غير نموذج تسجيل الدخول.</span></div>
+    <button class="accountSecondary" id="accountGuest" type="button">متابعة بدون حساب الآن</button>
+  </section>
+</div>
 <div class="intro" id="intro" role="dialog" aria-label="مرحباً بك في حوكش">
   <div class="introCard">
     <div class="introBrand"><span class="introLogo">✎</span><span><b>HOKSH</b><small>حوكش</small></span></div>
@@ -1703,4 +1747,98 @@ body{overflow:hidden}
 
 </style>
 
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
+<script id="hoksh-account-logic">
+(function(){
+  const $id = id => document.getElementById(id);
+  const shade=$id('accountShade'), status=$id('accountStatus'), form=$id('accountForm');
+  if(!shade || !form) return;
+  let mode='login', client=null, currentUser=null;
+  const configured = !!(window.HOKSH_SUPABASE_URL && window.HOKSH_SUPABASE_ANON_KEY && window.HOKSH_SUPABASE_URL.startsWith('https://') && !window.HOKSH_SUPABASE_URL.includes('YOUR_PROJECT'));
+  if(configured && window.supabase && window.supabase.createClient){
+    client=window.supabase.createClient(window.HOKSH_SUPABASE_URL,window.HOKSH_SUPABASE_ANON_KEY);
+  }
+  function message(text,kind){status.textContent=text;status.className='accountStatus show '+(kind||'info');}
+  function clearMessage(){status.textContent='';status.className='accountStatus';}
+  function open(){shade.classList.add('open');clearMessage();refresh();}
+  function close(){shade.classList.remove('open');}
+  function setMode(next){
+    mode=next;
+    $id('accountLoginTab').classList.toggle('active',mode==='login');
+    $id('accountSignupTab').classList.toggle('active',mode==='signup');
+    $id('accountNameField').hidden=mode!=='signup';
+    $id('accountPassword').autocomplete=mode==='signup'?'new-password':'current-password';
+    $id('accountSubmit').textContent=mode==='signup'?'إنشاء الحساب':'تسجيل الدخول';
+    $id('accountReset').style.display=mode==='login'?'block':'none';
+    clearMessage();
+  }
+  function showUser(user){
+    currentUser=user||null;
+    $id('accountUser').classList.toggle('show',!!user);
+    $id('accountLoggedActions').classList.toggle('show',!!user);
+    $id('accountForms').style.display=user?'none':'block';
+    $id('accountEmailLabel').textContent=user?.email||'';
+    $id('accountAvatar').textContent=(user?.email||'م').slice(0,1).toUpperCase();
+    $id('accountStateLabel').textContent='تم تسجيل الدخول';
+    $id('accountTitle').textContent=user?'حسابك':'حسابك في حوكش';
+    if(user) message('أنت مسجل الدخول. سيُحفظ المحتوى سحابياً بعد إعداد قاعدة البيانات وسياسات الخصوصية.','ok');
+  }
+  async function refresh(){
+    if(!client){showUser(null);return;}
+    try{const {data}=await client.auth.getSession();showUser(data?.session?.user||null);}
+    catch(e){showUser(null);}
+  }
+  function needBackend(){
+    if(!client){
+      message('واجهة الحساب جاهزة، لكن التسجيل الحقيقي لم يُفعّل بعد: يلزم ربط مشروع Supabase وإضافة رابط المشروع ومفتاح anon العام في ملف supabase-config.js، ثم تطبيق supabase-schema.sql. لم يتم حفظ كلمة المرور أو إرسالها لأي جهة.','info');
+      return false;
+    }
+    return true;
+  }
+  $id('accountLoginTab').addEventListener('click',()=>setMode('login'));
+  $id('accountSignupTab').addEventListener('click',()=>setMode('signup'));
+  $id('accountClose').addEventListener('click',close);
+  $id('accountGuest').addEventListener('click',close);
+  shade.addEventListener('click',e=>{if(e.target===shade)close();});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')close();});
+  document.querySelectorAll('#menuBtn,#visualSettingsBtn,#sideFiles,#visualFilesBtn').forEach(el=>el&&el.addEventListener('dblclick',open));
+  const profileBtn=$id('accountOpenBtn'); if(profileBtn) profileBtn.addEventListener('click',open);
+  const sideProfile=$id('accountSideBtn'); if(sideProfile) sideProfile.addEventListener('click',open);
+  form.addEventListener('submit',async e=>{
+    e.preventDefault(); clearMessage(); if(!needBackend())return;
+    const email=$id('accountEmail').value.trim(), password=$id('accountPassword').value;
+    const submit=$id('accountSubmit'); submit.disabled=true; submit.textContent='جارٍ التنفيذ…';
+    try{
+      let result;
+      if(mode==='signup'){
+        const displayName=$id('accountName').value.trim();
+        result=await client.auth.signUp({email,password,options:{data:{display_name:displayName}}});
+        if(result.error) throw result.error;
+        if(result.data?.session){showUser(result.data.user);message('تم إنشاء الحساب بنجاح.','ok');}
+        else message('تم إرسال رسالة تأكيد إلى بريدك الإلكتروني. افتحها لتفعيل الحساب.','ok');
+      }else{
+        result=await client.auth.signInWithPassword({email,password});
+        if(result.error) throw result.error;
+        showUser(result.data.user); message('أهلاً بك، تم تسجيل الدخول.','ok');
+      }
+    }catch(err){message(err?.message||'تعذر إكمال العملية. راجع البيانات وحاول مرة أخرى.','error');}
+    finally{submit.disabled=false;submit.textContent=mode==='signup'?'إنشاء الحساب':'تسجيل الدخول';}
+  });
+  $id('accountReset').addEventListener('click',async()=>{
+    clearMessage(); if(!needBackend())return;
+    const email=$id('accountEmail').value.trim();
+    if(!email){message('اكتب بريدك الإلكتروني أولاً، ثم اضغط نسيت كلمة المرور.','info');return;}
+    try{const {error}=await client.auth.resetPasswordForEmail(email,{redirectTo:location.origin+location.pathname});if(error)throw error;message('إذا كان البريد مسجلاً، ستصلك رسالة لإعادة تعيين كلمة المرور.','ok');}
+    catch(err){message(err?.message||'تعذر إرسال رسالة الاستعادة.','error');}
+  });
+  $id('accountSignOut').addEventListener('click',async()=>{
+    if(client){const {error}=await client.auth.signOut();if(error){message(error.message,'error');return;}}
+    showUser(null);setMode('login');message('تم تسجيل الخروج.','ok');
+  });
+  if(client){client.auth.onAuthStateChange((_event,session)=>showUser(session?.user||null));}
+  window.HOKSHAccount={open,close,refresh,getUser:()=>currentUser,getClient:()=>client};
+})();
+</script>
 </body></html>
