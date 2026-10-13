@@ -1244,8 +1244,9 @@ async function loadState(){
         images=await Promise.all(s.pages.map(p=>p.imageKey?idbRequest(store.get(p.imageKey)):Promise.resolve(null)));
       }
       docName=s.docName||docName;
-      pages=s.pages.map((p,i)=>({...p,image:images[i]||null}));
-      lastSavedImages=pages.map(p=>p.image||null);
+      pages=s.pages.map((p,i)=>({...p,image:images[i]||p.image||null}));
+      // Migrate older IndexedDB snapshots that stored image data inline.
+      lastSavedImages=s.pages.map((p,i)=>p.imageKey?pages[i].image:null);
       activePage=s.activePage||0;zoom=s.zoom||1;pageMode=s.pageMode||'vertical';return true;
     }
   }catch(e){}
