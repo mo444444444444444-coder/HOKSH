@@ -2029,7 +2029,10 @@ body:not(.intro-composite) .app{position:fixed!important;inset:0!important;width
 .introVersion{text-align:left!important;color:#e6f5ff!important;font-size:9px!important;line-height:1.6!important;max-width:42%!important}
 .introVersion b{color:#ffffff!important;font-size:11px!important}.introVersion span{color:#e6f5ff!important}
 .introCard .dev,.introCard .line,.introTagline,.introFoot{display:none!important}
-body.intro-composite .main{direction:ltr!important;grid-template-columns:clamp(108px,9vw,138px) minmax(0,1fr)!important}
+.main{direction:ltr!important;grid-template-columns:clamp(174px,12vw,210px) minmax(0,1fr)!important}
+.appSidebar{grid-column:1!important;grid-row:1!important;direction:rtl!important}
+.homeSimple,.workspace{grid-column:2!important;grid-row:1!important;direction:rtl!important;min-width:0!important}
+body.intro-composite .main{grid-template-columns:clamp(108px,10vw,152px) minmax(0,1fr)!important}
 body.intro-composite .appSidebar{grid-column:1!important;grid-row:1!important;direction:rtl!important;padding:12px 8px!important}
 body.intro-composite .homeSimple,body.intro-composite .workspace{grid-column:2!important;grid-row:1!important;direction:rtl!important;min-width:0!important}
 body.intro-composite .top{height:60px!important;min-height:60px!important;padding:5px 8px!important;gap:5px!important}
@@ -2080,7 +2083,7 @@ body.intro-composite .fileCard .more{width:20px!important;height:20px!important;
  .introDeveloper img{width:31px!important;height:31px!important;flex-basis:31px!important}
  .introDeveloper b{font-size:9px!important}.introDeveloper small{font-size:8px!important}
  .introVersion{font-size:8px!important}
- body.intro-composite .main{grid-template-columns:1fr!important}
+ .main{grid-template-columns:66px minmax(0,1fr)!important} body.intro-composite .main{grid-template-columns:1fr!important}
 }
 @media(max-width:390px){
  .introContent{bottom:99px!important}
