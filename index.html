@@ -1042,7 +1042,7 @@ body.focusPdf #pdfPenPanel.show { display:block!important; }
 
 <section class="workspace" id="workspace">
   <div class="workTop">
-    <button class="iconBtn back" id="backHome" title="إغلاق الملف والعودة للرئيسية">‹</button>
+    <button class="iconBtn back" id="backHome" title="تم — إغلاق الملف والعودة للرئيسية">تم</button>
     <div class="fileName"><button id="renameFile" title="إعادة تسمية">مستند جديد</button></div>
     <div class="workActions">
       <button class="iconBtn hideM" id="undo" title="تراجع">↶</button><button class="iconBtn hideM" id="redo" title="إعادة">↷</button>
@@ -1999,5 +1999,62 @@ body{overflow:hidden}
  .introFeatureRow{font-size:7px!important}
 }
 @media(prefers-reduced-motion:reduce){.introCard,.introPortrait,.introWrite path{animation:none!important;opacity:1!important;transform:none!important;stroke-dashoffset:0!important;transition:none!important}}
+</style>
+<style id="hoksh-pdf-reader-reference-layout">
+/* Reader-only layout: mimic a tablet PDF reader, without changing the home or login layout */
+body.focusPdf .appSidebar{display:none!important}
+body.focusPdf .main{display:block!important;position:relative!important;overflow:hidden!important}
+body.focusPdf .workspace{position:fixed!important;inset:0!important;width:100vw!important;height:100dvh!important;display:flex!important;flex-direction:column!important;background:#17191d!important;color:#e7eaee!important}
+body.focusPdf .workTop{position:relative!important;display:flex!important;flex:0 0 58px!important;height:58px!important;min-height:58px!important;padding:5px 14px!important;gap:8px!important;background:#202328!important;color:#eef2f6!important;border-bottom:1px solid #383d43!important;box-shadow:0 2px 12px #0005!important;z-index:30!important}
+body.focusPdf .workTop .back{position:absolute!important;left:13px!important;right:auto!important;top:9px!important;width:auto!important;min-width:60px!important;height:38px!important;padding:0 18px!important;border:0!important;border-radius:22px!important;background:#63b9ee!important;color:#13324b!important;font-weight:850!important;font-size:13px!important}
+body.focusPdf .fileName{position:absolute!important;right:15px!important;left:auto!important;top:0!important;height:100%!important;width:min(24vw,360px)!important;display:flex!important;align-items:center!important;justify-content:flex-end!important;text-align:right!important;min-width:0!important}
+body.focusPdf .fileName button{max-width:100%!important;overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important;color:#e7eaee!important;font-size:13px!important;font-weight:650!important;text-align:right!important}
+body.focusPdf .workActions{position:absolute!important;left:50%!important;right:auto!important;top:7px!important;transform:translateX(-50%)!important;display:flex!important;align-items:center!important;justify-content:center!important;gap:5px!important;max-width:calc(100% - 240px)!important;overflow-x:auto!important;white-space:nowrap!important}
+body.focusPdf .workActions .iconBtn{flex:0 0 auto!important;width:auto!important;min-width:34px!important;height:40px!important;padding:0 9px!important;border:0!important;border-radius:8px!important;background:transparent!important;color:#e1e6eb!important}
+body.focusPdf .workActions .iconBtn:hover{background:#363b42!important}
+body.focusPdf .workActions #zoomResetTop{min-width:48px!important;font-size:12px!important}
+body.focusPdf .workActions .exportTop{flex:0 0 auto!important;height:36px!important;padding:0 12px!important;border:1px solid #4f94c5!important;background:#273f52!important;color:#e6f4ff!important;font-size:11px!important}
+body.focusPdf .canvasArea{position:relative!important;display:block!important;flex:1 1 auto!important;min-height:0!important;overflow:auto!important;background:#17191d!important;scrollbar-color:#4a5057 #17191d!important;overscroll-behavior:contain!important}
+body.focusPdf .pages{min-height:100%!important;display:flex!important;align-items:flex-start!important;justify-content:center!important;gap:0!important;padding:0 74px 26px!important;background:#17191d!important}
+body.focusPdf .pages.vertical{flex-direction:column!important;align-items:center!important}
+body.focusPdf .pages.horizontal{flex-direction:row!important;align-items:center!important;justify-content:flex-start!important}
+body.focusPdf .pageWrap{position:relative!important;flex:none!important;background:#fff!important;border:0!important;border-radius:0!important;box-shadow:0 10px 32px #0006!important}
+body.focusPdf .pageWrap canvas.base{display:block!important;max-width:none!important}
+body.focusPdf .pageLabel{top:8px!important;left:8px!important;background:#202328bb!important;color:#dbe4eb!important}
+body.focusPdf .toolDock{position:absolute!important;top:50%!important;left:13px!important;right:auto!important;bottom:auto!important;transform:translateY(-50%)!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:flex-start!important;gap:4px!important;width:55px!important;max-width:55px!important;max-height:calc(100% - 125px)!important;overflow-y:auto!important;overflow-x:hidden!important;padding:7px!important;border:1px solid #333941!important;border-radius:18px!important;background:#202328df!important;box-shadow:0 9px 30px #0005!important;backdrop-filter:blur(13px)!important;z-index:45!important}
+body.focusPdf .toolDock button{flex:0 0 39px!important;width:39px!important;min-width:39px!important;height:39px!important;min-height:39px!important;padding:0!important;border:0!important;border-radius:10px!important;background:transparent!important;color:#c7d1d9!important;font-size:17px!important}
+body.focusPdf .toolDock button.active{background:#3b596c!important;box-shadow:inset 0 0 0 1px #60839b!important;color:#fff!important}
+body.focusPdf .toolDock .dockSep{flex:0 0 1px!important;width:29px!important;height:1px!important;margin:3px 0!important;background:#4b5158!important}
+body.focusPdf .bottomBar{display:flex!important;flex:0 0 32px!important;height:32px!important;min-height:32px!important;justify-content:center!important;gap:6px!important;padding:0 10px!important;background:#c5cbd0!important;border-top:1px solid #d5dade!important;color:#27333d!important;z-index:20!important}
+body.focusPdf .bottomBar button{height:24px!important;padding:0 8px!important;border:0!important;background:#dce1e5!important;color:#34424d!important;font-size:10px!important;border-radius:6px!important}
+body.focusPdf .bottomBar .pageJump input{height:23px!important;border:0!important;background:#dce1e5!important;color:#24323e!important}
+body.focusPdf .bottomBar .range{accent-color:#328ac1!important}
+body.focusPdf .penPop{left:76px!important;right:auto!important;bottom:48px!important;background:#202328f2!important;border-color:#444b53!important;color:#eef2f5!important}
+body.focusPdf .penPop .toolGrid button{background:#2c3238!important;border-color:#464e56!important;color:#eef2f5!important}
+body.focusPdf .penPop .toolGrid button.active{background:#39596e!important;border-color:#6cbbeb!important}
+body.focusPdf #focusFab{display:none!important}
+body.focusPdf #pdfPenFab{display:none!important}
+body.focusPdf #pdfPenPanel{display:none!important}
+#hokshSmartBar{display:none!important}
+@media(max-width:800px){
+ body.focusPdf .workTop{flex-basis:53px!important;height:53px!important;min-height:53px!important;padding:4px!important}
+ body.focusPdf .workTop .back{left:5px!important;top:8px!important;min-width:45px!important;padding:0 11px!important}
+ body.focusPdf .fileName{right:7px!important;width:22vw!important}
+ body.focusPdf .fileName button{font-size:10px!important}
+ body.focusPdf .workActions{left:50%!important;max-width:calc(100% - 110px)!important;gap:1px!important}
+ body.focusPdf .workActions .iconBtn{min-width:27px!important;padding:0 5px!important}
+ body.focusPdf .workActions .exportTop{display:none!important}
+ body.focusPdf .pages{padding:0 59px 24px!important}
+ body.focusPdf .toolDock{left:5px!important;width:45px!important;max-width:45px!important;padding:4px!important}
+ body.focusPdf .toolDock button{flex-basis:35px!important;width:35px!important;min-width:35px!important;height:35px!important;min-height:35px!important}
+ body.focusPdf .bottomBar{flex-wrap:wrap!important;flex-basis:auto!important;height:auto!important;min-height:32px!important;padding:3px!important}
+ body.focusPdf .bottomBar .range{width:72px!important}
+}
+@media(max-width:520px){
+ body.focusPdf .fileName{display:none!important}
+ body.focusPdf .workActions{left:auto!important;right:59px!important;transform:none!important;max-width:calc(100% - 111px)!important}
+ body.focusPdf .pages{padding-left:49px!important;padding-right:7px!important}
+ body.focusPdf .toolDock{left:4px!important}
+}
 </style>
 </body></html>
