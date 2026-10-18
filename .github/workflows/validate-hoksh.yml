@@ -1,0 +1,87 @@
+name: Validate HOKSH Codebase
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Check required views and assets
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          root = Path(".")
+          html = (root / "index.html").read_text(encoding="utf-8")
+          required = [
+              'id="landingView"', 'id="profileForm"', 'id="dashboardGreeting"',
+              'id="workspace"', 'id="toolDock"', 'id="pdfLiveSearch"',
+              'id="editorColorMatrix"', 'id="hoksh-profile-view-controller"'
+          ]
+          missing = [item for item in required if item not in html]
+          assets = ["landing-hero.svg", "icon.svg", "sw.js", "supabase-config.js"]
+          missing_assets = [item for item in assets if not (root / item).exists()]
+          if missing or missing_assets:
+              raise SystemExit("Missing UI hooks: " + repr(missing) + "; assets: " + repr(missing_assets))
+          print("Required HOKSH views, controls, and assets exist.")
+          PY
+      - name: Syntax-check inline JavaScript
+        run: |
+          mkdir -p /tmp/hoksh-inline-js
+          python3 - <<'PY'
+          from html.parser import HTMLParser
+          from pathlib import Path
+          import re
+
+          out = Path("/tmp/hoksh-inline-js")
+          allowed = {"", "text/javascript", "application/javascript", "module"}
+          class Parser(HTMLParser):
+              def __init__(self):
+                  super().__init__(convert_charrefs=False)
+                  self.current = None
+                  self.kind = ""
+                  self.parts = []
+                  self.index = 0
+              def handle_starttag(self, tag, attrs):
+                  if tag.lower() != "script":
+                      return
+                  attrs = dict(attrs)
+                  self.kind = (attrs.get("type") or "").lower()
+                  self.current = self.kind in allowed and not attrs.get("src")
+                  self.parts = []
+              def handle_data(self, data):
+                  if self.current:
+                      self.parts.append(data)
+              def handle_endtag(self, tag):
+                  if tag.lower() != "script" or self.current is None:
+                      return
+                  code = "".join(self.parts)
+                  if code.strip():
+                      self.index += 1
+                      suffix = ".mjs" if self.kind == "module" else ".js"
+                      (out / f"script-{self.index:03d}{suffix}").write_text(code, encoding="utf-8")
+                  self.current = None
+                  self.kind = ""
+                  self.parts = []
+
+          parser = Parser()
+          parser.feed(Path("index.html").read_text(encoding="utf-8"))
+          print(f"Extracted {parser.index} inline JavaScript blocks.")
+          PY
+          set -e
+          for f in /tmp/hoksh-inline-js/*; do
+            echo "Checking $f"
+            node --check "$f"
+          done
+          echo "All inline JavaScript passed Node syntax checks."
