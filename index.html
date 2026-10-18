@@ -2217,86 +2217,16 @@ body.hoksh-landing-open>.app{visibility:hidden!important;opacity:0!important;poi
 <script id="hoksh-profile-view-controller">
 (()=>{
  'use strict';
- const KEY='hoksh_profile_v2';
  const landing=document.getElementById('landingView');
- const form=document.getElementById('profileForm');
- const fields=document.getElementById('landingFields');
- const nameInput=document.getElementById('profileName');
- const passwordInput=document.getElementById('profilePassword');
- const submit=document.getElementById('landingStart');
- const message=document.getElementById('landingMessage');
  const accountShade=document.getElementById('accountShade');
- let busy=false;
- const client=()=>window.HOKSHAccount?.getClient?.()||null;
- const showMessage=(text,kind='info')=>{if(message){message.textContent=text;message.dataset.kind=kind;}};
- const usernameToEmail=username=>username.toLowerCase()+'@users.hoksh.invalid';
- const writeProfile=profile=>{try{localStorage.setItem(KEY,JSON.stringify({userId:profile.userId,name:profile.name,verified:true,verifiedAt:new Date().toISOString()}));}catch(e){console.warn('HOKSH profile cache failed',e);}};
- const enterDashboard=(profile,animate=true)=>{
-   if(!profile||!profile.userId)return;
-   writeProfile(profile);
-   const greet=document.getElementById('dashboardGreeting');if(greet)greet.textContent='أهلاً بك يا '+profile.name;
-   const subtitle=document.getElementById('dashboardSubtitle');if(subtitle)subtitle.textContent='اختر ما تريد القيام به اليوم';
-   const top=document.getElementById('accountOpenBtn');if(top)top.textContent='👤 '+profile.name;
-   accountShade?.classList.remove('open');
-   document.body.classList.remove('hoksh-landing-open');
-   if(landing){if(animate){landing.classList.add('leaving');setTimeout(()=>landing.classList.add('hidden'),560);}else landing.classList.add('hidden');}
+ // Open HOKSH directly in guest mode. No login or registration is required.
+ document.body.classList.remove('hoksh-landing-open');
+ accountShade?.classList.remove('open');
+ if(landing) landing.classList.add('hidden');
+ window.HOKSHProfile={
+   get:()=>({name:'مستخدم حوكش',guest:true}),
+   logout:()=>{document.body.classList.remove('hoksh-landing-open');if(landing)landing.classList.add('hidden');accountShade?.classList.remove('open');}
  };
- const restoreSession=async()=>{
-   const supa=client();if(!supa)return false;
-   const {data,error}=await supa.auth.getSession();if(error||!data?.session?.user)return false;
-   const user=data.session.user;
-   const name=String(user.user_metadata?.display_name||user.user_metadata?.username||user.email?.split('@')[0]||'مستخدم حوكش');
-   enterDashboard({userId:user.id,name},false);return true;
- };
- const setBusy=value=>{
-   busy=value;if(submit){submit.disabled=value;submit.textContent=value?'جارٍ التنفيذ…':'دخول / إنشاء حساب ➜';}
- };
- const authError=err=>{
-   const raw=String(err?.message||'');
-   if(/invalid login credentials/i.test(raw))return 'اسم المستخدم أو كلمة المرور غير صحيحين. لو أول مرة، استخدم اسمًا جديدًا واضغط مرة أخرى لإنشاء الحساب.';
-   if(/already registered|user already exists|email.*taken/i.test(raw))return 'اسم المستخدم ده مستخدم بالفعل. اكتب اسمًا آخر أو أدخل كلمة المرور الصحيحة.';
-   if(/password.*(short|least|characters)/i.test(raw))return 'كلمة المرور لازم تكون 8 أحرف على الأقل.';
-   if(/email|confirmation|confirm/i.test(raw))return 'يلزم إيقاف تأكيد البريد الإلكتروني في إعدادات Supabase لأن الدخول هنا باسم مستخدم بدون بريد.';
-   if(/fetch|network/i.test(raw))return 'تعذر الاتصال بخدمة الحسابات. تأكد من الإنترنت وإعدادات Supabase.';
-   return raw||'تعذر إكمال العملية. حاول مرة أخرى.';
- };
- const submitAuth=async event=>{
-   event.preventDefault();if(busy)return;
-   const username=String(nameInput?.value||'').trim();
-   const password=String(passwordInput?.value||'');
-   if(!/^[A-Za-z0-9_.-]{3,24}$/.test(username)){showMessage('اسم المستخدم من 3 إلى 24 حرفًا إنجليزيًا أو رقمًا، ويمكن استخدام النقطة والشرطة والشرطة السفلية.','error');nameInput?.focus();return;}
-   if(password.length<8){showMessage('كلمة المرور لازم تكون 8 أحرف على الأقل.','error');passwordInput?.focus();return;}
-   const supa=client();if(!supa){showMessage('الاتصال بقاعدة الحسابات غير مهيأ. راجع إعدادات Supabase.','error');return;}
-   setBusy(true);
-   try{
-     const email=usernameToEmail(username);
-     let result=await supa.auth.signInWithPassword({email,password});
-     if(!result.error&&result.data?.user){
-       enterDashboard({userId:result.data.user.id,name:String(result.data.user.user_metadata?.display_name||username)},true);
-       showMessage('تم تسجيل الدخول بنجاح.','ok');return;
-     }
-     const signup=await supa.auth.signUp({email,password,options:{data:{username:username.toLowerCase(),display_name:username}}});
-     if(signup.error)throw signup.error;
-     if(signup.data?.session&&signup.data?.user){
-       enterDashboard({userId:signup.data.user.id,name:username},true);
-       showMessage('تم إنشاء حسابك والدخول بنجاح.','ok');
-     }else{
-       showMessage('Supabase لم يفتح جلسة تلقائية. افتح إعدادات المصادقة وأوقف Confirm email ثم جرّب إنشاء الحساب مرة أخرى.','error');
-     }
-   }catch(err){showMessage(authError(err),'error');}
-   finally{setBusy(false);}
- };
- if(form)form.addEventListener('submit',submitAuth);
- const init=async()=>{
-   document.body.classList.remove('hoksh-landing-open');
-   if(accountShade)accountShade.classList.remove('open');
-   if(landing)landing.classList.remove('leaving');
-   try{if(await restoreSession())return;}catch(e){console.warn('HOKSH session restore failed',e);}
-   // Keep the login panel visible when there is no signed-in account.
-   if(landing)landing.classList.remove('hidden');
- };
- window.HOKSHProfile={get:()=>{try{return JSON.parse(localStorage.getItem(KEY)||'null')}catch{return null;}},logout:async()=>{const supa=client();try{if(supa)await supa.auth.signOut();}catch(e){console.warn(e);}try{localStorage.removeItem(KEY)}catch{};if(landing)landing.classList.remove('hidden','leaving');document.body.classList.add('hoksh-landing-open');}};
- init();
 })();
 </script>
 </body></html>
