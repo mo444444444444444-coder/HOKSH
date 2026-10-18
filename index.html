@@ -1021,6 +1021,22 @@ body.hoksh-landing-open>.app{visibility:hidden!important;opacity:0!important;poi
 #landingView.hidden{display:none!important}
 @media(max-width:680px){#landingView .landingHero{flex-basis:40%;height:40%}#landingView .landingAccess{flex-basis:60%;height:60%}}
 </style>
+<style id="hoksh-sms-otp-styles">
+.landingFields{display:contents!important}
+.landingFields[hidden],.otpStep[hidden],.landingStart[hidden]{display:none!important}
+.otpStep{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,1fr) minmax(190px,.75fr);align-items:end;gap:9px;width:min(900px,100%);margin:0 auto}
+.otpExplainer{grid-column:1/-1;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:6px;color:#eaf7ff;font-size:12px}
+.otpExplainer b{font-size:14px;color:#fff}.otpExplainer span{color:#d5edff}
+.otpCodeField{display:block;text-align:right;min-width:0}.otpCodeField>span{display:block;margin:0 2px 5px;color:#eaf7ff;font-size:12px;font-weight:850}
+.otpCodeField input{height:47px;width:100%;box-sizing:border-box;border:1px solid #ffffffc7;border-radius:12px;background:#fff;color:#102d62;text-align:center;letter-spacing:.45em;font-size:22px;font-weight:850;outline:none}
+.otpCodeField input:focus{border-color:#62e8ff;box-shadow:0 0 0 4px #80e4ff47}
+.otpVerify{height:47px;min-width:0;width:100%;font-size:13px}
+.otpSecondaryActions{grid-column:1/-1;display:flex;justify-content:center;align-items:center;gap:10px}
+.otpSecondaryActions button{border:0;background:transparent;color:#d5f2ff;text-decoration:underline;text-underline-offset:3px;font:inherit;font-size:11px;padding:5px 8px;cursor:pointer}
+.otpSecondaryActions button:disabled{opacity:.65;cursor:wait;text-decoration:none}
+.landingPrivacy[data-kind="error"]{color:#ffe4e7}.landingPrivacy[data-kind="ok"]{color:#c6ffe7}
+@media(max-width:680px){.otpStep{grid-template-columns:minmax(0,1fr);gap:7px}.otpExplainer{grid-column:1}.otpSecondaryActions{grid-column:1}.otpCodeField input{height:41px;font-size:20px}.otpVerify{height:43px}}
+</style>
 </head>
 <body class="hoksh-landing-open">
 <div class="app">
@@ -2208,21 +2224,64 @@ body.hoksh-landing-open>.app{visibility:hidden!important;opacity:0!important;poi
  const KEY='hoksh_profile_v2';
  const landing=document.getElementById('landingView');
  const form=document.getElementById('profileForm');
+ const fields=document.getElementById('landingFields');
  const nameInput=document.getElementById('profileName');
  const phoneInput=document.getElementById('profilePhone');
+ const landingStart=document.getElementById('landingStart');
+ const otpStep=document.getElementById('otpStep');
+ const otpCode=document.getElementById('otpCode');
+ const verifyBtn=document.getElementById('verifyPhoneBtn');
+ const resendBtn=document.getElementById('resendOtpBtn');
+ const changeBtn=document.getElementById('changePhoneBtn');
  const message=document.getElementById('landingMessage');
  const accountShade=document.getElementById('accountShade');
  const $=id=>document.getElementById(id);
+ let pending=null, resendAt=0, resendTimer=null, busy=false;
+ const client=()=>window.HOKSHAccount?.getClient?.()||null;
  const toLatin=s=>String(s||'').replace(/[٠-٩]/g,ch=>String(ch.charCodeAt(0)-0x660)).replace(/[۰-۹]/g,ch=>String(ch.charCodeAt(0)-0x6f0));
- const normalizePhone=s=>toLatin(s).replace(/[\s().-]/g,'');
+ const normalizePhone=value=>{
+   let raw=toLatin(value).trim().replace(/[\s().-]/g,'');
+   let digits='';
+   if(raw.startsWith('+'))digits=raw.slice(1).replace(/\D/g,'');
+   else if(raw.startsWith('00'))digits=raw.slice(2).replace(/\D/g,'');
+   else {
+     digits=raw.replace(/\D/g,'');
+     if(digits.startsWith('0'))digits='20'+digits.slice(1);
+     else if(digits.startsWith('20')){}
+     else if(digits.length===10&&/^1[0125]/.test(digits))digits='20'+digits;
+     else return '';
+   }
+   return /^\d{8,15}$/.test(digits)?'+'+digits:'';
+ };
  const read=()=>{try{return JSON.parse(localStorage.getItem(KEY)||'null')}catch{return null}};
+ const writeVerifiedProfile=profile=>{
+   try{localStorage.setItem(KEY,JSON.stringify({userId:profile.userId,name:profile.name,verified:true,verifiedAt:new Date().toISOString()}));}
+   catch(e){console.warn('HOKSH: unable to cache display name locally',e);}
+ };
+ const showMessage=(text,kind='info')=>{
+   if(message){message.textContent=text;message.dataset.kind=kind;}
+ };
+ const friendlyError=err=>{
+   const raw=String(err?.message||err?.error_description||'').trim();
+   const lower=raw.toLowerCase();
+   if(/phone provider|sms provider|twilio|phone auth.*disabled|sms.*not.*configured|unsupported phone/.test(lower))
+     return 'إرسال رسائل التحقق غير مفعّل بعد في Supabase. فعّل تسجيل الدخول بالهاتف واضبط مزوّد SMS أولاً؛ لن نفتح الحساب بدون التحقق.';
+   if(/rate.?limit|too many requests|security purposes|60 seconds|request.*again/.test(lower))
+     return 'تم طلب رموز كثيرة خلال وقت قصير. انتظر قليلًا قبل إعادة إرسال الرمز.';
+   if(/invalid.*(otp|token)|token.*(invalid|expired)|otp.*expired/.test(lower))
+     return 'رمز التحقق غير صحيح أو انتهت صلاحيته. راجعه أو اطلب رمزًا جديدًا.';
+   if(/fetch|network|failed to fetch/.test(lower))
+     return 'تعذر الاتصال بخدمة التحقق. افحص الإنترنت وحاول مرة أخرى.';
+   return raw||'تعذر إكمال التحقق. راجع رقم الهاتف وحاول مرة أخرى.';
+ };
  const setGreeting=profile=>{
-   const h=$('dashboardGreeting'); if(h)h.textContent='أهلاً بك مجدداً يا '+profile.name;
-   const p=$('dashboardSubtitle'); if(p)p.textContent='اختر ما تريد القيام به اليوم';
-   const top=$('accountOpenBtn'); if(top)top.textContent='👤 '+profile.name.split(/\s+/)[0];
+   const name=String(profile?.name||'').trim()||'مستخدم حوكش';
+   const h=$('dashboardGreeting');if(h)h.textContent='أهلاً بك مجدداً يا '+name;
+   const p=$('dashboardSubtitle');if(p)p.textContent='اختر ما تريد القيام به اليوم';
+   const top=$('accountOpenBtn');if(top)top.textContent='👤 '+name.split(/\s+/)[0];
  };
  const enterDashboard=(profile,animate=true)=>{
-   if(!profile||!profile.name)return;
+   if(!profile||!profile.verified||!profile.userId)return;
    setGreeting(profile);
    accountShade?.classList.remove('open');
    document.body.classList.remove('hoksh-landing-open');
@@ -2230,44 +2289,141 @@ body.hoksh-landing-open>.app{visibility:hidden!important;opacity:0!important;poi
      if(animate){landing.classList.add('leaving');setTimeout(()=>landing.classList.add('hidden'),560);}
      else landing.classList.add('hidden');
    }
-   if(phoneInput)phoneInput.value=profile.phone||'';
-   if(nameInput)nameInput.value=profile.name||'';
  };
  const showLanding=()=>{
-   if(landing){landing.classList.remove('hidden','leaving');}
+   if(landing)landing.classList.remove('hidden','leaving');
    if(accountShade)accountShade.classList.remove('open');
    document.body.classList.add('hoksh-landing-open');
-   if(nameInput){nameInput.value='';nameInput.focus({preventScroll:true});}
-   if(phoneInput)phoneInput.value='';
+   pending=null;
+   if(fields)fields.hidden=false;
+   if(landingStart){landingStart.hidden=false;landingStart.disabled=false;landingStart.textContent='إرسال رمز التحقق ➜';}
+   if(otpStep)otpStep.hidden=true;
+   if(otpCode)otpCode.value='';
+   showMessage('لن ندخلك إلى حسابك حتى يتم التحقق من ملكية رقم الهاتف برمز SMS.','info');
  };
+ const getNameFromUser=user=>String(user?.user_metadata?.display_name||'').trim();
+ const getVerifiedProfile=async()=>{
+   const supa=client();
+   if(!supa)return null;
+   const {data,error}=await supa.auth.getSession();
+   if(error||!data?.session)return null;
+   const user=data.session.user;
+   if(!user?.id||!user?.phone||!user?.phone_confirmed_at)return null;
+   const saved=read();
+   const localName=saved?.verified===true&&saved?.userId===user.id?saved.name:'';
+   const name=getNameFromUser(user)||String(localName||'').trim()||'مستخدم حوكش';
+   const profile={userId:user.id,name,verified:true};
+   writeVerifiedProfile(profile);
+   return profile;
+ };
+ const setBusy=(value,button)=>{
+   busy=value;
+   if(landingStart)landingStart.disabled=value;
+   if(verifyBtn)verifyBtn.disabled=value;
+   if(value&&button){button.dataset.oldLabel=button.textContent;button.textContent='جارٍ التنفيذ…';}
+   else if(button&&button.dataset.oldLabel){button.textContent=button.dataset.oldLabel;delete button.dataset.oldLabel;}
+ };
+ const startResendCooldown=()=>{
+   resendAt=Date.now()+60000;
+   if(resendTimer)clearInterval(resendTimer);
+   const tick=()=>{
+     const seconds=Math.ceil((resendAt-Date.now())/1000);
+     if(seconds>0){resendBtn.disabled=true;resendBtn.textContent='إعادة الإرسال بعد '+seconds+' ث';}
+     else{clearInterval(resendTimer);resendTimer=null;resendBtn.disabled=false;resendBtn.textContent='إعادة إرسال الرمز';}
+   };
+   tick();resendTimer=setInterval(tick,1000);
+ };
+ const requestOtp=async({resend=false}={})=>{
+   if(busy)return;
+   const supa=client();
+   if(!supa){showMessage('لم يتم تهيئة اتصال الحساب الآمن. تأكد من تحميل مكتبة Supabase وإعدادات المشروع. لم يتم حفظ الرقم أو فتح الحساب.','error');return;}
+   const name=(resend?pending?.name:nameInput?.value||'').trim().replace(/\s+/g,' ');
+   const phone=resend?pending?.phone:normalizePhone(phoneInput?.value||'');
+   if(name.length<2){nameInput?.setCustomValidity('اكتب اسمك بشكل صحيح.');nameInput?.reportValidity();nameInput?.setCustomValidity('');return;}
+   if(!phone){phoneInput?.setCustomValidity('اكتب رقم هاتف مصريًا صحيحًا أو رقمًا دوليًا يبدأ بعلامة + ورمز الدولة.');phoneInput?.reportValidity();phoneInput?.setCustomValidity('');return;}
+   const button=resend?resendBtn:landingStart;
+   setBusy(true,button);
+   showMessage('جارٍ طلب رمز تحقق من مزوّد SMS…','info');
+   try{
+     const {error}=await supa.auth.signInWithOtp({phone,options:{channel:'sms',shouldCreateUser:true,data:{display_name:name}}});
+     if(error)throw error;
+     pending={name,phone};
+     fields.hidden=true;landingStart.hidden=true;otpStep.hidden=false;otpCode.value='';
+     $('otpSentTo').textContent='إذا كان الإرسال متاحًا، فسيصل رمز التحقق إلى '+phone+'.';
+     otpCode.focus({preventScroll:true});
+     startResendCooldown();
+     showMessage('تم قبول طلب إرسال الرمز. أدخل رمز SMS الذي يصلك لإثبات ملكية الرقم.','ok');
+   }catch(err){console.error('HOKSH SMS OTP request failed',err);showMessage(friendlyError(err),'error');}
+   finally{
+     setBusy(false,button);
+     if(pending){landingStart.hidden=true;landingStart.disabled=false;}
+   }
+ };
+ const verifyPhone=async()=>{
+   if(busy||!pending)return;
+   const supa=client();
+   if(!supa){showMessage('خدمة التحقق غير متاحة. لم يتم فتح الحساب.','error');return;}
+   const token=toLatin(otpCode?.value||'').replace(/\D/g,'');
+   if(!/^\d{6}$/.test(token)){showMessage('أدخل رمز التحقق المكوّن من 6 أرقام.','error');otpCode?.focus();return;}
+   setBusy(true,verifyBtn);
+   showMessage('جارٍ التحقق من الرمز لدى خدمة الحساب…','info');
+   try{
+     const {data,error}=await supa.auth.verifyOtp({phone:pending.phone,token,type:'sms'});
+     if(error)throw error;
+     const user=data?.user||data?.session?.user;
+     if(!data?.session||!user?.id||!user?.phone)throw new Error('تم استلام نتيجة غير مكتملة من خدمة التحقق. حاول تسجيل الدخول مجددًا.');
+     try{
+       const {error:metadataError}=await supa.auth.updateUser({data:{display_name:pending.name}});
+       if(metadataError)console.warn('HOKSH display name update failed',metadataError);
+     }catch(e){console.warn('HOKSH display name update failed',e);}
+     const profile={userId:user.id,name:pending.name,verified:true};
+     writeVerifiedProfile(profile);
+     showMessage('تم التحقق من رقم الهاتف بنجاح. جارٍ فتح حوكش…','ok');
+     if(resendTimer){clearInterval(resendTimer);resendTimer=null;}
+     pending=null;
+     enterDashboard(profile,true);
+   }catch(err){console.error('HOKSH SMS OTP verify failed',err);showMessage(friendlyError(err),'error');}
+   finally{setBusy(false,verifyBtn);}
+ };
+ if(phoneInput)phoneInput.addEventListener('input',()=>phoneInput.setCustomValidity(''));
+ if(nameInput)nameInput.addEventListener('input',()=>nameInput.setCustomValidity(''));
+ if(otpCode)otpCode.addEventListener('input',()=>{otpCode.value=toLatin(otpCode.value).replace(/\D/g,'').slice(0,6);});
  if(form)form.addEventListener('submit',event=>{
    event.preventDefault();
-   const name=(nameInput?.value||'').trim().replace(/\s+/g,' ');
-   const phone=normalizePhone(phoneInput?.value||'');
-   if(name.length<2){nameInput?.setCustomValidity('اكتب اسمك بشكل صحيح.');nameInput?.reportValidity();nameInput?.setCustomValidity('');return;}
-   if(!/^\+?\d{8,15}$/.test(phone)){phoneInput?.setCustomValidity('اكتب رقم هاتف صحيحًا مع رمز الدولة عند الحاجة.');phoneInput?.reportValidity();phoneInput?.setCustomValidity('');return;}
-   const profile={name,phone,updatedAt:new Date().toISOString(),mode:'local-profile'};
-   try{localStorage.setItem(KEY,JSON.stringify(profile));}
-   catch(e){if(message)message.textContent='مساحة التخزين غير متاحة في المتصفح؛ سيُفتح حوكش لهذه الجلسة فقط.';}
-   enterDashboard(profile,true);
+   if(pending){verifyPhone();return;}
+   requestOtp();
  });
- const logout=$('localLogoutBtn');
- if(logout)logout.addEventListener('click',async()=>{
+ verifyBtn?.addEventListener('click',verifyPhone);
+ resendBtn?.addEventListener('click',()=>{
+   if(Date.now()<resendAt){startResendCooldown();return;}
+   requestOtp({resend:true});
+ });
+ changeBtn?.addEventListener('click',()=>{
+   if(resendTimer){clearInterval(resendTimer);resendTimer=null;}
+   pending=null;fields.hidden=false;otpStep.hidden=true;landingStart.hidden=false;landingStart.textContent='إرسال رمز التحقق ➜';
+   if(otpCode)otpCode.value='';
+   showMessage('عدّل رقم الهاتف ثم اطلب رمز تحقق جديدًا.','info');
+   phoneInput?.focus({preventScroll:true});
+ });
+ const logOut=async()=>{
+   const supa=client();
+   try{if(supa)await supa.auth.signOut();}catch(e){console.warn('HOKSH sign-out failed',e);}
    try{localStorage.removeItem(KEY);}catch{}
-   try{const client=window.HOKSHAccount?.getClient?.();if(client&&window.HOKSHAccount?.getUser?.())await client.auth.signOut();}catch{}
    showLanding();
- });
- const oldLogout=$('logoutBtn');
- if(oldLogout)oldLogout.addEventListener('click',()=>{
-   setTimeout(()=>{if(!document.body.contains(landing))return;try{localStorage.removeItem(KEY)}catch{};showLanding()},0);
- });
- const saved=read();
- if(saved&&typeof saved.name==='string'&&saved.name.trim()&&normalizePhone(saved.phone||'')){
-   enterDashboard(saved,false);
- }else{
+ };
+ $('localLogoutBtn')?.addEventListener('click',logOut);
+ $('logoutBtn')?.addEventListener('click',event=>{event.preventDefault();logOut();});
+ const init=async()=>{
+   try{
+     const profile=await getVerifiedProfile();
+     if(profile){enterDashboard(profile,false);return;}
+   }catch(err){console.warn('HOKSH session restore failed',err);}
+   const old=read();
+   if(old&&!old.verified){try{localStorage.removeItem(KEY);}catch{}}
    showLanding();
- }
- window.HOKSHProfile={get:read,logout:showLanding};
+ };
+ window.HOKSHProfile={get:read,logout:showLanding,requestOtp,verifyPhone};
+ init();
 })();
 </script>
 </body></html>
