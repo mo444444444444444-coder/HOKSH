@@ -1180,18 +1180,12 @@ body.hoksh-landing-open>.app{visibility:hidden!important;opacity:0!important;poi
       <p class="landingIntroText">افتح ملفات PDF، واكتب عليها، وأنشئ سبورتك الرقمية وواصل مذاكرتك بسهولة.</p>
       <form id="profileForm" class="landingForm" autocomplete="on" novalidate>
         <div class="landingFields" id="landingFields">
-          <label class="landingField"><span>الاسم</span><input id="profileName" name="name" type="text" autocomplete="name" maxlength="70" required minlength="2" placeholder="اكتب اسمك"></label>
-          <label class="landingField"><span>رقم الهاتف</span><input id="profilePhone" name="tel" type="tel" autocomplete="tel" inputmode="tel" maxlength="22" required placeholder="مثال: 01012345678 أو +2010..."></label>
+          <label class="landingField"><span>اسم المستخدم</span><input id="profileName" name="username" type="text" autocomplete="username" maxlength="24" required minlength="3" pattern="[A-Za-z0-9_.-]{3,24}" placeholder="مثال: mohamed2026"></label>
+          <label class="landingField"><span>كلمة المرور</span><input id="profilePassword" name="password" type="password" autocomplete="current-password" minlength="8" maxlength="72" required placeholder="٨ أحرف على الأقل"></label>
         </div>
-        <button class="landingStart" id="landingStart" type="submit">إرسال رمز التحقق <span aria-hidden="true">➜</span></button>
-        <section class="otpStep" id="otpStep" hidden aria-labelledby="otpTitle">
-          <div class="otpExplainer"><b id="otpTitle">تأكيد رقم الهاتف</b><span id="otpSentTo">أرسلنا رمز تحقق إلى رقمك.</span></div>
-          <label class="otpCodeField"><span>رمز التحقق المكوّن من 6 أرقام</span><input id="otpCode" type="text" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" maxlength="6" placeholder="••••••" aria-label="رمز التحقق"></label>
-          <button class="landingStart otpVerify" id="verifyPhoneBtn" type="button">تأكيد الرقم والدخول <span aria-hidden="true">✓</span></button>
-          <div class="otpSecondaryActions"><button type="button" id="resendOtpBtn" disabled>إعادة إرسال الرمز</button><button type="button" id="changePhoneBtn">تغيير الرقم</button></div>
-        </section>
+        <button class="landingStart" id="landingStart" type="submit">دخول / إنشاء حساب <span aria-hidden="true">➜</span></button>
       </form>
-      <p class="landingPrivacy" id="landingMessage" role="status" aria-live="polite">لن ندخلك إلى حسابك حتى يتم التحقق من ملكية رقم الهاتف برمز واتساب.</p>
+      <p class="landingPrivacy" id="landingMessage" role="status" aria-live="polite">اكتب اسم المستخدم وكلمة المرور. لو الاسم جديد، سيتم إنشاء حساب خاص به.</p>
       <div class="landingFeatures" aria-label="مميزات حوكش">
         <div><span>▤</span><b>إدارة ملفات PDF</b></div>
         <div><span>✎</span><b>الكتابة والتعديل</b></div>
@@ -2221,213 +2215,87 @@ body.hoksh-landing-open>.app{visibility:hidden!important;opacity:0!important;poi
 }
 </style>
 <script id="hoksh-profile-view-controller">
-(()=> {
+(()=>{
  'use strict';
  const KEY='hoksh_profile_v2';
  const landing=document.getElementById('landingView');
  const form=document.getElementById('profileForm');
  const fields=document.getElementById('landingFields');
  const nameInput=document.getElementById('profileName');
- const phoneInput=document.getElementById('profilePhone');
- const landingStart=document.getElementById('landingStart');
- const otpStep=document.getElementById('otpStep');
- const otpCode=document.getElementById('otpCode');
- const verifyBtn=document.getElementById('verifyPhoneBtn');
- const resendBtn=document.getElementById('resendOtpBtn');
- const changeBtn=document.getElementById('changePhoneBtn');
+ const passwordInput=document.getElementById('profilePassword');
+ const submit=document.getElementById('landingStart');
  const message=document.getElementById('landingMessage');
  const accountShade=document.getElementById('accountShade');
- const $=id=>document.getElementById(id);
- let pending=null, resendAt=0, resendTimer=null, busy=false;
+ let busy=false;
  const client=()=>window.HOKSHAccount?.getClient?.()||null;
- const toLatin=s=>String(s||'').replace(/[٠-٩]/g,ch=>String(ch.charCodeAt(0)-0x660)).replace(/[۰-۹]/g,ch=>String(ch.charCodeAt(0)-0x6f0));
- const normalizePhone=value=>{
-   let raw=toLatin(value).trim().replace(/[\s().-]/g,'');
-   let digits='';
-   if(raw.startsWith('+'))digits=raw.slice(1).replace(/\D/g,'');
-   else if(raw.startsWith('00'))digits=raw.slice(2).replace(/\D/g,'');
-   else {
-     digits=raw.replace(/\D/g,'');
-     if(digits.startsWith('0'))digits='20'+digits.slice(1);
-     else if(digits.startsWith('20')){}
-     else if(digits.length===10&&/^1[0125]/.test(digits))digits='20'+digits;
-     else return '';
-   }
-   return /^\d{8,15}$/.test(digits)?'+'+digits:'';
- };
- const read=()=>{try{return JSON.parse(localStorage.getItem(KEY)||'null')}catch{return null}};
- const writeVerifiedProfile=profile=>{
-   try{localStorage.setItem(KEY,JSON.stringify({userId:profile.userId,name:profile.name,verified:true,verifiedAt:new Date().toISOString()}));}
-   catch(e){console.warn('HOKSH: unable to cache display name locally',e);}
- };
- const showMessage=(text,kind='info')=>{
-   if(message){message.textContent=text;message.dataset.kind=kind;}
- };
- const friendlyError=err=>{
-   const raw=String(err?.message||err?.error_description||'').trim();
-   const lower=raw.toLowerCase();
-   if(/phone provider|sms provider|twilio|phone auth.*disabled|sms.*not.*configured|unsupported phone/.test(lower))
-     return 'إرسال رسائل التحقق غير مفعّل بعد في Supabase. فعّل تسجيل الدخول بالهاتف واضبط مزوّد SMS أولاً؛ لن نفتح الحساب بدون التحقق.';
-   if(/rate.?limit|too many requests|security purposes|60 seconds|request.*again/.test(lower))
-     return 'تم طلب رموز كثيرة خلال وقت قصير. انتظر قليلًا قبل إعادة إرسال الرمز.';
-   if(/invalid.*(otp|token)|token.*(invalid|expired)|otp.*expired/.test(lower))
-     return 'رمز التحقق غير صحيح أو انتهت صلاحيته. راجعه أو اطلب رمزًا جديدًا.';
-   if(/fetch|network|failed to fetch/.test(lower))
-     return 'تعذر الاتصال بخدمة التحقق. افحص الإنترنت وحاول مرة أخرى.';
-   return raw||'تعذر إكمال التحقق. راجع رقم الهاتف وحاول مرة أخرى.';
- };
- const setGreeting=profile=>{
-   const name=String(profile?.name||'').trim()||'مستخدم حوكش';
-   const h=$('dashboardGreeting');if(h)h.textContent='أهلاً بك مجدداً يا '+name;
-   const p=$('dashboardSubtitle');if(p)p.textContent='اختر ما تريد القيام به اليوم';
-   const top=$('accountOpenBtn');if(top)top.textContent='👤 '+name.split(/\s+/)[0];
- };
+ const showMessage=(text,kind='info')=>{if(message){message.textContent=text;message.dataset.kind=kind;}};
+ const usernameToEmail=username=>username.toLowerCase()+'@users.hoksh.invalid';
+ const writeProfile=profile=>{try{localStorage.setItem(KEY,JSON.stringify({userId:profile.userId,name:profile.name,verified:true,verifiedAt:new Date().toISOString()}));}catch(e){console.warn('HOKSH profile cache failed',e);}};
  const enterDashboard=(profile,animate=true)=>{
-   if(!profile||!profile.verified||!profile.userId)return;
-   setGreeting(profile);
+   if(!profile||!profile.userId)return;
+   writeProfile(profile);
+   const greet=document.getElementById('dashboardGreeting');if(greet)greet.textContent='أهلاً بك يا '+profile.name;
+   const subtitle=document.getElementById('dashboardSubtitle');if(subtitle)subtitle.textContent='اختر ما تريد القيام به اليوم';
+   const top=document.getElementById('accountOpenBtn');if(top)top.textContent='👤 '+profile.name;
    accountShade?.classList.remove('open');
    document.body.classList.remove('hoksh-landing-open');
-   if(landing){
-     if(animate){landing.classList.add('leaving');setTimeout(()=>landing.classList.add('hidden'),560);}
-     else landing.classList.add('hidden');
-   }
+   if(landing){if(animate){landing.classList.add('leaving');setTimeout(()=>landing.classList.add('hidden'),560);}else landing.classList.add('hidden');}
  };
- const showLanding=()=>{
-   // Login is temporarily disabled: always keep the app usable without an account.
-   if(landing)landing.classList.add('hidden');
-   if(accountShade)accountShade.classList.remove('open');
-   document.body.classList.remove('hoksh-landing-open');
-   pending=null;
-   if(fields)fields.hidden=false;
-   if(landingStart){landingStart.hidden=false;landingStart.disabled=false;landingStart.textContent='إرسال رمز التحقق ➜';}
-   if(otpStep)otpStep.hidden=true;
-   if(otpCode)otpCode.value='';
-
- };
- const getNameFromUser=user=>String(user?.user_metadata?.display_name||'').trim();
- const getVerifiedProfile=async()=>{
-   const supa=client();
-   if(!supa)return null;
-   const {data,error}=await supa.auth.getSession();
-   if(error||!data?.session)return null;
+ const restoreSession=async()=>{
+   const supa=client();if(!supa)return false;
+   const {data,error}=await supa.auth.getSession();if(error||!data?.session?.user)return false;
    const user=data.session.user;
-   if(!user?.id||!user?.phone||!user?.phone_confirmed_at)return null;
-   const saved=read();
-   const localName=saved?.verified===true&&saved?.userId===user.id?saved.name:'';
-   const name=getNameFromUser(user)||String(localName||'').trim()||'مستخدم حوكش';
-   const profile={userId:user.id,name,verified:true};
-   writeVerifiedProfile(profile);
-   return profile;
+   const name=String(user.user_metadata?.display_name||user.user_metadata?.username||user.email?.split('@')[0]||'مستخدم حوكش');
+   enterDashboard({userId:user.id,name},false);return true;
  };
- const setBusy=(value,button)=>{
-   busy=value;
-   if(landingStart)landingStart.disabled=value;
-   if(verifyBtn)verifyBtn.disabled=value;
-   if(value&&button){button.dataset.oldLabel=button.textContent;button.textContent='جارٍ التنفيذ…';}
-   else if(button&&button.dataset.oldLabel){button.textContent=button.dataset.oldLabel;delete button.dataset.oldLabel;}
+ const setBusy=value=>{
+   busy=value;if(submit){submit.disabled=value;submit.textContent=value?'جارٍ التنفيذ…':'دخول / إنشاء حساب ➜';}
  };
- const startResendCooldown=()=>{
-   resendAt=Date.now()+60000;
-   if(resendTimer)clearInterval(resendTimer);
-   const tick=()=>{
-     const seconds=Math.ceil((resendAt-Date.now())/1000);
-     if(seconds>0){resendBtn.disabled=true;resendBtn.textContent='إعادة الإرسال بعد '+seconds+' ث';}
-     else{clearInterval(resendTimer);resendTimer=null;resendBtn.disabled=false;resendBtn.textContent='إعادة إرسال الرمز';}
-   };
-   tick();resendTimer=setInterval(tick,1000);
+ const authError=err=>{
+   const raw=String(err?.message||'');
+   if(/invalid login credentials/i.test(raw))return 'اسم المستخدم أو كلمة المرور غير صحيحين. لو أول مرة، استخدم اسمًا جديدًا واضغط مرة أخرى لإنشاء الحساب.';
+   if(/already registered|user already exists|email.*taken/i.test(raw))return 'اسم المستخدم ده مستخدم بالفعل. اكتب اسمًا آخر أو أدخل كلمة المرور الصحيحة.';
+   if(/password.*(short|least|characters)/i.test(raw))return 'كلمة المرور لازم تكون 8 أحرف على الأقل.';
+   if(/email|confirmation|confirm/i.test(raw))return 'يلزم إيقاف تأكيد البريد الإلكتروني في إعدادات Supabase لأن الدخول هنا باسم مستخدم بدون بريد.';
+   if(/fetch|network/i.test(raw))return 'تعذر الاتصال بخدمة الحسابات. تأكد من الإنترنت وإعدادات Supabase.';
+   return raw||'تعذر إكمال العملية. حاول مرة أخرى.';
  };
- const requestOtp=async({resend=false}={})=>{
-   if(busy)return;
-   const supa=client();
-   if(!supa){showMessage('لم يتم تهيئة اتصال الحساب الآمن. تأكد من تحميل مكتبة Supabase وإعدادات المشروع. لم يتم حفظ الرقم أو فتح الحساب.','error');return;}
-   const name=(resend?pending?.name:nameInput?.value||'').trim().replace(/\s+/g,' ');
-   const phone=resend?pending?.phone:normalizePhone(phoneInput?.value||'');
-   if(name.length<2){nameInput?.setCustomValidity('اكتب اسمك بشكل صحيح.');nameInput?.reportValidity();nameInput?.setCustomValidity('');return;}
-   if(!phone){phoneInput?.setCustomValidity('اكتب رقم هاتف مصريًا صحيحًا أو رقمًا دوليًا يبدأ بعلامة + ورمز الدولة.');phoneInput?.reportValidity();phoneInput?.setCustomValidity('');return;}
-   const button=resend?resendBtn:landingStart;
-   setBusy(true,button);
-   showMessage('جارٍ طلب رمز تحقق عبر واتساب…','info');
+ const submitAuth=async event=>{
+   event.preventDefault();if(busy)return;
+   const username=String(nameInput?.value||'').trim();
+   const password=String(passwordInput?.value||'');
+   if(!/^[A-Za-z0-9_.-]{3,24}$/.test(username)){showMessage('اسم المستخدم من 3 إلى 24 حرفًا إنجليزيًا أو رقمًا، ويمكن استخدام النقطة والشرطة والشرطة السفلية.','error');nameInput?.focus();return;}
+   if(password.length<8){showMessage('كلمة المرور لازم تكون 8 أحرف على الأقل.','error');passwordInput?.focus();return;}
+   const supa=client();if(!supa){showMessage('الاتصال بقاعدة الحسابات غير مهيأ. راجع إعدادات Supabase.','error');return;}
+   setBusy(true);
    try{
-     const {error}=await supa.auth.signInWithOtp({phone,options:{channel:'whatsapp',shouldCreateUser:true,data:{display_name:name}}});
-     if(error)throw error;
-     pending={name,phone};
-     fields.hidden=true;landingStart.hidden=true;otpStep.hidden=false;otpCode.value='';
-     $('otpSentTo').textContent='إذا كان الإرسال متاحًا، فسيصل رمز التحقق عبر واتساب إلى '+phone+'.';
-     otpCode.focus({preventScroll:true});
-     startResendCooldown();
-     showMessage('تم قبول طلب إرسال الرمز. أدخل رمز واتساب الذي يصلك لإثبات ملكية الرقم.','ok');
-   }catch(err){console.error('HOKSH WhatsApp OTP request failed',err);showMessage(friendlyError(err),'error');}
-   finally{
-     setBusy(false,button);
-     if(pending){landingStart.hidden=true;landingStart.disabled=false;}
-   }
+     const email=usernameToEmail(username);
+     let result=await supa.auth.signInWithPassword({email,password});
+     if(!result.error&&result.data?.user){
+       enterDashboard({userId:result.data.user.id,name:String(result.data.user.user_metadata?.display_name||username)},true);
+       showMessage('تم تسجيل الدخول بنجاح.','ok');return;
+     }
+     const signup=await supa.auth.signUp({email,password,options:{data:{username:username.toLowerCase(),display_name:username}}});
+     if(signup.error)throw signup.error;
+     if(signup.data?.session&&signup.data?.user){
+       enterDashboard({userId:signup.data.user.id,name:username},true);
+       showMessage('تم إنشاء حسابك والدخول بنجاح.','ok');
+     }else{
+       showMessage('Supabase لم يفتح جلسة تلقائية. افتح إعدادات المصادقة وأوقف Confirm email ثم جرّب إنشاء الحساب مرة أخرى.','error');
+     }
+   }catch(err){showMessage(authError(err),'error');}
+   finally{setBusy(false);}
  };
- const verifyPhone=async()=>{
-   if(busy||!pending)return;
-   const supa=client();
-   if(!supa){showMessage('خدمة التحقق غير متاحة. لم يتم فتح الحساب.','error');return;}
-   const token=toLatin(otpCode?.value||'').replace(/\D/g,'');
-   if(!/^\d{6}$/.test(token)){showMessage('أدخل رمز التحقق المكوّن من 6 أرقام.','error');otpCode?.focus();return;}
-   setBusy(true,verifyBtn);
-   showMessage('جارٍ التحقق من الرمز لدى خدمة الحساب…','info');
-   try{
-     const {data,error}=await supa.auth.verifyOtp({phone:pending.phone,token,type:'whatsapp'});
-     if(error)throw error;
-     const user=data?.user||data?.session?.user;
-     if(!data?.session||!user?.id||!user?.phone)throw new Error('تم استلام نتيجة غير مكتملة من خدمة التحقق. حاول تسجيل الدخول مجددًا.');
-     try{
-       const {error:metadataError}=await supa.auth.updateUser({data:{display_name:pending.name}});
-       if(metadataError)console.warn('HOKSH display name update failed',metadataError);
-     }catch(e){console.warn('HOKSH display name update failed',e);}
-     const profile={userId:user.id,name:pending.name,verified:true};
-     writeVerifiedProfile(profile);
-     showMessage('تم التحقق من رقم الهاتف بنجاح. جارٍ فتح حوكش…','ok');
-     if(resendTimer){clearInterval(resendTimer);resendTimer=null;}
-     pending=null;
-     enterDashboard(profile,true);
-   }catch(err){console.error('HOKSH SMS OTP verify failed',err);showMessage(friendlyError(err),'error');}
-   finally{setBusy(false,verifyBtn);}
- };
- if(phoneInput)phoneInput.addEventListener('input',()=>phoneInput.setCustomValidity(''));
- if(nameInput)nameInput.addEventListener('input',()=>nameInput.setCustomValidity(''));
- if(otpCode)otpCode.addEventListener('input',()=>{otpCode.value=toLatin(otpCode.value).replace(/\D/g,'').slice(0,6);});
- if(form)form.addEventListener('submit',event=>{
-   event.preventDefault();
-   if(pending){verifyPhone();return;}
-   requestOtp();
- });
- verifyBtn?.addEventListener('click',verifyPhone);
- resendBtn?.addEventListener('click',()=>{
-   if(Date.now()<resendAt){startResendCooldown();return;}
-   requestOtp({resend:true});
- });
- changeBtn?.addEventListener('click',()=>{
-   if(resendTimer){clearInterval(resendTimer);resendTimer=null;}
-   pending=null;fields.hidden=false;otpStep.hidden=true;landingStart.hidden=false;landingStart.textContent='إرسال رمز التحقق ➜';
-   if(otpCode)otpCode.value='';
-   showMessage('عدّل رقم الهاتف ثم اطلب رمز تحقق جديدًا.','info');
-   phoneInput?.focus({preventScroll:true});
- });
- const logOut=async()=>{
-   const supa=client();
-   try{if(supa)await supa.auth.signOut();}catch(e){console.warn('HOKSH sign-out failed',e);}
-   try{localStorage.removeItem(KEY);}catch{}
-   showLanding();
- };
- $('localLogoutBtn')?.addEventListener('click',logOut);
- $('logoutBtn')?.addEventListener('click',event=>{event.preventDefault();logOut();});
- const init=async( const init=async()=>{
-   try{
-     const profile=await getVerifiedProfile();
-     if(profile){enterDashboard(profile,false);return;}
-   }catch(err){console.warn('HOKSH session restore failed',err);}
-   const old=read();
-   if(old&&!old.verified){try{localStorage.removeItem(KEY);}catch{}}
-   // Open the main app directly; account/login flow will be re-enabled later.
-   if(landing)landing.classList.add('hidden');
-   if(accountShade)accountShade.classList.remove('open');
+ if(form)form.addEventListener('submit',submitAuth);
+ const init=async()=>{
    document.body.classList.remove('hoksh-landing-open');
-Profile={get:read,logout:showLanding,requestOtp,verifyPhone};
+   if(accountShade)accountShade.classList.remove('open');
+   if(landing)landing.classList.remove('leaving');
+   try{if(await restoreSession())return;}catch(e){console.warn('HOKSH session restore failed',e);}
+   // Keep the login panel visible when there is no signed-in account.
+   if(landing)landing.classList.remove('hidden');
+ };
+ window.HOKSHProfile={get:()=>{try{return JSON.parse(localStorage.getItem(KEY)||'null')}catch{return null;}},logout:async()=>{const supa=client();try{if(supa)await supa.auth.signOut();}catch(e){console.warn(e);}try{localStorage.removeItem(KEY)}catch{};if(landing)landing.classList.remove('hidden','leaving');document.body.classList.add('hoksh-landing-open');}};
  init();
 })();
 </script>
