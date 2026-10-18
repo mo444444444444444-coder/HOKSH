@@ -1020,6 +1020,8 @@ body.hoksh-landing-open>.app{visibility:hidden!important;opacity:0!important;poi
 #landingView .landingAccess{flex:1 1 50%;height:50%;min-height:0;display:flex;align-items:center;justify-content:center;background:#0052cc;color:#fff}
 #landingView.hidden{display:none!important}
 @media(max-width:680px){#landingView .landingHero{flex-basis:40%;height:40%}#landingView .landingAccess{flex-basis:60%;height:60%}}
+/* Temporarily hide account entry points; login code remains available for later reactivation. */
+#accountOpenBtn,#accountSideBtn{display:none!important}
 </style>
 <style id="hoksh-sms-otp-styles">
 .landingFields{display:contents!important}
@@ -2291,15 +2293,16 @@ body.hoksh-landing-open>.app{visibility:hidden!important;opacity:0!important;poi
    }
  };
  const showLanding=()=>{
-   if(landing)landing.classList.remove('hidden','leaving');
+   // Login is temporarily disabled: always keep the app usable without an account.
+   if(landing)landing.classList.add('hidden');
    if(accountShade)accountShade.classList.remove('open');
-   document.body.classList.add('hoksh-landing-open');
+   document.body.classList.remove('hoksh-landing-open');
    pending=null;
    if(fields)fields.hidden=false;
    if(landingStart){landingStart.hidden=false;landingStart.disabled=false;landingStart.textContent='إرسال رمز التحقق ➜';}
    if(otpStep)otpStep.hidden=true;
    if(otpCode)otpCode.value='';
-   showMessage('لن ندخلك إلى حسابك حتى يتم التحقق من ملكية رقم الهاتف برمز واتساب.','info');
+
  };
  const getNameFromUser=user=>String(user?.user_metadata?.display_name||'').trim();
  const getVerifiedProfile=async()=>{
@@ -2413,16 +2416,18 @@ body.hoksh-landing-open>.app{visibility:hidden!important;opacity:0!important;poi
  };
  $('localLogoutBtn')?.addEventListener('click',logOut);
  $('logoutBtn')?.addEventListener('click',event=>{event.preventDefault();logOut();});
- const init=async()=>{
+ const init=async( const init=async()=>{
    try{
      const profile=await getVerifiedProfile();
      if(profile){enterDashboard(profile,false);return;}
    }catch(err){console.warn('HOKSH session restore failed',err);}
    const old=read();
    if(old&&!old.verified){try{localStorage.removeItem(KEY);}catch{}}
-   showLanding();
- };
- window.HOKSHProfile={get:read,logout:showLanding,requestOtp,verifyPhone};
+   // Open the main app directly; account/login flow will be re-enabled later.
+   if(landing)landing.classList.add('hidden');
+   if(accountShade)accountShade.classList.remove('open');
+   document.body.classList.remove('hoksh-landing-open');
+Profile={get:read,logout:showLanding,requestOtp,verifyPhone};
  init();
 })();
 </script>
