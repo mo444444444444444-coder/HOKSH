@@ -1178,14 +1178,9 @@ body.hoksh-landing-open>.app{visibility:hidden!important;opacity:0!important;poi
       <div class="landingEyebrow">منصة واحدة للدراسة والأدوات والسبورة</div>
       <h1>مرحباً بك في <span>حوكش</span></h1>
       <p class="landingIntroText">افتح ملفات PDF، واكتب عليها، وأنشئ سبورتك الرقمية وواصل مذاكرتك بسهولة.</p>
-      <form id="profileForm" class="landingForm" autocomplete="on" novalidate>
-        <div class="landingFields" id="landingFields">
-          <label class="landingField"><span>اسم المستخدم</span><input id="profileName" name="username" type="text" autocomplete="username" maxlength="24" required minlength="3" pattern="[A-Za-z0-9_.-]{3,24}" placeholder="مثال: mohamed2026"></label>
-          <label class="landingField"><span>كلمة المرور</span><input id="profilePassword" name="password" type="password" autocomplete="current-password" minlength="8" maxlength="72" required placeholder="٨ أحرف على الأقل"></label>
-        </div>
-        <button class="landingStart" id="landingStart" type="submit">دخول / إنشاء حساب <span aria-hidden="true">➜</span></button>
-      </form>
-      <p class="landingPrivacy" id="landingMessage" role="status" aria-live="polite">اكتب اسم المستخدم وكلمة المرور. لو الاسم جديد، سيتم إنشاء حساب خاص به.</p>
+      <div class="landingForm" id="profileForm">
+        <button class="landingStart" id="landingStart" type="button">ابدأ الآن <span aria-hidden="true">➜</span></button>
+      </div>
       <div class="landingFeatures" aria-label="مميزات حوكش">
         <div><span>▤</span><b>إدارة ملفات PDF</b></div>
         <div><span>✎</span><b>الكتابة والتعديل</b></div>
@@ -2218,14 +2213,21 @@ body.hoksh-landing-open>.app{visibility:hidden!important;opacity:0!important;poi
 (()=>{
  'use strict';
  const landing=document.getElementById('landingView');
+ const startButton=document.getElementById('landingStart');
  const accountShade=document.getElementById('accountShade');
- // Open HOKSH directly in guest mode. No login or registration is required.
- document.body.classList.remove('hoksh-landing-open');
+ // Keep the original HOKSH welcome screen; only remove the login fields.
+ document.body.classList.add('hoksh-landing-open');
  accountShade?.classList.remove('open');
- if(landing) landing.classList.add('hidden');
+ if(landing) landing.classList.remove('hidden','leaving');
+ const enter=()=>{
+   document.body.classList.remove('hoksh-landing-open');
+   accountShade?.classList.remove('open');
+   if(landing){landing.classList.add('leaving');setTimeout(()=>landing.classList.add('hidden'),420);}
+ };
+ startButton?.addEventListener('click',enter);
  window.HOKSHProfile={
    get:()=>({name:'مستخدم حوكش',guest:true}),
-   logout:()=>{document.body.classList.remove('hoksh-landing-open');if(landing)landing.classList.add('hidden');accountShade?.classList.remove('open');}
+   logout:()=>{enter();}
  };
 })();
 </script>
