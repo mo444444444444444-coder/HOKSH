@@ -1039,6 +1039,48 @@ body.hoksh-landing-open>.app{visibility:hidden!important;opacity:0!important;poi
 .landingPrivacy[data-kind="error"]{color:#ffe4e7}.landingPrivacy[data-kind="ok"]{color:#c6ffe7}
 @media(max-width:680px){.otpStep{grid-template-columns:minmax(0,1fr);gap:7px}.otpExplainer{grid-column:1}.otpSecondaryActions{grid-column:1}.otpCodeField input{height:41px;font-size:20px}.otpVerify{height:43px}}
 </style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style id="hoksh-font-and-welcome-polish">
+/* Unified typography refresh across the entire HOKSH application */
+:root{--hoksh-font:"Alexandria",Tahoma,sans-serif}
+html,body,body *{font-family:var(--hoksh-font)!important}
+body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+button,input,textarea,select{font:inherit!important}
+button{letter-spacing:0!important}
+#landingView .landingAccessInner{width:min(900px,100%);margin-inline:auto;padding:clamp(18px,3vw,38px);text-align:center}
+#landingView .landingEyebrow{font-size:clamp(11px,1.2vw,14px);font-weight:700;letter-spacing:0!important;opacity:.86;margin-bottom:9px}
+#landingView .landingAccess h1{margin:0 auto;font-weight:800;line-height:1.45;letter-spacing:-.035em}
+#landingView .landingAccess h1 span{font-weight:900}
+#landingView .landingIntroText{max-width:620px;margin:10px auto 20px;line-height:1.9;font-weight:400;opacity:.92}
+#landingView .landingForm{display:flex;justify-content:center;align-items:center;width:100%;margin:20px auto 22px}
+#landingView .landingStart{
+ position:relative;display:flex!important;align-items:center!important;justify-content:center!important;
+ width:min(360px,100%)!important;min-height:58px!important;height:auto!important;
+ margin:0 auto!important;padding:15px 58px!important;border:1px solid rgba(255,255,255,.55)!important;
+ border-radius:18px!important;background:linear-gradient(135deg,#fff 0%,#eaf4ff 100%)!important;
+ color:#0755c9!important;font-size:clamp(16px,1.6vw,19px)!important;font-weight:800!important;
+ line-height:1.4!important;text-align:center!important;box-shadow:0 12px 28px rgba(0,22,86,.22),inset 0 1px 0 #fff!important;
+ cursor:pointer;transition:transform .18s ease,box-shadow .18s ease
+}
+#landingView .landingStart span{position:absolute;left:19px;top:50%;transform:translateY(-50%);display:grid;place-items:center;width:29px;height:29px;border-radius:9px;background:#d9eaff;color:#0755c9;font-size:18px;line-height:1}
+#landingView .landingStart:hover{transform:translateY(-2px);box-shadow:0 16px 32px rgba(0,22,86,.26),inset 0 1px 0 #fff!important}
+#landingView .landingStart:focus-visible{outline:3px solid #a8e7ff;outline-offset:4px}
+#landingView .landingFeatures{max-width:760px;margin:18px auto 0}
+#landingView .landingFeatures b{font-weight:600;line-height:1.6}
+#landingView .landingCredit{margin-top:18px;font-weight:400;opacity:.88}
+#landingView .landingCredit b{font-weight:800}
+@media(max-width:680px){
+ #landingView .landingAccessInner{padding:12px 14px 16px}
+ #landingView .landingIntroText{margin:7px auto 12px;line-height:1.75}
+ #landingView .landingForm{margin:13px auto 14px}
+ #landingView .landingStart{min-height:50px!important;border-radius:15px!important;width:min(320px,100%)!important;padding:12px 52px!important}
+ #landingView .landingStart span{left:13px;width:26px;height:26px}
+ #landingView .landingCredit{margin-top:10px}
+}
+</style>
 </head>
 <body class="hoksh-landing-open">
 <div class="app">
