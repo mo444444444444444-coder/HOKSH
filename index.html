@@ -1398,6 +1398,7 @@ async function pdfToPages(bytes,onPage){
 async function openPdfBytes(bytes,name,size){
   try{
     pdfBytes=bytes;docName=name.replace(/\.pdf$/i,'')||'مستند PDF';
+    hokshLiveSearchDoc=null;hokshLiveSearchEpoch++;if($('pdfLiveSearch'))$('pdfLiveSearch').value='';
     pages=[];activePage=0;history=[];future=[];
     zoom=innerWidth<700?.46:.8;
     $('home').style.display='none';$('workspace').classList.add('active');document.body.classList.add('focusPdf');document.getElementById('pdfPenFab')?.classList.add('show');$('renameFile').textContent=docName;
@@ -1564,9 +1565,10 @@ async function searchPdfText(){
     toast('لم يتم العثور على: '+q);
   }catch(e){console.error(e);toast('تعذر البحث داخل النص')}
 }
-function logout(){
-  if(!confirm('تسجيل الخروج؟ سيتم تنظيف بيانات حوكش المحلية والعودة لشاشة الدخول.'))return;
-  try{localStorage['cl'+'ear']();sessionStorage['cl'+'ear']()}catch(e){}
+async function logout(){
+  if(!confirm('تسجيل الخروج والعودة لشاشة البداية؟ ستظل ملفات PDF والسبورات المحفوظة على هذا الجهاز كما هي.'))return;
+  try{localStorage.removeItem('hoksh_profile_v2')}catch(e){}
+  try{const client=window.HOKSHAccount?.getClient?.();if(client)await client.auth.signOut()}catch(e){}
   pdf=null;pdfBytes=null;pages=[];history=[];future=[];drawing=null;
   document.body.classList.remove('focusPdf','lightMode','navMode');
   $('drawer')?.classList.remove('show');$('workspace')?.classList.remove('active');$('home').style.display='block';
