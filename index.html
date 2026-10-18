@@ -2353,7 +2353,7 @@ body.hoksh-landing-open>.app{visibility:hidden!important;opacity:0!important;poi
      otpCode.focus({preventScroll:true});
      startResendCooldown();
      showMessage('تم قبول طلب إرسال الرمز. أدخل رمز واتساب الذي يصلك لإثبات ملكية الرقم.','ok');
-   }catch(err){console.error('HOKSH SMS OTP request failed',err);showMessage(friendlyError(err),'error');}
+   }catch(err){console.error('HOKSH WhatsApp OTP request failed',err);showMessage(friendlyError(err),'error');}
    finally{
      setBusy(false,button);
      if(pending){landingStart.hidden=true;landingStart.disabled=false;}
