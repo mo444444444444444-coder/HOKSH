@@ -1899,7 +1899,7 @@ body{overflow:hidden}
   function message(text,kind){status.textContent=text;status.className='accountStatus show '+(kind||'info');}
   function clearMessage(){status.textContent='';status.className='accountStatus';}
   function open(){shade.classList.add('open');clearMessage();refresh();}
-  function close(){if(!currentUser){shade.classList.add('open');return;}shade.classList.remove('open');}
+  function close(){shade.classList.remove('open');}
   function setMode(next){
     mode=next;
     $id('accountLoginTab').classList.toggle('active',mode==='login');
@@ -1919,10 +1919,10 @@ body{overflow:hidden}
     $id('accountAvatar').textContent=(user?.email||'م').slice(0,1).toUpperCase();
     $id('accountStateLabel').textContent='تم تسجيل الدخول';
     $id('accountTitle').textContent=user?'حسابك':'سجّل الدخول إلى حوكش';
-    $id('accountClose').style.display=user?'block':'none';
+    $id('accountClose').style.display='block';
     $id('accountGuest').style.display=user?'none':'none';
     if(user){shade.classList.remove('open');message('أهلاً بك. تم تسجيل الدخول بنجاح.','ok');}
-    else {shade.classList.add('open');}
+    else { /* Keep optional cloud sign-in closed unless the visitor explicitly opens it. */ }
   }
   async function refresh(){
     if(!client){showUser(null);return;}
@@ -1942,8 +1942,8 @@ body{overflow:hidden}
   $id('accountGuest').style.display='none';
   $id('accountClose').style.display='none';
   $id('accountGuest').addEventListener('click',e=>{e.preventDefault();open();});
-  shade.addEventListener('click',e=>{if(e.target===shade && !currentUser){e.preventDefault();shade.classList.add('open');}});
-  document.addEventListener('keydown',e=>{if(e.key==='Escape' && !currentUser){e.preventDefault();shade.classList.add('open');}});
+  shade.addEventListener('click',e=>{if(e.target===shade)close();});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&shade.classList.contains('open')){e.preventDefault();close();}});
   document.querySelectorAll('#menuBtn,#visualSettingsBtn,#sideFiles,#visualFilesBtn').forEach(el=>el&&el.addEventListener('dblclick',open));
   const profileBtn=$id('accountOpenBtn'); if(profileBtn) profileBtn.addEventListener('click',open);
   const sideProfile=$id('accountSideBtn'); if(sideProfile) sideProfile.addEventListener('click',open);
