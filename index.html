@@ -2368,7 +2368,7 @@ body.hoksh-landing-open>.app{visibility:hidden!important;opacity:0!important;poi
    setBusy(true,verifyBtn);
    showMessage('جارٍ التحقق من الرمز لدى خدمة الحساب…','info');
    try{
-     const {data,error}=await supa.auth.verifyOtp({phone:pending.phone,token,type:'sms'});
+     const {data,error}=await supa.auth.verifyOtp({phone:pending.phone,token,type:'whatsapp'});
      if(error)throw error;
      const user=data?.user||data?.session?.user;
      if(!data?.session||!user?.id||!user?.phone)throw new Error('تم استلام نتيجة غير مكتملة من خدمة التحقق. حاول تسجيل الدخول مجددًا.');
