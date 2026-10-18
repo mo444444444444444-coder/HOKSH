@@ -1189,7 +1189,7 @@ body.hoksh-landing-open>.app{visibility:hidden!important;opacity:0!important;poi
           <div class="otpSecondaryActions"><button type="button" id="resendOtpBtn" disabled>إعادة إرسال الرمز</button><button type="button" id="changePhoneBtn">تغيير الرقم</button></div>
         </section>
       </form>
-      <p class="landingPrivacy" id="landingMessage" role="status" aria-live="polite">لن ندخلك إلى حسابك حتى يتم التحقق من ملكية رقم الهاتف برمز SMS.</p>
+      <p class="landingPrivacy" id="landingMessage" role="status" aria-live="polite">لن ندخلك إلى حسابك حتى يتم التحقق من ملكية رقم الهاتف برمز واتساب.</p>
       <div class="landingFeatures" aria-label="مميزات حوكش">
         <div><span>▤</span><b>إدارة ملفات PDF</b></div>
         <div><span>✎</span><b>الكتابة والتعديل</b></div>
@@ -2299,7 +2299,7 @@ body.hoksh-landing-open>.app{visibility:hidden!important;opacity:0!important;poi
    if(landingStart){landingStart.hidden=false;landingStart.disabled=false;landingStart.textContent='إرسال رمز التحقق ➜';}
    if(otpStep)otpStep.hidden=true;
    if(otpCode)otpCode.value='';
-   showMessage('لن ندخلك إلى حسابك حتى يتم التحقق من ملكية رقم الهاتف برمز SMS.','info');
+   showMessage('لن ندخلك إلى حسابك حتى يتم التحقق من ملكية رقم الهاتف برمز واتساب.','info');
  };
  const getNameFromUser=user=>String(user?.user_metadata?.display_name||'').trim();
  const getVerifiedProfile=async()=>{
@@ -2343,16 +2343,16 @@ body.hoksh-landing-open>.app{visibility:hidden!important;opacity:0!important;poi
    if(!phone){phoneInput?.setCustomValidity('اكتب رقم هاتف مصريًا صحيحًا أو رقمًا دوليًا يبدأ بعلامة + ورمز الدولة.');phoneInput?.reportValidity();phoneInput?.setCustomValidity('');return;}
    const button=resend?resendBtn:landingStart;
    setBusy(true,button);
-   showMessage('جارٍ طلب رمز تحقق من مزوّد SMS…','info');
+   showMessage('جارٍ طلب رمز تحقق عبر واتساب…','info');
    try{
-     const {error}=await supa.auth.signInWithOtp({phone,options:{channel:'sms',shouldCreateUser:true,data:{display_name:name}}});
+     const {error}=await supa.auth.signInWithOtp({phone,options:{channel:'whatsapp',shouldCreateUser:true,data:{display_name:name}}});
      if(error)throw error;
      pending={name,phone};
      fields.hidden=true;landingStart.hidden=true;otpStep.hidden=false;otpCode.value='';
-     $('otpSentTo').textContent='إذا كان الإرسال متاحًا، فسيصل رمز التحقق إلى '+phone+'.';
+     $('otpSentTo').textContent='إذا كان الإرسال متاحًا، فسيصل رمز التحقق عبر واتساب إلى '+phone+'.';
      otpCode.focus({preventScroll:true});
      startResendCooldown();
-     showMessage('تم قبول طلب إرسال الرمز. أدخل رمز SMS الذي يصلك لإثبات ملكية الرقم.','ok');
+     showMessage('تم قبول طلب إرسال الرمز. أدخل رمز واتساب الذي يصلك لإثبات ملكية الرقم.','ok');
    }catch(err){console.error('HOKSH SMS OTP request failed',err);showMessage(friendlyError(err),'error');}
    finally{
      setBusy(false,button);
