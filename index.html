@@ -1108,6 +1108,22 @@ button{letter-spacing:0!important}
     <button class="simpleAction primaryAction" id="openPdf"><span class="simpleActionIcon">＋</span><span><b>إضافة ملف PDF</b><small>افتح ملفاً من جهازك للقراءة والكتابة والتعديل</small></span><span class="simpleArrow">‹</span></button>
     <button class="simpleAction" id="newWhiteboard"><span class="simpleActionIcon">▤</span><span><b>إنشاء سبورة جديدة</b><small>ابدأ الكتابة والرسم على صفحة فارغة</small></span><span class="simpleArrow">‹</span></button>
   </div>
+  <section class="studyHub" id="studyHub" aria-label="مركز المذاكرة">
+    <section class="studyPanel">
+      <div class="studyPanelHead"><div><h2>ابدأ مذاكرتك</h2><p>اختصارات مباشرة لأهم أدوات حوكش.</p></div><span class="studyPill">مجاني</span></div>
+      <div class="studyShortcuts">
+        <button class="studyShortcut" id="studyVideosBtn" type="button"><span class="studyShortcutIcon">▶</span><b>فصول الفيديو</b><small>شاهد الدروس</small></button>
+        <button class="studyShortcut" id="studyPdfBtn" type="button"><span class="studyShortcutIcon">▤</span><b>مذكرة PDF</b><small>افتح وعلّق</small></button>
+        <button class="studyShortcut" id="studyBoardBtn" type="button"><span class="studyShortcutIcon">✎</span><b>سبورة جديدة</b><small>اكتب أفكارك</small></button>
+      </div>
+    </section>
+    <section class="studyPanel" aria-labelledby="studyPlannerTitle">
+      <div class="studyPanelHead"><div><h2 id="studyPlannerTitle">خطة مذاكرتي اليوم</h2><p>قائمة بسيطة تُحفظ على هذا الجهاز تلقائيًا.</p></div><span class="studyPill" id="studyToday">اليوم</span></div>
+      <form class="studyTaskForm" id="studyTaskForm"><input id="studyTaskInput" maxlength="180" autocomplete="off" placeholder="مثلاً: مراجعة قوانين الفيزياء" aria-label="مهمة مذاكرة جديدة" required><button type="submit">＋ إضافة</button></form>
+      <div class="studyTasks" id="studyTasks" aria-live="polite"><div class="studyEmpty">أضف أول مهمة مذاكرة وابدأ خطوة بخطوة.</div></div>
+      <div class="studyProgress"><span id="studyProgressBar"></span></div><div class="studyProgressLabel"><span id="studyProgressText">لم تُنجز مهام بعد</span><span id="studyProgressCount">0 / 0</span></div>
+    </section>
+  </section>
   <div class="recents"><div class="head"><h2>الملفات الأخيرة</h2><div class="recentHeadActions"><button class="btn recentViewAll" id="viewAllRecents" type="button">عرض الكل</button><button class="btn" id="clearRecents">مسح</button></div></div><div class="recentGrid" id="recentGrid"></div></div>
   <div class="homeSupport" id="homeSupport"><div><b>🟢 الدعم الفني على واتساب</b><small>01146808655 — تواصل مباشرة مع المطور</small></div><button class="btn primary" id="homeSupportBtn">فتح واتساب</button></div>
 </section>
@@ -2252,7 +2268,100 @@ body.hoksh-landing-open>.app{visibility:hidden!important;opacity:0!important;poi
  .landingFeatures{margin-top:7px!important}
  .landingCredit{margin-top:4px!important}
 }
+
+/* HOKSH Academy refresh v15 — dashboard-only styling; editor behavior stays untouched */
+:root{--bg:#f3f7ff;--panel:#fff;--panel2:#edf4ff;--line:#dce7f7;--text:#102858;--muted:#667b9e;--accent:#176cf5;--blue:#4c63f6;--soft:#e9f2ff;--shadow:0 14px 38px #153b7910}
+body, .app{background:#f3f7ff;color:#102858}
+.top{background:#ffffffed;border-bottom:1px solid #e1eaf8;box-shadow:0 5px 22px #173b7109}
+.brand img{border-radius:12px;box-shadow:0 5px 14px #1466e51b}
+.brand b{color:#102858}.brand small{color:#1673ef}
+.iconBtn,.btn{background:#f4f7ff;border-color:#dbe6f8;color:#244678}
+.btn.primary{background:linear-gradient(120deg,#146ef5,#4c63f6);border-color:#3e79f4;color:#fff;box-shadow:0 6px 16px #176cf51c}
+.main{background:#f3f7ff}
+.homeSimple{background:radial-gradient(ellipse at 92% 0%,#dceaff 0,transparent 36%),linear-gradient(180deg,#f8fbff,#eff5ff 65%,#f7fffd)!important;padding:clamp(14px,2.2vw,28px)!important}
+.simpleWelcome{position:relative;isolation:isolate;overflow:hidden;min-height:174px;display:flex;align-items:center;border:1px solid #dce8fc;border-radius:26px;background:linear-gradient(115deg,#e2edff 0%,#f7fbff 55%,#e0fff5 100%);box-shadow:0 16px 38px #285a9b0c;padding:clamp(22px,3vw,36px);margin-bottom:18px}
+.simpleWelcome:before{content:"";position:absolute;z-index:-1;width:250px;height:250px;left:-80px;top:-100px;border-radius:50%;background:linear-gradient(140deg,#b7d4ff77,#b5fff044);border:1px solid #fff9;box-shadow:0 0 0 25px #fff3,0 0 0 55px #fff2}
+.simpleWelcome:after{content:"";position:absolute;z-index:-1;width:150px;height:150px;right:45%;bottom:-115px;border-radius:50%;background:#ffffff66}
+.simpleWelcome h1{font-size:clamp(24px,3vw,34px);letter-spacing:-.6px;color:#0d2c62}
+.simpleWelcome p{color:#597295;font-size:14px;max-width:520px}
+.welcomeEyebrow{display:inline-flex;align-items:center;gap:7px;border:1px solid #d0e2ff;border-radius:99px;background:#ffffffb8;color:#176ce8;padding:6px 11px;font-size:11px;font-weight:900}
+.simpleActions{gap:14px;margin:16px auto 24px}
+.simpleAction{position:relative;overflow:hidden;min-height:116px;border:1px solid #e0e9fa;border-radius:21px;background:#fff;box-shadow:0 12px 30px #1c4e920b;transition:transform .18s,box-shadow .18s,border-color .18s}
+.simpleAction:hover{transform:translateY(-2px);box-shadow:0 18px 36px #1c4e9217;border-color:#bfd5fb}
+.simpleAction.primaryAction{background:linear-gradient(115deg,#176cf5,#5366f6);box-shadow:0 12px 25px #176cf524}
+.simpleAction:nth-child(2){background:linear-gradient(115deg,#12a977,#23bfa5);box-shadow:0 12px 25px #12a9771b}
+.simpleActionIcon{width:50px;height:50px;flex-basis:50px;border-radius:16px;background:#eef5ff;color:#176cf5}
+.primaryAction .simpleActionIcon,.simpleAction:nth-child(2) .simpleActionIcon{background:#ffffff2b;color:#fff}
+.simpleAction b{font-size:16px}.simpleAction small{font-size:12px;line-height:1.7}
+.homeSimple .recents{border:1px solid #e0e9fa;border-radius:22px;background:#ffffffc9;padding:18px;box-shadow:0 12px 34px #1e4b8c08}
+.homeSimple .head h2{font-size:19px;letter-spacing:-.2px;color:#112d61}
+.homeSimple .fileCard{border:1px solid #e3ebf8;border-radius:17px;transition:transform .18s,box-shadow .18s}
+.homeSimple .fileCard:hover{transform:translateY(-2px);box-shadow:0 12px 26px #204d870f}
+.appSidebar{background:#fff;border-left:1px solid #e0e9f7}
+.appSideBrand{border-bottom-color:#e8effb}
+.appSideBrand span{color:#16366c}
+.appSideBtn{border-radius:13px;color:#657b9e}
+.appSideBtn:hover,.appSideBtn.active{background:#edf4ff;color:#176cf5}
+.appSideBtn.active{box-shadow:inset -3px 0 #176cf5}
+.appSideFoot{color:#7588a6}
+.homeSupport{border-color:#cbece5!important;background:linear-gradient(115deg,#f2fffb,#f1f7ff)!important;border-radius:18px!important}
+#hoksh-video-room{margin:22px auto!important}
+#hoksh-video-room .hv-head{border-radius:23px!important;background:linear-gradient(120deg,#102c62,#176cf5 60%,#19b6a0)!important;box-shadow:0 18px 40px #1c4f9d20}
+#hoksh-video-room .hv-btn{background:linear-gradient(120deg,#21c69d,#8af0d6)!important;color:#073d3a!important}
+#hoksh-video-room .hv-card{border-radius:19px!important;border-color:#e0e9f8!important;box-shadow:0 10px 28px #193d740d!important}
+#hoksh-video-room .hv-copy h3{color:#132f63}
+.studyHub{max-width:1150px;margin:22px auto;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(280px,.95fr);gap:14px}
+.studyPanel{min-width:0;border:1px solid #e0e9f8;border-radius:22px;background:#fff;padding:18px;box-shadow:0 10px 30px #1e4b8c08}
+.studyPanelHead{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:13px}
+.studyPanelHead h2{font-size:18px;margin:0;color:#102d62}.studyPanelHead p{margin:5px 0 0;color:#7185a4;font-size:11px;line-height:1.7}
+.studyPill{flex:none;border-radius:99px;padding:6px 10px;background:#edf5ff;color:#176cf5;font-size:10px;font-weight:900}
+.studyShortcuts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+.studyShortcut{min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:9px;text-align:right;padding:13px 11px;border:1px solid #e4ecf8;border-radius:15px;background:linear-gradient(145deg,#fff,#f8fbff);color:#193966;cursor:pointer;transition:.18s}
+.studyShortcut:hover{border-color:#bfd6ff;transform:translateY(-2px)}
+.studyShortcutIcon{display:grid;place-items:center;width:37px;height:37px;border-radius:12px;background:#eaf2ff;color:#176cf5;font-size:19px}
+.studyShortcut b{font-size:12px}.studyShortcut small{font-size:10px;line-height:1.5;color:#7487a4}
+.studyTaskForm{display:flex;gap:7px;margin:12px 0 10px}
+.studyTaskForm input{min-width:0;flex:1;height:42px;border:1px solid #dce7f7;border-radius:12px;padding:0 12px;background:#f8fbff;color:#16325f}
+.studyTaskForm button{flex:none;border:0;border-radius:12px;background:linear-gradient(120deg,#176cf5,#5268f5);color:white;font-weight:900;padding:0 15px}
+.studyTasks{display:grid;gap:7px;max-height:230px;overflow:auto}
+.studyTask{display:flex;align-items:center;gap:9px;padding:10px 11px;border:1px solid #e8eef8;border-radius:12px;background:#fbfdff}
+.studyTask input{width:17px;height:17px;accent-color:#176cf5;flex:none}
+.studyTaskText{flex:1;min-width:0;overflow-wrap:anywhere;font-size:12px;color:#25436e}
+.studyTask.done .studyTaskText{text-decoration:line-through;color:#8b9bb2}
+.studyTaskDelete{flex:none;width:29px;height:29px;border:0;border-radius:9px;background:#fff0f1;color:#c53f58;font-size:16px}
+.studyEmpty{padding:16px 10px;text-align:center;border:1px dashed #d8e5f5;border-radius:12px;color:#8494ad;font-size:11px;line-height:1.8}
+.studyProgress{height:6px;background:#edf2fa;border-radius:99px;overflow:hidden;margin-top:11px}.studyProgress span{display:block;height:100%;width:0;background:linear-gradient(90deg,#176cf5,#1cc49b);border-radius:99px;transition:width .2s}
+.studyProgressLabel{display:flex;justify-content:space-between;gap:10px;margin-top:6px;font-size:10px;color:#7c8da7}
+@media(max-width:760px){.studyHub{grid-template-columns:1fr;gap:11px}.simpleWelcome{min-height:130px}.studyPanel{padding:14px}.studyShortcut{padding:10px 8px}.studyShortcut b{font-size:11px}}
+@media(max-width:460px){.studyShortcuts{grid-template-columns:1fr}.studyShortcut{flex-direction:row;align-items:center}.studyShortcut small{margin-right:auto}.studyPanelHead h2{font-size:16px}}
+
 </style>
+<script id="hoksh-study-planner">
+(()=>{'use strict';
+ const $=id=>document.getElementById(id),key='hoksh_study_tasks_v1';
+ let tasks=[];
+ try{const raw=JSON.parse(localStorage.getItem(key)||'[]');if(Array.isArray(raw))tasks=raw.filter(x=>x&&typeof x.text==='string'&&typeof x.done==='boolean').slice(0,100)}catch(e){}
+ const save=()=>{try{localStorage.setItem(key,JSON.stringify(tasks))}catch(e){}};
+ const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ function render(){
+  const root=$('studyTasks');if(!root)return;
+  if(!tasks.length)root.innerHTML='<div class="studyEmpty">أضف أول مهمة مذاكرة وابدأ خطوة بخطوة.</div>';
+  else root.innerHTML=tasks.map((t,i)=>'<div class="studyTask'+(t.done?' done':'')+'"><input type="checkbox" data-study-check="'+i+'" '+(t.done?'checked':'')+' aria-label="إنجاز المهمة"><span class="studyTaskText">'+esc(t.text)+'</span><button type="button" class="studyTaskDelete" data-study-delete="'+i+'" aria-label="حذف المهمة">×</button></div>').join('');
+  const done=tasks.filter(t=>t.done).length,total=tasks.length;
+  $('studyProgressBar').style.width=(total?done/total*100:0)+'%';
+  $('studyProgressText').textContent=total?(done===total?'أحسنت! أنهيت خطة اليوم':'استمر، كل خطوة بتفرق'):'لم تُنجز مهام بعد';
+  $('studyProgressCount').textContent=done+' / '+total;
+ }
+ $('studyTaskForm')?.addEventListener('submit',e=>{e.preventDefault();const input=$('studyTaskInput'),text=(input.value||'').trim();if(!text)return;if(tasks.length>=100){if(typeof window.toast==='function')window.toast('احذف بعض المهام القديمة أولاً.');return}tasks.unshift({text,done:false});save();render();input.value='';input.focus()});
+ $('studyTasks')?.addEventListener('change',e=>{const n=e.target.closest('[data-study-check]');if(!n)return;const i=Number(n.dataset.studyCheck);if(tasks[i]){tasks[i].done=n.checked;save();render()}});
+ $('studyTasks')?.addEventListener('click',e=>{const n=e.target.closest('[data-study-delete]');if(!n)return;tasks.splice(Number(n.dataset.studyDelete),1);save();render()});
+ $('studyVideosBtn')?.addEventListener('click',()=>{const room=$('hoksh-video-room');if(room)room.scrollIntoView({behavior:'smooth',block:'start'});else if(typeof window.toast==='function')window.toast('قسم الفيديوهات بيتم تجهيزه؛ حدّث الصفحة بعد قليل.');});
+ $('studyPdfBtn')?.addEventListener('click',()=>$('openPdf')?.click());
+ $('studyBoardBtn')?.addEventListener('click',()=>$('newWhiteboard')?.click());
+ const d=new Date();if($('studyToday'))$('studyToday').textContent=new Intl.DateTimeFormat('ar-EG',{weekday:'short',day:'numeric',month:'short'}).format(d);
+ render();
+})();
+</script>
 <script id="hoksh-profile-view-controller">
 (()=>{
  'use strict';
