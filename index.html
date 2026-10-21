@@ -2062,7 +2062,18 @@ body{overflow:hidden}
     showUser(null);setMode('login');shade.classList.add('open');message('تم تسجيل الخروج. سجّل الدخول مرة أخرى للمتابعة.','ok');
   });
   if(client){client.auth.onAuthStateChange((_event,session)=>showUser(session?.user||null));}
-  window.HOKSHAccount={open,close,refresh,getUser:()=>currentUser,getClient:()=>client};
+  async function enterGuest(displayName){
+    if(!client) throw new Error('تعذر الاتصال بخدمة الحسابات. جرّب تحديث الصفحة.');
+    if(currentUser) return currentUser;
+    const name=String(displayName||'').trim().slice(0,60);
+    if(name.length<2) throw new Error('اكتب اسمك (حرفين على الأقل).');
+    const {data,error}=await client.auth.signInAnonymously({options:{data:{display_name:name}}});
+    if(error) throw error;
+    if(!data?.user) throw new Error('لم يتم إنشاء جلسة مستخدم. حاول مرة أخرى.');
+    showUser(data.user);
+    return data.user;
+  }
+  window.HOKSHAccount={open,close,refresh,getUser:()=>currentUser,getClient:()=>client,enterGuest};
 })();
 </script>
 <script src="hoksh-platform.js"></script>
@@ -2377,7 +2388,26 @@ body, .app{background:#f3f7ff;color:#102858}
    accountShade?.classList.remove('open');
    if(landing){landing.classList.add('leaving');setTimeout(()=>landing.classList.add('hidden'),420);}
  };
- startButton?.addEventListener('click',enter);
+ startButton?.addEventListener('click',async()=>{
+   const account=window.HOKSHAccount;
+   if(account?.getUser?.()){enter();return;}
+   const name=window.prompt('اكتب اسمك الذي سيظهر عند مدير حوكش:');
+   if(name===null)return;
+   if(String(name).trim().length<2){window.alert('اكتب اسمًا من حرفين على الأقل.');return;}
+   startButton.disabled=true;
+   const oldLabel=startButton.innerText;
+   startButton.innerText='جارٍ تجهيز حسابك…';
+   try{
+     if(!account?.enterGuest) throw new Error('خدمة الحسابات لم تُحمّل. حدّث الصفحة وحاول مرة أخرى.');
+     await account.enterGuest(name);
+     enter();
+   }catch(err){
+     const msg=String(err?.message||'تعذر إنشاء الحساب.');
+     if(/anonymous|disabled|not enabled|provider/i.test(msg)){
+       window.alert('الدخول السريع يحتاج تفعيل Anonymous Sign-Ins في إعدادات Supabase Authentication. لم يتم إنشاء حساب، ولم يتم تجاوز التحقق.');
+     }else window.alert(msg);
+   }finally{startButton.disabled=false;startButton.innerText=oldLabel||'ابدأ الآن';}
+  });
  window.HOKSHProfile={
    get:()=>({name:'مستخدم حوكش',guest:true}),
    logout:()=>{enter();}
