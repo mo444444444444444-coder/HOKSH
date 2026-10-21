@@ -1020,8 +1020,9 @@ body.hoksh-landing-open>.app{visibility:hidden!important;opacity:0!important;poi
 #landingView .landingAccess{flex:1 1 50%;height:50%;min-height:0;display:flex;align-items:center;justify-content:center;background:#0052cc;color:#fff}
 #landingView.hidden{display:none!important}
 @media(max-width:680px){#landingView .landingHero{flex-basis:40%;height:40%}#landingView .landingAccess{flex-basis:60%;height:60%}}
-/* Temporarily hide account entry points; login code remains available for later reactivation. */
-#accountOpenBtn,#accountSideBtn{display:none!important}
+/* Restore account entry points so users can open login after the welcome screen. */
+#accountOpenBtn,#accountSideBtn{display:inline-flex!important;align-items:center;justify-content:center}
+#accountOpenBtn{display:inline-flex!important}
 </style>
 <style id="hoksh-sms-otp-styles">
 .landingFields{display:contents!important}
