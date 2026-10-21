@@ -1242,6 +1242,7 @@ button{letter-spacing:0!important}
       <p class="landingIntroText">افتح ملفات PDF، واكتب عليها، وأنشئ سبورتك الرقمية وواصل مذاكرتك بسهولة.</p>
       <div class="landingForm" id="profileForm">
         <button class="landingStart" id="landingStart" type="button">ابدأ الآن <span aria-hidden="true">➜</span></button>
+        <button class="landingAdminAccess" id="landingAdminAccess" type="button">دخول المدير / حسابي <span aria-hidden="true">↗</span></button>
       </div>
       <div class="landingFeatures" aria-label="مميزات حوكش">
         <div><span>▤</span><b>إدارة ملفات PDF</b></div>
@@ -2798,4 +2799,14 @@ body,.app{background:#f2eee7!important;color:#191a18}
  #landingView .landingCredit{margin-top:13px!important}
 }
 </style>
+
+<style id="hoksh-admin-entry-access-v1">
+#landingView .landingForm{display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:12px!important;width:min(100%,430px)!important;margin-inline:auto!important}
+#landingView .landingAdminAccess{appearance:none;display:flex;align-items:center;justify-content:center;gap:12px;width:100%;min-height:48px;padding:12px 20px;border:1.5px solid #176b52;border-radius:16px;background:rgba(255,255,255,.92);color:#145541;font:700 15px/1.4 inherit;cursor:pointer;box-shadow:0 5px 16px rgba(18,72,54,.08);transition:transform .18s,background .18s}
+#landingView .landingAdminAccess:hover{background:#eaf7f0;transform:translateY(-1px)}
+#landingView .landingAdminAccess:focus-visible{outline:3px solid #63d9a2;outline-offset:3px}
+</style>
+<script id="hoksh-admin-entry-access-logic-v1">
+(()=>{const b=document.getElementById('landingAdminAccess');if(!b)return;b.addEventListener('click',()=>{if(window.HOKSHAccount&&typeof window.HOKSHAccount.open==='function'){window.HOKSHAccount.open();}else{const shade=document.getElementById('accountShade');if(shade)shade.classList.add('open');else alert('نموذج الحساب لم يتم تحميله. حدّث الصفحة ثم حاول مرة أخرى.');}});})();
+</script>
 </body></html>
