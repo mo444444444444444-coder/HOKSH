@@ -27,7 +27,7 @@
  @media(max-width:600px){.hv-head{padding:16px}.hv-head h2{font-size:19px}}
  `;
  document.head.appendChild(style);
- function isPublisher(){return !!user&&!!profile&&['owner','admin','teacher'].includes(profile.role)&&!profile.is_suspended}
+ function isPublisher(){return !!user&&!!profile&&['owner','admin'].includes(profile.role)&&!profile.is_suspended}
  function mount(){
   const home=$('#home');if(!home||$('#hoksh-video-room'))return;
   const room=document.createElement('section');room.id='hoksh-video-room';room.innerHTML=`
