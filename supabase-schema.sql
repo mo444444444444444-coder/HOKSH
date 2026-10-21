@@ -203,3 +203,29 @@ using (bucket_id='hoksh-files' and (((storage.foldername(name))[1]=auth.uid()::t
 -- After creating your first account and confirming its email, run a one-time owner bootstrap
 -- in SQL Editor, replacing the email with the exact email you registered:
 -- update public.profiles p set role='owner' from auth.users u where p.id=u.id and lower(u.email)=lower('YOUR_EMAIL_HERE');
+
+
+-- Video lessons feed for HOKSH. Run this section in Supabase SQL Editor.
+create table if not exists public.video_posts (
+ id uuid primary key default gen_random_uuid(),
+ user_id uuid not null references auth.users(id) on delete cascade,
+ title text not null check (char_length(title) between 1 and 140),
+ description text not null default '' check (char_length(description)<=1200),
+ storage_path text not null unique,
+ published boolean not null default true,
+ created_at timestamptz not null default now()
+);
+alter table public.video_posts enable row level security;
+create policy "hoksh published video read" on public.video_posts for select to anon, authenticated using (published=true or public.hoksh_is_admin());
+create policy "hoksh admin video insert" on public.video_posts for insert to authenticated with check (public.hoksh_is_admin() and user_id=auth.uid());
+create policy "hoksh admin video delete" on public.video_posts for delete to authenticated using (public.hoksh_is_admin());
+insert into storage.buckets(id,name,public,file_size_limit,allowed_mime_types)
+values('hoksh-videos','hoksh-videos',false,209715200,array['video/mp4','video/webm','video/quicktime','video/x-m4v'])
+on conflict(id) do update set public=false,file_size_limit=209715200,allowed_mime_types=array['video/mp4','video/webm','video/quicktime','video/x-m4v'];
+create policy "hoksh video admin upload" on storage.objects for insert to authenticated
+with check(bucket_id='hoksh-videos' and (storage.foldername(name))[1]=auth.uid()::text and public.hoksh_is_admin());
+create policy "hoksh video signed playback" on storage.objects for select to authenticated
+using(bucket_id='hoksh-videos' and (public.hoksh_is_admin() or exists(select 1 from public.video_posts v where v.storage_path=name and v.published=true)));
+create policy "hoksh video admin delete" on storage.objects for delete to authenticated
+using(bucket_id='hoksh-videos' and public.hoksh_is_admin());
+create index if not exists hoksh_video_posts_recent_idx on public.video_posts(published,created_at desc);
