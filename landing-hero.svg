@@ -1,32 +1,49 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 450" role="img" aria-labelledby="title desc">
-<title id="title">HOKSH — مساحة كتابة ذكية</title><desc id="desc">صورة المطور محمد شعبان محارب مع جهاز لوحي يعرض واجهة PDF وأدوات القلم.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 720" role="img" aria-labelledby="title desc">
+<title id="title">HOKSH — مساحة دراسة وكتابة</title>
+<desc id="desc">رسم توضيحي لشخص يرتدي هودي أسود ويدرس على جهاز لوحي مع قلم رقمي ونوافذ PDF عائمة.</desc>
 <defs>
- <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f5fbff"/><stop offset=".48" stop-color="#d7ecff"/><stop offset="1" stop-color="#0870e8"/></linearGradient>
- <linearGradient id="fade" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#e9f6ff" stop-opacity="0"/><stop offset="1" stop-color="#e9f6ff" stop-opacity="1"/></linearGradient>
- <linearGradient id="screen" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff"/><stop offset="1" stop-color="#eaf4ff"/></linearGradient>
- <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#0a376a" flood-opacity=".2"/></filter>
- <clipPath id="person"><rect width="545" height="450"/></clipPath>
+ <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#24251f"/><stop offset=".58" stop-color="#34352b"/><stop offset="1" stop-color="#6652dc"/></linearGradient>
+ <linearGradient id="lime" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e8ff6b"/><stop offset="1" stop-color="#b4db28"/></linearGradient>
+ <linearGradient id="screen" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fffdf8"/><stop offset="1" stop-color="#e8e2d8"/></linearGradient>
+ <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="22" stdDeviation="22" flood-color="#000" flood-opacity=".32"/></filter>
+ <pattern id="dots" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.3" fill="#fff" opacity=".16"/></pattern>
 </defs>
-<rect width="1600" height="450" fill="url(#bg)"/>
-<circle cx="680" cy="54" r="180" fill="#fff" opacity=".27"/><circle cx="1420" cy="390" r="260" fill="#5fe3d1" opacity=".16"/><circle cx="940" cy="412" r="140" fill="#fff" opacity=".17"/>
-<g clip-path="url(#person)">
- <image href="developer.jpg?v=11" x="-12" y="-50" width="555" height="740" preserveAspectRatio="xMidYMid slice"/>
- <rect x="400" width="160" height="450" fill="url(#fade)"/>
+<rect width="1600" height="720" fill="url(#bg)"/><rect width="1600" height="720" fill="url(#dots)"/>
+<circle cx="1300" cy="110" r="250" fill="#d8fa48" opacity=".08"/><circle cx="250" cy="650" r="300" fill="#6652dc" opacity=".3"/>
+<path d="M70 580C280 460 380 720 590 600S900 500 1050 630" fill="none" stroke="#d8fa48" stroke-width="2" opacity=".25"/>
+<g transform="translate(92 66)"><rect width="260" height="72" rx="14" fill="#d8fa48"/><text x="26" y="45" font-family="Arial,sans-serif" font-size="31" font-weight="900" fill="#20211d">HOKSH</text><text x="158" y="45" font-family="Tahoma,sans-serif" font-size="23" font-weight="700" fill="#20211d">حوكش</text></g>
+<!-- stylized student in black hoodie -->
+<g filter="url(#shadow)">
+ <path d="M545 720L585 450Q605 375 685 355L770 338 865 355Q950 376 973 462L1018 720Z" fill="#10110f"/>
+ <path d="M660 372Q623 404 618 471L690 527 748 421Z" fill="#292a24"/>
+ <path d="M859 371Q919 401 939 473L867 525 803 421Z" fill="#292a24"/>
+ <path d="M681 372Q700 335 700 303L828 303Q831 345 863 374L803 443 744 443Z" fill="#b87955"/>
+ <ellipse cx="766" cy="241" rx="117" ry="142" fill="#c88c65"/>
+ <path d="M647 247Q625 114 730 91Q850 65 883 177L882 245 857 200 844 147Q774 179 678 158L666 230Z" fill="#10110f"/>
+ <path d="M651 231Q618 194 635 166Q650 142 669 165" fill="#10110f"/>
+ <path d="M870 228Q902 191 885 166" fill="none" stroke="#10110f" stroke-width="21" stroke-linecap="round"/>
+ <path d="M710 254q17 12 32 0M789 254q17 12 32 0" fill="none" stroke="#3a2921" stroke-width="6" stroke-linecap="round"/>
+ <path d="M737 302q30 17 61 0" fill="none" stroke="#794c3a" stroke-width="5" stroke-linecap="round"/>
+ <path d="M693 328Q766 366 838 328L859 379 801 425 739 425 675 379Z" fill="#11120f"/>
+ <path d="M688 367L766 436 844 366" fill="none" stroke="#414239" stroke-width="4"/>
 </g>
-<g transform="translate(628 0)">
- <g filter="url(#shadow)">
-  <rect x="220" y="87" width="520" height="300" rx="30" fill="#102e50" stroke="#fff" stroke-width="5"/>
-  <rect x="237" y="104" width="486" height="266" rx="17" fill="url(#screen)"/>
-  <rect x="256" y="124" width="448" height="42" rx="10" fill="#dbeaff"/>
-  <path d="M278 140h34v10h-34z" fill="#0877f5"/><text x="330" y="151" font-family="Arial,sans-serif" font-size="19" font-weight="700" fill="#123e7a">HOKSH</text>
-  <rect x="265" y="184" width="430" height="162" rx="8" fill="#fff" stroke="#dbe8f7" stroke-width="2"/>
-  <g fill="#9bb1d1"><rect x="285" y="205" width="355" height="6" rx="3"/><rect x="285" y="223" width="377" height="6" rx="3"/><rect x="285" y="278" width="350" height="6" rx="3"/><rect x="285" y="296" width="370" height="6" rx="3"/><rect x="285" y="314" width="295" height="6" rx="3"/></g>
-  <rect x="280" y="239" width="330" height="23" rx="5" fill="#ffe95b" opacity=".9"/>
-  <path d="M596 267l30-20h35" fill="none" stroke="#ff5555" stroke-width="4" stroke-linecap="round"/><circle cx="657" cy="247" r="10" fill="none" stroke="#ff5555" stroke-width="3"/>
- </g>
- <g transform="translate(672 33) rotate(12)"><path d="M0 0l24-16 11 17-24 16z" fill="#0e2d50"/><path d="M24-16l12-17 13 6-14 28z" fill="#0b70ee"/><path d="M-1 1l-7 16 19-12z" fill="#f0c28f"/></g>
- <g transform="translate(94 126)" filter="url(#shadow)"><rect width="84" height="84" rx="18" fill="#fff"/><rect x="21" y="16" width="42" height="54" rx="7" fill="#f45151"/><text x="42" y="47" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="700" fill="#fff">PDF</text><path d="M50 16v14h13" fill="#ff9b9b"/></g>
- <g transform="translate(158 297)" filter="url(#shadow)"><rect width="88" height="80" rx="17" fill="#fff"/><rect x="20" y="14" width="49" height="51" rx="7" fill="#e6f2ff" stroke="#6da8f8" stroke-width="2"/><path d="M28 28h33M28 38h27M28 48h30" stroke="#2875e6" stroke-width="3" stroke-linecap="round"/></g>
+<!-- tablet -->
+<g transform="translate(430 414) rotate(-8)" filter="url(#shadow)">
+ <rect width="490" height="265" rx="24" fill="#11120f" stroke="#68695c" stroke-width="4"/>
+ <rect x="15" y="15" width="460" height="235" rx="12" fill="url(#screen)"/>
+ <rect x="30" y="29" width="430" height="34" rx="7" fill="#24251f"/>
+ <text x="48" y="52" font-family="Arial,sans-serif" font-size="16" font-weight="800" fill="#d8fa48">HOKSH / STUDY SPACE</text>
+ <rect x="34" y="76" width="275" height="154" rx="5" fill="#fff" stroke="#ded6ca"/>
+ <rect x="51" y="95" width="218" height="6" rx="3" fill="#c8c1b5"/><rect x="51" y="111" width="232" height="6" rx="3" fill="#c8c1b5"/>
+ <rect x="51" y="134" width="195" height="15" rx="3" fill="#d8fa48"/><rect x="51" y="163" width="220" height="6" rx="3" fill="#c8c1b5"/><rect x="51" y="180" width="205" height="6" rx="3" fill="#c8c1b5"/><path d="M62 204q35 -25 66 0t70 -2" fill="none" stroke="#6652dc" stroke-width="4" stroke-linecap="round"/>
+ <rect x="323" y="77" width="119" height="153" rx="7" fill="#ebe6dc"/>
+ <circle cx="382" cy="103" r="17" fill="#6652dc"/><path d="M374 103l6 6 12-14" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+ <rect x="339" y="132" width="87" height="7" rx="3" fill="#aaa394"/><rect x="339" y="149" width="72" height="7" rx="3" fill="#aaa394"/><rect x="339" y="175" width="88" height="29" rx="6" fill="#d8fa48"/>
 </g>
-<g transform="translate(70 36)"><rect width="252" height="66" rx="17" fill="#fff" fill-opacity=".9" stroke="#fff" stroke-opacity=".8"/><path d="M25 46V20h28v39H25z" fill="#0877f5"/><path d="M39 20L52 7l13 13v39H39z" fill="#2bbbd3"/><path d="M53 18l15-9 7 9-27 32-9-10z" fill="#fff"/><text x="88" y="31" font-family="Arial,sans-serif" font-size="26" font-weight="800" fill="#102d62">HOKSH</text><text x="88" y="51" font-family="Arial,sans-serif" font-size="17" font-weight="800" fill="#0877f5">حوكش</text></g>
+<!-- stylus -->
+<g transform="translate(990 390) rotate(29)" filter="url(#shadow)"><rect width="18" height="235" rx="9" fill="#d8fa48"/><path d="M0 16Q9 -13 18 16" fill="#fff2b1"/><rect x="3" y="42" width="12" height="104" rx="6" fill="#f0ffab"/></g>
+<!-- floating file tiles -->
+<g filter="url(#shadow)" transform="translate(1080 150) rotate(7)"><rect width="180" height="202" rx="18" fill="#fffdf8"/><path d="M54 40h73l24 24v94H54z" fill="#e9e3d9"/><path d="M127 40v26h24" fill="none" stroke="#b5ad9f" stroke-width="4"/><text x="90" y="108" text-anchor="middle" font-family="Arial,sans-serif" font-size="26" font-weight="900" fill="#6652dc">PDF</text><rect x="72" y="126" width="38" height="5" rx="2" fill="#b5ad9f"/><rect x="66" y="140" width="50" height="5" rx="2" fill="#b5ad9f"/></g>
+<g filter="url(#shadow)" transform="translate(1270 390) rotate(-8)"><rect width="210" height="132" rx="17" fill="#d8fa48"/><circle cx="36" cy="34" r="12" fill="#20211d"/><path d="M31 34l4 4 7-9" fill="none" stroke="#d8fa48" stroke-width="3" stroke-linecap="round"/><rect x="60" y="29" width="113" height="8" rx="4" fill="#454a2d"/><rect x="26" y="64" width="157" height="6" rx="3" fill="#6a7148"/><rect x="26" y="82" width="124" height="6" rx="3" fill="#6a7148"/></g>
+<text x="94" y="655" font-family="Tahoma,sans-serif" font-size="22" font-weight="700" fill="#fffdf8" opacity=".78">مساحة واحدة للمذاكرة والكتابة والتنظيم</text>
 </svg>
