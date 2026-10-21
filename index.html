@@ -2546,7 +2546,6 @@ button:active{transform:translateY(1px)}
 
 <!-- HOKSH visual identity v17: final overrides target the actual existing markup -->
 <style id="hoksh-visual-identity-v17">
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
 :root{--bg:#f2eee7;--panel:#fffdf8;--panel2:#e8e2d8;--line:#d8d0c4;--text:#191a18;--muted:#77756d;--accent:#d8fa48;--blue:#6652dc;--danger:#d94f43;--paper:#fffdf8;--ink:#191a18;--soft:#e8e2d8;--shadow:0 18px 55px #25201912}
 html,body,button,input,select,textarea,.app,.accountShade,.dialog,.hc-card,.hc-modal{font-family:'IBM Plex Sans Arabic','Manrope',Tahoma,Arial,sans-serif!important}
 body,.app{background:#f2eee7!important;color:#191a18}
@@ -2644,6 +2643,62 @@ body,.app{background:#f2eee7!important;color:#191a18}
  .studyHub{grid-template-columns:1fr!important}
 }
 @media(max-width:390px){#landingView .landingFeatures>div{font-size:10px!important}#landingView .landingHero{min-height:155px!important}}
+/* Layout safety pass: fixed bounds and real responsive grid */
+#landingView{box-sizing:border-box!important;display:grid!important;grid-template-columns:minmax(0,1.08fr) minmax(360px,.92fr)!important;grid-template-rows:minmax(0,1fr)!important;align-items:stretch!important;gap:clamp(10px,1.6vw,22px)!important;padding:clamp(10px,1.5vw,22px)!important;width:100%!important;height:100vh!important;height:100dvh!important;overflow:hidden!important}
+#landingView *{box-sizing:border-box}
+#landingView .landingHero{grid-column:1;grid-row:1;min-width:0!important;min-height:0!important;width:100%!important;height:100%!important;flex:none!important;border-radius:8px 28px 8px 28px!important}
+#landingView .landingHero>img{object-fit:cover!important;object-position:center!important}
+#landingView .landingAccess{grid-column:2;grid-row:1;min-width:0!important;min-height:0!important;width:100%!important;height:100%!important;flex:none!important;overflow-y:auto!important;overscroll-behavior:contain!important;padding:clamp(14px,2.2vw,32px)!important;border-radius:8px 28px 8px 28px!important}
+#landingView .landingAccessInner{width:100%!important;max-width:560px!important;padding:0!important;margin:auto!important;text-align:right!important}
+#landingView .landingEyebrow{display:inline-block!important;line-height:1.7!important;margin-bottom:12px!important}
+#landingView .landingAccess h1{font-size:clamp(28px,3vw,45px)!important;line-height:1.35!important;margin:0 0 10px!important;overflow-wrap:anywhere!important}
+#landingView .landingIntroText{max-width:100%!important;font-size:clamp(13px,1.1vw,15px)!important;line-height:1.9!important;margin:0 0 18px!important}
+#landingView .landingForm{margin:16px 0!important}
+#landingView .landingStart{width:100%!important;max-width:360px!important;min-height:56px!important;padding:13px 48px!important;border-radius:8px 18px 8px 18px!important}
+#landingView .landingFeatures{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important;width:100%!important;max-width:none!important;margin:14px 0 0!important}
+#landingView .landingFeatures>div{display:flex!important;align-items:center!important;gap:8px!important;min-width:0!important;padding:10px!important;border-radius:7px 14px 7px 14px!important;line-height:1.5!important}
+#landingView .landingFeatures>div b{font-size:clamp(10px,.9vw,12px)!important;overflow-wrap:anywhere!important}
+#landingView .landingFeatures>div span{flex:0 0 29px!important;width:29px!important;height:29px!important}
+#landingView .landingCredit{margin-top:15px!important;padding-top:12px!important;font-size:12px!important;line-height:1.8!important}
+@media(max-width:760px){
+ #landingView{grid-template-columns:minmax(0,1fr)!important;grid-template-rows:minmax(140px,27dvh) minmax(0,1fr)!important;gap:8px!important;padding:8px!important}
+ #landingView .landingHero{grid-column:1;grid-row:1;height:100%!important;min-height:0!important;border-radius:7px 20px 7px 20px!important}
+ #landingView .landingHeroBadge{top:10px!important;left:10px!important;padding:5px 9px 5px 5px!important}
+ #landingView .landingLogoIcon{width:31px!important;height:31px!important;font-size:19px!important}
+ #landingView .landingHeroBadge b{font-size:15px!important}
+ #landingView .landingHeroBadge small{font-size:10px!important}
+ #landingView .landingHeroNote{right:13px!important;left:13px!important;bottom:12px!important;font-size:clamp(16px,4vw,22px)!important;line-height:1.4!important}
+ #landingView .landingAccess{grid-column:1;grid-row:2;width:100%!important;height:100%!important;min-height:0!important;padding:clamp(13px,3.5vw,22px)!important;border-radius:7px 20px 7px 20px!important}
+ #landingView .landingAccessInner{margin:auto!important}
+ #landingView .landingEyebrow{font-size:10px!important;padding:5px 8px!important;margin-bottom:8px!important}
+ #landingView .landingAccess h1{font-size:clamp(25px,6.5vw,34px)!important;line-height:1.25!important;margin:0 0 7px!important}
+ #landingView .landingIntroText{font-size:12px!important;line-height:1.7!important;margin:0 0 10px!important}
+ #landingView .landingForm{margin:10px 0!important}
+ #landingView .landingStart{max-width:none!important;min-height:48px!important;padding:10px 42px!important;font-size:15px!important}
+ #landingView .landingStart span{left:10px!important;width:25px!important;height:25px!important}
+ #landingView .landingFeatures{gap:6px!important;margin-top:10px!important}
+ #landingView .landingFeatures>div{padding:7px!important;gap:6px!important;font-size:10px!important}
+ #landingView .landingFeatures>div b{font-size:10px!important}
+ #landingView .landingFeatures>div span{width:25px!important;height:25px!important;flex-basis:25px!important}
+ #landingView .landingCredit{margin-top:10px!important;padding-top:8px!important;font-size:11px!important}
+ .simpleWelcome{min-height:150px!important;padding:20px 16px!important}
+ .simpleWelcome h1{font-size:clamp(25px,7vw,34px)!important}
+ .featureRail{padding:12px!important}.simpleAction{min-height:100px!important}
+ .studyHub{grid-template-columns:minmax(0,1fr)!important}
+}
+@media(max-width:380px){
+ #landingView{grid-template-rows:minmax(120px,23dvh) minmax(0,1fr)!important}
+ #landingView .landingFeatures>div b{font-size:9px!important}
+ #landingView .landingCredit{margin-top:7px!important}
+}
+@media(max-height:650px) and (min-width:761px){
+ #landingView .landingAccess{padding:12px!important}
+ #landingView .landingAccess h1{font-size:clamp(24px,2.6vw,34px)!important}
+ #landingView .landingIntroText{margin-bottom:8px!important}
+ #landingView .landingForm{margin:8px 0!important}
+ #landingView .landingFeatures{margin-top:8px!important}
+ #landingView .landingCredit{margin-top:8px!important}
+}
 </style>
 
 </body></html>
