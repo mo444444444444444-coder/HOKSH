@@ -1,49 +1,85 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 720" role="img" aria-labelledby="title desc">
-<title id="title">HOKSH — مساحة دراسة وكتابة</title>
-<desc id="desc">رسم توضيحي لشخص يرتدي هودي أسود ويدرس على جهاز لوحي مع قلم رقمي ونوافذ PDF عائمة.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-labelledby="title desc">
+<title id="title">HOKSH — مساحة مذاكرة رقمية</title>
+<desc id="desc">رسم جديد عالي الوضوح لشخص يذاكر باستخدام جهاز لوحي وقلم رقمي، مع بطاقات PDF وملاحظات عائمة.</desc>
 <defs>
- <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#24251f"/><stop offset=".58" stop-color="#34352b"/><stop offset="1" stop-color="#6652dc"/></linearGradient>
- <linearGradient id="lime" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e8ff6b"/><stop offset="1" stop-color="#b4db28"/></linearGradient>
- <linearGradient id="screen" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fffdf8"/><stop offset="1" stop-color="#e8e2d8"/></linearGradient>
- <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="22" stdDeviation="22" flood-color="#000" flood-opacity=".32"/></filter>
- <pattern id="dots" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.3" fill="#fff" opacity=".16"/></pattern>
+ <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#253b78"/><stop offset=".58" stop-color="#172750"/><stop offset="1" stop-color="#111a35"/></linearGradient>
+ <linearGradient id="hood" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#303b5c"/><stop offset="1" stop-color="#11182b"/></linearGradient>
+ <linearGradient id="skin" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#dca27f"/><stop offset="1" stop-color="#a9674f"/></linearGradient>
+ <linearGradient id="tablet" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#303d65"/><stop offset="1" stop-color="#11182d"/></linearGradient>
+ <linearGradient id="mint" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d0ffe9"/><stop offset="1" stop-color="#7be2b7"/></linearGradient>
+ <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%"><feGaussianBlur in="SourceAlpha" stdDeviation="18"/><feOffset dy="18"/><feComponentTransfer><feFuncA type="linear" slope=".28"/></feComponentTransfer><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+ <filter id="soft"><feGaussianBlur stdDeviation="34"/></filter>
 </defs>
-<rect width="1600" height="720" fill="url(#bg)"/><rect width="1600" height="720" fill="url(#dots)"/>
-<circle cx="1300" cy="110" r="250" fill="#d8fa48" opacity=".08"/><circle cx="250" cy="650" r="300" fill="#6652dc" opacity=".3"/>
-<path d="M70 580C280 460 380 720 590 600S900 500 1050 630" fill="none" stroke="#d8fa48" stroke-width="2" opacity=".25"/>
-<g transform="translate(92 66)"><rect width="260" height="72" rx="14" fill="#d8fa48"/><text x="26" y="45" font-family="Arial,sans-serif" font-size="31" font-weight="900" fill="#20211d">HOKSH</text><text x="158" y="45" font-family="Tahoma,sans-serif" font-size="23" font-weight="700" fill="#20211d">حوكش</text></g>
-<!-- stylized student in black hoodie -->
+<rect width="1200" height="900" rx="44" fill="url(#bg)"/>
+<circle cx="610" cy="410" r="290" fill="#6e85f8" opacity=".12"/>
+<circle cx="570" cy="400" r="215" fill="#9bf0ce" opacity=".08"/>
+<circle cx="1020" cy="170" r="115" fill="#a8f0cf" opacity=".08" filter="url(#soft)"/>
+<g opacity=".26" fill="none" stroke="#b5c7ff" stroke-width="2"><path d="M70 210H280M70 235H210M930 700h190M980 725h140"/><circle cx="1040" cy="330" r="5" fill="#c7d2ff"/><circle cx="160" cy="640" r="5" fill="#a8f0cf"/><path d="M150 160l12 12m0-12-12 12M1040 570l12 12m0-12-12 12"/></g>
+<!-- floating PDF card -->
+<g transform="translate(90 280) rotate(-8 115 150)" filter="url(#shadow)">
+ <rect width="210" height="285" rx="24" fill="#fff" stroke="#e5e9f7" stroke-width="3"/>
+ <rect x="23" y="24" width="54" height="66" rx="13" fill="#fff0f1"/><path d="M40 40h20v28H40z" fill="none" stroke="#e45768" stroke-width="3"/><path d="M45 48h10m-10 7h10m-10 7h7" stroke="#e45768" stroke-width="2.5" stroke-linecap="round"/>
+ <rect x="91" y="35" width="89" height="9" rx="4.5" fill="#24304e"/><rect x="91" y="53" width="68" height="6" rx="3" fill="#c2c9d9"/>
+ <rect x="24" y="113" width="162" height="7" rx="3.5" fill="#dce1ed"/><rect x="24" y="132" width="146" height="7" rx="3.5" fill="#dce1ed"/><rect x="24" y="151" width="157" height="7" rx="3.5" fill="#dce1ed"/>
+ <rect x="24" y="181" width="162" height="65" rx="12" fill="#eff1ff"/><path d="M39 226l30-24 25 13 27-21 42 30" fill="none" stroke="#6558f5" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<!-- note card -->
+<g transform="translate(870 250) rotate(7 110 85)" filter="url(#shadow)">
+ <rect width="220" height="164" rx="22" fill="#f7fffb" stroke="#d7ffed" stroke-width="2"/>
+ <rect x="20" y="20" width="180" height="36" rx="11" fill="#dffbed"/>
+ <path d="M34 38l7 7 13-15" fill="none" stroke="#168c67" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+ <rect x="70" y="34" width="105" height="7" rx="3.5" fill="#207a60"/>
+ <rect x="22" y="76" width="170" height="7" rx="3.5" fill="#d3dfda"/><rect x="22" y="94" width="145" height="7" rx="3.5" fill="#d3dfda"/><rect x="22" y="112" width="160" height="7" rx="3.5" fill="#d3dfda"/>
+</g>
+<!-- person silhouette -->
 <g filter="url(#shadow)">
- <path d="M545 720L585 450Q605 375 685 355L770 338 865 355Q950 376 973 462L1018 720Z" fill="#10110f"/>
- <path d="M660 372Q623 404 618 471L690 527 748 421Z" fill="#292a24"/>
- <path d="M859 371Q919 401 939 473L867 525 803 421Z" fill="#292a24"/>
- <path d="M681 372Q700 335 700 303L828 303Q831 345 863 374L803 443 744 443Z" fill="#b87955"/>
- <ellipse cx="766" cy="241" rx="117" ry="142" fill="#c88c65"/>
- <path d="M647 247Q625 114 730 91Q850 65 883 177L882 245 857 200 844 147Q774 179 678 158L666 230Z" fill="#10110f"/>
- <path d="M651 231Q618 194 635 166Q650 142 669 165" fill="#10110f"/>
- <path d="M870 228Q902 191 885 166" fill="none" stroke="#10110f" stroke-width="21" stroke-linecap="round"/>
- <path d="M710 254q17 12 32 0M789 254q17 12 32 0" fill="none" stroke="#3a2921" stroke-width="6" stroke-linecap="round"/>
- <path d="M737 302q30 17 61 0" fill="none" stroke="#794c3a" stroke-width="5" stroke-linecap="round"/>
- <path d="M693 328Q766 366 838 328L859 379 801 425 739 425 675 379Z" fill="#11120f"/>
- <path d="M688 367L766 436 844 366" fill="none" stroke="#414239" stroke-width="4"/>
+ <!-- torso -->
+ <path d="M330 820c18-145 46-245 135-280 50-20 124-20 176 0 94 37 127 136 143 280z" fill="url(#hood)"/>
+ <path d="M446 550c14 38 39 60 78 60s67-22 82-60l40 18c-13 76-60 113-122 113s-110-38-122-113z" fill="#202b48"/>
+ <!-- neck -->
+ <path d="M494 480h83v89c-25 30-57 30-83 0z" fill="url(#skin)"/>
+ <!-- ears/head -->
+ <ellipse cx="458" cy="378" rx="22" ry="34" fill="#b97759"/><ellipse cx="617" cy="378" rx="22" ry="34" fill="#b97759"/>
+ <path d="M458 320c0-76 42-117 88-117 57 0 89 45 89 117v72c0 68-42 111-89 111-50 0-88-47-88-111z" fill="url(#skin)"/>
+ <!-- hair -->
+ <path d="M455 349c-15-75 8-139 64-160 45-18 105 4 120 60 7 24 3 49-1 68l-20-29-9-42c-35 19-88 27-128 18l-13 57z" fill="#171a28"/>
+ <path d="M477 320c8-27 10-44 7-62 28 11 73 8 111-9 5 28 15 47 28 63" fill="#171a28"/>
+ <!-- brows and eyes -->
+ <path d="M484 364q18-12 35 0M555 364q18-12 35 0" fill="none" stroke="#55372f" stroke-width="6" stroke-linecap="round"/>
+ <ellipse cx="502" cy="378" rx="5" ry="7" fill="#24263a"/><ellipse cx="573" cy="378" rx="5" ry="7" fill="#24263a"/>
+ <path d="M529 381l-8 31 15 3" fill="none" stroke="#9b5c48" stroke-width="4" stroke-linecap="round"/>
+ <path d="M505 431q30 19 58-1" fill="none" stroke="#7e403c" stroke-width="5" stroke-linecap="round"/>
+ <!-- hoodie hood -->
+ <path d="M430 536c-22-65-4-115 43-143 12 71 36 102 75 104 40 2 68-31 80-103 50 33 67 84 43 146l-48 44H476z" fill="#26324e" stroke="#3d4a6d" stroke-width="5"/>
+ <path d="M469 536c25 35 52 52 80 52 30 0 57-18 79-52" fill="none" stroke="#111a30" stroke-width="8" stroke-linecap="round"/>
+ <!-- left arm -->
+ <path d="M397 583c-39 19-70 66-91 125l-38 82c-9 20 1 39 20 43 15 3 27-8 35-25l65-101 53-63z" fill="#202b48"/>
+ <path d="M291 770c-11 23-21 37-13 49 8 11 24 8 36-8l28-39-31-25z" fill="url(#skin)"/>
+ <!-- right arm -->
+ <path d="M644 583c39 20 72 62 92 115l38 76c8 18 0 36-17 41-16 4-29-8-37-25l-60-95-61-59z" fill="#202b48"/>
+ <path d="M755 762c13 18 24 36 16 48-9 12-24 7-36-7l-27-37 29-25z" fill="url(#skin)"/>
 </g>
 <!-- tablet -->
-<g transform="translate(430 414) rotate(-8)" filter="url(#shadow)">
- <rect width="490" height="265" rx="24" fill="#11120f" stroke="#68695c" stroke-width="4"/>
- <rect x="15" y="15" width="460" height="235" rx="12" fill="url(#screen)"/>
- <rect x="30" y="29" width="430" height="34" rx="7" fill="#24251f"/>
- <text x="48" y="52" font-family="Arial,sans-serif" font-size="16" font-weight="800" fill="#d8fa48">HOKSH / STUDY SPACE</text>
- <rect x="34" y="76" width="275" height="154" rx="5" fill="#fff" stroke="#ded6ca"/>
- <rect x="51" y="95" width="218" height="6" rx="3" fill="#c8c1b5"/><rect x="51" y="111" width="232" height="6" rx="3" fill="#c8c1b5"/>
- <rect x="51" y="134" width="195" height="15" rx="3" fill="#d8fa48"/><rect x="51" y="163" width="220" height="6" rx="3" fill="#c8c1b5"/><rect x="51" y="180" width="205" height="6" rx="3" fill="#c8c1b5"/><path d="M62 204q35 -25 66 0t70 -2" fill="none" stroke="#6652dc" stroke-width="4" stroke-linecap="round"/>
- <rect x="323" y="77" width="119" height="153" rx="7" fill="#ebe6dc"/>
- <circle cx="382" cy="103" r="17" fill="#6652dc"/><path d="M374 103l6 6 12-14" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
- <rect x="339" y="132" width="87" height="7" rx="3" fill="#aaa394"/><rect x="339" y="149" width="72" height="7" rx="3" fill="#aaa394"/><rect x="339" y="175" width="88" height="29" rx="6" fill="#d8fa48"/>
+<g transform="translate(350 565) rotate(-8 205 125)" filter="url(#shadow)">
+ <rect width="420" height="270" rx="28" fill="#0b1022" stroke="#69779c" stroke-width="5"/>
+ <rect x="16" y="16" width="388" height="238" rx="17" fill="url(#tablet)"/>
+ <rect x="36" y="36" width="348" height="198" rx="12" fill="#f8f9ff"/>
+ <rect x="52" y="52" width="112" height="164" rx="8" fill="#e9edff"/>
+ <rect x="66" y="67" width="83" height="7" rx="3.5" fill="#aab3d1"/><rect x="66" y="83" width="67" height="7" rx="3.5" fill="#aab3d1"/>
+ <path d="M64 175l24-32 21 17 18-30 21 21" fill="none" stroke="#6558f5" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+ <rect x="183" y="57" width="180" height="10" rx="5" fill="#263452"/><rect x="183" y="78" width="160" height="6" rx="3" fill="#d0d5e4"/><rect x="183" y="94" width="174" height="6" rx="3" fill="#d0d5e4"/>
+ <path d="M186 143q24-25 44 0t42 0 42 0 37 0" fill="none" stroke="#27a77d" stroke-width="5" stroke-linecap="round"/>
+ <path d="M184 165h174M184 182h139M184 199h160" stroke="#d5d9e6" stroke-width="6" stroke-linecap="round"/>
+ <circle cx="210" cy="245" r="3" fill="#7e89aa"/>
 </g>
 <!-- stylus -->
-<g transform="translate(990 390) rotate(29)" filter="url(#shadow)"><rect width="18" height="235" rx="9" fill="#d8fa48"/><path d="M0 16Q9 -13 18 16" fill="#fff2b1"/><rect x="3" y="42" width="12" height="104" rx="6" fill="#f0ffab"/></g>
-<!-- floating file tiles -->
-<g filter="url(#shadow)" transform="translate(1080 150) rotate(7)"><rect width="180" height="202" rx="18" fill="#fffdf8"/><path d="M54 40h73l24 24v94H54z" fill="#e9e3d9"/><path d="M127 40v26h24" fill="none" stroke="#b5ad9f" stroke-width="4"/><text x="90" y="108" text-anchor="middle" font-family="Arial,sans-serif" font-size="26" font-weight="900" fill="#6652dc">PDF</text><rect x="72" y="126" width="38" height="5" rx="2" fill="#b5ad9f"/><rect x="66" y="140" width="50" height="5" rx="2" fill="#b5ad9f"/></g>
-<g filter="url(#shadow)" transform="translate(1270 390) rotate(-8)"><rect width="210" height="132" rx="17" fill="#d8fa48"/><circle cx="36" cy="34" r="12" fill="#20211d"/><path d="M31 34l4 4 7-9" fill="none" stroke="#d8fa48" stroke-width="3" stroke-linecap="round"/><rect x="60" y="29" width="113" height="8" rx="4" fill="#454a2d"/><rect x="26" y="64" width="157" height="6" rx="3" fill="#6a7148"/><rect x="26" y="82" width="124" height="6" rx="3" fill="#6a7148"/></g>
-<text x="94" y="655" font-family="Tahoma,sans-serif" font-size="22" font-weight="700" fill="#fffdf8" opacity=".78">مساحة واحدة للمذاكرة والكتابة والتنظيم</text>
+<g transform="translate(720 520) rotate(30)" filter="url(#shadow)">
+ <rect x="0" y="0" width="17" height="205" rx="8.5" fill="url(#mint)"/><rect x="4" y="24" width="9" height="112" rx="4.5" fill="#effff8"/><path d="M0 195l8.5 22 8.5-22z" fill="#b7ffe1"/>
+</g>
+<!-- small floating badge -->
+<g transform="translate(770 680)" filter="url(#shadow)">
+ <rect width="180" height="66" rx="20" fill="#ffffff" fill-opacity=".96"/>
+ <rect x="14" y="14" width="38" height="38" rx="12" fill="#d9fbea"/><path d="M24 33l7 7 13-17" fill="none" stroke="#168b64" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+ <rect x="64" y="22" width="94" height="7" rx="3.5" fill="#263452"/><rect x="64" y="37" width="70" height="6" rx="3" fill="#a8b1c7"/>
+</g>
 </svg>
