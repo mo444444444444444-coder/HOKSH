@@ -1453,31 +1453,38 @@ function setDock(pos){const d=$('toolDock');d.style.cssText='';if(pos==='top'){d
 function openSignature(){if(signatureData){const p=pages[activePage];p.strokes.push({type:'signature',data:signatureData,x:100,y:100,w:220,h:90,color:'#111'});renderPages();saveState()}else{$('signatureModal').classList.add('show');initSig()}}
 function initSig(){const c=$('sigCanvas'),x=c.getContext('2d');c.width=c.clientWidth*2;c.height=360;x.scale(2,2);x.lineWidth=3;x.lineCap='round';let on=false,last;const pos=e=>{const r=c.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top}};c.onpointerdown=e=>{on=true;last=pos(e);c.setPointerCapture(e.pointerId)};c.onpointermove=e=>{if(!on)return;const q=pos(e);x.beginPath();x.moveTo(last.x,last.y);x.lineTo(q.x,q.y);x.stroke();last=q};c.onpointerup=()=>on=false}
 async function pdfToPages(bytes,onPage){
-  if(!window.pdfjsLib?.getDocument)throw new Error('PDF engine unavailable');
-  const task=window.pdfjsLib.getDocument({data:bytes});
+  if(!window.pdfjsLib?.getDocument)throw new Error('محرك قراءة PDF غير متاح. حدّث الصفحة وحاول مجددًا.');
+  // Give PDF.js its own byte buffer: typed-array transfer must not detach the copy kept for saving/export.
+  const task=window.pdfjsLib.getDocument({data:bytes instanceof Uint8Array ? bytes.slice() : new Uint8Array(bytes)});
   const doc=await task.promise;
   const out=[];
   const mobile=window.matchMedia("(max-width:700px)").matches;
-  // Lower raster scale/quality to keep large PDFs responsive on phones and laptops.
-  const scale=mobile?0.68:0.88;
-  const quality=mobile?0.58:0.70;
+  const targetScale=mobile?1.35:1.65;
+  const maxPixels=mobile?3000000:5200000;
   for(let i=1;i<=doc.numPages;i++){
     const pg=await doc.getPage(i);
+    const baseVp=pg.getViewport({scale:1});
+    // Keep crisp text while placing a hard per-page pixel budget on memory-limited devices.
+    const desiredPixels=baseVp.width*baseVp.height*targetScale*targetScale;
+    const scale=targetScale*Math.min(1,Math.sqrt(maxPixels/Math.max(1,desiredPixels)));
     const vp=pg.getViewport({scale});
     const c=document.createElement('canvas');
-    c.width=Math.ceil(vp.width);c.height=Math.ceil(vp.height);
+    c.width=Math.max(1,Math.ceil(vp.width));c.height=Math.max(1,Math.ceil(vp.height));
     try{
-      await pg.render({canvasContext:c.getContext('2d',{alpha:false}),viewport:vp}).promise;
-      const image=c.toDataURL('image/jpeg',quality);
+      const ctx=c.getContext('2d',{alpha:false});
+      if(!ctx)throw new Error('تعذر تجهيز مساحة عرض الصفحة');
+      ctx.fillStyle='#fff';ctx.fillRect(0,0,c.width,c.height);
+      await pg.render({canvasContext:ctx,viewport:vp,background:'rgb(255,255,255)',intent:'display'}).promise;
+      // High-quality JPEG dramatically reduces the text artifacts seen in the previous low-resolution conversion.
+      const image=c.toDataURL('image/jpeg',0.94);
       out.push({w:c.width,h:c.height,image,strokes:[]});
       onPage?.(out[out.length-1],i-1,doc.numPages);
     }finally{
-      // Release temporary canvas memory immediately after saving the page image.
       c.width=0;c.height=0;
       pg.cleanup?.();
     }
-    // Yield between pages so the browser can process input and repaint progress.
-    await new Promise(resolve=>requestAnimationFrame(resolve));
+    // Yield frequently so the page remains responsive during multi-page imports.
+    if(i%2===0)await new Promise(resolve=>requestAnimationFrame(resolve));
   }
   try{await doc.cleanup?.()}catch(e){}
   return out;
@@ -2842,5 +2849,17 @@ body,.app{background:#f2eee7!important;color:#191a18}
 @media(max-width:760px){#landingView{grid-template-columns:minmax(0,1fr)!important;grid-template-rows:minmax(190px,34dvh) minmax(0,1fr)!important;overflow:hidden!important}#landingView .landingHero{grid-column:1!important;grid-row:1!important;min-height:0!important}#landingView .landingHero img{inset:2% 3%!important;width:94%!important;height:96%!important;object-position:center 45%!important}#landingView .landingHeroBadge{top:12px!important;left:12px!important;padding:7px 11px!important;border-radius:14px!important}#landingView .landingLogoIcon{width:34px!important;height:34px!important;border-radius:11px!important}#landingView .landingHeroBadge b{font-size:15px!important}#landingView .landingAccess{grid-column:1!important;grid-row:2!important;min-height:0!important;padding:clamp(16px,4vw,25px)!important;align-items:flex-start!important;overflow-y:auto!important}#landingView .landingAccessInner{max-width:560px!important;text-align:center!important;margin:auto!important}#landingView .landingEyebrow{margin-bottom:13px!important;font-size:12px!important}#landingView .landingAccess h1{font-size:clamp(25px,7vw,35px)!important;line-height:1.4!important;margin-bottom:8px!important}#landingView .landingIntroText{font-size:14px!important;line-height:1.8!important;margin:0 auto 16px!important;max-width:470px!important}#landingView .landingForm{width:100%!important;max-width:470px!important;margin-inline:auto!important;gap:9px!important}#landingView .landingStart{min-height:55px!important;border-radius:16px!important;font-size:16px!important}#landingView .landingAdminAccess{min-height:47px!important;border-radius:15px!important;font-size:14px!important}#landingView .landingFeatures{margin-top:15px!important;gap:8px!important}#landingView .landingFeature{padding:10px!important;border-radius:14px!important}#landingView .landingCredit{margin-top:13px!important;font-size:11px!important}}
 @media(max-width:390px){#landingView{grid-template-rows:minmax(155px,29dvh) minmax(0,1fr)!important}#landingView .landingAccess{padding:13px!important}#landingView .landingEyebrow{font-size:11px!important;padding:7px 10px!important}#landingView .landingIntroText{font-size:13px!important;margin-bottom:12px!important}#landingView .landingFeatures{margin-top:10px!important}}
 @media(prefers-reduced-motion:reduce){#landingView *{transition:none!important;animation:none!important}}
+</style>
+
+<style id="hoksh-global-product-polish-v24">
+@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;600;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap');
+:root{--bg:#f4f7fb;--panel:#fff;--panel2:#eef2f9;--line:#dce3ef;--text:#17233f;--muted:#66738c;--accent:#2557e8;--blue:#5b55ed;--danger:#dc3545;--paper:#fff;--ink:#17233f;--soft:#f0f4fb;--shadow:0 12px 34px #17233f12}
+body,button,input,textarea,select{font-family:'Alexandria','IBM Plex Sans Arabic',Tahoma,sans-serif!important}
+button{transition:background-color .16s,border-color .16s,box-shadow .16s,transform .16s}
+button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid #7d9bff!important;outline-offset:2px}
+.pageWrap{background:#fff!important;box-shadow:0 8px 30px #07152c35,0 0 0 1px #d9e1ee!important}
+.pageWrap canvas.base{image-rendering:auto!important}
+.canvasArea{overscroll-behavior:contain!important;-webkit-overflow-scrolling:touch!important}
+@media(max-width:700px){.canvasArea{scrollbar-width:thin}.pageWrap{box-shadow:0 4px 18px #07152c30,0 0 0 1px #d9e1ee!important}}
 </style>
 </body></html>
