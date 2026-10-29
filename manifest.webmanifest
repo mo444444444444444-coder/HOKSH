@@ -1,19 +1,25 @@
 {
-  "name":"حوكش HOKSH — المذاكرة والأدوات والسبورة",
-  "short_name":"حوكش",
-  "description":"منصة عربية للمذاكرة والأدوات والسبورة الرقمية — تطوير محمد شعبان محارب",
-  "start_url":"/HOKSH/",
-  "scope":"/HOKSH/",
-  "display":"standalone",
-  "orientation":"any",
-  "dir":"rtl",
-  "lang":"ar",
-  "theme_color":"#1b1c19",
-  "background_color":"#1b1c19",
-  "categories":["productivity","utilities"],
-  "icons":[{"src":"icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}],
-  "shortcuts":[
-    {"name":"فتح ملف","short_name":"فتح ملف","url":"/HOKSH/"},
-    {"name":"صفحة بيضاء","short_name":"صفحة بيضاء","url":"/HOKSH/"}
+  "name": "حوكش سبورت | نتائج وأخبار كرة القدم",
+  "short_name": "حوكش سبورت",
+  "description": "نتائج ومواعيد مباريات كرة القدم وأخبارها من مصادر البيانات المتاحة.",
+  "start_url": "/HOKSH/",
+  "scope": "/HOKSH/",
+  "display": "standalone",
+  "orientation": "any",
+  "dir": "rtl",
+  "lang": "ar",
+  "theme_color": "#071b16",
+  "background_color": "#07120f",
+  "categories": [
+    "sports",
+    "news"
+  ],
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
   ]
 }
