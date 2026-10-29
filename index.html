@@ -2924,4 +2924,54 @@ button,.toolBtn,.toolbar button{touch-action:manipulation}
 @media(prefers-reduced-motion:reduce){#workspace *,#landingView *{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
 </style>
 
+
+<style id="hoksh-entry-rebuild-v27">
+/* Rebuild the entry screen as a clean, responsive product landing layout while retaining existing actions */
+#landingView{
+ display:grid!important;grid-template-columns:minmax(0, .92fr) minmax(0,1.08fr)!important;
+ grid-template-rows:minmax(0,1fr)!important;direction:ltr!important;
+ min-height:100dvh!important;height:100dvh!important;overflow:auto!important;
+ background:linear-gradient(145deg,#f8fbff 0%,#eef4ff 55%,#f7fffb 100%)!important;
+ color:#10234b!important;gap:0!important
+}
+#landingView .landingHero{grid-column:2!important;grid-row:1!important;order:2!important;min-height:0!important;height:100%!important;max-height:none!important;position:relative!important;overflow:hidden!important;background:#172c62!important;border-radius:0 0 0 110px!important}
+#landingView .landingHero:before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:linear-gradient(135deg,#2859dc4d,transparent 45%,#1dd18b30)!important}
+#landingView .landingHero img{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;object-fit:cover!important;object-position:center!important;transform:none!important;filter:none!important}
+#landingView .landingHeroBadge{top:22px!important;left:22px!important;right:auto!important;border:1px solid #ffffffb8!important;border-radius:16px!important;background:#ffffffed!important;box-shadow:0 12px 34px #0d1e4930!important}
+#landingView .landingHeroNote{top:auto!important;right:24px!important;bottom:24px!important;border:1px solid #ffffffa8!important;border-radius:14px!important;background:#0b1d49d9!important;color:#fff!important;padding:12px 18px!important;backdrop-filter:blur(12px)!important}
+#landingView .landingAccess{grid-column:1!important;grid-row:1!important;order:1!important;height:100%!important;min-height:0!important;overflow-y:auto!important;display:flex!important;align-items:center!important;justify-content:center!important;padding:clamp(20px,4vw,64px)!important;background:transparent!important;direction:rtl!important}
+#landingView .landingAccessInner{width:min(100%,600px)!important;max-width:600px!important}
+#landingView .landingEyebrow{display:inline-flex!important;align-items:center!important;gap:8px!important;padding:8px 13px!important;border:1px solid #dbe5ff!important;border-radius:999px!important;background:#fff!important;color:#2353d8!important;font-size:clamp(11px,1vw,14px)!important;font-weight:800!important}
+#landingView .landingAccess h1{margin:18px 0 10px!important;color:#10234b!important;font-size:clamp(34px,4.3vw,66px)!important;line-height:1.35!important;font-weight:900!important;letter-spacing:-1.5px!important}
+#landingView .landingAccess h1 span{background:linear-gradient(100deg,#0756f5,#17b977)!important;-webkit-background-clip:text!important;background-clip:text!important;color:transparent!important}
+#landingView .landingIntroText{max-width:520px!important;color:#53678f!important;font-size:clamp(14px,1.3vw,18px)!important;line-height:1.9!important}
+#landingView .landingForm{display:grid!important;grid-template-columns:1fr 1fr!important;gap:12px!important;margin:24px 0!important}
+#landingView .landingStart,#landingView .landingAdminAccess{min-height:58px!important;border-radius:18px!important;font-family:'Alexandria','IBM Plex Sans Arabic',Tahoma,sans-serif!important;font-size:clamp(13px,1.2vw,17px)!important;font-weight:800!important;box-shadow:0 10px 22px #0b43a51c!important;transition:transform .18s,box-shadow .18s!important}
+#landingView .landingStart{color:#fff!important;background:linear-gradient(110deg,#1657ff 0%,#0b8cdb 52%,#20ce76 100%)!important;border:0!important}
+#landingView .landingAdminAccess{color:#142958!important;background:#ffffff!important;border:1px solid #cbd8f5!important}
+#landingView .landingStart:hover,#landingView .landingAdminAccess:hover{transform:translateY(-2px)!important;box-shadow:0 14px 28px #0b43a52a!important}
+#landingView .landingFeatures{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important;margin-top:20px!important;padding:12px!important;border:1px solid #e0e8f8!important;border-radius:22px!important;background:#ffffffb8!important;box-shadow:0 12px 32px #16366c0b!important}
+#landingView .landingFeatures>div{display:flex!important;align-items:center!important;gap:10px!important;padding:10px!important;min-width:0!important;border-radius:14px!important;color:#142958!important}
+#landingView .landingFeatures>div>span{display:grid!important;place-items:center!important;flex:0 0 38px!important;width:38px!important;height:38px!important;border-radius:12px!important;background:#e8efff!important;color:#1759ed!important;font-size:19px!important}
+#landingView .landingFeatures>div:nth-child(even)>span{background:#e4faef!important;color:#10985f!important}
+#landingView .landingFeatures b{font-size:clamp(11px,1vw,14px)!important}
+#landingView .landingCredit{margin-top:18px!important;padding-top:14px!important;border-top:1px solid #dfe7f5!important;color:#6b7894!important;font-size:12px!important}
+@media(max-width:760px){
+ #landingView{grid-template-columns:minmax(0,1fr)!important;grid-template-rows:minmax(220px,34dvh) minmax(0,1fr)!important;height:100dvh!important}
+ #landingView .landingHero{grid-column:1!important;grid-row:1!important;min-height:220px!important;height:auto!important;border-radius:0 0 32px 32px!important}
+ #landingView .landingHero img{object-fit:cover!important;object-position:center 38%!important}
+ #landingView .landingHeroBadge{top:12px!important;left:12px!important}
+ #landingView .landingHeroNote{right:12px!important;bottom:12px!important;font-size:11px!important}
+ #landingView .landingAccess{grid-column:1!important;grid-row:2!important;height:auto!important;padding:18px 18px max(18px,env(safe-area-inset-bottom))!important;align-items:flex-start!important}
+ #landingView .landingAccess h1{font-size:clamp(30px,8vw,42px)!important;margin-top:12px!important}
+ #landingView .landingForm{gap:8px!important;margin:16px 0!important}
+ #landingView .landingStart,#landingView .landingAdminAccess{min-height:50px!important;border-radius:14px!important;font-size:12px!important;padding:8px!important}
+ #landingView .landingFeatures{gap:5px!important;padding:7px!important;margin-top:12px!important;border-radius:16px!important}
+ #landingView .landingFeatures>div{gap:7px!important;padding:6px 4px!important}
+ #landingView .landingFeatures>div>span{width:30px!important;height:30px!important;flex-basis:30px!important;border-radius:9px!important;font-size:15px!important}
+ #landingView .landingCredit{margin-top:10px!important;padding-top:10px!important}
+}
+@media(max-width:390px){#landingView .landingFeatures{grid-template-columns:1fr 1fr!important}#landingView .landingIntroText{font-size:13px!important}}
+</style>
+
 </body></html>
