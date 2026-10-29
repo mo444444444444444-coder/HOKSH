@@ -2904,4 +2904,24 @@ button,.toolBtn,.toolbar button{touch-action:manipulation}
 }
 </style>
 
+
+<style id="hoksh-pdf-smooth-v26">
+/* Reading workspace: calmer Google-Drive-like paper surface without replacing existing tools */
+#workspace.active{min-height:100dvh;background:#f3f6fb!important}
+#workspace .canvasArea{overscroll-behavior:contain!important;scroll-behavior:auto!important;scrollbar-gutter:stable;touch-action:pan-x pan-y}
+#workspace .pageWrap{background:#fff!important;border:1px solid #e0e6f0!important;border-radius:4px!important;box-shadow:0 2px 5px #172b4d12,0 12px 34px #172b4d18!important;contain:layout paint style}
+#workspace .pageWrap canvas{display:block;max-width:none!important}
+#workspace .pageWrap canvas.base{background:#fff;image-rendering:auto}
+#workspace .pageLabel{color:#64748b!important;font-size:12px!important}
+#workspace button,#workspace .toolBtn{min-height:36px;touch-action:manipulation}
+#workspace input,#workspace select{min-height:36px}
+#workspace .toolbar,#workspace .topbar{backdrop-filter:saturate(1.2) blur(12px)}
+@media(max-width:760px){
+ #workspace .canvasArea{-webkit-overflow-scrolling:touch!important;scrollbar-width:thin}
+ #workspace .pageWrap{box-shadow:0 2px 4px #172b4d12,0 7px 20px #172b4d18!important}
+ #workspace button,#workspace .toolBtn{min-height:40px}
+}
+@media(prefers-reduced-motion:reduce){#workspace *,#landingView *{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+</style>
+
 </body></html>
