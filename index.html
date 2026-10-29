@@ -1230,6 +1230,13 @@ button{letter-spacing:0!important}
 </div>
 <div class="tutorialShade" id="tutorialShade" role="dialog" aria-modal="true" aria-labelledby="tutorialTitle"><section class="tutorialCard"><button type="button" class="tutorialClose" id="tutorialClose" aria-label="إغلاق الشرح">✕</button><div class="tutorialKicker">HOKSH • جولة سريعة</div><h2 id="tutorialTitle">ابدأ إنجازك مع حوكش</h2><div class="tutorialVisual" id="tutorialVisual"><div class="tourMockToolbar"><span>حوكش</span><i>↶</i><i>✎</i><i>▤</i></div><div class="tourMockPaper"><span class="tourMockLine"></span><span class="tourMockLine short"></span><span class="tourMockMark">ملاحظاتك هنا</span><span class="tourMockLine"></span><span class="tourMockLine medium"></span></div><div class="tourMockPen">✎</div></div><p class="tutorialDesc" id="tutorialDesc">افتح ملف PDF من جهازك وابدأ القراءة والكتابة عليه.</p><div class="tutorialSteps"><span class="active"></span><span></span><span></span><span></span></div><div class="tutorialActions"><button type="button" class="tutorialNext" id="tutorialNext">التالي ←</button><button type="button" class="tutorialSkip" id="tutorialSkip">إغلاق الشرح</button></div></section></div>
 <section class="landingView" id="landingView" aria-label="الدخول إلى حوكش">
+  <header class="landingTopbar" aria-label="القائمة الرئيسية">
+    <a class="landingBrand" href="#landingView" aria-label="حوكش الرئيسية"><span class="landingBrandMark">H</span><span><b>HOKSH</b><small>حوكش</small></span></a>
+    <nav class="landingNav" aria-label="روابط الموقع">
+      <a href="#landingView">الرئيسية</a><a href="#landingHighlights">المميزات</a><a href="#landingTools">الأدوات</a><a href="#landingVideos">الفيديوهات</a>
+    </nav>
+    <div class="landingTopActions"><button type="button" class="landingTopLogin" id="landingNavLogin">دخول المدير / حسابي</button><a class="landingTopStart" href="#landingStart">ابدأ الآن <span>←</span></a></div>
+  </header>
   <div class="landingHero">
     <img src="landing-hero.svg?v=4" alt="محمد شعبان محارب مع واجهة PDF وأدوات الكتابة في حوكش">
     <div class="landingHeroBadge"><span class="landingLogoIcon">✎</span><span><b>HOKSH</b><small>حوكش</small></span></div>
@@ -1254,6 +1261,13 @@ button{letter-spacing:0!important}
     </div>
   </div>
 </section>
+  <div class="landingHighlights" id="landingHighlights" aria-label="مميزات حوكش">
+    <article><span class="landingHighlightIcon">▤</span><div><b>قارئ PDF واضح</b><small>افتح ملفاتك وذاكر براحة</small></div></article>
+    <article id="landingTools"><span class="landingHighlightIcon mint">✎</span><div><b>أدوات كتابة وسبورة</b><small>اكتب وارسم واحفظ شغلك</small></div></article>
+    <article><span class="landingHighlightIcon violet">☁</span><div><b>مساحة منظمة</b><small>أدواتك الدراسية في مكان واحد</small></div></article>
+    <article id="landingVideos"><span class="landingHighlightIcon orange">▶</span><div><b>فيديوهات تعليمية</b><small>تابع المحتوى من داخل حوكش</small></div></article>
+  </div>
+
 <input id="fileInput" type="file" accept=".pdf,application/pdf" hidden>
 <input id="imageInput" type="file" accept="image/*" hidden>
 
@@ -2974,4 +2988,45 @@ button,.toolBtn,.toolbar button{touch-action:manipulation}
 @media(max-width:390px){#landingView .landingFeatures{grid-template-columns:1fr 1fr!important}#landingView .landingIntroText{font-size:13px!important}}
 </style>
 
+
+<style id="hoksh-real-entry-v28">
+/* HOKSH landing page refresh: visible navigation, clearer hierarchy and feature strip */
+#landingView{grid-template-columns:minmax(0,.94fr) minmax(0,1.06fr)!important;grid-template-rows:auto minmax(480px,1fr) auto!important;min-height:100svh!important;height:auto!important;overflow-x:hidden!important;overflow-y:auto!important;direction:ltr!important}
+#landingView .landingTopbar{grid-column:1/-1!important;grid-row:1!important;direction:rtl!important;display:flex!important;align-items:center!important;justify-content:space-between!important;gap:22px!important;min-height:82px!important;padding:14px clamp(18px,4.4vw,68px)!important;background:#ffffffef!important;border-bottom:1px solid #e4ebf5!important;position:relative!important;z-index:5!important;box-shadow:0 6px 24px #17366c08!important}
+#landingView .landingBrand{display:flex!important;align-items:center!important;gap:10px!important;color:#112654!important;text-decoration:none!important;flex-shrink:0!important}
+#landingView .landingBrandMark{display:grid!important;place-items:center!important;width:43px!important;height:43px!important;border-radius:14px!important;background:linear-gradient(140deg,#2463eb,#16b98b)!important;color:#fff!important;font-size:23px!important;font-weight:900!important;box-shadow:0 7px 18px #2463eb38!important}
+#landingView .landingBrand b{display:block!important;font-size:21px!important;letter-spacing:1.4px!important;line-height:1.1!important}
+#landingView .landingBrand small{display:block!important;margin-top:3px!important;color:#6a7892!important;font-size:12px!important}
+#landingView .landingNav{display:flex!important;align-items:center!important;justify-content:center!important;gap:clamp(12px,2vw,30px)!important;flex-wrap:wrap!important}
+#landingView .landingNav a{color:#445675!important;text-decoration:none!important;font-size:14px!important;font-weight:750!important;transition:color .2s!important}
+#landingView .landingNav a:hover{color:#1769df!important}
+#landingView .landingTopActions{display:flex!important;align-items:center!important;gap:10px!important;flex-shrink:0!important}
+#landingView .landingTopLogin{border:1px solid #dce5f1!important;border-radius:12px!important;background:#fff!important;color:#18345f!important;padding:11px 14px!important;font-weight:750!important;cursor:pointer!important}
+#landingView .landingTopStart{display:inline-flex!important;align-items:center!important;gap:9px!important;text-decoration:none!important;border-radius:12px!important;padding:12px 17px!important;background:linear-gradient(110deg,#1769e8,#12a978)!important;color:white!important;font-weight:850!important;box-shadow:0 7px 18px #1783d32b!important}
+#landingView .landingHero{grid-column:2!important;grid-row:2!important;min-height:500px!important;height:auto!important;border-radius:0 0 0 84px!important}
+#landingView .landingAccess{grid-column:1!important;grid-row:2!important;min-height:500px!important;display:flex!important;align-items:center!important;padding:clamp(24px,4vw,64px)!important}
+#landingView .landingAccessInner{max-width:620px!important;width:100%!important;margin:auto!important}
+#landingView .landingEyebrow{display:inline-flex!important;align-items:center!important;border:1px solid #ccefe2!important;border-radius:999px!important;padding:8px 13px!important;background:#eafff5!important;color:#087b5c!important;font-weight:800!important;font-size:13px!important}
+#landingView .landingAccess h1{font-size:clamp(35px,4vw,59px)!important;line-height:1.25!important;letter-spacing:-1.5px!important;margin:22px 0 13px!important;color:#10234b!important}
+#landingView .landingAccess h1 span{background:linear-gradient(100deg,#1769e8,#0eb985)!important;-webkit-background-clip:text!important;background-clip:text!important;color:transparent!important}
+#landingView .landingIntroText{font-size:clamp(15px,1.35vw,18px)!important;line-height:1.95!important;color:#61708a!important;max-width:510px!important}
+#landingView .landingForm{gap:12px!important;margin:25px 0 20px!important}
+#landingView .landingStart{border-radius:14px!important;min-height:54px!important;box-shadow:0 10px 25px #2463eb32!important}
+#landingView .landingAdminAccess{border-radius:14px!important;min-height:50px!important}
+#landingView .landingFeatures{gap:10px!important;margin-top:20px!important}
+#landingView .landingFeatures>div{border:1px solid #e1eaf5!important;border-radius:13px!important;background:#ffffffd9!important;padding:12px 10px!important;box-shadow:0 5px 17px #14345e08!important}
+#landingView .landingCredit{margin-top:22px!important;color:#71809a!important}
+#landingView .landingHighlights{grid-column:1/-1!important;grid-row:3!important;direction:rtl!important;display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:14px!important;padding:24px clamp(18px,4.4vw,68px) 30px!important;background:#fff!important;border-top:1px solid #e6edf6!important}
+#landingView .landingHighlights article{display:flex!important;align-items:center!important;gap:13px!important;padding:17px 16px!important;min-width:0!important;border:1px solid #e8eef6!important;border-radius:17px!important;background:linear-gradient(145deg,#fff,#f8fbff)!important;box-shadow:0 8px 22px #18345d08!important}
+#landingView .landingHighlightIcon{display:grid!important;place-items:center!important;flex:0 0 46px!important;width:46px!important;height:46px!important;border-radius:14px!important;background:#e8f0ff!important;color:#2463eb!important;font-size:24px!important;font-weight:900!important}
+#landingView .landingHighlightIcon.mint{background:#e4fbf1!important;color:#07966c!important}
+#landingView .landingHighlightIcon.violet{background:#f0eaff!important;color:#7951d8!important}
+#landingView .landingHighlightIcon.orange{background:#fff0df!important;color:#d77718!important}
+#landingView .landingHighlights b{display:block!important;color:#18345f!important;font-size:14px!important;margin-bottom:4px!important}
+#landingView .landingHighlights small{display:block!important;color:#71809a!important;font-size:12px!important;line-height:1.6!important}
+@media(max-width:900px){#landingView .landingTopbar{gap:12px!important;flex-wrap:wrap!important;padding:12px 18px!important}#landingView .landingNav{order:3!important;width:100%!important;justify-content:center!important;padding:8px 0 3px!important}#landingView .landingHighlights{grid-template-columns:repeat(2,minmax(0,1fr))!important}#landingView .landingHero{border-radius:0 0 0 48px!important}}
+@media(max-width:650px){#landingView{grid-template-columns:minmax(0,1fr)!important;grid-template-rows:auto auto auto!important}#landingView .landingTopbar{grid-column:1!important;grid-row:1!important;min-height:0!important}#landingView .landingTopLogin{display:none!important}#landingView .landingBrandMark{width:37px!important;height:37px!important}#landingView .landingBrand b{font-size:18px!important}#landingView .landingTopStart{padding:10px 12px!important;font-size:13px!important}#landingView .landingNav{gap:17px!important;overflow:auto!important;justify-content:flex-start!important;flex-wrap:nowrap!important}#landingView .landingNav a{white-space:nowrap!important;font-size:13px!important}#landingView .landingAccess{grid-column:1!important;grid-row:2!important;min-height:0!important;padding:34px 22px 28px!important;order:2!important}#landingView .landingHero{grid-column:1!important;grid-row:3!important;min-height:330px!important;height:330px!important;order:3!important;border-radius:28px 28px 0 0!important}#landingView .landingAccess h1{font-size:37px!important;margin-top:17px!important}#landingView .landingHighlights{grid-column:1!important;grid-row:4!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;padding:17px 14px 24px!important;gap:9px!important}#landingView .landingHighlights article{padding:12px 10px!important;gap:9px!important;border-radius:13px!important}#landingView .landingHighlightIcon{flex-basis:36px!important;width:36px!important;height:36px!important;font-size:19px!important}#landingView .landingHighlights b{font-size:12px!important}#landingView .landingHighlights small{font-size:10px!important}}
+</style>
+
+<script id="hoksh-entry-nav-v28">document.getElementById("landingNavLogin")?.addEventListener("click",()=>document.getElementById("landingAdminAccess")?.click());document.querySelectorAll("#landingView .landingNav a[href^=\"#\"]").forEach(a=>a.addEventListener("click",e=>{const target=document.querySelector(a.getAttribute("href"));if(target){e.preventDefault();target.scrollIntoView({behavior:"smooth",block:"start"});}}));</script>
 </body></html>

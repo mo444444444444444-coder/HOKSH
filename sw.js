@@ -1,5 +1,5 @@
-const CACHE='hoksh-pro-v27';
-const CORE=['./','./index.html','./index.html?v=25','./manifest.webmanifest','./icon.svg','./landing-hero.svg','./landing-hero.svg?v=4','./developer.jpg','./developer.jpg?v=11','./developer.jpg?v=10','./hoksh-platform.js','./hoksh-videos.js','./supabase-config.js'];
+const CACHE='hoksh-pro-v28';
+const CORE=['./','./index.html','./index.html?v=28','./manifest.webmanifest','./icon.svg','./landing-hero.svg','./landing-hero.svg?v=4','./developer.jpg','./developer.jpg?v=11','./developer.jpg?v=10','./hoksh-platform.js','./hoksh-videos.js','./supabase-config.js'];
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(CORE)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
 self.addEventListener('fetch',e=>{
