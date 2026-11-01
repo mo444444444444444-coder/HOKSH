@@ -31,10 +31,10 @@
 <section id="matches">
 <div class="sectionhead"><div><h2>النتائج والمباريات</h2><p>مواعيد ونتائج حسب ما يتيحه مصدر البيانات المختار.</p></div><button class="btn" id="refreshMatches">تحديث النتائج</button></div>
 <div class="tabs" id="leagueTabs" aria-label="اختيار الدوري">
-<button class="tab active" data-league="all">كل الدوريات المتاحة</button><button class="tab" data-league="eng.1">إنجلترا</button><button class="tab" data-league="esp.1">إسبانيا</button><button class="tab" data-league="ita.1">إيطاليا</button><button class="tab" data-league="ger.1">ألمانيا</button><button class="tab" data-league="fra.1">فرنسا</button><button class="tab" data-league="uefa.champions">أبطال أوروبا</button><button class="tab" data-league="ned.1">هولندا</button><button class="tab" data-league="por.1">البرتغال</button><button class="tab" data-league="sco.1">اسكتلندا</button><button class="tab" data-league="tur.1">تركيا</button><button class="tab" data-league="usa.1">أمريكا</button><button class="tab" data-league="mex.1">المكسيك</button><button class="tab" data-league="bra.1">البرازيل</button><button class="tab" data-league="arg.1">الأرجنتين</button><button class="tab" data-league="aus.1">أستراليا</button><button class="tab" data-league="jpn.1">اليابان</button><button class="tab" data-league="sa.1">السعودية*</button></div>
+<button class="tab active" data-league="all">كل الدوريات المتاحة</button><button class="tab" data-league="eng.1">إنجلترا</button><button class="tab" data-league="esp.1">إسبانيا</button><button class="tab" data-league="ita.1">إيطاليا</button><button class="tab" data-league="ger.1">ألمانيا</button><button class="tab" data-league="fra.1">فرنسا</button><button class="tab" data-league="uefa.champions">أبطال أوروبا</button><button class="tab" data-league="ned.1">هولندا</button><button class="tab" data-league="por.1">البرتغال</button><button class="tab" data-league="sco.1">اسكتلندا</button><button class="tab" data-league="tur.1">تركيا</button><button class="tab" data-league="usa.1">أمريكا</button><button class="tab" data-league="mex.1">المكسيك</button><button class="tab" data-league="bra.1">البرازيل</button><button class="tab" data-league="arg.1">الأرجنتين</button><button class="tab" data-league="aus.1">أستراليا</button><button class="tab" data-league="jpn.1">اليابان</button><button class="tab" data-league="sa.1">السعودية*</button><button class="tab" data-league="egy.1">مصر</button><button class="tab" data-league="caf.champions">دوري أبطال أفريقيا</button><button class="tab" data-league="caf.confederation">الكونفدرالية الأفريقية</button><button class="tab" data-league="caf.nations">كأس أمم أفريقيا</button></div>
 <div class="toolbar"><input id="matchSearch" class="search" type="search" placeholder="ابحث عن فريق أو مباراة…" aria-label="ابحث عن مباراة"><select id="matchFilter" class="select" aria-label="تصفية المباريات"><option value="all">كل الحالات</option><option value="live">مباشرة الآن</option><option value="upcoming">قادمة</option><option value="done">انتهت</option></select><span class="source">المصدر الأساسي: ESPN · بيانات حسب توافر كل بطولة</span></div>
 <div id="matchesList" class="match-list"><div class="empty"><span class="spinner"></span> بنحاول جلب بيانات المباريات…</div></div>
-<p class="notice">المباريات تُطلب من جداول ESPN عند التحديث، والنتائج الحية لا تظهر إلا إذا أرسلها المصدر بحالة مباشرة. تحديث النتائج كل دقيقة، وتحديث الأخبار كل 5 دقائق. *الدوري السعودي يحتاج اختبار تغطية المصدر قبل الاعتماد عليه. لا نضمن اكتمال كل بطولة.</p>
+<p class="notice">المباريات تُطلب من جداول ESPN عند التحديث، والنتائج الحية لا تظهر إلا إذا أرسلها المصدر بحالة مباشرة. تحديث النتائج كل دقيقة، وتحديث الأخبار كل 5 دقائق. *الدوري السعودي يحتاج اختبار تغطية المصدر قبل الاعتماد عليه. البطولات المعلّمة بنجمة (*) أُضيفت كتجربة دعم في واجهة ESPN، ويجب اختبار استجابة المصدر لها؛ ظهور اسم البطولة لا يؤكد توافر جدولها.</p>
 </section>
 <section id="news">
 <div class="sectionhead"><div><h2>آخر أخبار كرة القدم</h2><p>عناوين وروابط الأخبار من المصدر الخارجي، بدون نسخ المقالات كاملة.</p></div><button class="btn" id="refreshNews">تحديث الأخبار</button></div>
@@ -64,7 +64,11 @@ const LEAGUES=[
  {id:'arg.1',name:'الدوري الأرجنتيني',short:'الأرجنتين'},
  {id:'aus.1',name:'الدوري الأسترالي',short:'أستراليا'},
  {id:'jpn.1',name:'الدوري الياباني',short:'اليابان'},
- {id:'sa.1',name:'الدوري السعودي*',short:'السعودية'}
+ {id:'sa.1',name:'الدوري السعودي*',short:'السعودية'},
+ {id:'egy.1',name:'الدوري المصري الممتاز*',short:'مصر'},
+ {id:'caf.champions',name:'دوري أبطال أفريقيا*',short:'أبطال أفريقيا'},
+ {id:'caf.confederation',name:'كأس الكونفدرالية الأفريقية*',short:'الكونفدرالية'},
+ {id:'caf.nations',name:'كأس أمم أفريقيا*',short:'أمم أفريقيا'}
 ];
 const state={league:'all',matches:[],news:[],last:null,loadingMatches:false,loadingNews:false};
 const $=id=>document.getElementById(id);
