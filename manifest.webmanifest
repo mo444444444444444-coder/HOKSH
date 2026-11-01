@@ -1,25 +1,15 @@
 {
-  "name": "حوكش سبورت | نتائج وأخبار كرة القدم",
-  "short_name": "حوكش سبورت",
-  "description": "نتائج ومواعيد مباريات كرة القدم وأخبارها من مصادر البيانات المتاحة.",
-  "start_url": "/HOKSH/",
-  "scope": "/HOKSH/",
-  "display": "standalone",
-  "orientation": "any",
-  "dir": "rtl",
-  "lang": "ar",
-  "theme_color": "#071b16",
-  "background_color": "#07120f",
-  "categories": [
-    "sports",
-    "news"
-  ],
-  "icons": [
-    {
-      "src": "icon.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
-      "purpose": "any maskable"
-    }
-  ]
+  "name":"حوكش سبورت | منصة كل الرياضات",
+  "short_name":"حوكش سبورت",
+  "description":"نتائج ومواعيد وأخبار رياضات متعددة، مع بحث الفرق ومتابعة المفضلة.",
+  "start_url":"/HOKSH/",
+  "scope":"/HOKSH/",
+  "display":"standalone",
+  "orientation":"any",
+  "dir":"rtl",
+  "lang":"ar",
+  "theme_color":"#101827",
+  "background_color":"#0b1220",
+  "categories":["sports","news"],
+  "icons":[{"src":"icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]
 }
