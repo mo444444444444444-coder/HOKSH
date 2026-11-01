@@ -31,15 +31,15 @@
 <section id="matches">
 <div class="sectionhead"><div><h2>النتائج والمباريات</h2><p>مواعيد ونتائج حسب ما يتيحه مصدر البيانات المختار.</p></div><button class="btn" id="refreshMatches">تحديث النتائج</button></div>
 <div class="tabs" id="leagueTabs" aria-label="اختيار الدوري">
-<button class="tab active" data-league="all">كل الدوريات المتاحة</button><button class="tab" data-league="eng.1">إنجلترا</button><button class="tab" data-league="esp.1">إسبانيا</button><button class="tab" data-league="ita.1">إيطاليا</button><button class="tab" data-league="ger.1">ألمانيا</button><button class="tab" data-league="fra.1">فرنسا</button><button class="tab" data-league="uefa.champions">أبطال أوروبا</button><button class="tab" data-league="usa.1">أمريكا</button></div>
-<div class="toolbar"><input id="matchSearch" class="search" type="search" placeholder="ابحث عن فريق أو مباراة…" aria-label="ابحث عن مباراة"><select id="matchFilter" class="select" aria-label="تصفية المباريات"><option value="all">كل الحالات</option><option value="live">مباشرة الآن</option><option value="upcoming">قادمة</option><option value="done">انتهت</option></select><span class="source">المصدر: ESPN public scoreboard API</span></div>
+<button class="tab active" data-league="all">كل الدوريات المتاحة</button><button class="tab" data-league="eng.1">إنجلترا</button><button class="tab" data-league="esp.1">إسبانيا</button><button class="tab" data-league="ita.1">إيطاليا</button><button class="tab" data-league="ger.1">ألمانيا</button><button class="tab" data-league="fra.1">فرنسا</button><button class="tab" data-league="uefa.champions">أبطال أوروبا</button><button class="tab" data-league="ned.1">هولندا</button><button class="tab" data-league="por.1">البرتغال</button><button class="tab" data-league="sco.1">اسكتلندا</button><button class="tab" data-league="tur.1">تركيا</button><button class="tab" data-league="usa.1">أمريكا</button><button class="tab" data-league="mex.1">المكسيك</button><button class="tab" data-league="bra.1">البرازيل</button><button class="tab" data-league="arg.1">الأرجنتين</button><button class="tab" data-league="aus.1">أستراليا</button><button class="tab" data-league="jpn.1">اليابان</button><button class="tab" data-league="sa.1">السعودية*</button></div>
+<div class="toolbar"><input id="matchSearch" class="search" type="search" placeholder="ابحث عن فريق أو مباراة…" aria-label="ابحث عن مباراة"><select id="matchFilter" class="select" aria-label="تصفية المباريات"><option value="all">كل الحالات</option><option value="live">مباشرة الآن</option><option value="upcoming">قادمة</option><option value="done">انتهت</option></select><span class="source">المصدر الأساسي: ESPN · بيانات حسب توافر كل بطولة</span></div>
 <div id="matchesList" class="match-list"><div class="empty"><span class="spinner"></span> بنحاول جلب بيانات المباريات…</div></div>
-<p class="notice">المباريات والتغطية تتغير حسب توافر المصدر الخارجي. قد تختلف التغطية حسب الدوري، ولا تعني كلمة «مباشرة» أن كل مباراة في العالم متاحة.</p>
+<p class="notice">المباريات تُطلب من جداول ESPN عند التحديث، والنتائج الحية لا تظهر إلا إذا أرسلها المصدر بحالة مباشرة. تحديث النتائج كل دقيقة، وتحديث الأخبار كل 5 دقائق. *الدوري السعودي يحتاج اختبار تغطية المصدر قبل الاعتماد عليه. لا نضمن اكتمال كل بطولة.</p>
 </section>
 <section id="news">
 <div class="sectionhead"><div><h2>آخر أخبار كرة القدم</h2><p>عناوين وروابط الأخبار من المصدر الخارجي، بدون نسخ المقالات كاملة.</p></div><button class="btn" id="refreshNews">تحديث الأخبار</button></div>
 <div class="content-grid"><div class="panel"><div class="paneltitle"><h3>أخبار كرة القدم</h3><span class="source">ESPN Soccer News</span></div><div id="newsList" class="news-list"><div class="empty"><span class="spinner"></span> بنحاول جلب الأخبار…</div></div></div>
-<aside class="panel"><div class="paneltitle"><h3>عن حوكش سبورت</h3></div><p style="color:var(--muted);font-size:13px;line-height:2;margin-top:0">نسخة رياضية من حوكش، تركّز على النتائج والأخبار في واجهة عربية متجاوبة. بيانات المباريات والأخبار تأتي من خدمات خارجية؛ لو الخدمة تعطلت، هنوضح ده بدل عرض بيانات قديمة على إنها جديدة.</p><div class="paneltitle" style="margin-top:22px"><h3>مصادر مباشرة</h3></div><div class="news-list"><a class="newsitem" href="https://www.espn.com/soccer/" target="_blank" rel="noopener"><h4>ESPN Soccer</h4><p>الموقع الأصلي للنتائج والأخبار.</p><span class="read">فتح المصدر ↗</span></a><a class="newsitem" href="https://www.bbc.com/sport/football" target="_blank" rel="noopener"><h4>BBC Sport Football</h4><p>مصدر إضافي للأخبار والتغطية.</p><span class="read">فتح المصدر ↗</span></a></div></aside></div>
+<aside class="panel"><div class="paneltitle"><h3>عن حوكش سبورت</h3></div><p style="color:var(--muted);font-size:13px;line-height:2;margin-top:0">نسخة رياضية من حوكش، تركّز على النتائج والأخبار في واجهة عربية متجاوبة. بيانات المباريات والأخبار تأتي من خدمات خارجية؛ لو الخدمة تعطلت، هنوضح ده بدل عرض بيانات قديمة على إنها جديدة.</p><div class="paneltitle" style="margin-top:22px"><h3>مصادر أخبار عربية</h3></div><p style="color:var(--muted);font-size:12px;line-height:1.8">روابط للمواقع العربية الأصلية. الأخبار المعروضة تلقائيًا في هذه النسخة ما زالت من ESPN، ولم نربط خلاصات هذه المواقع بعد.</p><div class="news-list"><a class="newsitem" href="https://www.filgoal.com/" target="_blank" rel="noopener"><h4>في الجول</h4><p>أخبار ونتائج الكرة المصرية والعربية والعالمية.</p><span class="read">زيارة المصدر ↗</span></a><a class="newsitem" href="https://www.yallakora.com/" target="_blank" rel="noopener"><h4>يلا كورة</h4><p>تغطية عربية للمباريات والأخبار.</p><span class="read">زيارة المصدر ↗</span></a><a class="newsitem" href="https://www.kooora.com/" target="_blank" rel="noopener"><h4>كووورة</h4><p>أخبار ومتابعة البطولات والنتائج.</p><span class="read">زيارة المصدر ↗</span></a><a class="newsitem" href="https://www.btolat.com/" target="_blank" rel="noopener"><h4>بطولات</h4><p>أخبار الكرة المصرية والعربية.</p><span class="read">زيارة المصدر ↗</span></a></div><div class="paneltitle" style="margin-top:22px"><h3>مصادر النتائج والأخبار الدولية</h3></div><div class="news-list"><a class="newsitem" href="https://www.espn.com/soccer/" target="_blank" rel="noopener"><h4>ESPN Soccer</h4><p>الموقع الأصلي للنتائج والأخبار.</p><span class="read">فتح المصدر ↗</span></a><a class="newsitem" href="https://www.bbc.com/sport/football" target="_blank" rel="noopener"><h4>BBC Sport Football</h4><p>مصدر إضافي للأخبار والتغطية.</p><span class="read">فتح المصدر ↗</span></a></div></aside></div>
 </section>
 <footer class="footer"><span>حوكش سبورت · مشروع مستقل داخل HOKSH</span><span>المطور محمد شعبان محارب</span><span>البيانات © لأصحاب مصادرها</span></footer>
 </main>
@@ -54,7 +54,17 @@ const LEAGUES=[
  {id:'ger.1',name:'الدوري الألماني',short:'ألمانيا'},
  {id:'fra.1',name:'الدوري الفرنسي',short:'فرنسا'},
  {id:'uefa.champions',name:'دوري أبطال أوروبا',short:'أبطال أوروبا'},
- {id:'usa.1',name:'الدوري الأمريكي',short:'أمريكا'}
+ {id:'usa.1',name:'الدوري الأمريكي',short:'أمريكا'},
+ {id:'ned.1',name:'الدوري الهولندي',short:'هولندا'},
+ {id:'por.1',name:'الدوري البرتغالي',short:'البرتغال'},
+ {id:'sco.1',name:'الدوري الاسكتلندي',short:'اسكتلندا'},
+ {id:'tur.1',name:'الدوري التركي',short:'تركيا'},
+ {id:'mex.1',name:'الدوري المكسيكي',short:'المكسيك'},
+ {id:'bra.1',name:'الدوري البرازيلي',short:'البرازيل'},
+ {id:'arg.1',name:'الدوري الأرجنتيني',short:'الأرجنتين'},
+ {id:'aus.1',name:'الدوري الأسترالي',short:'أستراليا'},
+ {id:'jpn.1',name:'الدوري الياباني',short:'اليابان'},
+ {id:'sa.1',name:'الدوري السعودي*',short:'السعودية'}
 ];
 const state={league:'all',matches:[],news:[],last:null,loadingMatches:false,loadingNews:false};
 const $=id=>document.getElementById(id);
@@ -75,7 +85,7 @@ $('matchSearch').addEventListener('input',renderMatches);$('matchFilter').addEve
 $('refreshMatches').addEventListener('click',refreshMatches);$('refreshNews').addEventListener('click',refreshNews);$('refreshTop').addEventListener('click',()=>{refreshMatches();refreshNews()});
 window.hokshRefreshMatches=refreshMatches;
 refreshMatches();refreshNews();
-setInterval(()=>{refreshMatches();refreshNews()},60000);
+setInterval(()=>{refreshMatches()},60000);\nsetInterval(()=>{refreshNews()},300000);
 if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});
 })();
 </script>
