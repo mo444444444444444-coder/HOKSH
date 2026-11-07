@@ -1,9 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-<defs><linearGradient id="lime" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e8ff6b"/><stop offset="1" stop-color="#b4db28"/></linearGradient></defs>
-<rect width="512" height="512" rx="112" fill="#1b1c19"/>
-<path d="M74 100Q74 74 100 74H412Q438 74 438 100V412Q438 438 412 438H100Q74 438 74 412Z" fill="url(#lime)"/>
-<path d="M157 151h197q13 0 13 13v170q0 13-13 13H157q-13 0-13-13V164q0-13 13-13Z" fill="#1b1c19"/>
-<path d="M177 187h157M177 219h108M177 251h132" stroke="#d8fa48" stroke-width="11" stroke-linecap="round"/>
-<path d="M307 300l65-65 26 26-65 65-36 10z" fill="#6652dc"/>
-<circle cx="366" cy="146" r="24" fill="#6652dc"/><path d="M354 146l8 8 16-19" fill="none" stroke="#fffdf8" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#1e3a8a"/><stop offset="1" stop-color="#315bd6"/></linearGradient></defs><rect width="128" height="128" rx="30" fill="url(#g)"/><path d="M27 30h16v29l28-29h21L60 64l34 34H72L43 69v29H27z" fill="#fff"/><circle cx="99" cy="29" r="10" fill="#10b981"/></svg>
