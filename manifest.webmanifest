@@ -1,15 +1,20 @@
 {
-  "name":"حوكش سبورت | منصة كل الرياضات",
-  "short_name":"حوكش سبورت",
-  "description":"نتائج ومواعيد وأخبار رياضات متعددة، مع بحث الفرق ومتابعة المفضلة.",
-  "start_url":"/HOKSH/",
-  "scope":"/HOKSH/",
-  "display":"standalone",
-  "orientation":"any",
-  "dir":"rtl",
-  "lang":"ar",
-  "theme_color":"#101827",
-  "background_color":"#0b1220",
-  "categories":["sports","news"],
-  "icons":[{"src":"icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]
+  "name": "حوكش للأعمال",
+  "short_name": "حوكش",
+  "description": "منصة إدارة المبيعات والمنتجات والمخزون",
+  "lang": "ar",
+  "dir": "rtl",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f3f6fb",
+  "theme_color": "#1e3a8a",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
 }
