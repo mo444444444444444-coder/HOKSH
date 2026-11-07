@@ -1,4 +1,4 @@
-const CACHE_NAME = 'hoksh-business-v2';
+const CACHE_NAME = 'hoksh-business-v3';
 const CORE = ['./', './index.html', './manifest.webmanifest', './icon.svg'];
 self.addEventListener('install', event => { event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(CORE))); self.skipWaiting(); });
 self.addEventListener('activate', event => { event.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(key => key.startsWith('hoksh-business-') && key !== CACHE_NAME).map(key => caches.delete(key)))).then(() => self.clients.claim())); });
