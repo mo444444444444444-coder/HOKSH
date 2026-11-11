@@ -220,12 +220,21 @@ let fav=JSON.parse(localStorage.getItem('noor-favs')||'[]');let activeTopic=null
  const ref=lesson?[lesson.sourceName,lesson.source]:fallback;
  let body='';
  if(lesson){
-  body+='<h3>شرح تمهيدي</h3><p>'+esc(lesson.intro)+'</p><h3>أهم النقاط</h3><ul>'+lesson.points.map(p=>'<li>'+esc(p)+'</li>').join('')+'</ul><div class="source"><b>مواضع الاستدلال / المرجع:</b> '+esc(lesson.evidence)+'</div><p>هذا عرض تمهيدي مختصر، وليس فتوى ولا يغني عن الرجوع إلى الشروح المتخصصة.</p>';
+  if(Array.isArray(lesson.sections)&&lesson.sections.length){
+   body+='<div class="article-badge">مقال تعليمي موسع — إصدار علمي أولي</div>';
+   body+=lesson.sections.map((section,i)=>'<section class="article-section"><h3>'+esc(section[0])+'</h3><p>'+esc(section[1])+'</p></section>').join('');
+  }else{
+   body+='<h3>الشرح</h3><p>'+esc(lesson.intro)+'</p><h3>تفصيلات أساسية</h3><ul>'+lesson.points.map(p=>'<li>'+esc(p)+'</li>').join('')+'</ul>';
+   body+='<p class="muted">هذا المدخل مختصر، ويجري توسيعه إلى مقال موثق قبل اعتماده مادة تفصيلية.</p>';
+  }
+  body+='<div class="source article-evidence"><h3>الأدلة والمراجع داخل المقال</h3><p>'+esc(lesson.evidence)+'</p><p><b>المصدر المرجعي:</b> '+esc(ref[0])+'</p></div>';
+  body+='<p class="muted">المادة للتعلم العام وليست فتوى شخصية. المسائل الخلافية أو المرتبطة بواقعة محددة تُراجع فيها جهة علمية مؤهلة.</p>';
  }else{
-  body+='<h3>مدخل إلى الموضوع</h3><p>'+esc(activeTopic.desc)+'</p><h3>مسار مقترح للتعلم</h3><ol><li>ابدأ بالتعريف والمصطلحات الأساسية.</li><li>اقرأ النصوص الأصلية في سياقها، ولا تكتفِ بالمقتطفات.</li><li>تحقق من صحة الروايات قبل نسبتها إلى النبي ﷺ.</li><li>في المسائل العملية والفتوى، اسأل عالمًا مؤهلًا واذكر تفاصيل الواقعة.</li></ol><p>هذا الباب يحتاج إلى استكمال بمادة علمية محققة.</p>';
+  body+='<div class="card"><h3>هذا الموضوع لم يُنشر كمقال علمي بعد</h3><p>لن نعرض لك كلامًا عامًا أو خطوات شكلية على أنه شرح كامل. هذا العنوان موجود في فهرس الموسوعة، لكن مادته التفصيلية وأدلتها وتوثيقها لم تكتمل بعد.</p><p>نعمل على إعداد المقال من النصوص الأصلية والمراجع المعتمدة، مع بيان درجة الحديث ومحل الخلاف عند وجوده. لذلك لن ننسب حكمًا أو حديثًا إلى الشرع دون تحقق.</p><p class="muted">يمكنك الرجوع مؤقتًا إلى باب الموضوع ومراجعه الموثوقة، وسيظهر المقال هنا بعد استكمال مراجعته.</p></div>';
  }
- $('topicBody').innerHTML=body+'<div class="card"><b>التوثيق العلمي داخل نور الإسلام</b><p>'+esc(ref[0])+'</p><p class="muted">موضع الاستدلال: '+esc(lesson?lesson.evidence:'يُستكمل توثيق هذا الباب قبل نشر مادة تفصيلية.')+'</p><p class="muted">نعرض المادة هنا، ونحتفظ ببيانات المرجع للمراجعة العلمية دون إجبار القارئ على مغادرة الموقع.</p></div>';
- $('openTopicSource').style.display='none';
+ $('topicBody').innerHTML=body;
+ $('openTopicSource').style.display=lesson?'inline-flex':'none';
+ $('openTopicSource').onclick=()=>{if(lesson&&lesson.source)window.open(lesson.source,'_blank','noopener,noreferrer')};
  $('saveTopic').textContent=fav.includes(activeTopic.title)?'♥ محفوظ بالمفضلة':'♡ أضف للمفضلة';
  $('topicModal').classList.add('open');
 }
