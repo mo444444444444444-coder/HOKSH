@@ -1,1 +1,0 @@
-# HOKSH WebView wrapper rules
