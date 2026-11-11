@@ -30,3 +30,4 @@ jobs:
           PY
           node --check /tmp/hoksh-inline.js
           node --check sw.js
+          node --check noor-content.js
