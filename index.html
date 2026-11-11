@@ -231,7 +231,42 @@ let fav=JSON.parse(localStorage.getItem('noor-favs')||'[]');let activeTopic=null
 }
 document.addEventListener('click',e=>{const card=e.target.closest('.topic-card');if(!card)return;if(e.target.closest('[data-topic-save]')){const t=card.dataset.topic;if(!fav.includes(t))fav.push(t);else fav=fav.filter(x=>x!==t);localStorage.setItem('noor-favs',JSON.stringify(fav));toast(fav.includes(t)?'تمت الإضافة للمفضلة':'تمت الإزالة من المفضلة');return}if(e.target.closest('[data-topic-open]')||e.target===card||e.target.closest('h3')||e.target.closest('p'))openTopic(card)});$('closeTopic').onclick=()=>$('topicModal').classList.remove('open');$('topicModal').onclick=e=>{if(e.target===$('topicModal'))$('topicModal').classList.remove('open')};$('saveTopic').onclick=()=>{if(!activeTopic)return;let t=activeTopic.title;if(!fav.includes(t))fav.push(t);else fav=fav.filter(x=>x!==t);localStorage.setItem('noor-favs',JSON.stringify(fav));$('saveTopic').textContent=fav.includes(t)?'♥ محفوظ بالمفضلة':'♡ أضف للمفضلة';toast('تم تحديث المفضلة')};function renderFavs(){$('favs').innerHTML=fav.length?fav.map((x,i)=>'<div class="row"><b>'+esc(x)+'</b><button class="action" data-r="'+i+'">إزالة</button></div>').join(''):'<p class="muted">لا توجد عناصر محفوظة بعد.</p>'}$('favs').onclick=e=>{let b=e.target.closest('[data-r]');if(!b)return;fav.splice(+b.dataset.r,1);localStorage.setItem('noor-favs',JSON.stringify(fav));renderFavs()};
 const quiz=[['كم عدد سور القرآن؟',['110','114','120'],1,'عدد سور القرآن 114 سورة.'],['ما أول أركان الإسلام؟',['الشهادتان','الصلاة','الزكاة'],0,'الشهادتان أول أركان الإسلام.'],['من النبي الذي كلمه الله؟',['إبراهيم','موسى','يوسف'],1,'كلم الله موسى تكليمًا.'],['في أي شهر فرض الصيام؟',['شعبان','رمضان','محرم'],1,'فرض صيام رمضان.'],['من خاتم الأنبياء؟',['عيسى','موسى','محمد ﷺ'],2,'محمد ﷺ خاتم النبيين.'],['كم أركان الإيمان؟',['خمسة','ستة','سبعة'],1,'أركان الإيمان ستة.']];let qi=0,sc=0,answered=false;function quizRender(){let x=quiz[qi%quiz.length];$('quiz').innerHTML='<b>السؤال '+(qi%quiz.length+1)+' / '+quiz.length+': '+x[0]+'</b><div class="list">'+x[1].map((a,i)=>'<button class="action" style="text-align:right;padding:12px" data-a="'+i+'">'+a+'</button>').join('')+'</div><p id="feedback" class="muted"></p>';$('score').textContent='الصحيح: '+sc}$('quiz').onclick=e=>{let b=e.target.closest('[data-a]');if(!b||answered)return;answered=true;let x=quiz[qi%quiz.length],ok=+b.dataset.a===x[2];if(ok)sc++;$('feedback').textContent=(ok?'إجابة صحيحة. ':'الإجابة الصحيحة: ')+x[3];$('score').textContent='الصحيح: '+sc;Array.from($('quiz').querySelectorAll('button')).forEach(z=>z.disabled=true)};$('next').onclick=()=>{qi++;answered=false;quizRender()};
-$('search').onclick=()=>{let q=$('q').value.trim().toLowerCase();if(!q)return toast('اكتب كلمة للبحث');let lessons=Object.entries(window.NOOR_LESSONS||{}).filter(([t,v])=>(t+' '+v.intro+' '+(v.points||[]).join(' ')).toLowerCase().includes(q));if(lessons.length){let [title,lesson]=lessons[0];activeTopic={title,desc:lesson.intro,grid:''};$('topicTitle').textContent=title;$('topicDesc').textContent='مادة معرفية من مكتبة نور الإسلام الداخلية';$('topicBody').innerHTML='<h3>الشرح</h3><p>'+esc(lesson.intro)+'</p><h3>أهم النقاط</h3><ul>'+lesson.points.map(p=>'<li>'+esc(p)+'</li>').join('')+'</ul><div class="card"><b>المرجع والتوثيق</b><p>'+esc(lesson.sourceName)+'</p><p class="muted">'+esc(lesson.evidence)+'</p></div>';$('openTopicSource').style.display='none';$('saveTopic').textContent=fav.includes(title)?'♥ محفوظ بالمفضلة':'♡ أضف للمفضلة';$('topicModal').classList.add('open');toast('عُثر على '+lessons.length+' مادة داخلية')}else{let entries=Object.entries(D).flatMap(([k,a])=>a.filter(x=>(x[0]+x[1]).toLowerCase().includes(q)).map(x=>[k,x[0]]));let p=prophets.find(x=>x.toLowerCase().includes(q));if(entries.length){let map={tafsir:'tafsir',hadith:'hadith',aq:'aqeedah',angels:'angels',comp:'companions',fiqh:'fiqh',ethics:'ethics',after:'afterlife',stories:'stories',history:'history',family:'family',questions:'questions',sciences:'sciences'};go(map[entries[0][0]]);toast('أول نتيجة: '+entries[0][1]+' — عدد النتائج '+entries.length)}else if(p){go('prophets');toast('النبي: '+p)}else toast('لا توجد نتيجة داخل المكتبة الحالية.')}};
+
+function showInternalLesson(title,lesson){
+ activeTopic={title,desc:lesson.intro,grid:''};
+ $('topicTitle').textContent=title;
+ $('topicDesc').textContent='مادة معرفية من مكتبة نور الإسلام الداخلية';
+ $('topicBody').innerHTML='<h3>الشرح</h3><p>'+esc(lesson.intro)+'</p><h3>محاور أساسية</h3><ul>'+lesson.points.map(p=>'<li>'+esc(p)+'</li>').join('')+'</ul><div class="card"><b>مواضع الاستدلال</b><p>'+esc(lesson.evidence)+'</p><b>المرجع</b><p>'+esc(lesson.sourceName)+'</p><p class="muted">هذه مادة تعليمية موجزة، وليست فتوى. تُراجع المسائل التفصيلية في مصادرها المتخصصة.</p></div>';
+ $('openTopicSource').style.display='none';
+ $('saveTopic').textContent=fav.includes(title)?'♥ محفوظ بالمفضلة':'♡ أضف للمفضلة';
+ $('topicModal').classList.add('open');
+}
+$('search').onclick=()=>{
+ const q=$('q').value.trim().toLocaleLowerCase('ar');
+ if(!q)return toast('اكتب كلمة للبحث');
+ const lessonMatches=Object.entries(window.NOOR_LESSONS||{}).filter(([t,v])=>(t+' '+v.intro+' '+(v.points||[]).join(' ')+' '+v.evidence).toLocaleLowerCase('ar').includes(q));
+ const categoryMap={tafsir:'tafsir',hadith:'hadith',aq:'aqeedah',angels:'angels',comp:'companions',fiqh:'fiqh',ethics:'ethics',after:'afterlife',stories:'stories',history:'history',family:'family',questions:'questions',sciences:'sciences'};
+ const topicMatches=Object.entries(D).flatMap(([k,a])=>a.filter(x=>(x[0]+' '+x[1]).toLocaleLowerCase('ar').includes(q)).map(x=>({key:k,title:x[0],desc:x[1]})));
+ const prophetMatches=prophets.filter(x=>x.toLocaleLowerCase('ar').includes(q));
+ const all=[...lessonMatches.map(([title,lesson])=>({type:'lesson',title,lesson})),...topicMatches.map(x=>({type:'topic',...x})),...prophetMatches.map(title=>({type:'prophet',title}))];
+ if(!all.length){toast('لم نعثر على نتيجة في المكتبة الحالية. جرّب كلمة أخرى.');return}
+ $('topicTitle').textContent='نتائج البحث';
+ $('topicDesc').textContent='تم العثور على '+all.length+' نتيجة داخل مكتبة نور الإسلام.';
+ $('topicBody').innerHTML=all.slice(0,60).map((x,i)=>'<button class="action" style="display:block;width:100%;text-align:right;margin:7px 0;padding:12px" data-result="'+i+'"><b>'+esc(x.title)+'</b><small style="display:block">'+(x.type==='lesson'?'شرح داخلي متاح':x.type==='topic'?'موضوع ضمن أبواب الموسوعة':'نبي ورد اسمه في القرآن')+'</small></button>').join('')+(all.length>60?'<p class="muted">تُعرض أول 60 نتيجة؛ أضف كلمة أدق لتضييق البحث.</p>':'');
+ $('topicBody').onclick=e=>{
+  const b=e.target.closest('[data-result]');if(!b)return;
+  const x=all[+b.dataset.result];
+  if(x.type==='lesson'){showInternalLesson(x.title,x.lesson);return}
+  if(x.type==='prophet'){go('prophets');$('topicModal').classList.remove('open');toast('تم العثور على '+x.title+' عليه السلام في قائمة الأنبياء');return}
+  go(categoryMap[x.key]||'home');$('topicModal').classList.remove('open');
+  const card=[...document.querySelectorAll('.topic-card')].find(c=>c.dataset.topic===x.title);
+  if(card)openTopic(card);else toast('افتح باب '+x.title+' لاستكمال المادة');
+ };
+ $('openTopicSource').style.display='none';
+ $('saveTopic').style.display='none';
+ $('topicModal').classList.add('open');
+};
+
 $('hs').onclick=()=>{let q=$('hq').value.trim();if(!q)return toast('اكتب جزءًا من الحديث');$('hs').textContent='البحث غير متاح داخل المكتبة بعد';toast('لم نربط قاعدة بحث حديثية مباشرة بعد؛ لن نعرض نتائج غير متحقق منها أو نخرجك لموقع آخر.')};
 $('hs').onclick=()=>{let q=$('hq').value.trim();if(!q)return toast('اكتب جزءًا من الحديث');window.open('https://dorar.net/hadith/search?q='+encodeURIComponent(q),'_blank')};
 let loaded=false;async function loadSurahs(){if(loaded)return;loaded=true;try{let r=await fetch('https://api.alquran.cloud/v1/surah');if(!r.ok)throw Error();let j=await r.json();$('surah').innerHTML=j.data.map(s=>'<option value="'+s.number+'">'+s.number+'. '+esc(s.name)+' — '+esc(s.englishName)+'</option>').join('');$('status').textContent='تم تحميل '+j.data.length+' سورة.';loadSurah()}catch(e){loaded=false;$('status').textContent='تعذر الاتصال بمصدر القرآن. تحقق من الإنترنت وأعد المحاولة.'}}
