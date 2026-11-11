@@ -235,7 +235,7 @@ let fav=JSON.parse(localStorage.getItem('noor-favs')||'[]');let activeTopic=null
  let body='';
  if(lesson){
   if(Array.isArray(lesson.sections)&&lesson.sections.length){
-   body+='<div class="article-badge">مقال تعليمي موسع — إصدار علمي أولي</div>';
+   body+='<div class="article-badge">شرح تعليمي منظم — الأدلة داخل الأقسام</div>';
    body+=lesson.sections.map((section,i)=>'<section class="article-section"><h3>'+esc(section[0])+'</h3><p>'+esc(section[1])+'</p></section>').join('');
   }else{
    body+='<h3>الشرح</h3><p>'+esc(lesson.intro)+'</p><h3>تفصيلات أساسية</h3><ul>'+lesson.points.map(p=>'<li>'+esc(p)+'</li>').join('')+'</ul>';
