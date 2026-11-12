@@ -1295,6 +1295,8 @@ Object.entries(NOOR_ARTICLES).forEach(([title,article])=>{
  const lesson=window.NOOR_LESSONS[title];
  if(lesson){lesson.sections=article.sections;lesson.evidence=article.evidence.join(" — ");}
 });
+// إضافة المقالات الجديدة إلى مكتبة الدروس حتى تظهر عند فتح عناوين الفهرس.
+Object.assign(window.NOOR_LESSONS, NOOR_ARTICLES);
 
 
 // توسعة فقهية: مقالات تعليمية بأدلتها داخل مواضع الاستدلال.
