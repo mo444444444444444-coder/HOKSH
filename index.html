@@ -310,9 +310,9 @@ $('search').onclick=()=>{
 
 const HADITH_API='https://sahih-al-bukhari.com/api/v1';
 const HADITH_BOOK_NAMES={bukhari:'صحيح البخاري',muslim:'صحيح مسلم',abudawud:'سنن أبي داود',tirmidhi:'جامع الترمذي',nasai:'سنن النسائي',ibnmajah:'سنن ابن ماجه'};
-function hadithEsc(x){return esc(x==null?'':String(x))}
-function hadithRecords(j){if(Array.isArray(j))return j;for(const k of ['results','hadiths','books','chapters','numbers','hadith_numbers','data','items','records']){if(Array.isArray(j?.[k]))return j[k];if(j?.[k]&&typeof j[k]==='object'){for(const z of ['results','hadiths','items','records'])if(Array.isArray(j[k][z]))return j[k][z]}}return []}
-let hadithCatalogLoaded=false;async function loadHadithCatalog(){if(hadithCatalogLoaded)return;hadithCatalogLoaded=true;const box=$('hadithCatalog');try{const [r1,r2]=await Promise.all([fetch(HADITH_API+'/books',{signal:AbortSignal.timeout(15000)}),fetch(HADITH_API+'/meta',{signal:AbortSignal.timeout(15000)})]);if(!r1.ok||!r2.ok)throw Error();const books=await r1.json(),meta=await r2.json();const list=hadithRecords(books);const counts=meta.counts||meta.books||{};box.innerHTML=list.length?list.map(b=>{const slug=b.slug||b.book||b.id;return '<article class="topic-card"><b>'+hadithEsc(HADITH_BOOK_NAMES[slug]||b.title_ar||b.title||slug)+'</b><p>المتاح: '+hadithEsc(b.served??b.available??b.count??counts[slug]?.served??'تُعرض عبر البحث')+' — إجمالي النسخ في المصدر: '+hadithEsc(b.total??b.held??counts[slug]?.held??'راجع بيانات المصدر')+'</p><button class="action" data-hadith-open-book="'+hadithEsc(slug)+'">تصفح أبواب الكتاب ←</button></article>'}).join(''):'<p>تعذر قراءة قائمة الكتب آليًا. يمكنك استخدام البحث أعلاه.</p>';box.insertAdjacentHTML('beforeend','<p class="muted">البيانات الحية من API. قد تكون بعض السجلات غير متاحة بسبب الترخيص أو نقص النص.</p>')}catch(e){hadithCatalogLoaded=false;box.innerHTML='<p class="muted">تعذر تحميل فهرس المجموعات حاليًا. البحث قد يعمل بصورة مستقلة.</p>'}}
+function hadithEsc(x){return esc(x==null?'':String(x))}\nasync function hadithFetch(url,options={}){return fetch(url,{...options,signal:AbortSignal.timeout(15000)})}
+function hadithRecords(j){if(Array.isArray(j))return j;for(const k of ['results','hadiths','books','chapters','numbers','hadith_numbers','data','items','records']){if(Array.isArray(j?.[k]))return j[k];if(j?.[k]&&typeof j[k]==='object'){for(const z of ['results','hadiths','books','chapters','numbers','hadith_numbers','items','records'])if(Array.isArray(j[k][z]))return j[k][z]}}return []}
+let hadithCatalogLoaded=false;async function loadHadithCatalog(){if(hadithCatalogLoaded)return;hadithCatalogLoaded=true;const box=$('hadithCatalog');try{const [r1,r2]=await Promise.all([hadithFetch(HADITH_API+'/books',{signal:AbortSignal.timeout(15000)}),fetch(HADITH_API+'/meta',{signal:AbortSignal.timeout(15000)})]);if(!r1.ok||!r2.ok)throw Error();const books=await r1.json(),meta=await r2.json();const list=hadithRecords(books);const counts=meta.counts||meta.books||{};box.innerHTML=list.length?list.map(b=>{const slug=b.slug||b.book||b.id;return '<article class="topic-card"><b>'+hadithEsc(HADITH_BOOK_NAMES[slug]||b.title_ar||b.title||slug)+'</b><p>المتاح: '+hadithEsc(b.served??b.available??b.count??counts[slug]?.served??'تُعرض عبر البحث')+' — إجمالي النسخ في المصدر: '+hadithEsc(b.total??b.held??counts[slug]?.held??'راجع بيانات المصدر')+'</p><button class="action" data-hadith-open-book="'+hadithEsc(slug)+'">تصفح أبواب الكتاب ←</button></article>'}).join(''):'<p>تعذر قراءة قائمة الكتب آليًا. يمكنك استخدام البحث أعلاه.</p>';box.insertAdjacentHTML('beforeend','<p class="muted">البيانات الحية من API. قد تكون بعض السجلات غير متاحة بسبب الترخيص أو نقص النص.</p>')}catch(e){hadithCatalogLoaded=false;box.innerHTML='<p class="muted">تعذر تحميل فهرس المجموعات حاليًا. البحث قد يعمل بصورة مستقلة.</p>'}}
 async function loadHadithChapters(book=$('hadithBrowseBook').value){
  const box=$('hadithChapters'),records=$('hadithChapterRecords'),status=$('hadithBrowseStatus');
  status.textContent='جارٍ تحميل أبواب '+(HADITH_BOOK_NAMES[book]||book)+'...';box.innerHTML='';records.innerHTML='';
@@ -349,7 +349,7 @@ async function searchHadith(){
  $('hs').disabled=true;$('hadithStatus').textContent='جارٍ البحث في قاعدة الأحاديث...';$('hadithResults').innerHTML='';$('hadithDetail').hidden=true;
  try{
   const u=new URL(HADITH_API+'/search');u.searchParams.set('q',q);u.searchParams.set('limit','30');if(book)u.searchParams.set('book',book);
-  const r=await fetch(u.toString(),{headers:{Accept:'application/json'}});
+  const r=await hadithFetch(u.toString(),{headers:{Accept:'application/json'}});
   if(!r.ok)throw new Error(r.status===429?'تجاوزت الخدمة حد الطلبات مؤقتًا. انتظر قليلًا ثم حاول.':'تعذر الوصول إلى خدمة الأحاديث ('+r.status+').');
   const j=await r.json(),rows=hadithRecords(j);
   if(!rows.length){$('hadithStatus').textContent='لا توجد نتائج مطابقة في السجلات المتاحة. جرّب كلمة أقصر أو اختر كل الكتب. عدم ظهور نتيجة لا يثبت عدم وجود الحديث.';return}
@@ -365,7 +365,7 @@ async function openHadith(book,number){
  if(!book||!number)return;
  const box=$('hadithDetail');box.hidden=false;box.innerHTML='<p>جارٍ تحميل نص الحديث وبياناته...</p>';box.scrollIntoView({behavior:'smooth',block:'start'});
  try{
-  const r=await fetch(HADITH_API+'/hadith/'+encodeURIComponent(book)+'/'+encodeURIComponent(number),{headers:{Accept:'application/json'}});
+  const r=await hadithFetch(HADITH_API+'/hadith/'+encodeURIComponent(book)+'/'+encodeURIComponent(number),{headers:{Accept:'application/json'}});
   const j=await r.json();
   if(!r.ok){const er=j.error||{};box.innerHTML='<h3>تعذر عرض هذا السجل</h3><p>'+hadithEsc(er.message||'قد يكون السجل مستبعدًا بسبب مصدر النص أو الترخيص أو غير متاح بهذا الترقيم.')+'</p>'+(er.canonical?'<a target="_blank" rel="noopener" href="'+hadithEsc(er.canonical)+'">عرض صفحة السجل الأصلية</a>':'');return}
   const h=j.hadith||j.data||j,chapter=h.chapter||{},grade=h.grade||{},source=h.source||{},lic=h.licence||{};
