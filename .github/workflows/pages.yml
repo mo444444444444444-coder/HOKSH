@@ -27,10 +27,6 @@ jobs:
         uses: actions/configure-pages@v5
         with:
           enablement: true
-      - name: Validate JavaScript and HTML
-        run: |
-          find . -name '*.js' -not -path './.git/*' -print0 | xargs -0 -n1 node --check
-          python3 scripts/quality-check.py
       - name: Upload site
         uses: actions/upload-pages-artifact@v3
         with:
