@@ -251,7 +251,7 @@ let fav=JSON.parse(localStorage.getItem('noor-favs')||'[]');let activeTopic=null
  activeTopic={title:card.dataset.topic,desc:card.dataset.desc,grid:card.dataset.grid};
  $('topicTitle').textContent=activeTopic.title;
  $('topicDesc').textContent=activeTopic.desc;
- const lesson=window.NOOR_LESSONS&&window.NOOR_LESSONS[activeTopic.title];
+ const lessonAliases={'آدم':'آدم عليه السلام','نوح':'نوح عليه السلام','يونس':'يونس عليه السلام','مريم وعيسى':'عيسى عليه السلام'};const lessonKey=lessonAliases[activeTopic.title]||activeTopic.title;const lesson=window.NOOR_LESSONS&&window.NOOR_LESSONS[lessonKey];
  const fallback=refByGrid[activeTopic.grid]||['مصادر المنصة','https://alquran.cloud/api'];
  const ref=lesson?[lesson.sourceName,lesson.source]:fallback;
  let body='';
