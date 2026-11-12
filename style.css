@@ -43,3 +43,13 @@ body.dark .section h2,body.dark .panel h3,body.dark .topic-card h3,body.dark .in
 body.dark .section p,body.dark .topic-card p,body.dark .info-card p,body.dark .muted,body.dark .source-note{color:#c1cec5}
 @media(max-width:850px){#mainNav.side-drawer{display:flex;top:0;right:0;left:auto;width:min(360px,88vw);height:100dvh;max-width:none;flex-wrap:nowrap;border-radius:0}.quick-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:680px){.topbar{height:66px}.quick-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hero{padding:42px 20px}.search-wrap{margin:14px 12px 0}.quran-content{padding:14px 10px}.ayah-button{font-size:23px}}
+
+.video-frame{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;border-radius:14px;background:#101b17;margin:12px 0}
+.video-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.prophet-video{margin-top:18px;padding:16px;border:1px solid var(--line);border-radius:16px;background:var(--surface)}
+.prophet-video .btn{margin-top:8px;color:var(--ink);border-color:var(--line)}
+.home-prayer{max-width:1120px;margin:22px auto;padding:20px 24px}
+.home-prayer h3{margin:0;color:var(--green)}
+.home-prayer .book-list{margin-top:10px}
+.home-prayer .book-list span{font-weight:700}
+@media(max-width:680px){.home-prayer{margin:16px 12px;padding:16px}}
