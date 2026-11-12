@@ -1706,3 +1706,12 @@ for (const [name,start] of Object.entries({"آدم عليه السلام":0,"ن�
  const lesson=window.NOOR_LESSONS[name];
  if(lesson) lesson.videos=[{...noorProphetVideo,title:"قصة "+name+" — من سلسلة قصص الأنبياء",start}];
 }
+
+
+/* الجزء الثاني من السلسلة المرئية: موسى ويوسف وإبراهيم */
+for (const [name,start] of Object.entries({"موسى عليه السلام":0,"يوسف عليه السلام":4953,"إبراهيم عليه السلام":9155})) {
+ const lesson=window.NOOR_LESSONS[name];
+ if(lesson) lesson.videos=[{title:"قصة "+name+" — الجزء الثاني من سلسلة قصص الأنبياء",youtubeId:"ZL7VXOhYWvM",start,channel:"هاشتاق Hashtag",note:"مادة قصصية مساعدة، ويُرجع في المعلومات الشرعية إلى القرآن والتفسير المعتمد."}];
+}
+if(window.NOOR_LESSONS["زكريا عليه السلام"]?.videos?.[0]) window.NOOR_LESSONS["زكريا عليه السلام"].videos[0].start=25950;
+if(window.NOOR_LESSONS["يحيى عليه السلام"]?.videos?.[0]) window.NOOR_LESSONS["يحيى عليه السلام"].videos[0].start=25950;
