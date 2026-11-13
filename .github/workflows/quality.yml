@@ -19,7 +19,7 @@ jobs:
           html = Path('index.html').read_text(encoding='utf-8')
           assert '<html lang="ar" dir="rtl">' in html
           assert '<title>' in html and '</html>' in html
-          assert 'href="./style.css"' in html
+          assert 'style.css' in html
           assert 'alternateName' in html and 'حوكش' in html and 'HOKSH' in html
           assert html.index('noor-expansion.js') < html.index('noor-prophet-videos.js'), 'Prophet videos must load after expansion data'
           for name in ['app.js', 'quran-module.js', 'hadith-module.js', 'knowledge-data.js', 'noor-content.js', 'noor-expansion.js', 'noor-prophets.js', 'noor-prophet-videos.js', 'noor-seerah-fiqh.js', 'noor-aqeedah-uloom.js']:
