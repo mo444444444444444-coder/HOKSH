@@ -1,4 +1,4 @@
-(()=>{try{{{
+(()=>{try{{{{
 const $=id=>document.getElementById(id),K=window.NOOR_KNOWLEDGE||{},LESSONS=window.NOOR_LESSONS||{};
 const labels={quran:'القرآن الكريم',tafsir:'علوم القرآن والتفسير',hadith:'السنة والحديث',prophets:'الأنبياء والرسل',seerah:'السيرة النبوية',hijrah:'الهجرة النبوية',companions:'الصحابة',ahlbayt:'أهل البيت',history:'التاريخ الإسلامي',aqeedah:'العقيدة والإيمان',angels:'الملائكة والجن',fiqh:'الفقه الإسلامي',ethics:'الأخلاق والآداب',family:'الأسرة والمعاملات',afterlife:'اليوم الآخر',adhkar:'الأذكار والأدعية',tools:'أدوات الصلاة والزكاة',library:'المكتبة العلمية',media:'المرئيات التعليمية',search:'البحث الشامل',favorites:'محفوظاتي'};
 const icons={tafsir:'✦',aqeedah:'◇',angels:'✧',fiqh:'⚖',ethics:'♡',adhkar:'🤲',afterlife:'☼',family:'⌂',history:'⌛',tools:'🕋'};
