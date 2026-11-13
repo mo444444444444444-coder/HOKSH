@@ -1,0 +1,29 @@
+(()=>{
+const BASE='https://cdn.jsdelivr.net/gh/fawazahmed0/hadith-api@1/editions/';
+const books=[
+{id:'bukhari',name:'صحيح البخاري',edition:'ara-bukhari',kind:'صحيح',note:'أصل من أصول الحديث الصحيح'},
+{id:'muslim',name:'صحيح مسلم',edition:'ara-muslim',kind:'صحيح',note:'أصل من أصول الحديث الصحيح'},
+{id:'abudawud',name:'سنن أبي داود',edition:'ara-abudawud',kind:'سنن',note:'يضم أحاديث بأحكام متفاوتة'},
+{id:'tirmidhi',name:'جامع الترمذي',edition:'ara-tirmidhi',kind:'سنن',note:'يذكر الترمذي أحكامًا على عدد من الروايات'},
+{id:'nasai',name:'سنن النسائي',edition:'ara-nasai',kind:'سنن',note:'من كتب السنن المعتمدة'},
+{id:'ibnmajah',name:'سنن ابن ماجه',edition:'ara-ibnmajah',kind:'سنن',note:'يحتاج كل حديث إلى النظر في درجته'},
+{id:'malik',name:'موطأ الإمام مالك',edition:'ara-malik',kind:'موطأ',note:'يضم المرفوع والآثار والبلاغات'},
+{id:'ahmad',name:'مسند الإمام أحمد',edition:'ara-ahmad',kind:'مسند',note:'تختلف درجات أحاديثه ويحتاج إلى تخريج'},
+{id:'darimi',name:'سنن الدارمي',edition:'ara-darimi',kind:'سنن',note:'من دواوين السنة المبكرة'}
+];
+const $=id=>document.getElementById(id);let active=null,cache=new Map(),all=[];
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function notify(s){const t=$('toast');t.textContent=s;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2000)}
+function renderBooks(){$('hadithBooks').innerHTML=books.map(b=>'<button class="book-button '+(active===b.id?'active':'')+'" data-book="'+b.id+'"><span><b>'+b.name+'</b><small>'+b.note+'</small></span><small>'+b.kind+'</small></button>').join('')}
+async function fetchEdition(id){let error;for(const ext of ['min.json','json'])try{const r=await fetch(BASE+id+'.'+ext);if(!r.ok)throw Error('HTTP '+r.status);const j=await r.json();let items=Array.isArray(j.hadiths)?j.hadiths:Array.isArray(j.data)?j.data:Array.isArray(j)?j:[];if(!items.length)throw Error('لا توجد متون في استجابة المصدر');return {items,metadata:j.metadata||j.info||{}}}catch(e){error=e}throw error||Error('تعذر تحميل الكتاب')}
+function getText(h){return h.text||h.hadith||h.arabic||h.body||''}
+function getNumber(h,i){return h.hadithnumber??h.number??h.id??(i+1)}
+function getGrade(h){const grades=h.grades||h.grade||h.status||'';if(Array.isArray(grades))return grades.map(g=>typeof g==='string'?g:(g.grade||g.name||'')).filter(Boolean).join('، ');return typeof grades==='string'?grades:(grades?.grade||'')}
+async function loadBook(id){const b=books.find(x=>x.id===id);if(!b)return;active=id;renderBooks();$('hadithBookTitle').textContent=b.name;$('hadithResults').innerHTML='<div class="loading">جارٍ تحميل نصوص الكتاب من مصدر البيانات…</div>';$('hadithStatus').textContent='تحميل '+b.name;try{let data=cache.get(id);if(!data){data=await fetchEdition(b.edition);cache.set(id,data)}all=data.items;$('hadithBookCount').textContent=all.length.toLocaleString('ar-EG')+' رواية متاحة';$('hadithStatus').textContent='تم تحميل الفهرس';renderResults();}catch(e){$('hadithResults').innerHTML='<div class="notice">تعذر تحميل هذا الكتاب من مصدر البيانات حاليًا. قد تختلف التغطية بين الكتب. أعد المحاولة لاحقًا.</div><button class="btn btn-outline" id="retryHadith">إعادة المحاولة</button>';$('retryHadith').onclick=()=>{cache.delete(id);loadBook(id)};$('hadithStatus').textContent='تعذر التحميل';console.error(e)}}
+function renderResults(){const q=$('hadithSearch').value.trim().toLowerCase();const found=all.map((h,i)=>({h,i})).filter(({h})=>!q||(getText(h)+' '+getNumber(h,0)+' '+(h.reference||'')).toLowerCase().includes(q));const shown=found.slice(0,80);$('hadithResults').innerHTML=shown.length?shown.map(({h,i})=>{const num=getNumber(h,i),text=getText(h),grade=getGrade(h);return '<article class="hadith-card"><small>حديث رقم '+esc(num)+(h.reference?' · '+esc(h.reference):'')+'</small><p>'+esc(text)+'</p><small>'+(grade?'الدرجة كما وردت في المصدر: '+esc(grade):'لم تُرفق درجة في سجل البيانات')+'</small><div class="ayah-tools"><button data-hadith-copy="'+i+'">نسخ المتن</button><button data-hadith-save="'+i+'">♡ حفظ</button></div></article>'}).join(''):'<div class="empty-state">لا توجد نتائج مطابقة في البيانات المحمّلة.</div>';if(found.length>80)$('hadithResults').insertAdjacentHTML('beforeend','<p class="source-note">عُرض أول 80 نتيجة من أصل '+found.length+'. ضيّق البحث لإظهار نتائج أخرى.</p>')}
+$('hadithBooks').addEventListener('click',e=>{const b=e.target.closest('[data-book]');if(b)loadBook(b.dataset.book)});
+$('hadithSearchBtn').onclick=renderResults;$('hadithSearch').addEventListener('keydown',e=>{if(e.key==='Enter')renderResults()});
+$('hadithResults').addEventListener('click',async e=>{const b=e.target.closest('button');if(!b)return;const i=Number(b.dataset.hadithCopy??b.dataset.hadithSave),h=all[i];if(!h)return;const text=getText(h);if(b.dataset.hadithCopy!==undefined){try{await navigator.clipboard.writeText(text);notify('تم نسخ الحديث')}catch{notify('تعذر النسخ')}}if(b.dataset.hadithSave!==undefined){let a=[];try{a=JSON.parse(localStorage.getItem('noor.savedHadith')||'[]')}catch{};const item={book:books.find(x=>x.id===active)?.name,number:getNumber(h,i),text};a.unshift(item);localStorage.setItem('noor.savedHadith',JSON.stringify(a.slice(0,100)));notify('تم حفظ الحديث على هذا الجهاز')}});
+window.NoorHadith={init:renderBooks,loadBook,books};
+document.addEventListener('DOMContentLoaded',renderBooks);
+})();
