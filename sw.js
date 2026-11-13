@@ -1,4 +1,4 @@
-const CACHE_NAME='noor-islam-v26';
+const CACHE_NAME='noor-islam-v27';
 const CORE=['./','./index.html','./style.css','./app.js','./quran-module.js','./hadith-module.js','./knowledge-data.js','./manifest.webmanifest','./icon.svg','./noor-content.js','./noor-expansion.js'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE_NAME).then(c=>c.addAll(CORE)));self.skipWaiting()});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE_NAME).map(k=>caches.delete(k)))));self.clients.claim()});
