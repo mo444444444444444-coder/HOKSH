@@ -1,4 +1,4 @@
-(()=>{
+(()=>try{{
 const $=id=>document.getElementById(id),K=window.NOOR_KNOWLEDGE||{},LESSONS=window.NOOR_LESSONS||{};
 const labels={quran:'القرآن الكريم',tafsir:'علوم القرآن والتفسير',hadith:'السنة والحديث',prophets:'الأنبياء والرسل',seerah:'السيرة النبوية',hijrah:'الهجرة النبوية',companions:'الصحابة',ahlbayt:'أهل البيت',history:'التاريخ الإسلامي',aqeedah:'العقيدة والإيمان',angels:'الملائكة والجن',fiqh:'الفقه الإسلامي',ethics:'الأخلاق والآداب',family:'الأسرة والمعاملات',afterlife:'اليوم الآخر',adhkar:'الأذكار والأدعية',tools:'أدوات الصلاة والزكاة',library:'المكتبة العلمية',media:'المرئيات التعليمية',search:'البحث الشامل',favorites:'محفوظاتي'};
 const icons={tafsir:'✦',aqeedah:'◇',angels:'✧',fiqh:'⚖',ethics:'♡',adhkar:'🤲',afterlife:'☼',family:'⌂',history:'⌛',tools:'🕋'};
@@ -57,4 +57,28 @@ $('dailyAyah').textContent='إِنَّ مَعَ الْعُسْرِ يُسْرً�
 const hash=location.hash.slice(1);if(hash&&$(hash))go(hash);
 if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
 window.NoorApp={go,toast,renderFavorites};
+
+}catch(fatal){
+ console.error('Noor Islam recovery mode',fatal);
+ const $=id=>document.getElementById(id),K=window.NOOR_KNOWLEDGE||{},L=window.NOOR_LESSONS||{},M=window.NOOR_MEDIA||[];
+ const safe=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ const labels={quran:'القرآن الكريم',tafsir:'التفسير وعلوم القرآن',hadith:'السنة والحديث',prophets:'الأنبياء والرسل',seerah:'السيرة النبوية',hijrah:'الهجرة النبوية',companions:'الصحابة',ahlbayt:'أهل البيت',history:'التاريخ الإسلامي',aqeedah:'العقيدة',angels:'الملائكة والجن',fiqh:'الفقه',ethics:'الأخلاق',family:'الأسرة',afterlife:'اليوم الآخر',adhkar:'الأذكار',tools:'الأدوات الإسلامية',library:'المكتبة',media:'المرئيات',search:'البحث الشامل',favorites:'محفوظاتي'};
+ const go=id=>{document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===id));if(location.hash!=='#'+id)history.pushState({},'','#'+id);scrollTo(0,0)};
+ document.addEventListener('click',e=>{let b=e.target.closest('[data-go]');if(b){e.preventDefault();go(b.dataset.go)}});
+ addEventListener('popstate',()=>go(location.hash.slice(1)||'home'));
+ const home=$('home');if(home&&!home.querySelector('.recovery-nav')){let n=document.createElement('section');n.className='recovery-nav panel';n.innerHTML='<h2>تصفّح نور الإسلام</h2><div class="category-grid">'+Object.entries(labels).map(([k,v])=>'<button class="category-item" data-go="'+k+'">'+safe(v)+'</button>').join('')+'</div>';home.append(n)}
+ function cards(id,a){let h=$(id);if(h)h.innerHTML=(a||[]).map(x=>'<article class="content-card"><h3>'+safe(x[0])+'</h3><p>'+safe(x[1])+'</p><small class="ref">'+safe(x[2]||'')+'</small></article>').join('')||'<p class="empty-state">لا توجد مادة متاحة لهذا الباب.</p>'}
+ function timeline(id,a){cards(id,a)}
+ cards('prophetsGrid',K.prophets);timeline('seerahTimeline',K.seerah);timeline('hijrahContent',K.hijrah);cards('companionsGrid',K.companions);cards('ahlbaytContent',K.ahlbayt);timeline('historyTimeline',K.history);
+ ['aqeedah','angels','fiqh','ethics','family','afterlife','adhkar'].forEach(k=>cards(k+'Content',K[k]));
+ const grid=$('libraryGrid'),sum=$('librarySummary');
+ function library(q=''){let a=Object.entries(L).filter(([t,x])=>(t+' '+(x.intro||'')+' '+(x.points||[]).join(' ')+' '+(x.sections||[]).map(s=>Array.isArray(s)?s.join(' '):s).join(' ')).toLowerCase().includes(q.toLowerCase()));if(sum)sum.textContent='مواد متاحة: '+a.length+' من '+Object.keys(L).length;if(grid)grid.innerHTML=a.map(([t,x])=>'<article class="content-card"><h3>'+safe(t)+'</h3><p>'+safe(x.intro||'')+'</p><ul>'+(x.points||[]).map(p=>'<li>'+safe(p)+'</li>').join('')+'</ul><button class="btn btn-outline" data-open-lesson="'+safe(t)+'">اقرأ المادة</button></article>').join('')||'<p class="empty-state">لا توجد نتائج.</p>'}
+ library();if($('librarySearch'))$('librarySearch').addEventListener('input',e=>library(e.target.value));if($('librarySearchBtn'))$('librarySearchBtn').onclick=()=>library($('librarySearch')?.value||'');
+ document.addEventListener('click',e=>{let b=e.target.closest('[data-open-lesson]');if(!b)return;let x=L[b.dataset.openLesson],h=$('lessonReader');if(!x||!h)return;h.classList.remove('hidden');h.innerHTML='<button class="btn btn-outline" data-close-lesson>إغلاق</button><h2>'+safe(b.dataset.openLesson)+'</h2><p>'+safe(x.intro||'')+'</p><ul>'+(x.points||[]).map(p=>'<li>'+safe(p)+'</li>').join('')+'</ul>'+(x.sections||[]).map(s=>Array.isArray(s)?'<h3>'+safe(s[0])+'</h3><p>'+safe(s[1])+'</p>':'<p>'+safe(s)+'</p>').join('')+'<small>'+safe((x.sources||[]).join(' · '))+'</small>';h.scrollIntoView()});
+ document.addEventListener('click',e=>{if(e.target.closest('[data-close-lesson]'))$('lessonReader')?.classList.add('hidden')});
+ if($('mediaLibrary'))$('mediaLibrary').innerHTML=M.map(v=>'<article class="content-card"><h3>'+safe(v.title)+'</h3><div class="video-frame"><iframe src="https://www.youtube-nocookie.com/embed/'+encodeURIComponent(v.id)+'" title="'+safe(v.title)+'" loading="lazy" allowfullscreen></iframe></div><p>'+safe(v.note||'')+'</p></article>').join('')||'<p class="empty-state">لا توجد فيديوهات مضافة.</p>';
+ const si=$('globalSearch'),sr=$('globalResults');if(si&&sr)si.addEventListener('input',()=>{let q=si.value.toLowerCase();sr.innerHTML=q?Object.entries(L).filter(([t,x])=>(t+' '+(x.intro||'')+' '+(x.points||[]).join(' ')).toLowerCase().includes(q)).map(([t,x])=>'<article class="content-card"><h3>'+safe(t)+'</h3><p>'+safe(x.intro||'')+'</p><button data-go="library" class="btn btn-outline">افتح المكتبة</button></article>').join(''):'اكتب كلمة للبحث'});
+ document.querySelectorAll('.page:not(#home)').forEach(p=>{if(!p.querySelector('.page-quick-actions')){let b=document.createElement('div');b.className='page-quick-actions';b.innerHTML='<button class="btn btn-outline" data-go="home">الرئيسية</button><button class="btn btn-outline" data-go="search">البحث</button>';p.prepend(b)}});
+ const notice=document.createElement('div');notice.className='notice';notice.textContent='تم تفعيل وضع الاستعادة لضمان عرض الأقسام الأساسية بعد تعطل جزء من الواجهة.';document.querySelector('main')?.prepend(notice);
+}
 })();
