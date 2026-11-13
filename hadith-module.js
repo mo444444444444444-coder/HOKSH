@@ -8,7 +8,7 @@ const books=[
 {id:'nasai',name:'سنن النسائي',edition:'ara-nasai',kind:'سنن',note:'من كتب السنن المعتمدة'},
 {id:'ibnmajah',name:'سنن ابن ماجه',edition:'ara-ibnmajah',kind:'سنن',note:'يحتاج كل حديث إلى النظر في درجته'},
 {id:'malik',name:'موطأ الإمام مالك',edition:'ara-malik',kind:'موطأ',note:'يضم المرفوع والآثار والبلاغات'},
-{id:'ahmad',name:'مسند الإمام أحمد',edition:'ara-ahmad',kind:'مسند',note:'تختلف درجات أحاديثه ويحتاج إلى تخريج'},
+{id:'ahmad',name:'مسند الإمام أحمد',edition:'the_9_books/ahmed.json',source:'ahmed',kind:'مسند',note:'متن عربي؛ توجد فجوات معروفة في بعض الأبواب'},
 {id:'darimi',name:'سنن الدارمي',edition:'the_9_books/darimi.json',source:'ahmed',kind:'سنن',note:'متن عربي؛ تُراجع الروايات وأحكامها'},
 {id:'nawawi',name:'الأربعون النووية',edition:'forties/nawawi40.json',source:'ahmed',kind:'مختارات',note:'أحاديث جامعة في أصول الدين والأخلاق'},
 {id:'qudsi',name:'الأحاديث القدسية الأربعون',edition:'forties/qudsi40.json',source:'ahmed',kind:'مختارات',note:'تُراجع درجة كل حديث على حدة'},
