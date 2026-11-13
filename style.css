@@ -11,3 +11,4 @@
 
 .tajweed-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.tajweed-grid article{background:#f6f4ec;border:1px solid var(--line);border-radius:13px;padding:14px}.tajweed-grid b{color:var(--green);font-size:13px}.tajweed-grid p{font-size:11px;line-height:1.9;color:var(--muted);margin:7px 0 0}body.dark .tajweed-grid article{background:#20352b}
 @media(max-width:720px){.tajweed-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:460px){.tajweed-grid{grid-template-columns:1fr}}
+.quran-image{margin-top:14px;padding:12px;border:1px solid var(--line);border-radius:12px;background:#f6f4ed;text-align:center}.quran-image img{display:block;max-width:100%;height:auto;margin:auto;border-radius:8px}.quran-image small{display:block;color:var(--muted);font-size:9px;margin-top:7px}body.dark .quran-image{background:#20352b}
