@@ -20,6 +20,8 @@ jobs:
           assert '<html lang="ar" dir="rtl">' in html
           assert '<title>' in html and '</html>' in html
           assert 'href="./style.css"' in html
+          assert 'alternateName' in html and 'حوكش' in html and 'HOKSH' in html
+          assert html.index('src="./noor-expansion.js"') < html.index('src="./noor-prophet-videos.js"'), 'Prophet videos must load after expansion data'
           for name in ['app.js', 'quran-module.js', 'hadith-module.js', 'knowledge-data.js', 'noor-content.js', 'noor-expansion.js', 'noor-prophets.js', 'noor-prophet-videos.js', 'noor-seerah-fiqh.js', 'noor-aqeedah-uloom.js']:
               assert Path(name).is_file(), f'Missing application module: {name}'
               assert f'src="./{name}"' in html, f'Module not loaded: {name}'
@@ -29,7 +31,7 @@ jobs:
           assert manifest.get('start_url') == './'
           assert manifest.get('display') == 'standalone'
           sw = Path('sw.js').read_text(encoding='utf-8')
-          for name in ['style.css', 'app.js', 'quran-module.js', 'hadith-module.js', 'knowledge-data.js', 'noor-expansion.js', 'noor-prophets.js']:
+          for name in ['style.css', 'app.js', 'quran-module.js', 'hadith-module.js', 'knowledge-data.js', 'noor-expansion.js', 'noor-prophets.js', 'noor-seerah-fiqh.js', 'noor-aqeedah-uloom.js', 'noor-prophet-videos.js']:
               assert name in sw, f'PWA cache missing: {name}'
           print('HTML, modules and PWA manifest checks passed')
           PY
