@@ -19,15 +19,20 @@ jobs:
           html = Path('index.html').read_text(encoding='utf-8')
           assert '<html lang="ar" dir="rtl">' in html
           assert '<title>' in html and '</html>' in html
-          scripts = re.findall(r'<script>(.*?)</script>', html, re.S)
-          assert scripts, 'No inline application script found'
-          Path('/tmp/hoksh-inline.js').write_text('\n'.join(scripts), encoding='utf-8')
+          assert 'href="./style.css"' in html
+          for name in ['app.js', 'quran-module.js', 'hadith-module.js', 'knowledge-data.js', 'noor-content.js']:
+              assert Path(name).is_file(), f'Missing application module: {name}'
+              assert f'src="./{name}"' in html, f'Module not loaded: {name}'
+          app = Path('app.js').read_text(encoding='utf-8')
+          assert "navigator.serviceWorker.register('./sw.js')" in app
           manifest = json.loads(Path('manifest.webmanifest').read_text(encoding='utf-8'))
           assert manifest.get('start_url') == './'
           assert manifest.get('display') == 'standalone'
-          assert "navigator.serviceWorker.register('./sw.js')" in html
-          print('HTML and PWA manifest checks passed')
+          sw = Path('sw.js').read_text(encoding='utf-8')
+          for name in ['style.css', 'app.js', 'quran-module.js', 'hadith-module.js', 'knowledge-data.js']:
+              assert name in sw, f'PWA cache missing: {name}'
+          print('HTML, modules and PWA manifest checks passed')
           PY
-          node --check /tmp/hoksh-inline.js
-          node --check sw.js
-          node --check noor-content.js
+          for file in app.js quran-module.js hadith-module.js knowledge-data.js noor-content.js sw.js; do
+            node --check "$file"
+          done
