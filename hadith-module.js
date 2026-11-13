@@ -9,7 +9,14 @@ const books=[
 {id:'ibnmajah',name:'سنن ابن ماجه',edition:'ara-ibnmajah',kind:'سنن',note:'يحتاج كل حديث إلى النظر في درجته'},
 {id:'malik',name:'موطأ الإمام مالك',edition:'ara-malik',kind:'موطأ',note:'يضم المرفوع والآثار والبلاغات'},
 {id:'ahmad',name:'مسند الإمام أحمد',edition:'ara-ahmad',kind:'مسند',note:'تختلف درجات أحاديثه ويحتاج إلى تخريج'},
-{id:'darimi',name:'سنن الدارمي',edition:'the_9_books/darimi.json',source:'ahmed',kind:'سنن',note:'متن عربي؛ تُراجع الروايات وأحكامها'}
+{id:'darimi',name:'سنن الدارمي',edition:'the_9_books/darimi.json',source:'ahmed',kind:'سنن',note:'متن عربي؛ تُراجع الروايات وأحكامها'},
+{id:'nawawi',name:'الأربعون النووية',edition:'forties/nawawi40.json',source:'ahmed',kind:'مختارات',note:'أحاديث جامعة في أصول الدين والأخلاق'},
+{id:'qudsi',name:'الأحاديث القدسية الأربعون',edition:'forties/qudsi40.json',source:'ahmed',kind:'مختارات',note:'تُراجع درجة كل حديث على حدة'},
+{id:'riyad',name:'رياض الصالحين',edition:'other_books/riyad_assalihin.json',source:'ahmed',kind:'تزكية وآداب',note:'أبواب في العبادات والأخلاق والآداب'},
+{id:'shamail',name:'الشمائل المحمدية',edition:'other_books/shamail_muhammadiyah.json',source:'ahmed',kind:'شمائل',note:'صفات النبي ﷺ وأحواله'},
+{id:'adab',name:'الأدب المفرد',edition:'other_books/aladab_almufrad.json',source:'ahmed',kind:'آداب',note:'آثار وأحاديث في الآداب'},
+{id:'bulugh',name:'بلوغ المرام',edition:'other_books/bulugh_almaram.json',source:'ahmed',kind:'أحكام',note:'أحاديث الأحكام مع الحاجة إلى التخريج'},
+{id:'mishkat',name:'مشكاة المصابيح',edition:'other_books/mishkat_almasabih.json',source:'ahmed',kind:'جامع',note:'مجموعة حديثية واسعة'}
 ];
 const $=id=>document.getElementById(id);let active=null,cache=new Map(),all=[];
 function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
