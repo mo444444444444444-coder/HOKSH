@@ -1,14 +1,14 @@
 {
-  "name": "نور الإسلام - منصة إسلامية شاملة",
+  "name": "نور الإسلام — رحلة معرفة لا تنتهي",
   "short_name": "نور الإسلام",
-  "description": "منصة إسلامية شاملة للقرآن والسنة والعقيدة والفقه والسيرة والأذكار والتعلم",
+  "description": "مصحف رقمي وسنة نبوية وسيرة وتاريخ وعقيدة وفقه وأذكار",
   "lang": "ar",
   "dir": "rtl",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#f4f8f4",
-  "theme_color": "#075b46",
+  "background_color": "#f6f4ee",
+  "theme_color": "#123f35",
   "icons": [
     {
       "src": "./icon.svg",
