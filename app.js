@@ -25,6 +25,8 @@ function renderKnowledge(){cards('tafsirContent',[
 ]);
 for(const key of ['aqeedah','angels','fiqh','ethics','family','afterlife','adhkar'])cards(key+'Content',K[key]||[]);
 people('prophetsGrid',K.prophets||[],'☾');timeline('seerahTimeline',K.seerah||[]);timeline('hijrahContent',K.hijrah||[]);people('companionsGrid',K.companions||[],'✧');cards('ahlbaytContent',K.ahlbayt||[]);timeline('historyTimeline',K.history||[]);
+}
+renderKnowledge();
 const categories=['tafsir','aqeedah','angels','fiqh','ethics','adhkar','afterlife','family','history','ahlbayt','companions','tools'];$('homeCategories').innerHTML=categories.map(k=>'<button class="category-item" data-go="'+k+'"><span>'+(icons[k]||'✧')+'</span>'+labels[k]+'</button>').join('');
 $('companionsFilter').addEventListener('input',()=>{const q=$('companionsFilter').value.trim().toLowerCase();const arr=(K.companions||[]).filter(x=>x.join(' ').toLowerCase().includes(q));people('companionsGrid',arr,'✧')});
 $('drawerSearch').addEventListener('input',()=>{const q=$('drawerSearch').value.trim().toLowerCase();document.querySelectorAll('.drawer-group button').forEach(b=>b.hidden=!b.textContent.toLowerCase().includes(q))});
