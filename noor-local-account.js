@@ -1,7 +1,7 @@
 (()=>{'use strict';
 const KEY='noor.local.google.email';
 const $=id=>document.getElementById(id);
-const valid=v=>/^[^\\s@]+@gmail\\.com$/i.test(String(v||'').trim());
+const valid=v=>{const s=String(v||'').trim().toLowerCase();return s.endsWith('@gmail.com')&&!s.includes(' ')&&s.indexOf('@')===s.lastIndexOf('@')&&s.length>10;};
 function draw(){
  const email=localStorage.getItem(KEY),form=$('localVisitorAuth'),saved=$('localVisitorAccount');
  if(!form||!saved)return;
