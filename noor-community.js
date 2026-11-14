@@ -6,17 +6,11 @@ let client=null, currentUser=null, staff=false;
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const say=(id,msg)=>{const n=$(id);if(n)n.textContent=msg};
 const status=()=>{if(!ready()){say('authStatus','الاتصال الآمن لم يُفعّل بعد: يلزم إدخال مفتاح anon العام في إعدادات الموقع وتشغيل ملف SQL المرفق في Supabase.');say('questionStatus','نموذج الإرسال جاهز، لكنه لن يحفظ الأسئلة قبل تهيئة قاعدة البيانات.');say('staffStatus','بوابة الإدارة غير مفعّلة حتى اكتمال إعداد Supabase وتعيين حسابات الشيخ والإدارة.');return false}return true};
-function init(){if(!status())return;client=window.supabase.createClient(cfg.url,cfg.anonKey,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
+function init(){
+$('questionForm')?.addEventListener('submit',sendQuestion);$('visitorSignupForm')?.addEventListener('submit',signup);$('visitorLoginForm')?.addEventListener('submit',login);$('googleLogin')?.addEventListener('click',google);$('staffLoginForm')?.addEventListener('submit',loginStaff);$('visitorLogout')?.addEventListener('click',logout);$('staffLogout')?.addEventListener('click',logout);$('refreshQuestions')?.addEventListener('click',loadStaffQuestions);
+if(!status())return;client=window.supabase.createClient(cfg.url,cfg.anonKey,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
 client.auth.getSession().then(({data})=>sync(data.session?.user||null));
 client.auth.onAuthStateChange((_event,session)=>sync(session?.user||null));
-$('questionForm')?.addEventListener('submit',sendQuestion);
-$('visitorSignupForm')?.addEventListener('submit',signup);
-$('visitorLoginForm')?.addEventListener('submit',login);
-$('googleLogin')?.addEventListener('click',google);
-$('staffLoginForm')?.addEventListener('submit',loginStaff);
-$('visitorLogout')?.addEventListener('click',logout);
-$('staffLogout')?.addEventListener('click',logout);
-$('refreshQuestions')?.addEventListener('click',loadStaffQuestions);
 loadPublished();
 }
 async function sync(user){currentUser=user;const a=$('visitorAuth'),b=$('visitorAccount');if(user){a?.classList.add('hidden');b?.classList.remove('hidden');say('visitorIdentity','تم تسجيل الدخول: '+(user.email||'حساب Google'));await loadMine();await checkStaff()}else{a?.classList.remove('hidden');b?.classList.add('hidden');$('staffDashboard')?.classList.add('hidden');staff=false}}
