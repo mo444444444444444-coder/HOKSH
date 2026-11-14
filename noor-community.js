@@ -10,7 +10,7 @@ function init(){
 $('questionForm')?.addEventListener('submit',sendQuestion);$('visitorSignupForm')?.addEventListener('submit',signup);$('visitorLoginForm')?.addEventListener('submit',login);$('googleLogin')?.addEventListener('click',google);$('staffLoginForm')?.addEventListener('submit',loginStaff);$('visitorLogout')?.addEventListener('click',logout);$('staffLogout')?.addEventListener('click',logout);$('refreshQuestions')?.addEventListener('click',loadStaffQuestions);
 if(!status())return;client=window.supabase.createClient(cfg.url,cfg.anonKey,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
 client.auth.getSession().then(({data})=>sync(data.session?.user||null));
-client.auth.onAuthStateChange((_event,session)=>sync(session?.user||null));
+client.auth.onAuthStateChange((_event,session)=>{const user=session?.user||null;queueMicrotask(()=>sync(user));});
 loadPublished();
 }
 async function sync(user){currentUser=user;const a=$('visitorAuth'),b=$('visitorAccount');if(user){a?.classList.add('hidden');b?.classList.remove('hidden');say('visitorIdentity','تم تسجيل الدخول: '+(user.email||'حساب Google'));await loadMine();await checkStaff()}else{a?.classList.remove('hidden');b?.classList.add('hidden');$('staffDashboard')?.classList.add('hidden');staff=false}}
