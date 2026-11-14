@@ -131,3 +131,35 @@ body.dark{
     radial-gradient(ellipse at 50% 0%,rgba(197,155,39,.055),transparent 58%),
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Cg fill='none' stroke='%23d5b66e' stroke-opacity='.12' stroke-width='1'%3E%3Cpath d='M90 18 105 60 147 45 120 82 162 90 120 98 147 135 105 120 90 162 75 120 33 135 60 98 18 90 60 82 33 45 75 60Z'/%3E%3Cpath d='M90 38 108 72 142 90 108 108 90 142 72 108 38 90 72 72Z'/%3E%3Ccircle cx='90' cy='90' r='26'/%3E%3Cpath d='M0 0 36 36M144 36 180 0M0 180 36 144M144 144 180 180'/%3E%3C/g%3E%3C/svg%3E");
 }
+
+/* Typography cleanup and calm Islamic architectural hero artwork */
+.brand-mark{font-size:0!important;position:relative;overflow:hidden}
+.brand-mark:before{content:"";width:19px;height:19px;border:2px solid currentColor;transform:rotate(45deg);border-radius:4px;box-shadow:inset 0 0 0 3px var(--green),inset 0 0 0 4px var(--gold2)}
+.brand-mark:after{content:"";position:absolute;width:7px;height:7px;border:1px solid var(--gold2);transform:rotate(45deg);border-radius:50%}
+.hero-copy h1,.section-heading h2,.page-head h1{letter-spacing:normal!important;line-height:1.65!important;overflow:visible}
+.hero-copy h1 em{display:inline-block;padding-inline:.04em}
+.brand b{letter-spacing:0!important;line-height:1.7}
+.art-star,.art-medallion:before,.art-medallion:after{display:none!important}
+.bismillah{line-height:2.1;padding:24px 10px 16px;letter-spacing:0;word-spacing:.08em;overflow-wrap:anywhere}
+.quran-calligraphy,.ayah-text,.evidence-verse .arabic{line-height:2.35!important;letter-spacing:0!important;word-spacing:.08em}
+.hero-scene{height:455px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:15px}
+.scene-arch{position:relative;width:min(390px,88%);height:350px;overflow:hidden;border:8px double #b9975c;border-bottom:0;border-radius:190px 190px 20px 20px;background:linear-gradient(180deg,#e8e4d4 0%,#c9d9c7 58%,#8ba88e 100%);box-shadow:0 22px 60px #183b2b20,inset 0 0 0 9px #f9f5e8}
+.scene-sky{position:absolute;inset:12px 12px 0;border-radius:180px 180px 12px 12px;background:linear-gradient(180deg,#163e35 0%,#557b68 65%,#d2c69e 100%);overflow:hidden}
+.scene-moon{position:absolute;top:42px;right:22%;width:40px;height:40px;border-radius:50%;background:#f3dfaa;box-shadow:0 0 35px #f3dfaa88}
+.scene-cloud{position:absolute;height:9px;border-radius:50%;background:#e8e1cb66;filter:blur(3px)}
+.cloud-one{width:100px;top:112px;left:12%}.cloud-two{width:70px;top:160px;right:9%}
+.scene-dome{position:absolute;z-index:2;bottom:92px;left:50%;transform:translateX(-50%);width:130px;height:88px;border-radius:75px 75px 0 0;background:linear-gradient(90deg,#c7a56b,#f0dcae,#a98249);border:3px solid #e8d7ad}
+.scene-dome:after{content:"";position:absolute;top:-25px;left:50%;height:25px;border-left:2px solid #f0dcae}
+.scene-minaret{position:absolute;z-index:3;bottom:92px;right:17%;width:28px;height:155px;background:linear-gradient(90deg,#b58f55,#ead5a5,#9c7848);border:2px solid #e8d7ad;border-radius:12px 12px 2px 2px}
+.scene-minaret:before{content:"";position:absolute;top:-24px;left:-8px;width:40px;height:28px;border-radius:22px 22px 4px 4px;background:#c7a56b;border:2px solid #ead5a5}
+.scene-minaret i{position:absolute;top:37px;left:7px;width:10px;height:28px;border-radius:10px 10px 0 0;background:#315d4a}
+.scene-building{position:absolute;z-index:3;bottom:28px;left:50%;transform:translateX(-50%);width:230px;height:108px;border:3px solid #e7d5a8;background:linear-gradient(90deg,#9b784a,#d7bd89,#9b784a);display:flex;align-items:flex-end;justify-content:space-evenly;padding:0 16px}
+.scene-building span{width:27px;height:50px;border-radius:18px 18px 0 0;background:#31584a;border:2px solid #e9d8b0}
+.scene-garden{position:absolute;z-index:4;bottom:0;left:0;right:0;height:45px;background:linear-gradient(180deg,#6f8c62,#355c45);display:flex;justify-content:space-around;align-items:flex-end}
+.scene-garden i{width:25px;height:35px;border-radius:100% 0 100% 0;background:#789568;transform:rotate(-25deg)}
+.scene-path{position:absolute;z-index:5;bottom:0;left:42%;width:18%;height:68px;background:#d7c49a;clip-path:polygon(35% 0,65% 0,100% 100%,0 100%);opacity:.9}
+.scene-label{text-align:center;display:grid;gap:4px;color:var(--green)}
+.scene-label b{font:700 20px Cairo, sans-serif}.scene-label span{font-size:11px;color:var(--muted)}
+body.dark .scene-arch{border-color:#a88a54;box-shadow:0 22px 60px #0005,inset 0 0 0 9px #17271f}
+body.dark .scene-label{color:#e1d2ae}
+@media(max-width:700px){.hero-scene{height:360px}.scene-arch{height:280px;width:min(330px,92%)}.scene-building{width:190px;height:88px}.scene-minaret{height:125px;bottom:78px}.scene-dome{bottom:78px;width:110px;height:70px}}
