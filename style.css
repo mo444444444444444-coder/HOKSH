@@ -77,3 +77,40 @@ body.dark .noor-ask-panel,body.dark .noor-modal-card{background:var(--paper)}
 #ayahList .mushaf-ayah-menu{position:relative}
 @media(max-width:700px){.mushaf-mode-bar,.mushaf-page-toolbar{align-items:stretch;flex-direction:column}.mushaf-mode-actions>*{flex:1}.mushaf-paper{min-height:760px;padding:30px 24px 24px}.mushaf-page-text{font-size:25px;line-height:2.15;min-height:560px}.mushaf-page-controls{justify-content:space-between}.mushaf-page-controls select{flex:1}}
 body.dark .mushaf-paper{background:#f7f0df;color:#241e17}
+
+
+/* Account entry: prominent, readable and responsive */
+.account-top-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid #d8c79e;background:#f5ecd7;color:#234738;border-radius:12px;padding:9px 13px;font:700 12px "IBM Plex Sans Arabic";white-space:nowrap}
+.account-top-btn span{font-size:18px;color:#a47a34}
+.hero-account-btn{background:#fffefa}
+.account-login-panel{padding:clamp(18px,3vw,30px);border:1px solid #d8c79e;background:linear-gradient(135deg,#fffefa,#f5f0e4)}
+.account-login-intro{display:flex;align-items:center;gap:17px;margin-bottom:20px}
+.account-login-icon{flex:0 0 58px;width:58px;height:58px;border-radius:18px;background:var(--green);color:#f4e7c8;display:grid;place-items:center;font-size:28px}
+.account-login-intro h2{margin:5px 0 6px;font:700 clamp(19px,3vw,25px) "Readex Pro";color:var(--green)}
+.account-login-intro p{margin:0;max-width:720px}
+.visitor-auth-box{max-width:620px}
+.google-login-button{width:100%;display:flex;align-items:center;gap:14px;padding:15px 17px;border:1px solid #d9d9d9;border-radius:14px;background:#fff;color:#252525;text-align:right;box-shadow:0 5px 16px #1c33200b}
+.google-login-button:hover{border-color:#b9c7be;box-shadow:0 9px 22px #1c332014}
+.google-g{width:40px;height:40px;display:grid;place-items:center;border-radius:11px;background:#fff;border:1px solid #eee;font:700 25px Arial;color:#4285f4}
+.google-login-button b,.google-login-button small{display:block}
+.google-login-button b{font-size:14px}
+.google-login-button small{font-size:10px;color:#777;margin-top:3px}
+.google-arrow{margin-right:auto;color:#71817a;font-size:20px}
+.auth-help{font-size:12px;color:#52675c;margin:12px 0 4px}
+.auth-status{padding:11px 13px;background:#f6f4ed;border-radius:10px;line-height:1.8}
+.visitor-account-box{padding:15px;border-radius:14px;background:var(--mint)}
+.visitor-account-box #visitorIdentity{font-weight:700;color:var(--green)}
+.visitor-account-box .community-form{max-width:550px}
+.media-tools{display:grid;grid-template-columns:minmax(0,1fr);gap:6px;margin:14px 0}
+.media-tools label{font-size:12px;font-weight:700;color:var(--green)}
+.media-filter-row{display:flex;gap:7px;flex-wrap:wrap}
+.media-filter{border:1px solid var(--line);background:var(--paper);color:var(--green);border-radius:999px;padding:7px 12px;font-size:11px}
+.media-filter.active{background:var(--green);color:white;border-color:var(--green)}
+.media-library-card{min-width:0}
+.media-library-card .video-frame{width:100%;aspect-ratio:16/9}
+.media-library-card .ref{overflow-wrap:anywhere}
+@media(max-width:760px){.account-top-btn{width:42px;height:42px;padding:0;font-size:0;border-radius:13px}.account-top-btn span{font-size:19px}.account-login-intro{align-items:flex-start}.account-login-icon{width:48px;height:48px;flex-basis:48px}.google-login-button{padding:13px}.media-tools{padding:14px}}
+@media(max-width:420px){.account-login-intro{gap:10px}.account-login-intro h2{font-size:18px}.google-login-button b{font-size:12px}.google-login-button small{font-size:9px}}
+body.dark .account-login-panel{background:linear-gradient(135deg,#15251f,#1c2b35);border-color:var(--line)}
+body.dark .google-login-button{background:#fdfdfd;color:#252525}
+body.dark .auth-status{background:#1b2a27;color:#d8e5dc}
