@@ -305,3 +305,59 @@ input::placeholder,textarea::placeholder{font-family:var(--type-ui);opacity:.72}
 .noor-ask-head small{color:#f4e5c5!important}
 @media(max-width:760px){.hero-photo-scene{min-height:310px;height:310px;border-radius:22px}.hero-photo-scene .scene-float-one{right:8px;top:12%}.hero-photo-scene .scene-float-two{left:8px;bottom:24%}.seerah-explorer{grid-template-columns:1fr}.seerah-steps{grid-template-columns:repeat(2,minmax(0,1fr))}.seerah-step{padding:9px;gap:7px}.seerah-detail{padding:18px}.prophet-card-art{height:112px}}
 @media(max-width:480px){.seerah-steps{grid-template-columns:1fr 1fr}.heritage-book-card{min-height:104px;padding:12px}.heritage-book-card .book-title{font-size:17px}.prophet-card-body{padding:12px}.prophet-card-body h3{font-size:20px}}
+
+/* v54 — visual library, prophet story cards, interactive Seerah and Q&A polish */
+#hadithBooks.book-grid{grid-template-columns:repeat(auto-fit,minmax(235px,1fr));gap:14px}
+.heritage-book-card{min-height:160px;justify-content:flex-start;text-align:right;padding:16px 14px}
+.heritage-book-card .book-copy{display:flex;flex:1;min-width:0;flex-direction:column;align-items:flex-start}
+.heritage-book-card .book-kicker{font:10px Cairo;color:#e8d5a7}
+.heritage-book-card .book-title{font:700 22px Amiri;line-height:1.5}
+.heritage-book-card .book-note{font:10px Cairo;line-height:1.7;white-space:normal}
+.heritage-book-card .book-open{font:700 11px Cairo;color:#f8e5b6;margin-top:10px}
+.heritage-book-card .book-index{position:absolute;left:13px;bottom:9px;color:#fff5d4aa;font:700 11px Cairo}
+#prophetsGrid{grid-template-columns:repeat(auto-fit,minmax(225px,1fr));gap:16px}
+#prophetsGrid .prophet-art-card{min-height:355px}
+.prophet-card-art{height:145px;background:radial-gradient(circle at 50% 80%,#d8b97855,transparent 40%),linear-gradient(140deg,#123b30,#32644b 65%,#9d7944)}
+.prophet-card-art small{position:absolute;bottom:13px;color:#f7e8c5;font:11px Cairo;letter-spacing:.04em}
+.prophet-card-art span{font-size:52px}
+.prophet-art-1{background:linear-gradient(135deg,#264b3b,#8c744d)}
+.prophet-art-2{background:linear-gradient(135deg,#163e3c,#51766b)}
+.prophet-art-3{background:linear-gradient(135deg,#3e503e,#a17c4d)}
+.prophet-art-4{background:linear-gradient(135deg,#173e36,#80684c)}
+.prophet-art-5{background:linear-gradient(135deg,#27483a,#b08b53)}
+.prophet-card-body{display:flex;flex-direction:column;align-items:stretch}
+.prophet-card-body .prophet-second-fact{font-size:11px;color:#647267;margin-top:-5px}
+.prophet-card-fact{font-size:10px;line-height:1.7}
+.seerah-explorer{display:grid;grid-template-columns:minmax(250px,.78fr) minmax(0,1.55fr);gap:18px;margin:18px 0 28px;align-items:start}
+.seerah-explorer-intro{display:grid;gap:13px}
+.seerah-photo{height:250px;position:relative;overflow:hidden;border-radius:22px;box-shadow:0 15px 35px #153c2a20}
+.seerah-photo img{width:100%;height:100%;object-fit:cover}
+.seerah-photo:after{content:"";position:absolute;inset:45% 0 0;background:linear-gradient(transparent,#102e25d9)}
+.seerah-photo span{position:absolute;z-index:1;right:16px;bottom:14px;color:#fff;font:700 16px Amiri}
+.seerah-progress-card{padding:17px;border:1px solid #d8c9a9;border-radius:18px;background:var(--paper)}
+.seerah-progress-card small,.seerah-progress-card b{display:block}
+.seerah-progress-card small{color:var(--muted);font-size:11px}
+.seerah-progress-card b{font:700 19px Amiri;color:var(--green);margin:5px 0}
+.seerah-progress-card p{font-size:11px;line-height:1.8;color:var(--muted);margin:9px 0 0}
+.seerah-progress,.detail-progress{height:6px;border-radius:9px;background:#e9e1d1;overflow:hidden}
+.seerah-progress i{display:block;height:100%;background:linear-gradient(90deg,#c59b57,#176047);transition:width .35s}
+.seerah-interactive{min-width:0}
+.seerah-steps{grid-template-columns:repeat(2,minmax(0,1fr));max-height:390px;overflow:auto;padding:2px 2px 8px}
+.seerah-step{min-width:0}
+.seerah-step-number{width:30px;height:30px;flex:0 0 30px;border-radius:10px;background:#f1e8d4;color:#8d6b37;display:grid;place-items:center;font:700 11px Cairo}
+.seerah-step.active .seerah-step-number{background:#174c39;color:#fff4d7}
+.seerah-detail{margin-top:12px;min-height:235px;animation:seerahReveal .35s ease}
+.seerah-detail h3{font-size:30px}
+.seerah-controls{display:flex;justify-content:space-between;gap:10px;margin-top:12px}
+.seerah-controls button:disabled{opacity:.4;cursor:not-allowed}
+@keyframes seerahReveal{from{opacity:.45;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.library-categories{position:sticky;top:74px;z-index:8;padding:10px 0;background:var(--bg);overflow-x:auto;flex-wrap:nowrap}
+.library-category-chip{white-space:nowrap;flex:0 0 auto}
+#libraryGrid .content-card[hidden]{display:none}
+#librarySummary[data-visible]:after{content:" · نتائج الفئة: " attr(data-visible)}
+.community-form-refined{padding:18px;border:1px solid #d9c99f;border-radius:18px;background:linear-gradient(140deg,var(--paper),#f4efe2)}
+#publishedAnswers .answer-card-refined{border-right:4px solid #c59b57}
+#community .account-login-panel{margin-bottom:24px}
+@media(max-width:760px){.seerah-explorer{grid-template-columns:1fr}.seerah-photo{height:220px}.seerah-steps{grid-template-columns:1fr 1fr;max-height:320px}.seerah-detail{min-height:0}.library-categories{top:65px}.heritage-book-card{min-height:145px}}
+@media(max-width:430px){#prophetsGrid{grid-template-columns:1fr 1fr;gap:10px}#prophetsGrid .prophet-art-card{min-height:340px}.prophet-card-body{padding:11px}.prophet-card-body h3{font-size:18px}.prophet-card-body p{font-size:10px}.prophet-card-open{font-size:10px;padding:8px}.heritage-book-card{gap:8px;padding:12px 9px}.heritage-book-card .book-mark{width:42px;flex-basis:42px}.heritage-book-card .book-title{font-size:18px}}
+@media(prefers-reduced-motion:reduce){.seerah-detail{animation:none}.heritage-book-card,#prophetsGrid .prophet-art-card{transition:none}}
