@@ -22,7 +22,8 @@ function init(){
  $('backToTop')?.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
  window.addEventListener('scroll',()=>{$('backToTop')?.classList.toggle('visible',window.scrollY>450)},{passive:true});
  if(!ready()){say('authStatus','الاتصال بالخدمة غير متاح حاليًا.');say('questionStatus','تعذر الاتصال بالخدمة؛ حاول لاحقًا.');return}
- client=window.supabase.createClient(cfg.url,cfg.anonKey,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});\n staffClient=window.supabase.createClient(cfg.url,cfg.anonKey,{auth:{persistSession:false,autoRefreshToken:false,detectSessionInUrl:false}});
+ client=window.supabase.createClient(cfg.url,cfg.anonKey,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
+ staffClient=window.supabase.createClient(cfg.url,cfg.anonKey,{auth:{persistSession:false,autoRefreshToken:false,detectSessionInUrl:false}});
  client.auth.getSession().then(({data})=>sync(data.session?.user||null));
  client.auth.onAuthStateChange((_event,session)=>{const user=session?.user||null;queueMicrotask(()=>sync(user))});
  loadPublished();
