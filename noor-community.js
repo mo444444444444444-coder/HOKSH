@@ -2,10 +2,10 @@
 (()=>{'use strict';
 const $=id=>document.getElementById(id),cfg=window.NOOR_SUPABASE_CONFIG||{};
 const ready=()=>!!(window.supabase?.createClient&&cfg.url&&cfg.anonKey);
-let client=null,currentUser=null,staffToken=null;
+let client=null,staffClient=null,currentUser=null,staffToken=null;
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const say=(id,msg)=>{const n=$(id);if(n)n.textContent=msg};
-const rpc=async(name,args)=>{const {data,error}=await client.rpc(name,args);if(error)throw error;return data};
+const rpc=async(name,args)=>{const {data,error}=await (staffClient||client).rpc(name,args);if(error)throw error;return data};
 function init(){
  $('askFab')?.addEventListener('click',()=>{$('askPanel')?.classList.toggle('hidden');if(!$('askPanel')?.classList.contains('hidden'))$('questionTitle')?.focus()});
  $('askClose')?.addEventListener('click',()=>$('askPanel')?.classList.add('hidden'));
@@ -22,7 +22,7 @@ function init(){
  $('backToTop')?.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
  window.addEventListener('scroll',()=>{$('backToTop')?.classList.toggle('visible',window.scrollY>450)},{passive:true});
  if(!ready()){say('authStatus','الاتصال بالخدمة غير متاح حاليًا.');say('questionStatus','تعذر الاتصال بالخدمة؛ حاول لاحقًا.');return}
- client=window.supabase.createClient(cfg.url,cfg.anonKey,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
+ client=window.supabase.createClient(cfg.url,cfg.anonKey,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});\n staffClient=window.supabase.createClient(cfg.url,cfg.anonKey,{auth:{persistSession:false,autoRefreshToken:false,detectSessionInUrl:false}});
  client.auth.getSession().then(({data})=>sync(data.session?.user||null));
  client.auth.onAuthStateChange((_event,session)=>{const user=session?.user||null;queueMicrotask(()=>sync(user))});
  loadPublished();
