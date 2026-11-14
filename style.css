@@ -43,3 +43,37 @@
 .noor-modal-card .question-reply textarea{min-height:100px}
 @media(max-width:600px){.noor-ask-widget{right:12px;bottom:14px}.noor-ask-fab{padding:11px 14px}.noor-back-top{left:12px;bottom:16px}.noor-ask-panel{bottom:60px}}
 body.dark .noor-ask-panel,body.dark .noor-modal-card{background:var(--paper)}
+
+
+/* Quran: separate page-based Mushaf and contextual verse menu */
+.mushaf-mode-bar{display:flex;align-items:center;justify-content:space-between;gap:18px;margin:0 0 18px;padding:18px 22px}
+.mushaf-mode-bar h2{margin:5px 0;color:var(--green);font:600 20px "Readex Pro"}
+.mushaf-mode-bar p{margin:0;color:var(--muted);font-size:12px;line-height:1.8}
+.mushaf-mode-actions,.mushaf-page-controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.mushaf-mode-actions .active{outline:2px solid var(--gold);outline-offset:2px}
+.mushaf-page-viewer{margin:0 0 24px}
+.mushaf-page-toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px}
+.mushaf-page-toolbar small,.mushaf-page-toolbar b{display:block}
+.mushaf-page-toolbar small{color:var(--muted);font-size:11px;margin-bottom:5px}
+.mushaf-page-toolbar b{color:var(--green);font:600 17px "Readex Pro"}
+.mushaf-page-controls select{min-width:130px;padding:9px;border:1px solid var(--line);border-radius:10px;background:var(--paper);color:var(--ink)}
+.mushaf-paper{position:relative;max-width:850px;min-height:920px;margin:0 auto;padding:42px clamp(22px,6vw,68px) 32px;background:#fffdf5;border:1px solid #d8c9a9;border-radius:5px;box-shadow:0 12px 45px #34281918, inset 0 0 0 8px #f5eedc,inset 0 0 0 9px #d7c39a;color:#352b1c}
+.mushaf-paper:before{content:"";position:absolute;inset:17px;border:1px solid #e3d6b9;pointer-events:none}
+.mushaf-paper-head,.mushaf-paper-foot{position:relative;display:flex;justify-content:space-between;align-items:center;color:#796342;font-size:12px}
+.mushaf-paper-head{padding:0 0 13px;border-bottom:1px solid #d9c9a7}
+.mushaf-basmalah{min-height:34px;text-align:center;padding-top:17px;font:27px Amiri;color:#4b3a25}
+.mushaf-page-text{position:relative;direction:rtl;text-align:justify;text-align-last:center;font:30px/2.25 "Amiri","Scheherazade New",serif;color:#241e17;padding:18px 0 24px;min-height:690px}
+.mushaf-ayah{cursor:pointer;border-radius:5px;transition:background .15s}
+.mushaf-ayah:hover,.mushaf-ayah:focus{background:#eee4cc;outline:1px solid #d4bd8c}
+.mushaf-end{white-space:nowrap;display:inline-block;color:#98733a;font-size:.72em;padding:0 3px}
+.mushaf-paper-foot{padding-top:13px;border-top:1px solid #d9c9a7}
+.mushaf-paper-foot b{font:600 15px "Readex Pro";color:#765b2d}
+.mushaf-ayah-menu{position:relative;z-index:4;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:6px;margin:12px auto;padding:10px;background:#fff;border:1px solid #d8c9a9;border-radius:13px;box-shadow:0 8px 24px #241e171c;max-width:100%;direction:rtl}
+.mushaf-ayah-menu b{width:100%;font-size:12px;color:var(--green);text-align:center}
+.mushaf-ayah-menu button{border:1px solid var(--line);background:#faf8f2;color:var(--green);border-radius:9px;padding:8px 11px;font-size:12px}
+.mushaf-ayah-menu button:hover{background:var(--mint)}
+#ayahList .ayah-card{position:relative}
+#ayahList .ayah-text{cursor:pointer}
+#ayahList .mushaf-ayah-menu{position:relative}
+@media(max-width:700px){.mushaf-mode-bar,.mushaf-page-toolbar{align-items:stretch;flex-direction:column}.mushaf-mode-actions>*{flex:1}.mushaf-paper{min-height:760px;padding:30px 24px 24px}.mushaf-page-text{font-size:25px;line-height:2.15;min-height:560px}.mushaf-page-controls{justify-content:space-between}.mushaf-page-controls select{flex:1}}
+body.dark .mushaf-paper{background:#f7f0df;color:#241e17}
