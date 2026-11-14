@@ -21,3 +21,25 @@
 .desktop-nav button[data-go="community"]{color:var(--gold,#b88b45)}
 .community-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:16px;align-items:start}.community-form{display:grid;gap:10px;margin:12px 0}.community-form label{font-size:12px;color:var(--muted);font-weight:700}.community-form .field{width:100%}.community-form textarea{resize:vertical;line-height:1.9}.anonymous-choice{display:flex;align-items:center;gap:8px}.staff-entry{margin-top:18px}.staff-login{grid-template-columns:1fr 1fr auto;align-items:center}.question-card{padding:16px;border:1px solid var(--line);border-radius:15px;background:var(--paper);margin:12px 0}.question-card h3{margin:5px 0 10px;color:var(--green)}.question-card p{line-height:2;white-space:pre-wrap}.question-meta{font-size:11px;color:var(--muted)}.question-answer{padding:13px;background:var(--mint);border-radius:12px;margin-top:12px;line-height:2}.question-reply{display:grid;gap:8px;margin-top:12px}.question-reply textarea{min-height:100px}.community-grid .panel{min-width:0}.hidden{display:none!important}.timeline-controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:10px 0 16px}.timeline-controls button{border:1px solid var(--line);background:var(--paper);border-radius:10px;padding:8px 14px;color:var(--green);cursor:pointer}.timeline-progress{height:5px;background:var(--line);border-radius:9px;overflow:hidden;flex:1;min-width:100px}.timeline-progress span{display:block;height:100%;width:0;background:var(--gold);transition:width .2s}.timeline-item.is-current{outline:2px solid var(--gold);outline-offset:2px}.timeline-item{transition:opacity .2s,outline .2s}
 @media(max-width:760px){.community-grid{grid-template-columns:1fr}.staff-login{grid-template-columns:1fr}.desktop-nav button[data-go="community"]{display:none}}
+
+/* Simple visitor support, back-to-top and password-only staff portal */
+.noor-ask-widget{position:fixed;right:22px;bottom:22px;z-index:70;direction:rtl}
+.noor-ask-fab{display:flex;align-items:center;gap:9px;border:0;border-radius:999px;background:var(--green);color:#fff;padding:12px 18px;box-shadow:0 12px 35px #102f2840;font-weight:700}
+.noor-ask-fab span{font-size:20px}.noor-ask-fab b{font-size:12px}
+.noor-ask-panel{position:absolute;right:0;bottom:64px;width:min(380px,calc(100vw - 28px));max-height:min(78vh,680px);overflow:auto;background:var(--paper);border:1px solid var(--line);border-radius:20px;box-shadow:0 20px 70px #102f2833;padding:17px}
+.noor-ask-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.noor-ask-head b{display:block;color:var(--green);font:700 17px "Readex Pro"}
+.noor-ask-head small{display:block;color:var(--muted);font-size:10px;margin-top:4px}
+.noor-ask-head button{border:0;background:var(--mint);color:var(--green);border-radius:50%;width:34px;height:34px;font-size:22px}
+.noor-ask-form{margin-bottom:0}.noor-ask-form .field{margin:2px 0}
+.noor-back-top{position:fixed;left:22px;bottom:24px;z-index:65;width:44px;height:44px;border:1px solid var(--line);border-radius:50%;background:var(--paper);color:var(--green);font-size:24px;box-shadow:0 8px 25px #102f2820;opacity:0;pointer-events:none;transform:translateY(8px);transition:.2s}
+.noor-back-top.visible{opacity:1;pointer-events:auto;transform:none}
+.footer-staff-entry{margin-top:16px}.footer-staff-entry button{border:1px solid #ffffff45;background:transparent;color:#e9e3d4;border-radius:999px;padding:9px 16px;font-size:11px}
+.noor-modal{position:fixed;inset:0;z-index:100;background:#061b15b8;display:grid;place-items:center;padding:18px}
+.noor-modal-card{width:min(620px,100%);max-height:88vh;overflow:auto;background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:20px;box-shadow:0 25px 90px #0004}
+.noor-modal-card .question-card{background:var(--bg)}
+.noor-modal-card .reply-submit{margin-top:8px}
+.noor-modal-card .question-reply{margin-top:14px}
+.noor-modal-card .question-reply textarea{min-height:100px}
+@media(max-width:600px){.noor-ask-widget{right:12px;bottom:14px}.noor-ask-fab{padding:11px 14px}.noor-back-top{left:12px;bottom:16px}.noor-ask-panel{bottom:60px}}
+body.dark .noor-ask-panel,body.dark .noor-modal-card{background:var(--paper)}
