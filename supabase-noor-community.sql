@@ -38,6 +38,7 @@ returns trigger language plpgsql security definer set search_path=public
 as $$ begin insert into public.noor_profiles(id,display_name) values(new.id, coalesce(new.raw_user_meta_data->>'full_name',new.raw_user_meta_data->>'name',split_part(coalesce(new.email,''),'@',1))) on conflict(id) do nothing; return new; end; $$;
 drop trigger if exists noor_auth_user_profile on auth.users;
 create trigger noor_auth_user_profile after insert on auth.users for each row execute procedure public.noor_new_profile();
+insert into public.noor_profiles(id,display_name) select id, coalesce(raw_user_meta_data->>'full_name',raw_user_meta_data->>'name',split_part(coalesce(email,''),'@',1)) from auth.users on conflict(id) do nothing;
 
 alter table public.noor_profiles enable row level security;
 alter table public.noor_questions enable row level security;
@@ -45,8 +46,6 @@ alter table public.noor_answers enable row level security;
 
 drop policy if exists "noor profile self read" on public.noor_profiles;
 create policy "noor profile self read" on public.noor_profiles for select to authenticated using (id=auth.uid() or public.noor_is_staff());
-drop policy if exists "noor profile staff update" on public.noor_profiles;
-create policy "noor profile staff update" on public.noor_profiles for update to authenticated using (public.noor_is_staff()) with check (public.noor_is_staff());
 
 drop policy if exists "noor public ask" on public.noor_questions;
 create policy "noor public ask" on public.noor_questions for insert to anon, authenticated with check (status='pending' and (user_id is null or user_id=auth.uid()));
@@ -62,11 +61,10 @@ create policy "noor staff update questions" on public.noor_questions for update 
 drop policy if exists "noor answers staff insert" on public.noor_answers;
 create policy "noor answers staff insert" on public.noor_answers for insert to authenticated with check (staff_id=auth.uid() and public.noor_is_staff());
 drop policy if exists "noor answers public read published" on public.noor_answers;
-create policy "noor answers public read published" on public.noor_answers for select to anon, authenticated using (exists(select 1 from public.noor_questions q where q.id=question_id and q.status='published'));
+create policy "noor answers public read published" on public.noor_answers for select to anon, authenticated using (exists(select 1 from public.noor_questions q where q.id=question_id and (q.status='published' or q.user_id=auth.uid() or public.noor_is_staff())));
 drop policy if exists "noor answers staff read" on public.noor_answers;
 create policy "noor answers staff read" on public.noor_answers for select to authenticated using (public.noor_is_staff());
 
 grant select on public.noor_profiles to authenticated;
-grant update on public.noor_profiles to authenticated;
 grant select, insert, update on public.noor_questions to anon, authenticated;
 grant select, insert on public.noor_answers to anon, authenticated;
