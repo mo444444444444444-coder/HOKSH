@@ -429,3 +429,11 @@ input::placeholder,textarea::placeholder{font-family:var(--type-ui);opacity:.72}
 .prophet-reader-art{height:clamp(180px,28vw,330px);position:relative;overflow:hidden;border-radius:18px;margin:18px 0 22px;background:#123b2d}
 .prophet-reader-art img{width:100%;height:100%;object-fit:cover;display:block}
 .prophet-reader-art span{position:absolute;right:18px;bottom:15px;color:#fff;background:#0a3026c9;padding:8px 14px;border-radius:10px;font-weight:700}
+
+/* v57 — topic-matched Commons photography with attribution */
+.heritage-state-image,.prophet-card-art{position:relative;overflow:hidden}
+.heritage-state-image img,.prophet-card-art>img{transition:opacity .25s ease}
+.heritage-photo-credit{position:absolute;z-index:5;left:7px;bottom:7px;max-width:calc(100% - 14px);padding:4px 7px;border-radius:7px;background:rgba(10,28,23,.78);color:#fff!important;font:10px/1.4 Cairo,sans-serif;text-decoration:none!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:.9}
+.heritage-photo-credit:hover{opacity:1;background:rgba(10,28,23,.94)}
+.heritage-state-image.image-fallback,.prophet-card-art.image-fallback{background:linear-gradient(135deg,#164b38,#b18a4d)}
+.heritage-state-image.image-fallback:after,.prophet-card-art.image-fallback:after{content:'معلم من التراث الإسلامي';position:absolute;inset:auto 12px 14px;color:#fff;font-weight:700}
