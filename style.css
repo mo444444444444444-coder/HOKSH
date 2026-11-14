@@ -114,3 +114,20 @@ body.dark .mushaf-paper{background:#f7f0df;color:#241e17}
 body.dark .account-login-panel{background:linear-gradient(135deg,#15251f,#1c2b35);border-color:var(--line)}
 body.dark .google-login-button{background:#fdfdfd;color:#252525}
 body.dark .auth-status{background:#1b2a27;color:#d8e5dc}
+
+
+/* Noor Islamic heritage watermark: subtle geometric rosette, adaptive to light/dark themes */
+body{
+  background-color:var(--bg);
+  background-image:
+    radial-gradient(ellipse at 50% 0%,rgba(197,155,39,.035),transparent 58%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Cg fill='none' stroke='%23b18a43' stroke-opacity='.105' stroke-width='1'%3E%3Cpath d='M90 18 105 60 147 45 120 82 162 90 120 98 147 135 105 120 90 162 75 120 33 135 60 98 18 90 60 82 33 45 75 60Z'/%3E%3Cpath d='M90 38 108 72 142 90 108 108 90 142 72 108 38 90 72 72Z'/%3E%3Ccircle cx='90' cy='90' r='26'/%3E%3Cpath d='M0 0 36 36M144 36 180 0M0 180 36 144M144 144 180 180'/%3E%3C/g%3E%3C/svg%3E");
+  background-repeat:repeat,repeat;
+  background-size:auto,180px 180px;
+  background-attachment:fixed,fixed;
+}
+body.dark{
+  background-image:
+    radial-gradient(ellipse at 50% 0%,rgba(197,155,39,.055),transparent 58%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Cg fill='none' stroke='%23d5b66e' stroke-opacity='.12' stroke-width='1'%3E%3Cpath d='M90 18 105 60 147 45 120 82 162 90 120 98 147 135 105 120 90 162 75 120 33 135 60 98 18 90 60 82 33 45 75 60Z'/%3E%3Cpath d='M90 38 108 72 142 90 108 108 90 142 72 108 38 90 72 72Z'/%3E%3Ccircle cx='90' cy='90' r='26'/%3E%3Cpath d='M0 0 36 36M144 36 180 0M0 180 36 144M144 144 180 180'/%3E%3C/g%3E%3C/svg%3E");
+}
