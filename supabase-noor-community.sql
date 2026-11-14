@@ -31,16 +31,15 @@ create index if not exists noor_answers_question on public.noor_answers(question
 
 create or replace function public.noor_is_staff()
 returns boolean language sql stable security definer set search_path=pg_catalog, public, auth
-as $ select exists(select 1 from public.noor_profiles p where p.id=auth.uid() and p.role in ('admin','sheikh')); $;
+as $function$ select exists(select 1 from public.noor_profiles p where p.id=auth.uid() and p.role in ('admin','sheikh')); $function$;
 revoke all on function public.noor_is_staff() from public, anon;
 grant execute on function public.noor_is_staff() to authenticated;
-revoke all on function public.noor_new_profile() from public, anon, authenticated;
-
 create or replace function public.noor_new_profile()
 returns trigger language plpgsql security definer set search_path=pg_catalog, public, auth
-as $$ begin insert into public.noor_profiles(id,display_name) values(new.id, coalesce(new.raw_user_meta_data->>'full_name',new.raw_user_meta_data->>'name',split_part(coalesce(new.email,''),'@',1))) on conflict(id) do nothing; return new; end; $$;
+as $function$ begin insert into public.noor_profiles(id,display_name) values(new.id, coalesce(new.raw_user_meta_data->>'full_name',new.raw_user_meta_data->>'name',split_part(coalesce(new.email,''),'@',1))) on conflict(id) do nothing; return new; end; $function$;
 drop trigger if exists noor_auth_user_profile on auth.users;
 create trigger noor_auth_user_profile after insert on auth.users for each row execute procedure public.noor_new_profile();
+revoke all on function public.noor_new_profile() from public, anon, authenticated;
 insert into public.noor_profiles(id,display_name) select id, coalesce(raw_user_meta_data->>'full_name',raw_user_meta_data->>'name',split_part(coalesce(email,''),'@',1)) from auth.users on conflict(id) do nothing;
 
 alter table public.noor_profiles enable row level security;
