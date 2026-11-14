@@ -63,7 +63,7 @@ create policy "noor staff update questions" on public.noor_questions for update 
 drop policy if exists "noor answers staff insert" on public.noor_answers;
 create policy "noor answers staff insert" on public.noor_answers for insert to authenticated with check (staff_id=auth.uid() and public.noor_is_staff());
 drop policy if exists "noor answers public read published" on public.noor_answers;
-create policy "noor answers public read published" on public.noor_answers for select to anon, authenticated using (exists(select 1 from public.noor_questions q where q.id=question_id and (q.status='published' or q.user_id=auth.uid())));
+create policy "noor answers public read published" on public.noor_answers for select to anon, authenticated using (exists(select 1 from public.noor_questions q where q.id=question_id and (q.status='published' or (auth.uid() is not null and q.user_id=auth.uid()))));
 drop policy if exists "noor answers staff read" on public.noor_answers;
 create policy "noor answers staff read" on public.noor_answers for select to authenticated using (public.noor_is_staff());
 
