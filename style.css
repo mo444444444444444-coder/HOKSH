@@ -437,3 +437,17 @@ input::placeholder,textarea::placeholder{font-family:var(--type-ui);opacity:.72}
 .heritage-photo-credit:hover{opacity:1;background:rgba(10,28,23,.94)}
 .heritage-state-image.image-fallback,.prophet-card-art.image-fallback{background:linear-gradient(135deg,#164b38,#b18a4d)}
 .heritage-state-image.image-fallback:after,.prophet-card-art.image-fallback:after{content:'معلم من التراث الإسلامي';position:absolute;inset:auto 12px 14px;color:#fff;font-weight:700}
+
+/* AI assistant chat */
+.ai-chat-shell{max-width:920px;margin:18px auto;padding:0;overflow:hidden}
+.ai-chat-top{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--line);background:var(--paper)}
+.ai-chat-top>div{display:flex;flex-direction:column;gap:4px}.ai-chat-top small{color:var(--muted);font-size:12px}
+.ai-messages{height:min(58vh,560px);min-height:300px;overflow:auto;padding:20px;display:flex;flex-direction:column;gap:14px;background:var(--bg)}
+.ai-bubble{max-width:min(88%,720px);padding:13px 16px;border-radius:17px;line-height:1.9;white-space:pre-wrap;overflow-wrap:anywhere}
+.ai-bubble-assistant{align-self:flex-start;background:var(--paper);border:1px solid var(--line);border-bottom-right-radius:5px}
+.ai-bubble-user{align-self:flex-end;background:#e8f2e9;color:#183b2d;border-bottom-left-radius:5px}
+.ai-bubble-error{border:1px solid #d98b68;color:#8b321d;background:#fff6f1}
+.ai-chat-form{display:grid;grid-template-columns:1fr auto;gap:10px;padding:14px;background:var(--paper);border-top:1px solid var(--line);align-items:end}
+.ai-chat-form textarea{resize:vertical;min-height:52px;max-height:150px}
+.ai-chat-form button{min-height:48px}
+@media(max-width:600px){.ai-chat-form{grid-template-columns:1fr}.ai-chat-form button{width:100%}.ai-bubble{max-width:96%}}
