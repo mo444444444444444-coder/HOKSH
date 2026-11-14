@@ -96,8 +96,49 @@ function ensureSection(){
  const drawer=document.querySelector('.drawer-group:nth-of-type(4)');if(drawer){const b=document.createElement('button');b.dataset.go='heritage';b.textContent='🏛️ موسوعة التراث الإسلامي حول العالم';const h=[...document.querySelectorAll('.drawer-group')].find(x=>x.textContent.includes('التاريخ الإسلامي'));(h||drawer).append(b);}
  const nav=document.querySelector('.desktop-nav');if(nav){const b=document.createElement('button');b.dataset.go='heritage';b.textContent='التراث الإسلامي';nav.append(b);}
 }
+const heritageImageQueries={
+'الخلافة الراشدة':'Prophet Mosque Medina Saudi Arabia',
+'الدولة الأموية في دمشق':'Umayyad Mosque Damascus Syria',
+'الدولة العباسية':'Great Mosque of Samarra Abbasid architecture Iraq',
+'الأندلس الأموية':'Great Mosque of Cordoba Spain',
+'الأغالبة':'Great Mosque of Kairouan Tunisia',
+'الدولة الطولونية':'Mosque of Ibn Tulun Cairo Egypt',
+'الدولة الإخشيدية':'Fustat archaeological site Cairo Egypt',
+'الدولة الفاطمية':'Al Azhar Mosque Cairo Fatimid architecture',
+'الدولة السامانية':'Ismail Samani Mausoleum Bukhara Uzbekistan',
+'الدولة الغزنوية':'Minaret of Jam Ghazni Afghanistan',
+'السلاجقة':'Friday Mosque Isfahan Seljuk Iran',
+'المرابطون':'Koutoubia Mosque Almoravid Marrakech Morocco',
+'الموحدون':'Hassan Tower Rabat Almohad Morocco',
+'الأيوبيون':'Citadel of Aleppo Ayyubid Syria',
+'المماليك':'Sultan Qalawun complex Cairo Mamluk Egypt',
+'مملكة غرناطة النصرية':'Alhambra Granada Nasrid Spain',
+'إمبراطورية مالي':'Djinguereber Mosque Timbuktu Mali',
+'إمبراطورية التيموريين':'Registan Samarkand Uzbekistan',
+'الدولة العثمانية':'Suleymaniye Mosque Istanbul Ottoman Turkey',
+'الدولة الصفوية':'Sheikh Lotfollah Mosque Isfahan Safavid Iran',
+'سلطنة دلهي':'Qutub Minar Delhi India',
+'الإمبراطورية المغولية الهندية':'Taj Mahal Agra India',
+'سلطنة بروناي':'Sultan Omar Ali Saifuddien Mosque Brunei',
+'سلطنات آتشيه وملاكا':'Baiturrahman Grand Mosque Aceh Indonesia',
+'سلطنات الساحل السواحيلي':'Kilwa Kisiwani Great Mosque Tanzania',
+'الأدارسة':'Al Qarawiyyin Mosque Fez Morocco',
+'الرستميون':'Tiaret Rustamid archaeological Algeria',
+'الصفاريون':'Saffarid architecture Sistan Iran',
+'البويهيون':'Bamiyan historical Islamic architecture Iran Buyid',
+'الغوريون':'Minaret of Jam Ghurid Afghanistan',
+'المرينيون':'Bou Inania Madrasa Fez Morocco Marinid',
+'سلطنة البنغال':'Sixty Dome Mosque Bagerhat Bangladesh',
+'إمبراطورية صنغاي':'Sankore Mosque Timbuktu Mali Songhai',
+'مملكة كانم-برنو':'Kanem Bornu historical architecture Chad',
+'خلافة سوكوتو':'Sokoto Sultanate architecture Nigeria',
+'الدولة اليعربية والعُمانية':'Nizwa Fort Oman Ya'aruba',
+'الدولة القاجارية':'Golestan Palace Tehran Qajar Iran',
+'المملكة العربية السعودية':'Masjid al Haram Mecca Saudi Arabia',
+'دول ومجتمعات إسلامية معاصرة':'Islamic Centre mosque contemporary architecture'
+};
 function renderStates(){
- $('heritageStates').innerHTML='<div class="heritage-filter"><input id="heritageSearch" class="field" placeholder="ابحث باسم الدولة أو العاصمة أو الإقليم"><span>اختر أي دولة لقراءة ملخصها التاريخي ومراكزها</span></div><div class="heritage-state-grid">'+dynasties.map((d,i)=>'<article class="heritage-state-card"><div class="heritage-state-image"><img src="'+photo[i%photo.length]+'" data-heritage-search="'+esc(d[0]+' '+d[2]+' '+d[5])+'" alt="معلم معماري مرتبط بـ '+esc(d[0])+'" loading="lazy" onerror="this.parentElement.classList.add(\'image-fallback\')"><span>'+esc(d[1])+'</span></div><div class="heritage-state-copy"><small>'+esc(d[2])+'</small><h3>'+esc(d[0])+'</h3><p>'+esc(d[4])+'</p><button type="button" data-state-open="'+i+'">التفاصيل والنطاق التاريخي ←</button><div class="heritage-state-more" hidden><b>النطاق الجغرافي</b><p>'+esc(d[3])+'</p><b>المعالم والآثار</b><p>'+esc(d[5])+'</p><b>كيف انتشر الإسلام أو النفوذ الإسلامي؟</b><p>'+esc(d[6])+'</p></div></div></article>').join('')+'</div>';
+ $('heritageStates').innerHTML='<div class="heritage-filter"><input id="heritageSearch" class="field" placeholder="ابحث باسم الدولة أو العاصمة أو الإقليم"><span>اختر أي دولة لقراءة ملخصها التاريخي ومراكزها</span></div><div class="heritage-state-grid">'+dynasties.map((d,i)=>'<article class="heritage-state-card"><div class="heritage-state-image"><img src="'+photo[i%photo.length]+'" data-heritage-search="'+esc(heritageImageQueries[d[0]]||d[0]+' Islamic historical architecture')+'" alt="معلم معماري مرتبط بـ '+esc(d[0])+'" loading="lazy" onerror="this.parentElement.classList.add(\'image-fallback\')"><span>'+esc(d[1])+'</span></div><div class="heritage-state-copy"><small>'+esc(d[2])+'</small><h3>'+esc(d[0])+'</h3><p>'+esc(d[4])+'</p><button type="button" data-state-open="'+i+'">التفاصيل والنطاق التاريخي ←</button><div class="heritage-state-more" hidden><b>النطاق الجغرافي</b><p>'+esc(d[3])+'</p><b>المعالم والآثار</b><p>'+esc(d[5])+'</p><b>كيف انتشر الإسلام أو النفوذ الإسلامي؟</b><p>'+esc(d[6])+'</p></div></div></article>').join('')+'</div>';
  const input=$('heritageSearch');input.addEventListener('input',()=>{const q=input.value.trim().toLowerCase();document.querySelectorAll('.heritage-state-card').forEach(c=>c.hidden=!c.textContent.toLowerCase().includes(q));});
  $('heritageStates').addEventListener('click',e=>{const b=e.target.closest('[data-state-open]');if(!b)return;const more=b.parentElement.querySelector('.heritage-state-more');more.hidden=!more.hidden;b.textContent=more.hidden?'التفاصيل والنطاق التاريخي ←':'إخفاء التفاصيل ↑';});
 }
@@ -105,7 +146,7 @@ function renderSpread(){$('heritageSpread').innerHTML='<p class="heritage-lead">
 function renderSites(){$('heritageSites').innerHTML='<div class="heritage-site-grid">'+sites.map((s,i)=>'<article class="heritage-site-card"><div class="heritage-site-image"><img src="'+s[4]+'" alt="'+esc(s[0])+'" loading="lazy" onerror="this.parentElement.classList.add(\'image-fallback\')"><span>'+esc(s[1])+'</span></div><div><h3>'+esc(s[0])+'</h3><p>'+esc(s[2])+'</p><small>المعلم: '+esc(s[3])+'</small></div></article>').join('')+'</div><p class="source-note">هذه قائمة تأسيسية بأبرز المعالم وليست حصرًا لكل المساجد والمقامات والمتاحف والمواقع الأثرية. بعض المواقع ذات قداسة دينية وبعضها تراث عمراني وتاريخي.</p>'}
 function loadCommonsPhotos(){
  const imgs=[...document.querySelectorAll('img[data-heritage-search]')];if(!imgs.length)return;
- const cacheKey='noor-commons-photo-v1';let cache={};try{cache=JSON.parse(sessionStorage.getItem(cacheKey)||'{}')}catch(_){}
+ const cacheKey='noor-commons-photo-v2';let cache={};try{cache=JSON.parse(sessionStorage.getItem(cacheKey)||'{}')}catch(_){}
  let active=0;const queue=[];
  function credit(img,item){const parent=img.parentElement;if(!parent||parent.querySelector('.heritage-photo-credit'))return;const a=document.createElement('a');a.className='heritage-photo-credit';a.href='https://commons.wikimedia.org/wiki/'+encodeURIComponent(item.title.replace(/^File:/,'').replace(/ /g,'_'));a.target='_blank';a.rel='noopener noreferrer';a.textContent='الصورة: '+item.title.replace(/^File:/,'')+' · '+item.license;a.addEventListener('click',e=>e.stopPropagation());parent.append(a);}
  async function run(img){const query=img.dataset.heritageSearch;if(!query)return;img.dataset.commonsLoaded='1';if(cache[query]){img.src=cache[query].url;credit(img,cache[query]);return;}active++;try{const url='https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrnamespace=6&gsrsearch='+encodeURIComponent(query+' filetype:bitmap')+'&gsrlimit=8&prop=imageinfo&iiprop=url|extmetadata&iiurlwidth=1200&format=json&origin=*';const response=await fetch(url);if(!response.ok)throw Error();const data=await response.json();const pages=Object.values(data.query?.pages||{}).sort((a,b)=>(a.index||999)-(b.index||999));const page=pages.find(p=>p.imageinfo?.[0]?.thumburl||p.imageinfo?.[0]?.url);if(!page)throw Error();const info=page.imageinfo[0],item={url:info.thumburl||info.url,title:page.title,license:info.extmetadata?.LicenseShortName?.value||'Wikimedia Commons'};cache[query]=item;try{sessionStorage.setItem(cacheKey,JSON.stringify(cache))}catch(_){}img.src=item.url;credit(img,item);}catch(_){img.parentElement?.classList.add('image-fallback')}finally{active--;pump();}}
