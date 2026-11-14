@@ -68,5 +68,7 @@ drop policy if exists "noor answers staff read" on public.noor_answers;
 create policy "noor answers staff read" on public.noor_answers for select to authenticated using (public.noor_is_staff());
 
 grant select on public.noor_profiles to authenticated;
-grant select, insert, update on public.noor_questions to anon, authenticated;
-grant select, insert on public.noor_answers to anon, authenticated;
+grant select, insert on public.noor_questions to anon;
+grant select, insert, update on public.noor_questions to authenticated;
+grant select on public.noor_answers to anon;
+grant select, insert on public.noor_answers to authenticated;
