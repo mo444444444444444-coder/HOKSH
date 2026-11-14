@@ -451,3 +451,11 @@ input::placeholder,textarea::placeholder{font-family:var(--type-ui);opacity:.72}
 .ai-chat-form textarea{resize:vertical;min-height:52px;max-height:150px}
 .ai-chat-form button{min-height:48px}
 @media(max-width:600px){.ai-chat-form{grid-template-columns:1fr}.ai-chat-form button{width:100%}.ai-bubble{max-width:96%}}
+
+/* Developer contact links */
+.developer-social{display:flex;justify-content:center;align-items:center;gap:10px;flex-wrap:wrap;margin:13px auto 4px}
+.developer-social-link{display:inline-flex;align-items:center;gap:7px;padding:8px 14px;border:1px solid var(--line);border-radius:999px;background:var(--paper);color:var(--green);font:700 12px var(--type-ui);text-decoration:none;transition:transform .18s ease,box-shadow .18s ease}
+.developer-social-link:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+.developer-social-link svg{width:17px;height:17px;fill:currentColor}
+.developer-social-link.facebook{color:#1877f2}
+.developer-social-link.whatsapp{color:#168b55}
