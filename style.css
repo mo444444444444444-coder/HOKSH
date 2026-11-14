@@ -256,3 +256,52 @@ body{font-size:15px;line-height:1.85;letter-spacing:0}
 input::placeholder,textarea::placeholder{font-family:var(--type-ui);opacity:.72}
 :focus-visible{outline:3px solid #c59b2780;outline-offset:3px}
 @media(max-width:760px){.hero-copy h1{font-size:clamp(38px,9vw,48px)}.page-head h1{font-size:32px}}
+
+
+/* v53 — photographic hero, heritage book covers, prophetic cards and interactive seerah */
+.hero-photo-scene{position:relative;isolation:isolate;overflow:hidden;min-height:440px;border-radius:30px;background:#173c30;box-shadow:0 24px 65px #163b2b25}
+.hero-real-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 48%;transform:scale(1.015);transition:transform 1.1s cubic-bezier(.2,.7,.2,1)}
+.hero-photo-scene:hover .hero-real-photo{transform:scale(1.06)}
+.hero-photo-shade{position:absolute;inset:0;background:linear-gradient(180deg,#102f2810 20%,#102f285e 62%,#102f28d9 100%);z-index:1}
+.hero-photo-caption{position:absolute;z-index:2;right:25px;bottom:22px;color:#fff;display:grid;gap:3px;text-shadow:0 2px 12px #0008}
+.hero-photo-caption span{font:700 21px "Amiri",serif}.hero-photo-caption small{font:11px "Cairo",sans-serif;opacity:.88}
+.hero-photo-scene .scene-float{z-index:3;backdrop-filter:blur(14px);background:#fffef0e8;border:1px solid #ffffffa6;box-shadow:0 14px 35px #102f2838}
+.hero-photo-scene .scene-float-one{top:16%;right:-12px}.hero-photo-scene .scene-float-two{bottom:20%;left:-12px}
+.heritage-book-card{position:relative;isolation:isolate;display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;min-height:118px;padding:17px 18px;border:1px solid #d8c49a;border-radius:18px;text-align:right;color:#f9f1dc;background:linear-gradient(135deg,#123d30,#205b45 58%,#a77b38);box-shadow:0 9px 22px #173c301c;overflow:hidden;transition:transform .25s,box-shadow .25s}
+.heritage-book-card:before{content:"۞";position:absolute;left:12px;top:-25px;font:100px "Amiri";color:#f4d99a24;z-index:-1}
+.heritage-book-card:hover{transform:translateY(-5px);box-shadow:0 17px 30px #173c3033}
+.heritage-book-card .book-mark{width:52px;height:68px;flex:0 0 52px;display:grid;place-items:center;border:1px solid #e9d7a4;border-radius:8px;color:#f5dfac;font:28px "Amiri";background:linear-gradient(145deg,#f1dfb5aa,#7c542a66);box-shadow:inset 0 0 0 4px #fff2}
+.heritage-book-card .book-title{display:block;font:700 20px "Amiri";line-height:1.4;color:#fff7e4}
+.heritage-book-card .book-note{display:block;font:11px "Cairo";color:#f4e8c9;margin-top:5px}
+.heritage-book-card .book-kind{font:10px "Cairo";padding:5px 9px;border:1px solid #f2dfb477;border-radius:30px;color:#fff0c9;white-space:nowrap}
+#prophetsGrid .prophet-art-card{position:relative;isolation:isolate;overflow:hidden;display:flex;flex-direction:column;min-height:320px;padding:0;border:1px solid #d8c9a9;border-radius:22px;background:linear-gradient(145deg,#173d31,#38664d 55%,#b68a4d);box-shadow:0 12px 28px #173c3017;transition:transform .3s,box-shadow .3s}
+#prophetsGrid .prophet-art-card:hover{transform:translateY(-6px);box-shadow:0 20px 38px #173c302a}
+.prophet-card-art{height:132px;position:relative;display:grid;place-items:center;overflow:hidden;background:radial-gradient(ellipse at 50% 105%,#e4c78a88,transparent 50%),linear-gradient(180deg,#173b34,#4b7058)}
+.prophet-card-art:before,.prophet-card-art:after{content:"";position:absolute;border:1px solid #f4dfae66;border-radius:50%;width:210px;height:210px;transform:rotate(45deg);box-shadow:0 0 0 12px #f4dfae0d,0 0 0 26px #f4dfae0a}
+.prophet-card-art:after{width:145px;height:145px;border-radius:35%}
+.prophet-card-art span{font:62px "Amiri";color:#f7e7bd;text-shadow:0 5px 20px #0005}
+.prophet-card-body{padding:15px 17px 17px;background:linear-gradient(180deg,#fffdf7,#f8f3e8);flex:1}
+.prophet-card-kicker{font:10px "Cairo";color:#9b7943}.prophet-card-body h3{font:700 22px "Amiri";color:#174637;margin:5px 0 8px}
+.prophet-card-body p{font:12px "Cairo";color:#52635a;line-height:1.9;margin:0 0 10px}
+.prophet-card-fact{font:11px "Cairo";color:#866a3e;border-top:1px solid #e9dfca;padding-top:9px;margin-top:auto}
+.prophet-card-open{margin:12px 0 0;width:100%;border:1px solid #c6a66d;background:#fffaf0;color:#18503e;border-radius:12px;padding:10px;font:700 12px "Cairo";cursor:pointer}
+.seerah-explorer{display:grid;grid-template-columns:minmax(180px,.72fr) minmax(0,1.5fr);gap:18px;margin-top:18px;align-items:start}
+.seerah-steps{position:relative;display:grid;gap:9px}
+.seerah-step{position:relative;display:flex;align-items:center;gap:12px;width:100%;padding:12px;border:1px solid var(--line);border-radius:14px;background:var(--paper);color:var(--ink);text-align:right;cursor:pointer;transition:.2s}
+.seerah-step:before{content:"";width:11px;height:11px;flex:0 0 11px;border:3px solid #c59b57;border-radius:50%;background:var(--paper);box-shadow:0 0 0 4px #c59b571c}
+.seerah-step.active{background:#e9f0e7;border-color:#c9ad76;transform:translateX(-3px)}
+.seerah-step small{display:block;color:var(--muted);font:10px "Cairo"}.seerah-step b{font:700 16px "Amiri";color:var(--green)}
+.seerah-detail{min-height:270px;padding:24px;border:1px solid #d8c9a9;border-radius:20px;background:linear-gradient(145deg,var(--paper),#f4efe2);box-shadow:0 12px 30px #173c3010}
+.seerah-detail .detail-index{font:11px "Cairo";color:#a27b3f}.seerah-detail h3{font:700 28px "Amiri";color:var(--green);margin:8px 0 12px}.seerah-detail p{font:14px "Cairo";line-height:2.1;color:var(--ink)}
+.seerah-detail .detail-evidence{padding:12px 15px;margin-top:16px;border-right:3px solid #c59b57;background:#c59b5710;border-radius:10px;font:12px "Cairo";color:var(--muted)}
+.seerah-detail .detail-progress{height:5px;border-radius:9px;background:#e3dac8;overflow:hidden;margin-top:18px}.seerah-detail .detail-progress i{display:block;height:100%;background:linear-gradient(90deg,#c59b57,#176047);transition:width .35s}
+.seerah-explorer + .timeline{display:none}
+.library-categories{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 16px}
+.library-category-chip{border:1px solid var(--line);background:var(--paper);color:var(--ink);padding:8px 14px;border-radius:30px;font:700 11px "Cairo";cursor:pointer}
+.library-category-chip.active{background:#164b39;color:#fff5df;border-color:#164b39}
+.noor-ask-fab{box-shadow:0 12px 32px #173c3040;border:1px solid #e3c98f!important;background:linear-gradient(135deg,#164b39,#267052)!important}
+.noor-ask-panel{border:1px solid #d7c49c!important;box-shadow:0 25px 80px #102f2840!important}
+.noor-ask-head{background:linear-gradient(110deg,#164b39,#28634b);color:#fff7e6;border-radius:14px;padding:13px 15px}
+.noor-ask-head small{color:#f4e5c5!important}
+@media(max-width:760px){.hero-photo-scene{min-height:310px;height:310px;border-radius:22px}.hero-photo-scene .scene-float-one{right:8px;top:12%}.hero-photo-scene .scene-float-two{left:8px;bottom:24%}.seerah-explorer{grid-template-columns:1fr}.seerah-steps{grid-template-columns:repeat(2,minmax(0,1fr))}.seerah-step{padding:9px;gap:7px}.seerah-detail{padding:18px}.prophet-card-art{height:112px}}
+@media(max-width:480px){.seerah-steps{grid-template-columns:1fr 1fr}.heritage-book-card{min-height:104px;padding:12px}.heritage-book-card .book-title{font-size:17px}.prophet-card-body{padding:12px}.prophet-card-body h3{font-size:20px}}
