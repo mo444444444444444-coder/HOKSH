@@ -1,10 +1,10 @@
 (()=>{'use strict';
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-function norm(s){return String(s||'').replace(/[ًٌٍَُِّْـٰ]/g,'').replace(/[أإآ]/g,'ا').replace(/ى/g,'ي').trim();}
+function norm(s){return String(s||'').replace(/[ًٌٍَُِّْـٰ]/g,'').replace(/[أإآ]/g,'ا').replace(/ى/g,'ي').replace(/\s*(عليه السلام|عليها السلام|رضي الله عنه|رضي الله عنها|ﷺ)\s*/g,'').replace(/[ـ\s]/g,'').trim();}
 function reader(){let el=$('prophetReader');if(!el){const page=$('prophets');if(!page)return null;el=document.createElement('article');el.id='prophetReader';el.className='panel hidden';const grid=$('prophetsGrid');grid?.after(el);}return el;}
 async function open(name){
- const all=window.NOOR_LESSONS||{}, keys=Object.keys(all);let key=keys.find(k=>k===name)||keys.find(k=>norm(k)===norm(name));
+ const all=window.NOOR_LESSONS||{}, keys=Object.keys(all);let key=keys.find(k=>k===name)||keys.find(k=>norm(k)===norm(name))||keys.find(k=>norm(k).startsWith(norm(name))||norm(name).startsWith(norm(k)));
  let item=key?all[key]:null;
  if(!item){const row=(window.NOOR_KNOWLEDGE?.prophets||[]).find(x=>norm(x[0])===norm(name));if(row)item={intro:row[1],sections:[['القصة والدعوة',row[2]]],evidenceRefs:[],sources:['القرآن الكريم في المواضع المشار إليها ضمن المادة']};}
  const host=reader();if(!host)return;
