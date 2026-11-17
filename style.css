@@ -484,3 +484,7 @@ input::placeholder,textarea::placeholder{font-family:var(--type-ui);opacity:.72}
 #lessonReader p,#lessonReader li{line-height:2.05}
 @media(max-width:760px){.global-atlas-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.global-atlas-grid a,.global-atlas-grid img{min-height:145px}}
 @media(max-width:420px){.global-atlas-grid{grid-template-columns:1fr}.global-atlas-grid a,.global-atlas-grid img{min-height:185px}}
+
+/* Brand mark based on the supplied Noor Al-Islam artwork */
+.brand-logo-image{width:56px;height:48px;object-fit:contain;display:block;flex:0 0 auto;border-radius:9px}.drawer-brand-logo{width:62px;height:48px}.brand{gap:10px}.hero-brand-scene{height:455px;min-height:300px;border-radius:30px;background:radial-gradient(ellipse at center,#fff 0%,#fbfaf5 72%,#f1eee5 100%);border:1px solid #e9e2d1;box-shadow:0 24px 70px #183b2b12;overflow:hidden}.hero-brand-scene:before{display:none}.hero-brand-photo{position:relative!important;inset:auto!important;width:100%;height:100%;object-fit:contain!important;object-position:center!important;transform:none!important;padding:14px}.hero-brand-scene:hover .hero-brand-photo{transform:none!important}.prophet-reader-art{margin:20px 0;border-radius:20px;overflow:hidden}.prophet-reader-art img{width:100%;max-height:300px;object-fit:cover}.prophet-story-section{padding:16px 0;border-bottom:1px solid var(--line)}
+@media(max-width:700px){.brand-logo-image{width:44px;height:42px}.hero-brand-scene{height:300px;min-height:240px}.hero-brand-photo{padding:8px}}
