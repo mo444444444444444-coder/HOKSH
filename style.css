@@ -510,3 +510,43 @@ input::placeholder,textarea::placeholder{font-family:var(--type-ui);opacity:.72}
 .welcome-bottom{position:absolute;bottom:22px;left:20px;right:20px;text-align:center;color:#a9c8b5;font:400 15px "Amiri",serif}.welcome-bottom span{color:#10b981;padding:0 8px}
 @media(max-width:760px){.noor-welcome{padding:28px 18px 66px}.welcome-layout{grid-template-columns:1fr;gap:4px;max-width:560px}.welcome-card{order:1;padding:26px 23px;border-radius:23px}.welcome-card h1{font-size:49px}.welcome-emblem{margin-top:14px}.welcome-card p{margin-bottom:20px;font-size:13px}.welcome-start{min-height:54px}.welcome-lamp-stage{order:0;min-height:205px}.welcome-lamp{transform:scale(.56);transform-origin:center center;height:205px}.welcome-light-beam{width:300px;height:220px;top:-3%}.lamp-hint{bottom:-1px;font-size:10px}.welcome-bottom{font-size:12px;bottom:13px}}
 @media(prefers-reduced-motion:reduce){.welcome-card,.welcome-light-beam,.welcome-start{transition:none}}
+
+
+/* Expanded history, seerah and easier game controls */
+.history-expanded,.seerah-expanded{margin:34px 0;padding:26px;border:1px solid var(--line);border-radius:24px;background:linear-gradient(145deg,#fff,#f8f5ed);box-shadow:var(--shadow)}
+.history-expanded .section-heading p,.seerah-expanded .section-heading p{color:var(--muted);font-size:14px}
+.dynasty-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin-top:22px}
+.dynasty-card{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:9px;text-align:right;padding:22px;border:1px solid #e6dfce;border-radius:18px;background:#fff;color:var(--ink);min-height:174px;transition:transform .2s,box-shadow .2s,border-color .2s}
+.dynasty-card:hover{transform:translateY(-4px);box-shadow:0 14px 30px #173d2b16;border-color:var(--gold)}
+.dynasty-card b{font-family:"Amiri",serif;font-size:22px;color:var(--green)}
+.dynasty-card small,.dynasty-card>span:not(.dynasty-number){color:var(--muted);font-size:12px}
+.dynasty-card em{font-style:normal;color:#986d13;font-weight:800;margin-top:auto;font-size:13px}
+.dynasty-number{position:absolute;left:16px;top:13px;color:#c6b27c;font-size:20px;font-weight:800}
+.dynasty-reader{margin-top:22px;padding:clamp(20px,4vw,38px);scroll-margin-top:100px}
+.dynasty-reader h2{font-family:"Amiri",serif;color:var(--green);font-size:32px}
+.dynasty-reader h3{margin:24px 0 10px;color:var(--green)}
+.dynasty-reader li{margin:10px 0;line-height:1.9}
+.dynasty-meta{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0}
+.dynasty-meta span,.game-hints span{background:#e9f0e9;color:#315849;border-radius:30px;padding:7px 12px;font-size:12px}
+.seerah-chapters{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-top:20px}
+.seerah-chapter{background:#fff;border:1px solid var(--line);border-radius:16px;padding:15px 17px}
+.seerah-chapter summary{display:flex;align-items:center;gap:12px;cursor:pointer;list-style:none}
+.seerah-chapter summary::-webkit-details-marker{display:none}
+.seerah-chapter summary>span{display:grid;place-items:center;width:32px;height:32px;flex:0 0 32px;border-radius:50%;background:#e9f0e9;color:var(--green);font-weight:800}
+.seerah-chapter summary b{flex:1;color:var(--green)}
+.seerah-chapter summary i{font-style:normal;color:#a17b22;font-size:20px}
+.seerah-chapter[open]{border-color:#c8b477;box-shadow:0 8px 22px #173d2b0d}
+.seerah-chapter p{line-height:1.9;font-size:14px}
+.seerah-chapter a,.dynasty-reader a{color:#8b6510;font-weight:800}
+.game-howto{margin:16px 0;padding:20px 24px;border-color:#dfe8df;background:linear-gradient(130deg,#fff,#f2f7f1)}
+.game-howto h2{margin:4px 0 8px;font-family:"Amiri",serif;color:var(--green);font-size:25px}
+.game-howto p,.game-instruction{line-height:1.9;color:var(--muted);font-size:14px}
+.game-hints{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.game-instruction{padding:10px 15px;border-radius:12px;background:#f1f5ef;color:#315849;font-weight:700}
+#gameStage .game-option,#gameStage .memory-card,#gameStage .word-letters button{min-height:54px;font-size:17px;border-radius:14px}
+#gameStage .game-option{padding:12px 18px}
+#gameStage .game-question{font-size:clamp(19px,3vw,25px);line-height:1.8}
+#gameStage .order-chip{padding:12px 15px;min-height:52px}
+#gameStage .order-chip button{width:38px;height:38px;border-radius:10px}
+#gameFeedback{font-size:15px;line-height:1.8;min-height:30px}
+@media(max-width:650px){.history-expanded,.seerah-expanded{padding:16px;margin:22px 0}.dynasty-grid{grid-template-columns:1fr 1fr;gap:9px}.dynasty-card{min-height:155px;padding:16px}.dynasty-card b{font-size:19px}.seerah-chapters{grid-template-columns:1fr}.game-howto{padding:16px}}
