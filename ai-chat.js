@@ -4,8 +4,8 @@ const form=$('aiChatForm');if(!form)return;
 const messages=$('aiMessages'),prompt=$('aiPrompt'),status=$('aiStatus'),send=$('aiSend'),newChat=$('aiNewChat');
 let history=[],busy=false,lastSent=0;
 function bubble(text,kind='assistant'){const el=document.createElement('div');el.className='ai-bubble ai-bubble-'+kind;el.textContent=text;messages.appendChild(el);messages.scrollTop=messages.scrollHeight;return el}
-function setBusy(v){busy=v;send.disabled=v;prompt.disabled=v;status.textContent=v?'المساعد يجهّز الإجابة…':'متصل وجاهز للأسئلة العامة'}
-function start(){history=[];messages.replaceChildren();bubble('أهلًا بك في مساعد نور الإسلام. اسألني في العلوم والتقنية والدراسة والكتابة والتاريخ والحياة، وكذلك المعرفة الإسلامية. سأوضح لك عندما لا أكون متأكدًا.');prompt.focus()}
+function setBusy(v){busy=v;send.disabled=v;prompt.disabled=v;status.textContent=v?'المساعد يجهّز الإجابة…':'مساعد إسلامي ومعرفي جاهز — اذكر الدليل والمصدر عند السؤال الشرعي'}
+function start(){history=[];messages.replaceChildren();bubble('أهلًا بك في مساعد نور الإسلام. اسأل في القرآن والتفسير والحديث والفقه والعقيدة والسيرة والتاريخ الإسلامي. سأذكر الأدلة والمراجع ودرجة الحديث عند التحقق، وأوضح مواضع الخلاف ولا أخمّن النصوص. ويمكنك أيضًا سؤالي في العلوم والدراسة والتقنية.');prompt.focus()}
 form.addEventListener('submit',async e=>{e.preventDefault();const text=prompt.value.trim();if(!text||busy)return;if(Date.now()-lastSent<1000){status.textContent='انتظر لحظة ثم أرسل سؤالك';return}lastSent=Date.now();
 if(!cfg.url||!cfg.anonKey){bubble('إعداد الاتصال الآمن بالخادم غير مكتمل.','error');return}
 bubble(text,'user');history.push({role:'user',content:text});prompt.value='';setBusy(true);const waiting=bubble('يفكر في سؤالك الآن…');
