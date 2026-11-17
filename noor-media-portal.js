@@ -2,7 +2,7 @@
 (()=>{'use strict';
 const $=id=>document.getElementById(id),esc=s=>String(s??'').replace(/[&<>\"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[c]));
 let active='الكل';
-const categories=['الكل','قصص الأنبياء','السيرة النبوية','السنة والحديث','علوم شرعية'];
+const categories=['الكل','قصص الأنبياء','السيرة النبوية','السنة والحديث','علوم شرعية','التاريخ والحضارة'];
 function categoryOf(v){
  if(v.category)return v.category;
  const t=String(v.topic||'');
