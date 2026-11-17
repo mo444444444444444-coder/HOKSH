@@ -1,0 +1,29 @@
+(()=>{'use strict';const $=id=>document.getElementById(id);if(!$('gameStage'))return;
+const Q=[['كم عدد سور القرآن؟',['١١٤','١١٠','١٢٠','١٠٠'],0,'عدد سور القرآن ١١٤ سورة.'],['ما السورة التي لا تبدأ بالبسملة؟',['التوبة','يونس','هود','الأنفال'],0,'سورة التوبة لا تبدأ بالبسملة.'],['من النبي الذي ابتلعه الحوت؟',['موسى','يونس','يوسف','أيوب'],1,'يونس عليه السلام.'],['كم عدد أركان الإسلام؟',['أربعة','خمسة','ستة','سبعة'],1,'أركان الإسلام خمسة.'],['ما أطول سورة في القرآن؟',['آل عمران','النساء','البقرة','المائدة'],2,'سورة البقرة أطول سور القرآن.'],['من الملقب بالصديق؟',['عمر','علي','أبو بكر','عثمان'],2,'أبو بكر رضي الله عنه.']];
+const T=[['عدد أجزاء القرآن ثلاثون جزءًا.',1,'القرآن ثلاثون جزءًا.'],['سورة الفاتحة سبع آيات.',1,'الفاتحة سبع آيات.'],['النبي موسى كليم الله.',1,'وكلّم الله موسى تكليمًا.'],['الصلوات المفروضة ست صلوات.',0,'الصلوات المفروضة خمس.'],['وقعت بدر في السنة الثانية للهجرة.',1,'كانت غزوة بدر في رمضان من السنة الثانية.']];
+const P=[['الفاتحة','أم الكتاب'],['رمضان','الصيام'],['مكة','الكعبة'],['المدينة','المسجد النبوي'],['الزكاة','ركن الإسلام'],['نوح','السفينة']];
+const O=['الخروج من مكة','المبيت في غار ثور','الوصول إلى قباء','دخول المدينة'];
+const W=[['رمضان','شهر الصيام'],['الفاتحة','أم الكتاب'],['الكوثر','سورة قصيرة'],['المدينة','هاجر إليها النبي ﷺ']];
+let game='quiz',n=0,score=+(localStorage.getItem('noor.game.score')||0),lock=false,deck=[],picked=[],pairs=0,order=[],letters=[];
+const title={quiz:'تحدي المعلومات',tf:'صح أم خطأ',memory:'ذاكرة الكلمات',order:'رتّب الأحداث',word:'الكلمة المخفية'};
+function update(){$('gameScore').textContent=score.toLocaleString('ar-EG');$('gameLevel').textContent=score>=100?'خبير':score>=40?'متقدم':'مبتدئ';localStorage.setItem('noor.game.score',score)}
+function say(t){$('gameFeedback').textContent=t}
+function next(ok,msg,points=10){lock=true;if(ok){score+=points;update();say('أحسنت! +'+points+' نقطة. '+msg)}else say('حاول مرة أخرى. '+msg);setTimeout(()=>{n++;render()},1250)}
+function render(){lock=false;picked=[];$('gameTitle').textContent=title[game];$('gameCategory').textContent='ألعاب تعليمية تفاعلية';document.querySelectorAll('[data-game]').forEach(b=>b.classList.toggle('active',b.dataset.game===game));let h='';
+if(game==='quiz'){let x=Q[n%Q.length];h='<div class="game-progress">السؤال '+(n+1).toLocaleString('ar-EG')+'</div><div class="game-question">'+x[0]+'</div><div class="game-options">'+x[1].map((v,i)=>'<button class="game-option" data-a="'+i+'">'+v+'</button>').join('')+'</div>'}
+if(game==='tf'){let x=T[n%T.length];h='<div class="game-question">'+x[0]+'</div><div class="game-options"><button class="game-option" data-t="1">✔ صح</button><button class="game-option" data-t="0">✘ خطأ</button></div>'}
+if(game==='memory'){deck=P.flatMap((p,i)=>[{v:p[0],k:i},{v:p[1],k:i}]).sort(()=>Math.random()-.5);pairs=0;h='<div class="game-question">اكشف بطاقتين وابحث عن كل زوج مرتبط</div><div class="memory-grid">'+deck.map((x,i)=>'<button class="memory-card" data-card="'+i+'">؟</button>').join('')+'</div>'}
+if(game==='order'){order=O.slice().sort(()=>Math.random()-.5);h='<div class="game-question">رتّب محطات الهجرة النبوية</div><div class="order-list">'+order.map((x,i)=>'<div class="order-chip">'+x+' <span><button data-up="'+i+'">↑</button> <button data-down="'+i+'">↓</button></span></div>').join('')+'</div><button class="btn btn-gold game-action" id="checkOrder">تحقق من الترتيب</button>'}
+if(game==='word'){let x=W[n%W.length],a=x[0].split('').sort(()=>Math.random()-.5);letters=[];h='<div class="game-question">الكلمة المخفية: '+x[1]+'</div><div class="word-letters">'+a.map((c,i)=>'<button data-l="'+i+'">'+c+'</button>').join('')+'</div><div class="word-blanks" id="wordBlanks">'+a.map(()=>'<span>؟</span>').join('')+'</div><button class="btn btn-gold game-action" id="checkWord">تحقق من الكلمة</button>';window.wordTarget=x[0]}
+$('gameStage').innerHTML=h;say('ابدأ اللعب، وكل إجابة صحيحة تزيد رصيدك!')}
+document.addEventListener('click',e=>{let b=e.target.closest('[data-game]');if(b){game=b.dataset.game;n=0;render();return}if(e.target.id==='gameRestart'){n=0;render();return}
+if(e.target.closest('[data-a]')&&!lock){let x=Q[n%Q.length],v=+e.target.closest('[data-a]').dataset.a;next(v===x[2],x[3]);return}
+if(e.target.closest('[data-t]')&&!lock){let x=T[n%T.length];next(+e.target.closest('[data-t]').dataset.t===x[1],x[2]);return}
+if(e.target.closest('[data-card]')){let b=e.target.closest('[data-card]'),i=+b.dataset.card;if(b.classList.contains('matched')||b.classList.contains('flipped')||picked.length===2)return;b.textContent=deck[i].v;b.classList.add('flipped');picked.push({b,k:deck[i].k});if(picked.length===2){if(picked[0].k===picked[1].k){picked.forEach(x=>x.b.classList.add('matched'));pairs+=2;say('زوج صحيح!');if(pairs===P.length*2){score+=20;update();say('أكملت اللعبة! +٢٠ نقطة')}}else setTimeout(()=>picked.forEach(x=>{x.b.textContent='؟';x.b.classList.remove('flipped')}),650);picked=[]}return}
+if(e.target.closest('[data-up],[data-down]')){let b=e.target.closest('button'),i=+(b.dataset.up??b.dataset.down),d=b.dataset.up!==undefined?-1:1;if(i+d<0||i+d>=order.length)return;[order[i],order[i+d]]=[order[i+d],order[i]];render();return}
+if(e.target.id==='checkOrder'){let ok=order.every((x,i)=>x===O[i]);if(ok){score+=20;update()}say(ok?'ترتيب صحيح! +٢٠ نقطة.':'الترتيب غير صحيح، حاول مرة أخرى.');return}
+if(e.target.closest('[data-l]')){let b=e.target.closest('[data-l]');if(b.disabled)return;b.disabled=true;letters.push(b.textContent);$('wordBlanks').children[letters.length-1].textContent=b.textContent;return}
+if(e.target.id==='checkWord'){let ok=letters.join('')===window.wordTarget;if(ok){score+=15;update()}say(ok?'إجابة صحيحة! +١٥ نقطة.':'ليست الكلمة الصحيحة؛ ابدأ لعبة جديدة للمحاولة.')}
+});
+render();update();
+})();
