@@ -1,0 +1,41 @@
+/* Noor Islam theme contrast repair v81 — final cascade layer */
+:root{
+ --bg:#f8f7f1;--paper:#fffefa;--ink:#19372d;--muted:#66766c;--line:#e5dfd1;
+ --green:#07513b;--green2:#0b6a4b;--mint:#e7f0e9;--gold:#a97822;--gold2:#f2e4bd;
+}
+html,body{background:var(--bg)!important;color:var(--ink)!important}
+body:not(.dark) :is(p,li,label,small,.page-head p,.content-card p,.person-card p,.timeline-item p,.source-note,.panel p,.hadith-card small,.ref,.empty-state,.loading){color:#526258}
+body:not(.dark) :is(h1,h2,h3,h4,b,strong,.page-head h1,.section-heading h2,.panel h2,.panel-title b,.content-card h3,.person-card h3,.timeline-item h3,.quran-toolbar h2,.feature b){color:#124b36}
+body:not(.dark) :is(.panel,.content-card,.person-card,.quran-main,.quran-side,.media-feed-item,.history-card,.game-card,.game-stage,.seerah-explorer,.heritage-card,.dynasty-card){background:#fffefa!important;color:#19372d!important;border-color:#e5dfd1!important}
+body:not(.dark) :is(input,textarea,select,.field,.quran-controls select){background:#fff!important;color:#19372d!important;border-color:#d7d0c1!important}
+body:not(.dark) :is(input,textarea)::placeholder{color:#7b887f!important;opacity:1}
+body:not(.dark) :is(button,.btn,.mini-btn,.game-option,.game-answer){color:#174b36}
+body.dark{
+ color-scheme:dark!important;background:#101b16!important;color:#edf4ee!important;
+ --bg:#101b16;--paper:#192820;--ink:#edf4ee;--muted:#bdcabe;--line:#3b5143;
+ --green:#d5e9d9;--green2:#a9d4b8;--mint:#263d30;--gold:#edcb78;--gold2:#3a3321;
+}
+body.dark :is(main,.page,.panel,.content-card,.person-card,.quran-main,.quran-side,.hadith-main,.hadith-side,.media-feed-item,.history-card,.history-expanded,.seerah-explorer,.seerah-detail,.heritage-card,.heritage-book-card,.dynasty-card,.game-stage,.game-card,.game-question,.login-page-wrap){background-color:#192820!important;color:#edf4ee!important;border-color:#3b5143!important}
+body.dark :is(p,li,label,small,span:not(.brand-mark):not(.feature-icon),.page-head p,.content-card p,.person-card p,.timeline-item p,.source-note,.panel p,.ref,.empty-state,.loading,.hadith-card small,.media-feed-item p,.seerah-detail p){color:#c5d2c8!important}
+body.dark :is(h1,h2,h3,h4,b,strong,.page-head h1,.section-heading h2,.panel h2,.panel-title b,.content-card h3,.person-card h3,.timeline-item h3,.quran-toolbar h2,.feature b,.dynasty-reader h2,.dynasty-reader h3){color:#f0d99c!important}
+body.dark :is(input,textarea,select,.field,.quran-controls select,.book-button){background:#101b16!important;color:#f0f4ef!important;border-color:#526858!important}
+body.dark :is(input,textarea)::placeholder{color:#a8b9ad!important;opacity:1}
+body.dark :is(button,.btn,.mini-btn,.game-option,.game-answer,.category-item,.feature){background-color:#263b30!important;color:#f0d99c!important;border-color:#526858!important}
+body.dark .btn-gold,body.dark .welcome-start{background:#d9bb70!important;color:#172b20!important}
+body.dark .btn-dark{background:#d9bb70!important;color:#172b20!important}
+body.dark .btn-outline{background:#263b30!important;color:#f0d99c!important}
+body.dark .feature p,body.dark .feature small,body.dark .feature-link{color:#cbd8ce!important}
+body.dark .ayah-text,body.dark .arabic,body.dark .quran-text,.hadith-card p{color:#f1ead8!important}
+body.dark .audio-dock{background:#263b30!important;color:#f4f2e9!important;border-color:#526858!important}
+body.dark .welcome-strip{background:#1b3025!important;color:#f0f4ef!important;border-color:#465b49!important}
+body.dark .welcome-strip p{color:#f0d99c!important}
+body.dark .notice{background:#3a3321!important;color:#f2dfae!important;border-color:#76623b!important}
+body.dark .drawer{background:#14231b!important;color:#edf4ee!important}
+body.dark .drawer-group button{color:#e1ebe3!important}
+body.dark .topbar{background:rgba(16,27,22,.97)!important;color:#edf4ee!important;border-color:#3b5143!important}
+body.dark .desktop-nav button,body.dark .text-link{color:#e1ebe3!important}
+body.dark footer{background:#091710!important;color:#f0eadb!important}
+body.dark .toast{background:#d9bb70!important;color:#172b20!important}
+body.dark .noor-help-dock .noor-ask-fab{background:#263b30!important;color:#f0d99c!important}
+body.dark .noor-help-dock .noor-ai-launch{background:#d9bb70!important;color:#172b20!important}
+:focus-visible{outline:3px solid #c69a3b!important;outline-offset:3px}
