@@ -39,3 +39,34 @@ body.dark .toast{background:#d9bb70!important;color:#172b20!important}
 body.dark .noor-help-dock .noor-ask-fab{background:#263b30!important;color:#f0d99c!important}
 body.dark .noor-help-dock .noor-ai-launch{background:#d9bb70!important;color:#172b20!important}
 :focus-visible{outline:3px solid #c69a3b!important;outline-offset:3px}
+
+/* v82 — always show explicit theme names on phones and welcome screen */
+.theme-switch{
+ display:inline-flex!important;visibility:visible!important;opacity:1!important;
+ width:auto!important;min-width:max-content!important;max-width:none!important;
+ padding:0 12px!important;gap:7px!important;overflow:visible!important;
+ color:#174b36!important;background:#fffaf0!important;border:1px solid #b99b59!important;
+}
+.theme-switch .theme-switch-label{
+ display:inline!important;visibility:visible!important;opacity:1!important;
+ width:auto!important;height:auto!important;max-width:none!important;
+ color:inherit!important;font-size:11px!important;white-space:nowrap!important;
+}
+.theme-switch .theme-switch-icon{display:inline-block!important;color:inherit!important}
+.welcome-theme{
+ display:inline-flex!important;align-items:center!important;justify-content:center!important;
+ gap:7px!important;min-width:max-content!important;visibility:visible!important;opacity:1!important;
+ color:#f0d99f!important;background:#173c2b!important;border:1px solid #d7bd7a!important;
+ font-size:12px!important;white-space:nowrap!important;
+}
+.welcome-theme span{display:inline-block!important;color:inherit!important}
+body.dark .theme-switch{color:#f3d99a!important;background:#1c3025!important;border-color:#d0b66f!important}
+body.dark .theme-switch .theme-switch-label,body.dark .theme-switch .theme-switch-icon{color:#f3d99a!important}
+body.dark .welcome-theme{color:#f4dfa5!important;background:#263b30!important;border-color:#d0b66f!important}
+body.dark .welcome-theme span{color:#f4dfa5!important}
+@media(max-width:420px){
+ .theme-switch{min-width:112px!important;width:auto!important;padding:0 8px!important;gap:5px!important}
+ .theme-switch .theme-switch-label{display:inline!important;font-size:10px!important}
+ .top-actions{gap:4px!important}
+ .welcome-theme{min-height:46px!important;padding:0 10px!important}
+}
