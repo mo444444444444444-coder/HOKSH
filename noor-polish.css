@@ -1,0 +1,57 @@
+/* Noor Islam — unified visual system v76
+   Final layer: resolves legacy selector collisions without changing content or features. */
+:root{--bg:#f8f7f1;--paper:#fffefa;--ink:#19372d;--muted:#718078;--line:#e7e1d3;--green:#07513b;--green2:#0b6a4b;--mint:#e7f0e9;--gold:#c69a3b;--gold2:#f2e4bd;--shadow:0 16px 46px rgba(24,55,42,.075)}
+body{background-color:var(--bg);color:var(--ink)}
+/* Correct the old geometric pseudo-logo that was overriding the crescent. */
+.brand-mark.brand-crescent{font-size:33px!important;line-height:1!important;overflow:visible;border-radius:50%;position:relative}
+.brand-mark.brand-crescent:before,.brand-mark.brand-crescent:after{content:none!important;display:none!important}
+.brand-mark.brand-crescent{background:radial-gradient(circle at 32% 28%,#176b50,#063b2b 74%);color:#e8cb7e;text-shadow:0 2px 12px #f0d48a55}
+/* Real photographic hero — the previous scene CSS targeted a class absent from the HTML. */
+.hero-art.hero-photo-scene{height:clamp(350px,39vw,520px);min-height:0;display:block;position:relative;overflow:hidden;isolation:isolate;border-radius:34px 34px 110px 34px;border:1px solid rgba(190,157,91,.48);background:#173c30;box-shadow:0 28px 70px rgba(17,54,39,.18)}
+.hero-art.hero-photo-scene:before{content:"";position:absolute;inset:0;width:auto;height:auto;border-radius:0;background:linear-gradient(180deg,rgba(5,35,25,.02) 35%,rgba(5,35,25,.68) 100%);z-index:1}
+.hero-art.hero-photo-scene:after{content:"نور الإسلام";position:absolute;z-index:2;right:25px;bottom:24px;color:#fff5d9;font:700 clamp(23px,3vw,36px) "Amiri",serif;text-shadow:0 3px 20px #0009;letter-spacing:0}
+.hero-art.hero-photo-scene .hero-real-photo{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover;object-position:center 48%;display:block;filter:saturate(.88) contrast(1.04);transform:scale(1.015)}
+/* A restrained, coherent welcome screen and tactile crescent. */
+.noor-welcome{background:radial-gradient(ellipse at 73% 43%,#24583c 0%,transparent 35%),linear-gradient(125deg,#081b13,#102b1e 56%,#173b29)}
+.welcome-layout{gap:clamp(20px,5vw,70px)}
+.welcome-card{border-color:#c5a45d66;background:linear-gradient(145deg,rgba(17,43,30,.94),rgba(9,27,19,.96));box-shadow:0 28px 90px #0007, inset 0 1px #fff2}
+.welcome-card h1{font-size:clamp(48px,6.5vw,78px);letter-spacing:0}
+.welcome-moon-stage{min-width:0;min-height:420px}
+.welcome-moon{width:clamp(190px,25vw,300px);max-width:100%}
+.moon-core{filter:drop-shadow(0 0 15px #e8c87855)}
+.moon-orbit{pointer-events:none}
+.welcome-start{background:linear-gradient(120deg,#e3c477,#c49a43);border-color:#f0d99a;color:#183324;box-shadow:0 12px 30px #c49a4333}
+.welcome-start:hover{filter:brightness(1.07)}
+/* Header controls remain legible in both themes. */
+.topbar{background:rgba(250,249,244,.94);border-color:#e7e1d3}
+.icon-btn#themeBtn{width:44px;height:44px;display:grid;place-items:center;border:1px solid #d8c89e;border-radius:14px;background:#fffaf0;color:#88651f;font-size:25px;font-family:"Amiri",serif;line-height:1;box-shadow:0 4px 14px #183b2b0c}
+.icon-btn#themeBtn:hover{background:#f4ead0;transform:translateY(-1px)}
+/* Replace the conflicting navy legacy dark palette with deep emerald. */
+body.dark{--bg:#101b16;--paper:#17251e;--ink:#edf3ed;--muted:#b1c0b5;--line:#35483b;--green:#e4d29e;--green2:#9bd0b1;--mint:#263b30;--gold:#e0bd68;--gold2:#e8d9ad;--shadow:0 18px 55px #0005;color-scheme:dark;background-color:var(--bg)}
+body.dark .topbar{background:rgba(16,27,22,.96);border-color:#35483b}
+body.dark .hero-art.hero-photo-scene{border-color:#8c7546;box-shadow:0 28px 70px #0006}
+body.dark .icon-btn#themeBtn{background:#26372c;color:#f1d58e;border-color:#6d5a35}
+body.dark .icon-btn#themeBtn:hover{background:#334a39}
+body.dark .feature{filter:none}
+body.dark .feature-quran,body.dark .feature-hadith,body.dark .feature-history,body.dark .feature-library{background:#1a2b22!important}
+body.dark .category-item{background:#17251e;color:#e9eee9;border-color:#35483b}
+body.dark .hero-trust span{background:#1b2b23;border-color:#3b5143;color:#d7e2d9}
+body.dark .home-bottom{background:linear-gradient(115deg,#1c3025,#22382c);border-color:#455746}
+body.dark .home-ornament{color:#e0bd68;border-color:#75633c}
+@media(max-width:760px){
+ .hero-art.hero-photo-scene{height:clamp(245px,68vw,360px);border-radius:24px 24px 70px 24px}
+ .hero-art.hero-photo-scene:after{right:17px;bottom:16px;font-size:25px}
+ .welcome-moon-stage{min-height:220px}
+ .welcome-moon{width:178px}
+ .moon-orbit{width:250px;height:125px}
+ .moon-orbit-two{width:285px;height:145px}
+ .welcome-layout{gap:2px}
+ .welcome-card{padding:24px 21px}
+ .topbar{gap:7px}
+}
+@media(max-width:420px){
+ .hero-art.hero-photo-scene{height:235px}
+ .brand-mark.brand-crescent{width:34px;height:34px;font-size:27px!important}
+ .icon-btn#themeBtn{width:38px;height:38px}
+}
+@media(prefers-reduced-motion:reduce){.hero-real-photo,.welcome-moon,.welcome-card{transition:none!important;animation:none!important}}
