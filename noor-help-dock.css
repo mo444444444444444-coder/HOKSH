@@ -1,0 +1,36 @@
+/* Noor Islam v80 — separate the two floating help actions, never overlap */
+.noor-help-dock{
+ position:fixed!important;right:max(16px,env(safe-area-inset-right))!important;bottom:max(18px,env(safe-area-inset-bottom))!important;
+ z-index:1200!important;display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:11px!important;
+ width:min(196px,calc(100vw - 32px))!important;pointer-events:none!important;
+}
+.noor-help-dock>*{pointer-events:auto!important;position:relative!important;inset:auto!important;transform:none!important;margin:0!important}
+.noor-help-dock .noor-ask-widget{display:flex!important;flex-direction:column-reverse!important;align-items:stretch!important;gap:10px!important;width:100%!important}
+.noor-help-dock .noor-ask-fab,.noor-help-dock .noor-ai-launch{
+ display:flex!important;align-items:center!important;justify-content:flex-start!important;gap:11px!important;
+ width:100%!important;min-height:54px!important;padding:9px 15px!important;border-radius:17px!important;
+ border:1px solid #d8c58f!important;background:#fffdf6!important;color:#174632!important;
+ box-shadow:0 9px 28px #102e2030!important;font:800 12px "Cairo",sans-serif!important;
+ cursor:pointer!important;white-space:nowrap!important;
+}
+.noor-help-dock .noor-ask-fab>span,.noor-help-dock .noor-ai-launch>span{
+ display:grid!important;place-items:center!important;flex:0 0 34px!important;width:34px!important;height:34px!important;
+ border-radius:11px!important;background:#e9f0e6!important;color:#1b6847!important;font-size:19px!important;
+}
+.noor-help-dock .noor-ai-launch{background:#174632!important;color:#fff7e4!important;border-color:#b99a5c!important}
+.noor-help-dock .noor-ai-launch>span{background:#d9bd7c!important;color:#183c2d!important}
+.noor-help-dock .noor-ask-panel{
+ position:absolute!important;right:0!important;bottom:calc(100% + 10px)!important;left:auto!important;
+ width:min(360px,calc(100vw - 32px))!important;max-height:min(70vh,620px)!important;overflow:auto!important;
+ border-radius:20px!important;box-shadow:0 18px 55px #102e2040!important;z-index:5!important;
+}
+.noor-help-dock .noor-ask-panel.hidden{display:none!important}
+.noor-help-dock .noor-ask-fab:hover,.noor-help-dock .noor-ai-launch:hover{filter:brightness(1.04);box-shadow:0 13px 34px #102e2040!important}
+@media(max-width:520px){
+ .noor-help-dock{right:12px!important;bottom:max(12px,env(safe-area-inset-bottom))!important;width:158px!important;gap:8px!important}
+ .noor-help-dock .noor-ask-fab,.noor-help-dock .noor-ai-launch{min-height:48px!important;padding:7px 10px!important;border-radius:14px!important;font-size:10px!important;gap:8px!important}
+ .noor-help-dock .noor-ask-fab>span,.noor-help-dock .noor-ai-launch>span{width:30px!important;height:30px!important;flex-basis:30px!important;font-size:17px!important}
+ .noor-help-dock .noor-ask-panel{width:min(340px,calc(100vw - 24px))!important}
+}
+body.dark .noor-help-dock .noor-ask-fab{background:#20382b!important;color:#f5e6bd!important;border-color:#786b48!important}
+body.dark .noor-help-dock .noor-ask-fab>span{background:#304b39!important;color:#e8d49c!important}
