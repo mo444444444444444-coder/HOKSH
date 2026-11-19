@@ -30,7 +30,7 @@
   "description":"موسوعة إسلامية عربية للقرآن الكريم وتفسيره والسنة النبوية وقصص الأنبياء والسيرة والعقيدة والفقه والأذكار والتاريخ الإسلامي."
 }
 </script>
-<link rel="stylesheet" href="./style.css?v=77"><link rel="stylesheet" href="./noor-modern.css?v=77"><link rel="stylesheet" href="./noor-polish.css?v=77"><link rel="stylesheet" href="./noor-final-redesign.css?v=77">
+<link rel="stylesheet" href="./style.css?v=77"><link rel="stylesheet" href="./noor-modern.css?v=77"><link rel="stylesheet" href="./noor-polish.css?v=77"><link rel="stylesheet" href="./noor-final-redesign.css?v=77"><link rel="stylesheet" href="./noor-login-experience.css?v=78">
 </head>
 <body>
 <section id="noorWelcome" class="noor-welcome" aria-label="الترحيب بنور الإسلام"><div class="welcome-stars" aria-hidden="true"></div><div class="welcome-layout"><div class="welcome-card" id="welcomeCard"><span class="welcome-kicker"><i></i> أهلاً بك في رحاب الإيمان</span><div class="welcome-emblem" aria-hidden="true">۞</div><h1>نور الإسلام</h1><p>رحلتك إلى القرآن الكريم والسنة النبوية وقصص الأنبياء والسيرة والفقه والتاريخ الإسلامي، في موسوعة معرفية واحدة.</p><button class="welcome-start" id="welcomeStart" type="button">ابدأ الآن <span aria-hidden="true">←</span></button><small class="welcome-note">تصفّح مباشرة — لا يلزم إنشاء حساب</small></div><div class="welcome-moon-stage"><div class="moon-aura" aria-hidden="true"></div><div class="moon-orbit moon-orbit-one" aria-hidden="true"></div><div class="moon-orbit moon-orbit-two" aria-hidden="true"></div><button class="welcome-moon" id="welcomeMoon" type="button" aria-label="أضئ الهلال"><span class="moon-core"></span><span class="moon-star star-one">✦</span><span class="moon-star star-two">✧</span><span class="moon-star star-three">·</span></button><div class="moon-hint" id="moonHint">اضغط الهلال لتبدأ الرحلة</div></div></div><div class="welcome-bottom">﴿اللَّهُ نُورُ السَّمَاوَاتِ وَالْأَرْضِ﴾ <span>·</span> النور: ٣٥</div></section>
@@ -89,13 +89,31 @@
 
 <section class="page" id="ai-assistant"><div class="page-head"><div><span class="eyebrow">مساعد نور الإسلام الذكي</span><h1>اسأل أي سؤال</h1><p>مساعد متخصص في القرآن والتفسير والحديث والفقه والعقيدة والسيرة والتاريخ الإسلامي، يشرح الأدلة ويذكر المراجع ويميز بين المتفق عليه والمسائل الخلافية. ويمكنه الإجابة أيضًا عن الأسئلة العامة.</p></div><div class="head-symbol">✧</div></div><div class="ai-chat-shell panel"><div class="ai-chat-top"><div><b>المساعد الذكي</b><small id="aiStatus">جاهز للمحادثة</small></div><button class="mini-btn" id="aiNewChat" type="button">محادثة جديدة</button></div><div id="aiMessages" class="ai-messages" aria-live="polite"><div class="ai-bubble ai-bubble-assistant">أهلًا بك في مساعد نور الإسلام. اسأل عن آية أو حديث أو حكم شرعي أو سيرة أو تاريخ إسلامي، واطلب الدليل والمصدر ودرجة الحديث.</div></div><form id="aiChatForm" class="ai-chat-form"><textarea id="aiPrompt" class="field" rows="2" maxlength="4000" required placeholder="مثال: ما الدليل على حكم صلاة الوتر؟ اذكر الآيات والأحاديث والمصادر..."></textarea><button class="btn btn-gold" id="aiSend" type="submit">إرسال ↵</button></form><small class="source-note">تنبيه علمي: المساعد لا يملك اتصالًا مباشرًا بكل كتب التراث ولا يُعد مفتيًا. لا يعتمد حكم شرعي حساس على إجابته وحدها؛ راجع النصوص والمختصين، وقد يطلب منك التحقق من نص أو درجة حديث.</small></div></section>
 <section class="page" id="community">
-<div class="page-head"><div><span class="eyebrow">مساحة التواصل</span><h1>اسأل الشيخ</h1><p>أرسل سؤالك من الأيقونة الجانبية في أي صفحة، باسمك أو مجهولًا. لا تحتاج إلى حساب لإرسال السؤال.</p></div></div>
-<div class="account-login-panel panel">
-<div class="account-login-intro"><span class="account-login-icon">◉</span><div><span class="eyebrow">حسابك على هذا الجهاز</span><h2>احفظ حساب Gmail للعودة بسهولة</h2><p>اكتب بريد Gmail مرة واحدة، وسيحتفظ به الموقع على هذا الجهاز ليتذكّره عند زيارتك القادمة.</p></div></div>
-<div id="localVisitorAuth" class="visitor-auth-box"><form id="localAccountForm" class="community-form"><label for="localGoogleEmail">بريد حساب Google (Gmail)</label><input class="field" id="localGoogleEmail" type="email" autocomplete="email" required maxlength="254" placeholder="name@gmail.com"><button class="btn btn-gold" type="submit">حفظ الحساب على هذا الجهاز</button></form><p class="source-note">تنبيه: هذا حفظ محلي للبريد فقط، وليس تسجيل دخول موثّقًا من Google، ولا يزامن الحساب بين الأجهزة.</p><p class="source-note" id="localAccountStatus" role="status"></p></div>
-<div id="localVisitorAccount" class="visitor-account-box hidden"><p id="localVisitorIdentity"></p><button class="btn btn-outline" id="localAccountChange" type="button">تغيير الحساب</button><button class="btn btn-outline" id="localAccountForget" type="button">نسيان الحساب من هذا الجهاز</button></div>
+<div class="login-page-wrap">
+ <div class="login-visual">
+  <div class="login-visual-top"><span class="login-brand-mark">☾</span><span>موسوعة نور الإسلام</span><span class="login-live"><i></i> بوابتك المعرفية</span></div>
+  <div class="login-visual-art" aria-hidden="true"><div class="login-arch"><div class="login-arch-inner"><span class="login-star">✦</span><span class="login-moon">☾</span><span class="login-arabesque">۞</span></div></div><span class="login-orbit orbit-a"></span><span class="login-orbit orbit-b"></span></div>
+  <div class="login-visual-copy"><span class="eyebrow">رحلة علمٍ ونور</span><h1>كلما ازددت علمًا،<br><em>ازددت نورًا.</em></h1><p>مساحتك الشخصية لحفظ رحلتك في القرآن والسنة والمعرفة الإسلامية، والعودة إلى ما تحب قراءته.</p><div class="login-benefits"><span>✦ احفظ تقدمك وموادك</span><span>✦ عُد إلى حسابك بأمان</span><span>✦ تابع مشاركاتك وأسئلتك</span></div></div>
+  <div class="login-visual-foot">﴿وَقُل رَّبِّ زِدْنِي عِلْمًا﴾ <small>طه · ١١٤</small></div>
+ </div>
+ <div class="login-form-side">
+  <div class="login-form-head"><span class="login-form-kicker">أهلًا بك من جديد</span><h2>ادخل إلى عالم المعرفة</h2><p>سجّل الدخول بحساب Google للانتفاع بمزايا الحساب الشخصي.</p></div>
+  <div id="visitorAuth" class="login-auth-state">
+   <button class="google-login-button login-google-primary" id="googleLogin" type="button"><span class="google-g" aria-hidden="true">G</span><span><b>المتابعة باستخدام Google</b><small>دخول آمن بحسابك الشخصي</small></span><span class="google-arrow">←</span></button>
+   <div class="login-divider"><span>خصوصيتك أولًا</span></div>
+   <div class="login-security-note"><span>♧</span><p>لن نطلب منك كلمة مرور Google داخل الموقع. تتم المصادقة عبر خدمة Google الآمنة، ولا نعرض بيانات حسابك للزوار.</p></div>
+   <p class="auth-status login-auth-status" id="authStatus" role="status" aria-live="polite">يمكنك تصفح الموسوعة دون تسجيل الدخول؛ الحساب اختياري لحفظ تجربتك.</p>
+  </div>
+  <div id="visitorAccount" class="visitor-account-box login-signed-in hidden">
+   <div class="login-success-mark">✓</div><span class="eyebrow">تم تسجيل الدخول</span><h3>مرحبًا بك في نور الإسلام</h3><p id="visitorIdentity">أصبح حسابك متصلًا.</p>
+   <form id="setPasswordForm" class="login-password-form"><label for="accountPassword">كلمة مرور اختيارية للعودة بالبريد</label><input class="field" id="accountPassword" type="password" minlength="8" autocomplete="new-password" placeholder="٨ أحرف على الأقل"><input class="field" id="accountPasswordConfirm" type="password" minlength="8" autocomplete="new-password" placeholder="أعد كتابة كلمة المرور"><button class="btn btn-gold" type="submit">حفظ كلمة المرور</button><small id="passwordStatus" class="auth-status" role="status"></small></form>
+   <button class="btn btn-outline login-logout" id="visitorLogout" type="button">تسجيل الخروج</button>
+  </div>
+  <div class="login-back-row"><button type="button" class="login-back-link" data-go="home">← العودة إلى تصفح الموسوعة</button></div>
+  <div class="login-form-foot"><span>نور الإسلام</span><span>إعداد وتطوير · محمد شعبان محارب</span></div>
+ </div>
 </div>
-<div class="section-heading"><div><span class="eyebrow">المعرفة النافعة</span><h2>أسئلة وإجابات منشورة</h2></div></div><div id="publishedAnswers" class="content-grid"><div class="empty-state">يتم تحميل الإجابات المنشورة.</div></div>
+<div class="section-heading login-answers-heading"><div><span class="eyebrow">المعرفة النافعة</span><h2>أسئلة وإجابات منشورة</h2></div></div><div id="publishedAnswers" class="content-grid"><div class="empty-state">يتم تحميل الإجابات المنشورة.</div></div>
 </section>
 <section class="page" id="library"><div class="page-head"><div><span class="eyebrow">مراجع ومواد علمية</span><h1>المكتبة العلمية</h1><p>ابحث في المواد المضافة للموقع، وافتح المادة كاملة داخل الصفحة.</p></div></div><div class="form-row library-search-row"><input id="librarySearch" class="field" placeholder="ابحث في المكتبة"><button class="btn btn-gold" id="librarySearchBtn" type="button">⌕ ابحث</button><button class="btn btn-outline" id="libraryClearBtn" type="button">مسح</button></div><p class="source-note" id="librarySummary">مكتبة نور الإسلام: مواد علمية مفصلة قابلة للقراءة داخل الموقع.</p>
 <div class="global-atlas"><div class="global-atlas-head"><span class="eyebrow">تراث بصري من العالم الإسلامي</span><h2>عمارةٌ تحكي التاريخ</h2><p>شاهد نماذج معمارية من أقاليم وعصور مختلفة، ثم انتقل إلى المادة التاريخية المرتبطة بها.</p></div><div class="global-atlas-grid">
