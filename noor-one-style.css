@@ -1,0 +1,136 @@
+/* NOOR ISLAM — unified editorial design v84
+   One bright theme. Presentation-only layer: preserves all content, IDs and behavior. */
+:root{
+ color-scheme:light;
+ --bg:#f5f3eb;--paper:#fffefa;--ink:#173c2e;--muted:#52675b;--line:#e2ddcf;
+ --green:#15533d;--green-deep:#103b2d;--gold:#b68a3c;--gold-soft:#f2e8cf;
+ --shadow:0 12px 34px rgba(26,53,39,.08);
+ font-family:"Cairo",sans-serif
+}
+html{scroll-behavior:smooth;background:var(--bg)}
+body,body.dark{background:var(--bg)!important;color:var(--ink)!important;color-scheme:light!important;font-family:"Cairo",sans-serif!important}
+body{margin:0;line-height:1.8}
+body.dark{--bg:#f5f3eb;--paper:#fffefa;--ink:#173c2e;--muted:#52675b;--line:#e2ddcf;--green:#15533d;--green-deep:#103b2d;--gold:#b68a3c;--gold-soft:#f2e8cf}
+.ambient{display:none!important}
+#themeBtn,#welcomeTheme{display:none!important}
+.noor-welcome{background:radial-gradient(ellipse at 18% 12%,#e6d7ae 0,transparent 28%),linear-gradient(135deg,#123e2f,#0d3025 58%,#1b5941)!important;color:#fff!important}
+.welcome-layout{width:min(1160px,calc(100% - 44px));margin:auto;gap:clamp(24px,5vw,76px);align-items:center}
+.welcome-card{background:#fffefa!important;color:#173c2e!important;border:1px solid #d8c69b!important;border-radius:28px!important;box-shadow:0 28px 80px #061d1570!important;padding:clamp(24px,4vw,54px)!important}
+.welcome-card h1{color:#174b37!important;font:700 clamp(42px,6vw,68px)/1.25 "Amiri",serif!important}
+.welcome-card p{color:#53675b!important;font-size:clamp(13px,1.5vw,16px)!important;line-height:2.1}
+.welcome-kicker{color:#9a7432!important}.welcome-emblem{color:#b68a3c!important}
+.welcome-start{background:#15533d!important;color:white!important;border:1px solid #15533d!important;border-radius:13px!important;min-height:50px;padding-inline:24px!important}
+.welcome-login{background:#f4eddd!important;color:#174b37!important;border:1px solid #d9c99f!important;border-radius:13px!important;min-height:50px;padding-inline:20px!important}
+.welcome-moon-stage{min-height:360px}.welcome-moon{filter:drop-shadow(0 0 25px #e9cd83)!important}
+.welcome-bottom{color:#f4e7c8!important}
+.topbar{position:sticky!important;top:0;z-index:1000!important;min-height:76px;padding:10px clamp(14px,3vw,42px)!important;display:flex;align-items:center;gap:18px;background:rgba(255,254,250,.97)!important;border:0!important;border-bottom:1px solid var(--line)!important;box-shadow:0 5px 22px #1b3b2a0b!important;backdrop-filter:blur(14px)}
+.brand b{color:#174b37!important;font:800 19px "Amiri",serif!important}.brand small{color:#64766a!important}
+.brand-mark.brand-crescent{background:#174b37!important;color:#efd99e!important;border:1px solid #c6a45f!important}
+.desktop-nav{flex:1;justify-content:center;flex-wrap:wrap;gap:3px!important}
+.desktop-nav button{color:#345747!important;border-radius:9px!important;padding:8px 9px!important;font-size:12px!important;font-weight:800!important}
+.desktop-nav button:hover,.desktop-nav button.active{background:#eaf0e8!important;color:#124b35!important}
+.top-actions{display:flex;align-items:center;gap:8px}
+.icon-btn,.menu-btn,.account-top-btn{background:#f5f1e6!important;color:#174b37!important;border:1px solid #e0d6bf!important;border-radius:12px!important;min-height:42px}
+.account-top-btn{padding:0 13px!important;font-size:11px!important;font-weight:800}
+.menu-btn{display:none}
+.drawer{background:#fffefa!important;color:#173c2e!important;border-left:1px solid var(--line)!important;box-shadow:-18px 0 60px #183b2b18!important}
+.drawer-group button{color:#284d3b!important;border-radius:10px!important}
+.drawer-group button:hover{background:#edf2eb!important}
+.drawer-group>small{color:#a17b3d!important}
+main#app{width:min(1440px,100%);margin:0 auto;padding:clamp(16px,3vw,38px) clamp(14px,3vw,36px) 70px;overflow:clip}
+.page{min-height:60vh}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(320px,.95fr);gap:clamp(20px,4vw,54px);align-items:center;padding:clamp(12px,2vw,24px) 0 26px}
+.hero-copy{max-width:680px}
+.hero-copy h1{font:700 clamp(35px,4.8vw,62px)/1.45 "Amiri",serif!important;color:#174b37!important;margin:12px 0}
+.hero-copy h1 em{color:#a77b32!important;font-style:normal}
+.hero-copy>p{color:#52675b!important;font-size:clamp(13px,1.35vw,16px)!important;line-height:2.2}
+.eyebrow{color:#9a7432!important;font-weight:900}
+.hero-art.hero-photo-scene{height:clamp(290px,36vw,470px)!important;border-radius:34px 34px 100px 34px!important;box-shadow:0 24px 65px #163c2b24!important}
+.hero-trust{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.hero-trust span{background:#edf1e8!important;border:1px solid #dce5d8!important;color:#315b43!important;border-radius:30px!important;padding:7px 11px!important;font-size:10px!important}
+.btn{border-radius:12px!important;min-height:46px!important;padding:10px 18px!important;font-weight:800!important}
+.btn-gold{background:#b68a3c!important;color:#fff!important;border-color:#b68a3c!important}
+.btn-glass{background:#eaf0e8!important;color:#174b37!important;border:1px solid #d7e2d5!important}
+.btn-outline{background:#fffefa!important;color:#174b37!important;border:1px solid #cfd9cf!important}
+.welcome-strip{background:#fffefa!important;border:1px solid var(--line)!important;border-right:5px solid var(--gold)!important;border-radius:18px!important;box-shadow:var(--shadow)!important}
+.welcome-strip p{color:#174b37!important}.welcome-strip small{color:#956f31!important}
+.section-heading{margin:clamp(30px,4vw,48px) 0 18px!important}
+.section-heading h2{color:#174b37!important;font:700 clamp(25px,3vw,36px) "Amiri",serif!important}
+.feature-grid{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:16px!important}
+.feature{background:#fffefa!important;color:#173c2e!important;border:1px solid var(--line)!important;border-radius:18px!important;box-shadow:var(--shadow)!important;min-height:215px!important;padding:22px!important}
+.feature:hover{transform:translateY(-3px)!important;border-color:#c4a66b!important}
+.feature b{color:#174b37!important;font:700 23px "Amiri",serif!important}
+.feature p{color:#53675b!important;line-height:2!important}
+.feature-icon{background:#edf2e9!important;color:#1b6043!important}
+.category-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px!important}
+.category-item{background:#fffefa!important;color:#174b37!important;border:1px solid var(--line)!important;border-radius:13px!important;min-height:58px}
+.home-bottom{background:linear-gradient(115deg,#e9e4d6,#f9f6ee)!important;border:1px solid #ded4bd!important;border-radius:22px!important}
+.home-bottom h2{color:#174b37!important}.home-bottom p{color:#53675b!important}
+.page-head{background:linear-gradient(115deg,#174b37,#226449)!important;color:#fff!important;border-radius:22px!important;padding:clamp(22px,3vw,34px)!important;box-shadow:0 15px 36px #174b3720!important}
+.page-head h1,.page-head h2{color:#fff!important;font:700 clamp(28px,3.5vw,40px) "Amiri",serif!important}
+.page-head p{color:#f1f5ef!important;line-height:2!important}
+.page-head .eyebrow{color:#f0d99f!important}
+.panel,.content-card,.person-card,.timeline-item,.quran-main,.quran-side,.hadith-main,.hadith-side,.media-feed-item,.history-card,.game-card,.game-stage,.seerah-explorer,.heritage-card,.dynasty-card,.library-visual-card,.ayah-card{background:#fffefa!important;color:#173c2e!important;border:1px solid var(--line)!important;border-radius:17px!important;box-shadow:0 7px 24px #1b3b2a0a!important}
+.panel p,.content-card p,.person-card p,.timeline-item p,.media-feed-item p,.source-note,.page-head+ p{color:#52675b!important;line-height:2!important}
+.panel h2,.panel h3,.content-card h3,.person-card h3,.timeline-item h3,.panel-title b,.dynasty-reader h2,.dynasty-reader h3{color:#174b37!important}
+input,textarea,select,.field,.quran-controls select{background:#fff!important;color:#173c2e!important;border:1px solid #cbd6cb!important;border-radius:10px!important;min-height:42px}
+input::placeholder,textarea::placeholder{color:#718176!important;opacity:1!important}
+button,.btn,.mini-btn,.game-option,.game-answer{font-family:"Cairo",sans-serif}
+.mini-btn,.game-option,.game-answer{background:#edf2e9!important;color:#174b37!important;border:1px solid #d3dfd2!important;border-radius:10px!important}
+.ayah-text,.arabic,.quran-text,.hadith-card p{color:#173c2e!important}
+.audio-dock{background:#174b37!important;color:#fff!important;border:1px solid #c2a467!important;border-radius:15px!important}
+.audio-dock small,.audio-dock b{color:#fff!important}
+.toast{background:#174b37!important;color:#fff!important}
+footer{background:#123d2e!important;color:#f5f1e6!important}
+footer p,footer small,footer a{color:#f5f1e6!important}
+#community .login-page-wrap{grid-template-columns:repeat(2,minmax(0,1fr));background:#fffefa!important}
+#community .login-form-side{background:#fffefa!important}
+#community .login-form-head h2,#community .login-signed-in h3{color:#174b37!important}
+#community .login-form-head p,#community .login-signed-in p{color:#52675b!important}
+#community .login-google-primary b{color:#173c2e!important}
+body.dark :is(.panel,.content-card,.person-card,.timeline-item,.quran-main,.quran-side,.hadith-main,.hadith-side,.media-feed-item,.history-card,.game-card,.game-stage,.seerah-explorer,.heritage-card,.dynasty-card,.library-visual-card,.ayah-card){background:#fffefa!important;color:#173c2e!important;border-color:var(--line)!important}
+body.dark :is(p,li,label,small,.page-head p,.content-card p,.person-card p,.timeline-item p,.source-note,.panel p,.hadith-card small,.ref,.empty-state,.loading){color:#52675b!important}
+body.dark :is(h1,h2,h3,h4,b,strong,.page-head h1,.section-heading h2,.panel h2,.panel-title b,.content-card h3,.person-card h3,.timeline-item h3,.quran-toolbar h2,.feature b){color:#174b37!important}
+body.dark :is(input,textarea,select,.field,.quran-controls select){background:#fff!important;color:#173c2e!important;border-color:#cbd6cb!important}
+body.dark :is(button,.btn,.mini-btn,.game-option,.game-answer,.category-item,.feature){color:#174b37!important}
+body.dark .page-head h1,body.dark .page-head h2,body.dark .page-head p{color:#fff!important}
+body.dark .welcome-card h1,body.dark .welcome-card p{color:inherit!important}
+:focus-visible{outline:3px solid #b68a3c!important;outline-offset:3px}
+@media(max-width:1120px){.desktop-nav{display:none!important}.menu-btn{display:inline-grid!important;place-items:center}.hero-grid{grid-template-columns:1fr 1fr}.account-top-btn{display:none!important}}
+@media(max-width:780px){
+ main#app{padding:14px 13px 58px}
+ .topbar{min-height:64px;padding:8px 12px!important}
+ .hero-grid{grid-template-columns:1fr;gap:18px}
+ .hero-copy h1{font-size:clamp(34px,8vw,48px)!important}
+ .hero-art.hero-photo-scene{height:clamp(220px,58vw,340px)!important;border-radius:22px 22px 65px 22px!important}
+ .feature-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ .category-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .page-head{padding:21px!important}
+ .quran-layout{grid-template-columns:1fr!important}
+ .quran-side{max-height:420px;overflow:auto}
+ #community .login-page-wrap{grid-template-columns:1fr;min-height:0}
+ #community .login-visual{min-height:300px!important}
+ .welcome-layout{grid-template-columns:1fr!important;width:min(560px,calc(100% - 28px))}
+ .welcome-moon-stage{min-height:190px!important;order:0}
+ .welcome-card{order:1}
+}
+@media(max-width:480px){
+ .brand small{display:none}
+ .brand b{font-size:15px!important}
+ .brand-mark.brand-crescent{width:34px!important;height:34px!important}
+ .top-actions{gap:5px}
+ .icon-btn,.menu-btn{width:38px!important;height:38px!important;min-width:38px}
+ .search-action span{display:none}
+ .feature-grid,.category-grid{grid-template-columns:1fr!important}
+ .feature{min-height:0!important}
+ .section-heading{align-items:flex-start}
+ .section-heading h2{font-size:25px!important}
+ .welcome-actions{display:flex;flex-wrap:wrap;gap:9px}
+ .welcome-actions button{flex:1 1 130px}
+ .welcome-bottom{font-size:12px}
+ .page-head h1{font-size:29px!important}
+ .form-row{display:flex;flex-wrap:wrap}
+ .form-row>*{min-width:0;flex:1 1 100%}
+ .noor-help-dock{width:142px!important}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
