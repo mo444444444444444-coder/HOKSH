@@ -1,0 +1,57 @@
+/* NOOR ISLAM v88 — cinematic Gateway of Light intro; replaces the old moon splash only */
+#noorWelcome{
+ position:fixed;inset:0;z-index:3000;min-height:100svh;display:grid;place-items:center;overflow:hidden;
+ padding:clamp(18px,4vw,54px);color:#fff8e9;
+ background:radial-gradient(ellipse at 76% 48%,#bd96513a 0,transparent 42%),linear-gradient(125deg,#101e18 0%,#1b3328 48%,#263b2e 100%);
+}
+#noorWelcome:before,#noorWelcome:after{content:"۞";position:absolute;pointer-events:none;color:#e0c18b0c;font:clamp(260px,38vw,560px)/1 "Amiri",serif}
+#noorWelcome:before{left:-8vw;top:-22vw}#noorWelcome:after{right:-8vw;bottom:-28vw}
+#noorWelcome .welcome-stars{position:absolute;inset:0;opacity:.36;background-image:radial-gradient(#f4dfb2 1px,transparent 1.5px),radial-gradient(#fff 1px,transparent 1.5px);background-size:83px 83px,137px 137px;background-position:0 0,32px 49px;mask-image:linear-gradient(90deg,#000,transparent 90%)}
+#noorWelcome .welcome-layout{position:relative;z-index:2;width:min(1320px,100%);display:grid;grid-template-columns:minmax(320px,.86fr) minmax(380px,1.14fr);align-items:center;gap:clamp(28px,6vw,92px)}
+#noorWelcome .welcome-card{position:relative;max-width:610px;padding:clamp(24px,4vw,48px) 0;text-align:right}
+#noorWelcome .welcome-kicker{display:inline-flex;align-items:center;gap:10px;padding:8px 15px;border:1px solid #d7b77a55;border-radius:40px;background:#ffffff0b;color:#e8c993;font-size:12px;font-weight:800}
+#noorWelcome .welcome-kicker i{width:7px;height:7px;border-radius:50%;background:#e3bf7d;box-shadow:0 0 16px #e3bf7d}
+#noorWelcome .welcome-emblem{display:none}
+#noorWelcome .welcome-card h1{margin:22px 0 10px;color:#fff2d8;font:700 clamp(48px,7vw,88px)/1.15 "Amiri",serif;text-shadow:0 8px 30px #0005}
+#noorWelcome .welcome-card p{max-width:590px;margin:0;color:#e7e2d4;font:400 clamp(16px,1.55vw,20px)/2.1 "Cairo",sans-serif}
+#noorWelcome .welcome-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+#noorWelcome .welcome-start,#noorWelcome .welcome-login{min-height:52px;padding:0 25px;border-radius:13px;font:800 14px "Cairo",sans-serif;transition:transform .2s,box-shadow .2s,background .2s}
+#noorWelcome .welcome-start{border:1px solid #e3c58d;background:linear-gradient(135deg,#e4c58d,#b8894e);color:#203329;box-shadow:0 12px 30px #0003}
+#noorWelcome .welcome-login{border:1px solid #d9c18c88;background:#ffffff0d;color:#fff1d4}
+#noorWelcome .welcome-start:hover,#noorWelcome .welcome-login:hover{transform:translateY(-3px);box-shadow:0 14px 32px #0004}
+#noorWelcome .welcome-note{display:block;margin-top:16px;color:#c5c9bb;font-size:11px}
+#noorWelcome .welcome-portal-stage{position:relative;height:min(72vh,690px);min-height:430px;display:grid;place-items:center;isolation:isolate}
+#noorWelcome .portal-photo-wrap{position:absolute;inset:8% 13% 7%;overflow:hidden;border-radius:48% 48% 16px 16px / 34% 34% 16px 16px;box-shadow:0 0 0 1px #e4c78d88,0 0 0 12px #d5b57b12,0 28px 90px #0008}
+#noorWelcome .welcome-portal-photo{width:100%;height:100%;display:block;object-fit:cover;object-position:center;filter:saturate(.78) sepia(.16) brightness(.75);transform:scale(1.03)}
+#noorWelcome .portal-photo-shade{position:absolute;inset:0;background:linear-gradient(180deg,#15251c22 0%,#15251c08 40%,#15251caa 100%),linear-gradient(90deg,#15251c33,transparent 45%,#15251c33)}
+#noorWelcome .portal-arch{position:absolute;inset:2% 7% 1%;border:1px solid #e5c78d88;border-radius:50% 50% 12px 12px / 31% 31% 12px 12px;pointer-events:none}
+#noorWelcome .portal-arch-inner{inset:7% 12% 6%;border-color:#f4e3bf55;border-width:2px}
+#noorWelcome .portal-inscription{position:absolute;z-index:2;bottom:16%;left:50%;transform:translateX(-50%);width:min(270px,58%);padding:15px 14px;text-align:center;border:1px solid #e2c28b88;border-radius:15px;background:#14271edb;box-shadow:0 12px 36px #0005;backdrop-filter:blur(8px)}
+#noorWelcome .portal-inscription span{display:block;color:#e8c68c;font:27px "Amiri",serif}
+#noorWelcome .portal-inscription b{display:block;color:#fff0d0;font:700 23px "Amiri",serif}
+#noorWelcome .portal-inscription small{color:#e0cda8;font-size:10px}
+#noorWelcome .portal-star{position:absolute;color:#edcf94;text-shadow:0 0 20px #f1d7a0;font-size:25px}
+#noorWelcome .portal-star-one{top:13%;right:14%}#noorWelcome .portal-star-two{bottom:17%;left:8%;font-size:34px}
+#noorWelcome .portal-caption{position:absolute;bottom:-1%;left:50%;transform:translateX(-50%);white-space:nowrap;color:#dfc99e;font:16px "Amiri",serif;letter-spacing:.08em}
+#noorWelcome .welcome-bottom{position:absolute;z-index:3;bottom:18px;left:50%;transform:translateX(-50%);white-space:nowrap;color:#e5d5b5;font:15px "Amiri",serif}
+#noorWelcome .welcome-bottom span{padding:0 9px;color:#c79d60}
+#noorWelcome .moon-hint,#noorWelcome .welcome-moon{display:none!important}
+@media(max-width:760px){
+ #noorWelcome{padding:20px 18px 58px;overflow:auto}
+ #noorWelcome .welcome-layout{grid-template-columns:1fr;gap:8px;text-align:center}
+ #noorWelcome .welcome-card{order:2;padding:8px 0 12px;text-align:center}
+ #noorWelcome .welcome-card h1{font-size:clamp(45px,13vw,66px);margin:12px 0 6px}
+ #noorWelcome .welcome-card p{font-size:14px;line-height:1.9;margin:auto}
+ #noorWelcome .welcome-actions{justify-content:center;margin-top:18px}
+ #noorWelcome .welcome-portal-stage{order:1;height:43vh;min-height:260px;max-height:370px}
+ #noorWelcome .portal-photo-wrap{inset:4% 18% 5%}
+ #noorWelcome .portal-arch{inset:0 11% 0}
+ #noorWelcome .portal-arch-inner{inset:5% 16% 5%}
+ #noorWelcome .portal-inscription{bottom:13%;padding:8px 10px}
+ #noorWelcome .portal-inscription span{font-size:19px}
+ #noorWelcome .portal-inscription b{font-size:17px}
+ #noorWelcome .portal-inscription small{font-size:8px}
+ #noorWelcome .portal-caption{font-size:12px;bottom:-3%}
+ #noorWelcome .welcome-bottom{bottom:13px;font-size:12px}
+}
+@media(prefers-reduced-motion:no-preference){#noorWelcome .portal-arch-outer{animation:gatewayBreath 7s ease-in-out infinite alternate}#noorWelcome .portal-star{animation:gatewaySparkle 3.8s ease-in-out infinite alternate}@keyframes gatewayBreath{from{transform:scale(.99);opacity:.65}to{transform:scale(1.015);opacity:1}}@keyframes gatewaySparkle{from{opacity:.55;transform:scale(.9)}to{opacity:1;transform:scale(1.12)}}}
