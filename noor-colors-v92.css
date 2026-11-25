@@ -1,0 +1,78 @@
+/* NOOR ISLAM v92 — COLOR PALETTE ONLY. No layout, sizing, spacing or typography changes. */
+:root{
+ --bg:#f7f5ed;--paper:#fffdf7;--ink:#173d30;--muted:#596d61;--line:#ded8c8;
+ --green:#07533d;--green2:#0b7050;--mint:#e8f1e9;--gold:#b48632;--gold2:#f3e7c8;
+ --noor-ink:#173d30;--noor-muted:#596d61;--noor-paper:#fffdf7;--noor-line:#ded8c8;--noor-gold:#b48632;
+ color-scheme:light;
+}
+html,body{background-color:#f7f5ed!important;color:#173d30}
+body:not(.dark){background-color:#f7f5ed!important;color:#173d30!important}
+body:not(.dark) :is(main,.page,.panel,.content-card,.person-card,.timeline-item,.dynasty-card,.seerah-chapter,.history-card,.history-expanded,.seerah-expanded,.library-visual-card,.media-feed-item,.heritage-book-card,.heritage-card,.prophet-art-card,.game-card,.game-stage,.quran-main,.quran-side,.hadith-main,.hadith-side,.login-page-wrap,#lessonReader,.category-item,.category-card){
+ background-color:#fffdf7!important;color:#173d30!important;border-color:#ded8c8!important
+}
+body:not(.dark) :is(p,li,label,small,.ref,.source-note,.page-head p,.content-card p,.person-card p,.timeline-item p,.panel p,.empty-state,.loading,.book-note,.hero-trust,.category-item small){color:#586b60!important}
+body:not(.dark) :is(h1,h2,h3,h4,b,strong,.page-head h1,.section-heading h2,.panel h2,.panel-title b,.content-card h3,.person-card h3,.timeline-item h3,.dynasty-card h2,.dynasty-card h3,.feature b,.book-title){color:#124b37!important}
+body:not(.dark) :is(input,textarea,select,.field,.quran-controls select,.book-button){
+ background-color:#fffefa!important;color:#173d30!important;border-color:#cfc6b2!important
+}
+body:not(.dark) :is(input,textarea,select)::placeholder{color:#7b887e!important;opacity:1}
+body:not(.dark) :is(.topbar,.drawer,.welcome-card,.home-bottom,.welcome-strip,.audio-dock,.feature,.category-item,.notice,.toast){
+ border-color:#ded8c8!important
+}
+body:not(.dark) .topbar{background-color:#fffdf7f5!important;color:#173d30!important}
+body:not(.dark) .desktop-nav button,body:not(.dark) .text-link{color:#245440!important}
+body:not(.dark) .desktop-nav button:hover,body:not(.dark) .desktop-nav button.active{background-color:#e7efe7!important;color:#07533d!important}
+body:not(.dark) .drawer{background-color:#fffdf7!important;color:#173d30!important}
+body:not(.dark) .drawer-group button{color:#28543f!important}
+body:not(.dark) .drawer-group button:hover{background-color:#eaf1e9!important}
+body:not(.dark) :is(.btn-gold,.welcome-start,.btn-dark){background-color:#b48632!important;color:#fffdf7!important;border-color:#a87825!important}
+body:not(.dark) :is(.btn-outline,.mini-btn,.game-option,.game-answer,.book-button,.library-category-chip){background-color:#edf2e9!important;color:#174b37!important;border-color:#c9d5c8!important}
+body:not(.dark) :is(.library-category-chip.active,.library-category-chip:hover,.game-option:hover,.game-answer:hover){background-color:#07533d!important;color:#fffdf7!important;border-color:#07533d!important}
+body:not(.dark) :is(.feature,.category-item){background-color:#fffdf7!important;color:#173d30!important;border-color:#ded8c8!important}
+body:not(.dark) .feature :is(p,small,.feature-link){color:#596d61!important}
+body:not(.dark) :is(.hero-copy h1,.hero-copy h2){color:#173d30!important}
+body:not(.dark) .hero-copy em{color:#a97822!important}
+body:not(.dark) :is(.noor-verse-card,.noor-knowledge-intro,.noor-inspiration,.welcome-strip){background-color:#f0eee3!important;color:#173d30!important;border-color:#ded5c0!important}
+body:not(.dark) :is(.noor-verse-card p,.noor-knowledge-intro p,.noor-inspiration p){color:#435c4d!important}
+body:not(.dark) :is(.quran-text,.ayah-text,.arabic,.quran-calligraphy){color:#174b37!important}
+body:not(.dark) :is(.evidence-verse,.lesson-evidence,.source-box,.notice){background-color:#f4efdf!important;color:#4a3a1e!important;border-color:#dfd0a9!important}
+body:not(.dark) :is(.evidence-verse p,.lesson-evidence p,.source-box p,.notice p){color:#4a3a1e!important}
+body:not(.dark) :is(.brand b,.drawer-foot b){color:#174b37!important}
+body:not(.dark) :is(.icon-btn,.menu-btn,.account-top-btn){background-color:#f5f1e6!important;color:#174b37!important;border-color:#d8cfbb!important}
+body:not(.dark) footer{background-color:#123e2e!important;color:#f8f3e5!important}
+body.dark{
+ color-scheme:dark!important;background-color:#101b16!important;color:#edf4ee!important;
+ --bg:#101b16;--paper:#192820;--ink:#edf4ee;--muted:#c0cec3;--line:#405648;
+ --green:#d5e9d9;--green2:#a9d4b8;--mint:#263d30;--gold:#edcb78;--gold2:#3a3321;
+ --noor-ink:#edf4ee;--noor-muted:#c0cec3;--noor-paper:#192820;--noor-line:#405648;--noor-gold:#edcb78;
+}
+body.dark,body.dark main,body.dark .page{background-color:#101b16!important;color:#edf4ee!important}
+body.dark :is(.panel,.content-card,.person-card,.timeline-item,.dynasty-card,.seerah-chapter,.history-card,.history-expanded,.seerah-expanded,.library-visual-card,.media-feed-item,.heritage-book-card,.heritage-card,.prophet-art-card,.game-card,.game-stage,.quran-main,.quran-side,.hadith-main,.hadith-side,.login-page-wrap,#lessonReader,.category-item,.category-card){
+ background-color:#192820!important;color:#edf4ee!important;border-color:#405648!important
+}
+body.dark :is(p,li,label,small,.ref,.source-note,.page-head p,.content-card p,.person-card p,.timeline-item p,.panel p,.empty-state,.loading,.book-note,.hero-trust){color:#c5d2c8!important;opacity:1}
+body.dark :is(h1,h2,h3,h4,b,strong,.page-head h1,.section-heading h2,.panel h2,.panel-title b,.content-card h3,.person-card h3,.timeline-item h3,.dynasty-card h2,.dynasty-card h3,.feature b,.book-title){color:#f0d99c!important}
+body.dark :is(input,textarea,select,.field,.quran-controls select,.book-button){background-color:#101b16!important;color:#f0f4ef!important;border-color:#526858!important}
+body.dark :is(input,textarea,select)::placeholder{color:#a8b9ad!important;opacity:1}
+body.dark .topbar{background-color:#101b16f5!important;color:#edf4ee!important;border-color:#405648!important}
+body.dark .desktop-nav button,body.dark .text-link{color:#dce8df!important}
+body.dark .desktop-nav button:hover,body.dark .desktop-nav button.active{background-color:#263d30!important;color:#f0d99c!important}
+body.dark .drawer{background-color:#14231b!important;color:#edf4ee!important}
+body.dark .drawer-group button{color:#e1ebe3!important}
+body.dark .drawer-group button:hover{background-color:#263d30!important}
+body.dark :is(.btn-gold,.welcome-start,.btn-dark){background-color:#d9bb70!important;color:#172b20!important;border-color:#d9bb70!important}
+body.dark :is(.btn-outline,.mini-btn,.game-option,.game-answer,.book-button,.library-category-chip){background-color:#263b30!important;color:#f0d99c!important;border-color:#526858!important}
+body.dark :is(.library-category-chip.active,.library-category-chip:hover,.game-option:hover,.game-answer:hover){background-color:#d4b56c!important;color:#17291f!important;border-color:#d4b56c!important}
+body.dark :is(.feature,.category-item){background-color:#192820!important;color:#edf4ee!important;border-color:#405648!important}
+body.dark .feature :is(p,small,.feature-link){color:#c5d2c8!important}
+body.dark :is(.noor-verse-card,.noor-knowledge-intro,.noor-inspiration,.welcome-strip){background-color:#1b3025!important;color:#edf4ee!important;border-color:#465b49!important}
+body.dark :is(.noor-verse-card p,.noor-knowledge-intro p,.noor-inspiration p){color:#d5e0d7!important}
+body.dark :is(.quran-text,.ayah-text,.arabic,.quran-calligraphy){color:#f1ead8!important}
+body.dark :is(.evidence-verse,.lesson-evidence,.source-box,.notice){background-color:#3a3321!important;color:#f2dfae!important;border-color:#76623b!important}
+body.dark :is(.evidence-verse p,.lesson-evidence p,.source-box p,.notice p){color:#f2dfae!important}
+body.dark :is(.brand,.brand b,.drawer-foot b){color:#e8d6a6!important}
+body.dark :is(.icon-btn,.menu-btn,.account-top-btn){background-color:#17251f!important;color:#f1d58e!important;border-color:#405648!important}
+body.dark footer{background-color:#091710!important;color:#f0eadb!important}
+body.dark .toast{background-color:#d9bb70!important;color:#172b20!important}
+body.dark .audio-dock{background-color:#263b30!important;color:#f4f2e9!important;border-color:#526858!important}
+:where(button,a,input,textarea,select):focus-visible{outline-color:#c69a3b!important}
