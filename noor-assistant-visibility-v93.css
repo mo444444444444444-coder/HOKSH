@@ -1,0 +1,54 @@
+/* Noor Islam v93 — Seerah expansion and unmistakable right-side AI assistant */
+.seerah-deep-library{margin:28px 0 12px;padding:clamp(18px,3vw,30px);border:1px solid #d9cfb8;border-radius:24px;background:linear-gradient(145deg,#fffdf7,#f3efe3);color:#173d30;box-shadow:0 16px 42px #173d3010}
+.seerah-deep-heading{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:18px}
+.seerah-deep-heading h2{margin:5px 0 8px;color:#124b37;font:700 clamp(24px,3vw,34px)/1.5 Amiri,serif}
+.seerah-deep-heading p{max-width:760px;color:#52685b;line-height:2;font-size:13px}
+.seerah-deep-count{flex:0 0 94px;display:grid;place-items:center;padding:12px;border:1px solid #ddc994;border-radius:18px;background:#f7f0dc;color:#76551f}
+.seerah-deep-count b{font:700 30px Amiri}.seerah-deep-count span{font:700 10px Cairo}
+.seerah-deep-tools{display:flex;gap:10px;align-items:center;margin:14px 0 18px}
+.seerah-deep-tools .field{flex:1;min-width:0;background:#fff!important;color:#173d30!important;border-color:#d3c8b2!important}
+.seerah-deep-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.seerah-deep-card{align-self:start;min-width:0;border:1px solid #ded5c2;border-radius:16px;background:#fffefa;color:#173d30;overflow:hidden}
+.seerah-deep-card[open]{grid-column:1/-1;border-color:#c7ad76;box-shadow:0 9px 28px #173d3010}
+.seerah-deep-card summary{display:flex;align-items:center;gap:12px;padding:15px;cursor:pointer;list-style:none}
+.seerah-deep-card summary::-webkit-details-marker{display:none}
+.seerah-deep-number{flex:0 0 34px;height:34px;display:grid;place-items:center;border-radius:11px;background:#eaf0e7;color:#17543d;font:800 12px Cairo}
+.seerah-deep-title{flex:1;min-width:0;display:grid;gap:4px}
+.seerah-deep-title b{color:#124b37;font:700 19px/1.5 Amiri,serif}
+.seerah-deep-title small{color:#596d61;font:11px/1.8 Cairo}
+.seerah-deep-mark{flex:0 0 28px;height:28px;display:grid;place-items:center;border-radius:50%;background:#f4ecd8;color:#8b682b;font-size:19px}
+.seerah-deep-card[open] .seerah-deep-mark{transform:rotate(45deg)}
+.seerah-deep-body{padding:0 20px 22px;color:#40594a;font:13px/2.15 Cairo}
+.seerah-deep-body h3{margin:18px 0 8px;color:#174b37;font:700 20px Amiri}
+.seerah-deep-body h4{margin:14px 0 5px;color:#805e26;font:700 18px Amiri}
+.seerah-deep-body p{margin:0 0 9px;color:#40594a}
+.seerah-deep-body li{margin:5px 0;color:#40594a}
+.seerah-deep-intro{padding:13px 15px;border-right:3px solid #bd954d;border-radius:10px;background:#f7f2e6}
+.seerah-deep-evidence{margin-top:16px;padding:13px 15px;border:1px solid #e2d6bb;border-radius:13px;background:#f8f4e9}
+.seerah-deep-evidence b{color:#775822}.seerah-deep-evidence small{color:#6b756a}
+.seerah-deep-sources{padding-right:22px}
+.seerah-open-library{margin-top:10px}
+body.dark .seerah-deep-library{background:#14231b!important;color:#edf4ee!important;border-color:#465b49!important}
+body.dark .seerah-deep-heading h2,body.dark .seerah-deep-title b,body.dark .seerah-deep-body h3{color:#f0d99c!important}
+body.dark .seerah-deep-heading p,body.dark .seerah-deep-title small,body.dark .seerah-deep-body,body.dark .seerah-deep-body p,body.dark .seerah-deep-body li{color:#d1ddd4!important}
+body.dark .seerah-deep-card{background:#1b3025!important;color:#edf4ee!important;border-color:#465b49!important}
+body.dark .seerah-deep-intro,body.dark .seerah-deep-evidence{background:#263b30!important;border-color:#526858!important}
+body.dark .seerah-deep-evidence b,body.dark .seerah-deep-body h4{color:#edcf86!important}
+body.dark .seerah-deep-tools .field{background:#101b16!important;color:#edf4ee!important;border-color:#526858!important}
+body.dark .seerah-deep-count{background:#3a3321!important;color:#f0d99c!important;border-color:#76623b!important}
+.noor-help-dock{position:fixed!important;right:max(16px,env(safe-area-inset-right))!important;left:auto!important;bottom:max(18px,env(safe-area-inset-bottom))!important;z-index:2500!important;width:min(236px,calc(100vw - 28px))!important;display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:11px!important;visibility:visible!important;opacity:1!important;pointer-events:none!important}
+.noor-help-dock>*{pointer-events:auto!important}
+.noor-help-dock .noor-ask-widget{width:100%!important}
+.noor-help-dock .noor-ai-launch{width:100%!important;min-height:68px!important;padding:10px 14px!important;gap:12px!important;justify-content:flex-start!important;align-items:center!important;white-space:normal!important;border:2px solid #e7c879!important;border-radius:19px!important;background:linear-gradient(125deg,#064e3b,#0b7654)!important;color:#fff!important;box-shadow:0 12px 34px #071f16a6,0 0 0 4px #d5b66a30!important;font:800 14px/1.5 Cairo,sans-serif!important;opacity:1!important;visibility:visible!important}
+.noor-help-dock .noor-ai-launch>span{display:grid!important;place-items:center!important;flex:0 0 44px!important;width:44px!important;height:44px!important;border:1px solid #f1d99b!important;border-radius:14px!important;background:#e4c77f!important;color:#173b2d!important;font-size:25px!important}
+.noor-help-dock .noor-ai-launch>b{display:block!important;flex:1!important;color:#fff!important;font-size:14px!important;line-height:1.55!important;text-align:right!important}
+.noor-help-dock .noor-ai-launch>b:after{content:"اسألني الآن عن القرآن والسيرة وغيرها";display:block;margin-top:2px;color:#f5e8c5!important;font:600 10px/1.6 Cairo,sans-serif!important}
+.noor-help-dock .noor-ai-launch:before{content:"";position:absolute;top:9px;left:11px;width:8px;height:8px;border-radius:50%;background:#8de0a6;box-shadow:0 0 0 4px #8de0a62b}
+.noor-help-dock .noor-ask-fab{min-height:54px!important;border:1px solid #d6c28d!important;border-radius:16px!important;background:#fffdf6!important;color:#174632!important;box-shadow:0 8px 24px #102e2030!important}
+.noor-help-dock .noor-ask-fab>span{background:#e9f0e6!important;color:#1b6847!important}
+.noor-help-dock .noor-ask-panel{z-index:2510!important}
+body.dark .noor-help-dock .noor-ai-launch{background:linear-gradient(125deg,#d9bb70,#b98d3c)!important;color:#172b20!important;border-color:#f0d99c!important;box-shadow:0 12px 34px #0009,0 0 0 4px #e3c77d35!important}
+body.dark .noor-help-dock .noor-ai-launch>b{color:#172b20!important}
+body.dark .noor-help-dock .noor-ai-launch>b:after{color:#293b2c!important}
+body.dark .noor-help-dock .noor-ai-launch>span{background:#183d2c!important;color:#f4dfa8!important;border-color:#f0d99c!important}
+@media(max-width:600px){.seerah-deep-heading{align-items:flex-start}.seerah-deep-count{flex-basis:76px}.seerah-deep-grid{grid-template-columns:1fr}.seerah-deep-tools{align-items:stretch;flex-direction:column}.seerah-deep-tools .btn{width:100%}.noor-help-dock{right:12px!important;left:auto!important;bottom:max(12px,env(safe-area-inset-bottom))!important;width:min(218px,calc(100vw - 24px))!important}.noor-help-dock .noor-ai-launch{min-height:62px!important;padding:8px 11px!important}.noor-help-dock .noor-ask-fab{min-height:48px!important}}
