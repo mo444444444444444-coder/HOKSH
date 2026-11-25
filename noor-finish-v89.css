@@ -1,0 +1,40 @@
+/* NOOR ISLAM v89 — final readability, information hierarchy and responsive repair */
+.noor-knowledge-intro{position:relative;display:grid;grid-template-columns:minmax(0,1fr) 130px;align-items:center;gap:24px;margin:26px 0 32px;padding:clamp(22px,3vw,36px);overflow:hidden;border:1px solid #d8c8a8;border-radius:22px;background:linear-gradient(115deg,#fffdf7,#f0eee3 68%,#e7ebdf);box-shadow:0 12px 34px #26392e0d}
+.noor-knowledge-intro:after{content:"۞";position:absolute;left:-18px;bottom:-88px;color:#9b77401a;font:200px "Amiri",serif;pointer-events:none}
+.noor-knowledge-copy{position:relative;z-index:1}.noor-knowledge-copy h2{margin:6px 0 10px;color:#174b37;font:700 clamp(25px,3vw,36px)/1.5 "Amiri",serif}.noor-knowledge-copy p{max-width:980px;margin:0;color:#3f5147;font:500 14px/2.15 "Cairo",sans-serif}
+.noor-knowledge-links{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px}.noor-knowledge-links a{display:inline-flex;padding:8px 13px;border:1px solid #d7d5c7;border-radius:30px;background:#fffefa;color:#174b37!important;text-decoration:none;font-size:12px;font-weight:800}.noor-knowledge-links a:hover{background:#e7eee5;border-color:#b99b61}
+.noor-knowledge-seal{display:grid;place-items:center;position:relative;z-index:1;width:116px;height:116px;border:1px solid #b68a3c;border-radius:50%;outline:6px double #b68a3c33;color:#fff0d0;background:linear-gradient(145deg,#315440,#173b2c);text-align:center;font:700 23px/1.3 "Amiri",serif;box-shadow:0 12px 26px #183b2b24}.noor-knowledge-seal span{color:#e9ca8a}
+:is(.prophet-art-card,.prophet-card-body,.prophet-card-fact,.seerah-step,.seerah-detail,.heritage-book-card,.media-filter,.library-category-chip,.content-card,.person-card,.timeline-item,.history-card,.dynasty-card,.heritage-card,.game-card,.game-stage,.panel,.notice,.ayah-card,.media-feed-item,.library-visual-card,.evidence-verse,.prophet-story-section,.prophet-video-block,.media-inline,.name-tile,.category-item,.feature,.timeline-detail-actions){color:#173c2e}
+:is(.prophet-art-card,.prophet-card-body,.prophet-card-fact,.seerah-step,.seerah-detail,.heritage-book-card,.media-filter,.library-category-chip,.content-card,.person-card,.timeline-item,.history-card,.dynasty-card,.heritage-card,.game-card,.game-stage,.panel,.ayah-card,.media-feed-item,.library-visual-card,.evidence-verse,.prophet-story-section,.prophet-video-block,.media-inline,.name-tile){background:#fffefa;border-color:#e2ddcf}
+:is(.prophet-card-body,.prophet-card-body p,.prophet-card-fact,.seerah-detail,.seerah-detail p,.seerah-step b,.seerah-step small,.heritage-book-card,.heritage-book-card *,.media-filter,.library-category-chip,.content-card p,.person-card p,.timeline-item p,.history-card p,.dynasty-card p,.heritage-card p,.game-card p,.game-stage p,.panel p,.panel li,.notice,.ayah-card p,.media-feed-item p,.library-visual-card p,.evidence-verse p,.prophet-story-section p,.prophet-video-block p,.media-inline p,.name-tile span,.category-item,.feature p,.source-note,.ref,.empty-state,.loading){color:#405348}
+:is(.prophet-card-body h3,.seerah-detail h3,.seerah-step b,.heritage-book-card .book-title,.content-card h3,.person-card h3,.timeline-item h3,.history-card h3,.dynasty-card h3,.heritage-card h3,.game-card h3,.panel h2,.panel h3,.panel-title b,.media-feed-item h3,.library-visual-card h3,.prophet-story-section h3,.prophet-video-block h3,.name-tile b){color:#164b36}
+:is(.prophet-card-open,.media-filter,.library-category-chip,.seerah-step,.heritage-book-card){border:1px solid #d8d1c1}
+:is(.prophet-card-open,.media-filter,.library-category-chip,.seerah-step,.heritage-book-card){background:#f6f4ec;color:#174b37}
+:is(.prophet-card-open,.media-filter,.library-category-chip,.seerah-step,.heritage-book-card):hover,:is(.media-filter,.library-category-chip,.seerah-step,.heritage-book-card).active{background:#e7eee5;color:#123f2e;border-color:#b99b61}
+#prophetReader{margin:22px 0;padding:clamp(18px,3vw,32px);background:#fffefa;color:#173c2e;border:1px solid #ded5c3;border-radius:18px}
+#prophetReader h2{color:#174b37;font:700 clamp(29px,4vw,42px) "Amiri",serif}#prophetReader h3{color:#174b37;font:700 23px "Amiri",serif}
+#prophetReader p,#prophetReader li{color:#405348;line-height:2.15}
+#prophetReader .prophet-story-intro{padding:17px;border-right:4px solid #b68a3c;background:#f4f1e7;border-radius:10px;color:#263f31}
+#prophetReader .prophet-story-section,#prophetReader .prophet-video-block,#prophetReader .evidence-verse{margin:14px 0;padding:17px;border:1px solid #e2ddcf;border-radius:14px;background:#fffefa}
+#prophetReader .evidence-verse .arabic{font:700 25px/2.1 "Amiri",serif;color:#173c2e;text-align:center}
+#prophetReader .ref,#prophetReader .source-note{color:#52675b}
+.video-frame{position:relative;width:100%;aspect-ratio:16/9;min-height:0;background:#101b16;border-radius:14px;overflow:hidden}
+.video-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.media-feed{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.media-feed-item{min-width:0;padding:17px;border:1px solid #e2ddcf;border-radius:16px;background:#fffefa;color:#173c2e}
+.media-feed-item h3{color:#174b37;font:700 22px "Amiri",serif}.media-feed-item p{color:#405348;line-height:2}
+body.dark .noor-knowledge-intro{background:linear-gradient(115deg,#1a2d22,#20392b);border-color:#526858}
+body.dark .noor-knowledge-copy h2,body.dark .noor-knowledge-copy p{color:#f0f4ef}
+body.dark .noor-knowledge-seal{background:#d9bb70;color:#172b20}
+body.dark .noor-knowledge-seal span{color:#172b20}
+body.dark .noor-knowledge-links a{background:#263b30;color:#f0d99c!important;border-color:#526858}
+body.dark :is(.prophet-art-card,.prophet-card-body,.prophet-card-fact,.seerah-step,.seerah-detail,.heritage-book-card,.media-filter,.library-category-chip,.content-card,.person-card,.timeline-item,.history-card,.dynasty-card,.heritage-card,.game-card,.game-stage,.panel,.notice,.ayah-card,.media-feed-item,.library-visual-card,.evidence-verse,.prophet-story-section,.prophet-video-block,.media-inline,.name-tile,.category-item,.feature){background:#192820!important;color:#edf4ee!important;border-color:#3b5143!important}
+body.dark :is(.prophet-card-body,.prophet-card-body p,.prophet-card-fact,.seerah-detail,.seerah-detail p,.seerah-step b,.seerah-step small,.heritage-book-card,.heritage-book-card *,.media-filter,.library-category-chip,.content-card p,.person-card p,.timeline-item p,.history-card p,.dynasty-card p,.heritage-card p,.game-card p,.game-stage p,.panel p,.panel li,.notice,.ayah-card p,.media-feed-item p,.library-visual-card p,.evidence-verse p,.prophet-story-section p,.prophet-video-block p,.media-inline p,.name-tile span,.category-item,.feature p,.source-note,.ref,.empty-state,.loading){color:#c5d2c8!important}
+body.dark :is(.prophet-card-body h3,.seerah-detail h3,.seerah-step b,.heritage-book-card .book-title,.content-card h3,.person-card h3,.timeline-item h3,.history-card h3,.dynasty-card h3,.heritage-card h3,.game-card h3,.panel h2,.panel h3,.panel-title b,.media-feed-item h3,.library-visual-card h3,.prophet-story-section h3,.prophet-video-block h3,.name-tile b){color:#f0d99c!important}
+body.dark :is(.prophet-card-open,.media-filter,.library-category-chip,.seerah-step,.heritage-book-card){background:#263b30!important;color:#f0d99c!important;border-color:#526858!important}
+body.dark #prophetReader{background:#192820!important;color:#edf4ee!important;border-color:#3b5143!important}
+body.dark #prophetReader :is(h2,h3){color:#f0d99c!important}
+body.dark #prophetReader :is(p,li,.ref,.source-note){color:#c5d2c8!important}
+body.dark #prophetReader .prophet-story-intro{background:#263b30!important;color:#f0eadb!important}
+@media(max-width:760px){.noor-knowledge-intro{grid-template-columns:1fr;padding:19px}.noor-knowledge-seal{display:none}.noor-knowledge-copy p{font-size:13px}.media-feed{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.noor-knowledge-links a{transition:none!important}}
