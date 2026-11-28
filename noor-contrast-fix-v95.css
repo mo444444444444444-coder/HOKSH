@@ -1,0 +1,62 @@
+/* NOOR ISLAM v95 — comprehensive contrast, icon and typography visibility repair.
+   Last-loaded accessibility layer. Does not alter content, IDs, or interactions. */
+:root{--a11y-ink:#173b2d;--a11y-muted:#52675b;--a11y-green:#15543d;--a11y-gold:#805b19;--a11y-border:#cfc7b6;--a11y-surface:#fffefa}
+body:not(.dark){color:#173b2d!important}
+body:not(.dark) :is(p,li,dd,dt,label,small,.muted,.hint,.description,.subtitle,.meta,.caption,.helper-text,.source-note,.ref,.loading,.empty-state,.counter-label,.page-head p,.panel p,.content-card p,.person-card p,.timeline-item p){color:#43594b!important;opacity:1!important}
+body:not(.dark) :is(h1,h2,h3,h4,h5,h6,b,strong,.title,.panel-title,.card-title){color:#164a35!important;opacity:1!important}
+body:not(.dark) :is(.eyebrow,.kicker,.badge-label,.section-label,.book-kicker,.book-kind){color:#805b19!important;opacity:1!important}
+body:not(.dark) :is(.panel,.content-card,.person-card,.timeline-item,.history-card,.history-expanded,.seerah-detail,.seerah-chapter,.seerah-expanded,.heritage-card,.heritage-book-card,.dynasty-card,.prophet-art-card,.game-card,.game-stage,.media-card,.media-feed-item,.library-visual-card,.quran-main,.quran-side,.hadith-main,.hadith-side,#lessonReader,.category-card,.category-item,.sj-rail,.sj-reader){color:#173b2d!important}
+body:not(.dark) :is(button,a,.btn,.mini-btn,.icon-btn,.menu-btn,.account-top-btn,.text-link,.category-item,.surah-item,.media-filter,.library-category-chip,.game-option,.game-answer,.book-button){color:#174b36!important;opacity:1!important}
+body:not(.dark) :is(.icon-btn,.menu-btn,.account-top-btn,.mini-btn,.game-option,.game-answer,.book-button,.library-category-chip,.media-filter){background-color:#f1f3eb!important;border-color:#bdcbbb!important}
+body:not(.dark) :is(.btn-gold,.welcome-start,.btn-dark){background:#8a641e!important;color:#fff!important;border-color:#8a641e!important}
+body:not(.dark) :is(.btn-glass,.btn-outline){background:#fffefa!important;color:#174b36!important;border-color:#b9c8bb!important}
+body:not(.dark) :is(button:disabled,.btn:disabled,[aria-disabled="true"]){color:#66756a!important;opacity:.72!important}
+body:not(.dark) :is(input,textarea,select,.field,.sj-search input,.sj-reflection textarea){background:#fff!important;color:#173b2d!important;border-color:#aebfae!important}
+body:not(.dark) :is(input,textarea,select)::placeholder{color:#66766a!important;opacity:1!important}
+body:not(.dark) :is(svg,svg text){color:inherit}
+body:not(.dark) :is(.feature-icon,.category-item span,.head-symbol,.icon,.iconify,[class*="icon"]){opacity:1!important}
+body:not(.dark) :is(.feature-icon,.category-item span,.head-symbol){color:#17583d!important}
+body:not(.dark) :is(.sj-dashboard>div,.sj-rail,.sj-reader,.sj-search,.sj-toolbar>button){background:#fffefa!important;color:#173b2d!important;border-color:#cfc7b6!important}
+body:not(.dark) .sj-dashboard :is(b,span){opacity:1!important}
+body:not(.dark) .sj-dashboard>div>b,body:not(.dark) .sj-rail-title,body:not(.dark) .sj-reader h3,body:not(.dark) .sj-detail-sections summary{color:#164a35!important}
+body:not(.dark) .sj-dashboard>div>span,body:not(.dark) .sj-progress span,body:not(.dark) .sj-rail>small,body:not(.dark) .sj-reader-welcome p{color:#52675b!important}
+body:not(.dark) .sj-nav-item{color:#43594b!important}
+body:not(.dark) .sj-nav-item>span{background:#e7eee5!important;color:#174b36!important}
+body:not(.dark) .sj-nav-item.active{background:#e2eee3!important;color:#10472f!important}
+body:not(.dark) .sj-story p,body:not(.dark) .sj-insight ul,body:not(.dark) .sj-detail-sections details p,body:not(.dark) .sj-sources ul,body:not(.dark) .sj-reflection p{color:#3d5547!important}
+body:not(.dark) .sj-reader h4,body:not(.dark) .sj-bottom-note b{color:#765216!important}
+body:not(.dark) .sj-evidence p{color:#214d37!important}
+body:not(.dark) .sj-bottom-note p,body:not(.dark) .sj-evidence small{color:#52675b!important}
+body.dark{
+ --a11y-ink:#f0f4ef;--a11y-muted:#d0dbd2;--a11y-green:#f0d99c;--a11y-gold:#f0d99c;--a11y-border:#536a59;--a11y-surface:#1b3025;
+ color:#f0f4ef!important
+}
+body.dark :is(p,li,dd,dt,label,small,.muted,.hint,.description,.subtitle,.meta,.caption,.helper-text,.source-note,.ref,.loading,.empty-state,.counter-label,.page-head p,.panel p,.content-card p,.person-card p,.timeline-item p){color:#d3ded5!important;opacity:1!important}
+body.dark :is(h1,h2,h3,h4,h5,h6,b,strong,.title,.panel-title,.card-title){color:#f0d99c!important;opacity:1!important}
+body.dark :is(.eyebrow,.kicker,.badge-label,.section-label,.book-kicker,.book-kind){color:#f0d99c!important;opacity:1!important}
+body.dark :is(.panel,.content-card,.person-card,.timeline-item,.history-card,.history-expanded,.seerah-detail,.seerah-chapter,.seerah-expanded,.heritage-card,.heritage-book-card,.dynasty-card,.prophet-art-card,.game-card,.game-stage,.media-card,.media-feed-item,.library-visual-card,.quran-main,.quran-side,.hadith-main,.hadith-side,#lessonReader,.category-card,.category-item,.sj-rail,.sj-reader){background:#1b3025!important;color:#f0f4ef!important;border-color:#536a59!important}
+body.dark :is(button,a,.btn,.mini-btn,.icon-btn,.menu-btn,.account-top-btn,.text-link,.category-item,.surah-item,.media-filter,.library-category-chip,.game-option,.game-answer,.book-button){color:#f0d99c!important;opacity:1!important}
+body.dark :is(.icon-btn,.menu-btn,.account-top-btn,.mini-btn,.game-option,.game-answer,.book-button,.library-category-chip,.media-filter){background:#293e32!important;border-color:#607665!important}
+body.dark :is(.btn-gold,.welcome-start,.btn-dark){background:#e0bf70!important;color:#17291f!important;border-color:#e0bf70!important}
+body.dark :is(.btn-glass,.btn-outline){background:#293e32!important;color:#f0d99c!important;border-color:#607665!important}
+body.dark :is(button:disabled,.btn:disabled,[aria-disabled="true"]){color:#c0cfc3!important;opacity:.72!important}
+body.dark :is(input,textarea,select,.field,.sj-search input,.sj-reflection textarea){background:#101d16!important;color:#f0f4ef!important;border-color:#607665!important}
+body.dark :is(input,textarea,select)::placeholder{color:#b8c9bc!important;opacity:1!important}
+body.dark :is(svg,svg text){color:inherit}
+body.dark :is(.feature-icon,.category-item span,.head-symbol,.icon,.iconify,[class*="icon"]){opacity:1!important;color:#f0d99c!important}
+body.dark :is(.sj-dashboard>div,.sj-rail,.sj-reader,.sj-search,.sj-toolbar>button){background:#1b3025!important;color:#f0f4ef!important;border-color:#536a59!important}
+body.dark .sj-dashboard :is(b,span){opacity:1!important}
+body.dark .sj-dashboard>div>b,body.dark .sj-rail-title,body.dark .sj-reader h3,body.dark .sj-detail-sections summary{color:#f0d99c!important}
+body.dark .sj-dashboard>div>span,body.dark .sj-progress span,body.dark .sj-rail>small,body.dark .sj-reader-welcome p{color:#d3ded5!important}
+body.dark .sj-nav-item{color:#d3ded5!important}
+body.dark .sj-nav-item>span{background:#30483a!important;color:#f0d99c!important}
+body.dark .sj-nav-item.active{background:#385343!important;color:#fff!important}
+body.dark .sj-story,body.dark .sj-reflection,body.dark .sj-bottom-note,body.dark .sj-evidence,body.dark .sj-detail-sections details{background:#263d30!important;border-color:#536a59!important}
+body.dark .sj-story p,body.dark .sj-insight ul,body.dark .sj-detail-sections details p,body.dark .sj-sources ul,body.dark .sj-reflection p{color:#e0e9e1!important}
+body.dark .sj-reader h4,body.dark .sj-bottom-note b,body.dark .sj-evidence p{color:#f0d99c!important}
+body.dark .sj-bottom-note p,body.dark .sj-evidence small{color:#d3ded5!important}
+body.dark .sj-reader-top,body.dark .sj-chapter-kicker{color:#f0d99c!important}
+body.dark .sj-reflection textarea{background:#101d16!important;color:#f0f4ef!important;border-color:#607665!important}
+body.dark .sj-reader-top button,body.dark .sj-reflection button,body.dark .sj-reader-nav button{background:#293e32!important;color:#f0d99c!important;border-color:#607665!important}
+:where(button,a,input,textarea,select,[tabindex]):focus-visible{outline:3px solid #b48632!important;outline-offset:3px}
+@media(prefers-contrast:more){body:not(.dark) :is(p,li,small,label){color:#263d30!important}body.dark :is(p,li,small,label){color:#fff!important}}
